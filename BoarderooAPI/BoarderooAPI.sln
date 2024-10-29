@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BoarderooAPI", "BoarderooAPI.csproj", "{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {269649F4-3808-4CDB-878E-E33988F7CFC3}
+	EndGlobalSection
+EndGlobal
