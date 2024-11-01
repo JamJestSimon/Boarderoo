@@ -1,0 +1,28 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+
+    <!-- Koło wypełniające całą powierzchnię -->
+    <path
+        android:pathData="M24,0a24,24 0,1 0,0 48a24,24 0,1 0,0 -48"
+        android:fillColor="#FFFFFF"/>
+
+    <!-- Logo Google -->
+    <path
+        android:pathData="M33.7428,24.2242a11.534,11.534 0,0 0,-0.158 -1.883h-9.375v3.742h5.368a4.622,4.622 0,0 1,-1.991 2.97L27.5868,31.5422h3.2A9.734,9.734 0,0 0,33.7428 24.2242Z"
+        android:fillColor="#4285f4"/>
+
+    <path
+        android:pathData="M24.2098,33.9562A9.483,9.483 0,0 0,30.7888 31.5412l-3.2,-2.489a6.006,6.006 0,0 1,-3.377 0.962,5.946 5.946,0 0,1 -5.583,-4.115h-3.3v2.564A9.941,9.941 0,0 0,24.2098 33.9562Z"
+        android:fillColor="#34a853"/>
+
+    <path
+        android:pathData="M18.6268,25.9002a5.777,5.777 0,0 1,-0.315 -1.9,6 6,0 0,1 0.315,-1.9L18.6268,19.5372h-3.3a9.84,9.84 0,0 0,-1.07 4.463,9.84 9.84 0 0,0 1.07,4.463Z"
+        android:fillColor="#fbbc05"/>
+
+    <path
+        android:pathData="M24.2098,17.9862a5.4,5.4 0,0 1,3.816 1.493l2.837,-2.837a9.518,9.518 0,0 0,-6.654 -2.6,9.941 9.941 0 0,0 -8.885,5.492l3.3,2.564A5.946,5.946 0,0 1,24.2098 17.9862Z"
+        android:fillColor="#ea4335"/>
+</vector>
