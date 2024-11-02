@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="buttonColor">#A4691D</color>
+    <color name="buttonSecondColor">#f5cb95</color>
+    <color name="textColor">#170F04</color>
+    <color name="backgroundColor">#EA962A</color>
+    <color name="inputColor">#f5cb95</color>
+    <color name="statusBarColor">#FF0000</color>
 </resources>
