@@ -46,6 +46,8 @@ import androidx.compose.ui.unit.dp
 import java.nio.file.WatchEvent
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
@@ -98,7 +100,7 @@ fun RegisterScreen() {
                         .clip(RoundedCornerShape(25.dp))
                 )
                 Text(
-                    text = "Logowanie",
+                    text = "Rejestracja",
                     fontSize = fontSize*1.5,
                     color = colorResource(id = R.color.textColor),
                     modifier = Modifier
@@ -114,85 +116,190 @@ fun RegisterScreen() {
             modifier = Modifier.fillMaxWidth() // Ustawia szerokość kolumny na pełną szerokość
         ) {
 
-            Box(
-            ) {
-                Column(
+            val name = remember { mutableStateOf("") }
 
-                ){
+            OutlinedTextField(
+                value = name.value,
+                onValueChange = {
+                    name.value = it
+                },
+                modifier = Modifier
+                    .width(textWidth)
+                    .height(textHeight).clip(RoundedCornerShape(10.dp)),
+                shape = RoundedCornerShape(10.dp), // Zaokrąglenie ramek
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    containerColor = colorResource(id = R.color.inputColor), // Kolor tła wewnątrz ramek
+                    focusedTextColor = colorResource(id = R.color.textColor),
+                    unfocusedTextColor = colorResource(id = R.color.textColor),
+                    cursorColor = colorResource(id = R.color.buttonColor),
+                    focusedBorderColor = colorResource(id = R.color.buttonColor),
+                    unfocusedBorderColor = colorResource(id = R.color.buttonColor)
+                ),
+                singleLine = true,
+                placeholder = {
                     Text(
-                        text = "Email",
-                        fontSize = fontSize,
-                        color = colorResource(id = R.color.textColor),
-                        modifier = Modifier.padding(end = 8.dp)
-                    )
-
-                    val email = remember { mutableStateOf("") }
-                    val isEmailValid = remember { mutableStateOf(true) }
-
-                    OutlinedTextField(
-                        value = email.value,
-                        onValueChange = {
-                            email.value = it
-                            isEmailValid.value = it.contains("@") // Sprawdzenie, czy email zawiera '@'
-                        },
-                        isError = !isEmailValid.value, // Ustawienie stanu błędu
-                        modifier = Modifier
-                            .width(textWidth)
-                            .height(textHeight).clip(RoundedCornerShape(10.dp)),
-                        shape = RoundedCornerShape(10.dp), // Zaokrąglenie ramek
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            containerColor = colorResource(id = R.color.inputColor), // Kolor tła wewnątrz ramek
-                            focusedTextColor = colorResource(id = R.color.textColor),
-                            unfocusedTextColor = colorResource(id = R.color.textColor),
-                            cursorColor = colorResource(id = R.color.buttonColor),
-                            focusedBorderColor = colorResource(id = R.color.buttonColor),
-                            unfocusedBorderColor = colorResource(id = R.color.buttonColor)
-                        ),
-                        singleLine = true
+                        text = "Imię", // Tekst placeholdera
+                        fontFamily  = FontFamily(Font(R.font.mplusrounded1cregular)),
+                        color = colorResource(id = R.color.textColor) // Opcjonalnie zmień kolor placeholdera
                     )
                 }
+            )
 
-            }
+            Spacer(modifier = Modifier.height((screenWidth *0.03).dp)) // Przerwa między logo a przyciskami
 
+            val surname = remember { mutableStateOf("") }
 
-            Spacer(modifier = Modifier.height((screenWidth *0.05).dp)) // Przerwa między logo a przyciskami
-
-            Box(
-            ) {
-                Column(
-
-                ){
+            OutlinedTextField(
+                value = surname.value,
+                onValueChange = {
+                    surname.value = it
+                },
+                modifier = Modifier
+                    .width(textWidth)
+                    .height(textHeight).clip(RoundedCornerShape(10.dp)),
+                shape = RoundedCornerShape(10.dp), // Zaokrąglenie ramek
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    containerColor = colorResource(id = R.color.inputColor), // Kolor tła wewnątrz ramek
+                    focusedTextColor = colorResource(id = R.color.textColor),
+                    unfocusedTextColor = colorResource(id = R.color.textColor),
+                    cursorColor = colorResource(id = R.color.buttonColor),
+                    focusedBorderColor = colorResource(id = R.color.buttonColor),
+                    unfocusedBorderColor = colorResource(id = R.color.buttonColor)
+                ),
+                singleLine = true,
+                placeholder = {
                     Text(
-                        text = "Hasło",
-                        fontSize = fontSize,
-                        color = colorResource(id = R.color.textColor),
-                        modifier = Modifier.padding(end = 8.dp) // Dodanie odstępu od pola tekstowego
-                    )
-
-                    val password = remember { mutableStateOf("") }
-
-                    OutlinedTextField(
-                        value = password.value,
-                        onValueChange = { password.value = it },
-                        visualTransformation = PasswordVisualTransformation(),
-                        modifier = Modifier
-                            .width(textWidth)
-                            .height(textHeight).clip(RoundedCornerShape(10.dp)),
-                        shape = RoundedCornerShape(10.dp), // Zaokrąglenie ramek
-                        colors = TextFieldDefaults.outlinedTextFieldColors(
-                            containerColor = colorResource(id = R.color.inputColor), // Kolor tła wewnątrz ramek
-                            focusedTextColor = colorResource(id = R.color.textColor),
-                            unfocusedTextColor = colorResource(id = R.color.textColor),
-                            cursorColor = colorResource(id = R.color.buttonColor),
-                            focusedBorderColor = colorResource(id = R.color.buttonColor),
-                            unfocusedBorderColor = colorResource(id = R.color.buttonColor)
-                        ),
-                        singleLine = true
+                        text = "Nazwisko", // Tekst placeholdera
+                        fontFamily  = FontFamily(Font(R.font.mplusrounded1cregular)),
+                        color = colorResource(id = R.color.textColor) // Opcjonalnie zmień kolor placeholdera
                     )
                 }
+            )
 
-            }
+            Spacer(modifier = Modifier.height((screenWidth *0.03).dp)) // Przerwa między logo a przyciskami
 
+            val town = remember { mutableStateOf("") }
+
+            OutlinedTextField(
+                value = town.value,
+                onValueChange = {
+                    town.value = it
+                },
+                modifier = Modifier
+                    .width(textWidth)
+                    .height(textHeight).clip(RoundedCornerShape(10.dp)),
+                shape = RoundedCornerShape(10.dp), // Zaokrąglenie ramek
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    containerColor = colorResource(id = R.color.inputColor), // Kolor tła wewnątrz ramek
+                    focusedTextColor = colorResource(id = R.color.textColor),
+                    unfocusedTextColor = colorResource(id = R.color.textColor),
+                    cursorColor = colorResource(id = R.color.buttonColor),
+                    focusedBorderColor = colorResource(id = R.color.buttonColor),
+                    unfocusedBorderColor = colorResource(id = R.color.buttonColor)
+                ),
+                singleLine = true,
+                placeholder = {
+                    Text(
+                        text = "Miasto", // Tekst placeholdera
+                        fontFamily  = FontFamily(Font(R.font.mplusrounded1cregular)),
+                        color = colorResource(id = R.color.textColor) // Opcjonalnie zmień kolor placeholdera
+                    )
+                }
+            )
+
+            Spacer(modifier = Modifier.height((screenWidth *0.03).dp)) // Przerwa między logo a przyciskami
+
+            val email = remember { mutableStateOf("") }
+            val isEmailValid = remember { mutableStateOf(true) }
+
+            OutlinedTextField(
+                value = email.value,
+                onValueChange = {
+                    email.value = it
+                    isEmailValid.value = it.contains("@") // Sprawdzenie, czy email zawiera '@'
+                },
+                isError = !isEmailValid.value, // Ustawienie stanu błędu
+                modifier = Modifier
+                    .width(textWidth)
+                    .height(textHeight).clip(RoundedCornerShape(10.dp)),
+                shape = RoundedCornerShape(10.dp), // Zaokrąglenie ramek
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    containerColor = colorResource(id = R.color.inputColor), // Kolor tła wewnątrz ramek
+                    focusedTextColor = colorResource(id = R.color.textColor),
+                    unfocusedTextColor = colorResource(id = R.color.textColor),
+                    cursorColor = colorResource(id = R.color.buttonColor),
+                    focusedBorderColor = colorResource(id = R.color.buttonColor),
+                    unfocusedBorderColor = colorResource(id = R.color.buttonColor)
+                ),
+                singleLine = true,
+                placeholder = {
+                    Text(
+                        text = "Mail", // Tekst placeholdera
+                        fontFamily  = FontFamily(Font(R.font.mplusrounded1cregular)),
+                        color = colorResource(id = R.color.textColor) // Opcjonalnie zmień kolor placeholdera
+                    )
+                }
+            )
+
+            Spacer(modifier = Modifier.height((screenWidth *0.03).dp)) // Przerwa między logo a przyciskami
+
+            val password = remember { mutableStateOf("") }
+
+            OutlinedTextField(
+                value = password.value,
+                onValueChange = { password.value = it },
+                visualTransformation = PasswordVisualTransformation(),
+                modifier = Modifier
+                    .width(textWidth)
+                    .height(textHeight).clip(RoundedCornerShape(10.dp)),
+                shape = RoundedCornerShape(10.dp), // Zaokrąglenie ramek
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    containerColor = colorResource(id = R.color.inputColor), // Kolor tła wewnątrz ramek
+                    focusedTextColor = colorResource(id = R.color.textColor),
+                    unfocusedTextColor = colorResource(id = R.color.textColor),
+                    cursorColor = colorResource(id = R.color.buttonColor),
+                    focusedBorderColor = colorResource(id = R.color.buttonColor),
+                    unfocusedBorderColor = colorResource(id = R.color.buttonColor)
+                ),
+                singleLine = true,
+                placeholder = {
+                    Text(
+                        text = "Hasło", // Tekst placeholdera
+                        fontFamily  = FontFamily(Font(R.font.mplusrounded1cregular)),
+                        color = colorResource(id = R.color.textColor) // Opcjonalnie zmień kolor placeholdera
+                    )
+                }
+            )
+
+            Spacer(modifier = Modifier.height((screenWidth *0.03).dp)) // Przerwa między logo a przyciskami
+
+            val retypedPassword = remember { mutableStateOf("") }
+
+            OutlinedTextField(
+                value = retypedPassword.value,
+                onValueChange = { retypedPassword.value = it },
+                visualTransformation = PasswordVisualTransformation(),
+                modifier = Modifier
+                    .width(textWidth)
+                    .height(textHeight).clip(RoundedCornerShape(10.dp)),
+                shape = RoundedCornerShape(10.dp), // Zaokrąglenie ramek
+                colors = TextFieldDefaults.outlinedTextFieldColors(
+                    containerColor = colorResource(id = R.color.inputColor), // Kolor tła wewnątrz ramek
+                    focusedTextColor = colorResource(id = R.color.textColor),
+                    unfocusedTextColor = colorResource(id = R.color.textColor),
+                    cursorColor = colorResource(id = R.color.buttonColor),
+                    focusedBorderColor = colorResource(id = R.color.buttonColor),
+                    unfocusedBorderColor = colorResource(id = R.color.buttonColor)
+                ),
+                singleLine = true,
+                placeholder = {
+                    Text(
+                        text = "Powtórz hasło", // Tekst placeholdera
+                        fontFamily  = FontFamily(Font(R.font.mplusrounded1cregular)),
+                        color = colorResource(id = R.color.textColor) // Opcjonalnie zmień kolor placeholdera
+                    )
+                }
+            )
 
 
             Spacer(modifier = Modifier.height((screenWidth *0.05).dp)) // Przerwa między logo a przyciskami
@@ -207,30 +314,12 @@ fun RegisterScreen() {
                     .size(width = elementWidth, height = elementHeight)
             ) {
                 Text(
-                    text = "Zaloguj",
+                    text = "Zarejestruj",
                     fontSize = fontSize,
                     color = colorResource(id = R.color.textColor) // Kolor tekstu
                 )
             }
 
-            Spacer(modifier = Modifier.height((screenWidth * 0.03).dp)) // Przerwa między przyciskami
-
-            Button(
-                onClick = {
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(id = R.color.buttonSecondColor) // Kolor przycisku
-                ),
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-                    .size(width = forgotPasswordButtonWidth, height = forgotPasswordButtonHeight)
-            ) {
-                Text(
-                    text = "Zapomniałeś hasła?",
-                    fontSize = fontSize / 2,
-                    color = colorResource(id = R.color.textColor) // Kolor tekstu
-                )
-            }
         }
 
     }
