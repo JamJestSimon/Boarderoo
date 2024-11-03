@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <style name="Theme.BoarderooMobileApp" parent="android:Theme.Material.NoActionBar">
+        <item name="android:navigationBarColor">@color/textColor</item>
+        <item name="android:statusBarColor">@color/textColor</item>
+    </style>
 
-    <style name="Theme.BoarderooMobileApp" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>

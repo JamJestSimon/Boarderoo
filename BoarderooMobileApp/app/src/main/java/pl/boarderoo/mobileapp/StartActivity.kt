@@ -41,7 +41,10 @@ import java.nio.file.WatchEvent
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
+import androidx.core.content.res.ResourcesCompat
 import pl.boarderoo.mobileapp.ui.theme.BoarderooMobileAppTheme
 
 
@@ -112,6 +115,7 @@ fun LogoScreen() {
                     Text(
                         text = "Logowanie",
                         fontSize = fontSize,
+                        fontFamily  = FontFamily(Font(R.font.mplusrounded1cregular)),
                         color = colorResource(id = R.color.textColor) // Kolor tekstu
 
                     )
@@ -120,7 +124,10 @@ fun LogoScreen() {
                 Spacer(modifier = Modifier.height((screenWidth *0.03).dp)) // Przerwa między logo a przyciskami
 
                 Button(
-                    onClick = { /* TODO: Dodaj akcję rejestracji */ },
+                    onClick = {
+                        val intent = Intent(context, RegisterActivity::class.java)
+                        context.startActivity(intent)
+                    },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = colorResource(id = R.color.buttonColor) // Kolor przycisku
                     ),
@@ -129,6 +136,7 @@ fun LogoScreen() {
                     Text(
                         text = "Rejestracja",
                         fontSize = fontSize,
+                        fontFamily  = FontFamily(Font(R.font.mplusrounded1cregular)),
                         color = colorResource(id = R.color.textColor) // Kolor tekstu
                     )
                 }
@@ -142,10 +150,6 @@ fun LogoScreen() {
 
                         modifier = Modifier
                             .size(buttonHeight) // Użyj obliczonego rozmiar
-                            .border(
-                                BorderStroke(2.dp, Color(0xFF747775)),
-                                shape = RoundedCornerShape(buttonHeight/2)
-                            )
                             .clip(RoundedCornerShape(buttonHeight/2))
                             .clickable {
                                 // Obsługa kliknięcia

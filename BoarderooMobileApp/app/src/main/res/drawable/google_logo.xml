@@ -7,7 +7,7 @@
     <!-- Koło wypełniające całą powierzchnię -->
     <path
         android:pathData="M24,0a24,24 0,1 0,0 48a24,24 0,1 0,0 -48"
-        android:fillColor="#FFFFFF"/>
+        android:fillColor="#F2F2F2"/>
 
     <!-- Logo Google -->
     <path
