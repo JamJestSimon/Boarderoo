@@ -47,6 +47,7 @@ import java.nio.file.WatchEvent
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import pl.boarderoo.mobileapp.ui.theme.BoarderooMobileAppTheme
 
@@ -69,6 +70,7 @@ fun LoginScreen() {
 
     val elementWidth = (screenWidth * 0.60).dp
     var elementHeight = elementWidth/4
+    var logoHeight = (screenWidth * 0.3).dp
     var forgotPasswordButtonWidth = elementWidth / 5 * 4
     var forgotPasswordButtonHeight = elementHeight / 3 * 2
     val textWidth = (screenWidth * 0.70).dp
@@ -81,10 +83,37 @@ fun LoginScreen() {
             .background(colorResource(id = R.color.backgroundColor)),
         contentAlignment = Alignment.Center
     ) {
+        Box(
+            modifier = Modifier.padding((screenWidth *0.03).dp).width((screenWidth * 0.9).dp).width(logoHeight).clip(RoundedCornerShape(25.dp)).background(colorResource(id = R.color.buttonColor)).align(Alignment.TopCenter)
+        ){
+
+
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Image(
+                    painter = painterResource(id = R.drawable.logo),
+                    contentDescription = "Logo",
+                    modifier = Modifier
+                        .size(logoHeight) // Użyj obliczonego rozmiaru
+                        .padding(10.dp)
+                        .clip(RoundedCornerShape(25.dp))
+                )
+                Text(
+                    text = "Logowanie",
+                    fontSize = fontSize*1.5,
+                    color = colorResource(id = R.color.textColor),
+                    modifier = Modifier
+                        .weight(1f) // Pozwala Text zająć pozostałą przestrzeń
+                        .padding(end = 8.dp),
+                    textAlign = TextAlign.Center
+                )
+            }
+
+        }
         Column(
             horizontalAlignment = Alignment.CenterHorizontally, // Wyśrodkowanie kolumny
             modifier = Modifier.fillMaxWidth() // Ustawia szerokość kolumny na pełną szerokość
         ) {
+
             Box(
             ) {
                 Column(
@@ -109,7 +138,16 @@ fun LoginScreen() {
                         isError = !isEmailValid.value, // Ustawienie stanu błędu
                         modifier = Modifier
                             .width(textWidth)
-                            .height(textHeight),
+                            .height(textHeight).clip(RoundedCornerShape(10.dp)),
+                        shape = RoundedCornerShape(10.dp), // Zaokrąglenie ramek
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            containerColor = colorResource(id = R.color.inputColor), // Kolor tła wewnątrz ramek
+                            focusedTextColor = colorResource(id = R.color.textColor),
+                            unfocusedTextColor = colorResource(id = R.color.textColor),
+                            cursorColor = colorResource(id = R.color.buttonColor),
+                            focusedBorderColor = colorResource(id = R.color.buttonColor),
+                            unfocusedBorderColor = colorResource(id = R.color.buttonColor)
+                        ),
                         singleLine = true
                     )
                 }
@@ -137,7 +175,18 @@ fun LoginScreen() {
                         value = password.value,
                         onValueChange = { password.value = it },
                         visualTransformation = PasswordVisualTransformation(),
-                        modifier = Modifier.width(textWidth).height(textHeight),
+                        modifier = Modifier
+                            .width(textWidth)
+                            .height(textHeight).clip(RoundedCornerShape(10.dp)),
+                        shape = RoundedCornerShape(10.dp), // Zaokrąglenie ramek
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            containerColor = colorResource(id = R.color.inputColor), // Kolor tła wewnątrz ramek
+                            focusedTextColor = colorResource(id = R.color.textColor),
+                            unfocusedTextColor = colorResource(id = R.color.textColor),
+                            cursorColor = colorResource(id = R.color.buttonColor),
+                            focusedBorderColor = colorResource(id = R.color.buttonColor),
+                            unfocusedBorderColor = colorResource(id = R.color.buttonColor)
+                        ),
                         singleLine = true
                     )
                 }
