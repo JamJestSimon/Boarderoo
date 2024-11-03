@@ -21,6 +21,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,11 +29,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -49,8 +52,10 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import pl.boarderoo.mobileapp.ui.theme.BoarderooMobileAppTheme
 
 class LoginActivity : ComponentActivity(){
@@ -78,7 +83,8 @@ fun LoginScreen() {
     val textWidth = (screenWidth * 0.70).dp
     var textHeight = elementWidth/4
     val fontSize = (textHeight.value * 0.4).sp
-
+    var showDialog by remember { mutableStateOf(false) }
+    var inputText by remember { mutableStateOf(TextFieldValue("")) }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -204,8 +210,7 @@ fun LoginScreen() {
             Spacer(modifier = Modifier.height((screenWidth * 0.03).dp)) // Przerwa między przyciskami
 
             Button(
-                onClick = {
-                },
+                onClick = { showDialog = true },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = colorResource(id = R.color.buttonSecondColor) // Kolor przycisku
                 ),
@@ -221,7 +226,97 @@ fun LoginScreen() {
                 )
             }
         }
+        if (showDialog) {
+            Dialog(onDismissRequest = { showDialog = false }) {
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(colorResource(id = R.color.backgroundColor)) // Kolor tła dialogu
+                        .border(BorderStroke(2.dp, colorResource(id = R.color.buttonColor)), RoundedCornerShape(16.dp)) // Obramowanie
+                        .padding(16.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally, // Wyśrodkowanie kolumny
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = "Resetowanie hasła",
+                            fontSize = fontSize,
+                            fontFamily = FontFamily(Font(R.font.mplusrounded1cregular)),
+                            color = colorResource(id = R.color.textColor),
+                            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp), // Dodaj odstęp poniżej tekstu
+                            textAlign = TextAlign.Center
+                        )
+                        OutlinedTextField(
+                            value = inputText,
+                            onValueChange = { inputText = it },
+                            modifier = Modifier
+                                .width(textWidth)
+                                .height(textHeight)
+                                .clip(RoundedCornerShape(10.dp)),
+                            shape = RoundedCornerShape(10.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                containerColor = colorResource(id = R.color.inputColor),
+                                focusedTextColor = colorResource(id = R.color.textColor),
+                                unfocusedTextColor = colorResource(id = R.color.textColor),
+                                cursorColor = colorResource(id = R.color.buttonColor),
+                                focusedBorderColor = colorResource(id = R.color.buttonColor),
+                                unfocusedBorderColor = colorResource(id = R.color.buttonColor)
+                            ),
+                            singleLine = true,
+                            placeholder = {
+                                Text(
+                                    text = "Mail",
+                                    fontFamily = FontFamily(Font(R.font.mplusrounded1cregular)),
+                                    color = colorResource(id = R.color.textColor)
+                                )
+                            }
+                        )
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(top = 16.dp), // Dodaj odstęp między inputem a przyciskami
+                            horizontalArrangement = Arrangement.Center // Wyśrodkuj przyciski w poziomie
+                        ) {
+                            Button(
+                                onClick = { showDialog = false },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = colorResource(id = R.color.buttonColor)
+                                ),
+                                modifier = Modifier
+                                    .padding(end = 8.dp)
+                                    .size(width = elementWidth / 2, height = forgotPasswordButtonHeight)
+                            ) {
+                                Text(
+                                    text = "Anuluj",
+                                    fontSize = fontSize / 2,
+                                    fontFamily = FontFamily(Font(R.font.mplusrounded1cregular)),
+                                    color = colorResource(id = R.color.textColor)
+                                )
+                            }
 
+                            Button(
+                                onClick = { /* Dodaj logikę potwierdzenia */ },
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = colorResource(id = R.color.buttonColor)
+                                ),
+                                modifier = Modifier
+                                    .padding(start = 8.dp)
+                                    .size(width = elementWidth / 2, height = forgotPasswordButtonHeight)
+                            ) {
+                                Text(
+                                    text = "Wyślij",
+                                    fontSize = fontSize / 2,
+                                    fontFamily = FontFamily(Font(R.font.mplusrounded1cregular)),
+                                    color = colorResource(id = R.color.textColor)
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
