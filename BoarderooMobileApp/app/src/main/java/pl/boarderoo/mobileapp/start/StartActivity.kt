@@ -11,10 +11,10 @@ import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
+import androidx.browser.customtabs.CustomTabsIntent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.browser.customtabs.CustomTabsIntent
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
@@ -202,7 +202,7 @@ fun WebViewScreen() {
      }*/
 
     val context = LocalContext.current
-    val launcher = rememberLauncherForActivityResult(
+    /*val launcher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val code = result.data?.getStringExtra("auth_code")
@@ -217,7 +217,7 @@ fun WebViewScreen() {
     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(discordUrl))
     launcher.launch(intent)
 
-    /* val context = LocalContext.current
+     val context = LocalContext.current
      var authCode: String? = null // Zmienna na przechwycony kod
 
      // Launcher do otwierania Custom Tabs
@@ -233,15 +233,15 @@ fun WebViewScreen() {
              }
          }
      }
-
+*/
      // Custom Tabs do otwarcia Discord OAuth2
-     val targetUrl = "https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=http%3A%2F%2F192.168.1.14%3A8000%2Fcallback&scope=email"
+     val targetUrl = "https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=http%3A%2F%2F192.168.1.13%2Fcallback&scope=email"
 
-     // Uruchomienie Custom Tabs
-     CustomTabsIntent.Builder()
-         .build()
-         .apply { intent.data = Uri.parse(targetUrl) }
-         .let { launcher.launch(it.intent) }*/
+    val customTabsIntent = CustomTabsIntent.Builder()
+        .setShowTitle(true)
+        .build()
+
+    customTabsIntent.launchUrl(context, Uri.parse(targetUrl))
 }
 
 @Preview(showBackground = true)
