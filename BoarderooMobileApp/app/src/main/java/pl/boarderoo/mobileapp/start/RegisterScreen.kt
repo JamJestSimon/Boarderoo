@@ -24,7 +24,7 @@ import pl.boarderoo.mobileapp.LightTextField
 import pl.boarderoo.mobileapp.PageWithTitle
 
 @Composable
-fun RegisterScreen(navController: NavController) {
+fun RegisterScreen(navController: NavController, email: String) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
 
@@ -43,6 +43,9 @@ fun RegisterScreen(navController: NavController) {
             "Hasło" to "",
             "Powtórz hasło" to ""
         )
+    }
+    if (email.isNotEmpty()) {
+        entries["Mail"] = email
     }
     BackHandler(
         enabled = true
@@ -108,5 +111,5 @@ fun RegisterScreen(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewRegisterScreen() {
-    RegisterScreen(rememberNavController())
+    RegisterScreen(rememberNavController(), "test@gmail.com")
 }

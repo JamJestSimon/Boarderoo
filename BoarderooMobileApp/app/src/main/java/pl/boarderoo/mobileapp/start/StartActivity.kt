@@ -58,13 +58,9 @@ import pl.boarderoo.mobileapp.ui.theme.BoarderooMobileAppTheme
 class StartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         val animationSpeed = 400
-        val uri: Uri? = intent.data
-        if (uri != null && uri.toString().startsWith("http://192.168.1.17/callback")) {
-            val code = uri.getQueryParameter("code")
-            // Przetwórz kod (np. wykonaj żądanie do serwera, aby uzyskać token)
-            Log.d("CallbackActivity", "Received code: $code")
-        }
+
         setContent {
             BoarderooMobileAppTheme {
                 Surface(
@@ -100,9 +96,42 @@ class StartActivity : ComponentActivity() {
                         }
                     ) {
                         composable(route = "LogoScreen") { LogoScreen(navController) }
-                        composable(route = "LoginScreen") { LoginScreen(navController) }
-                        composable(route = "RegisterScreen") { RegisterScreen(navController) }
+                        composable(route = "LoginScreen/{email}") { backStackEntry ->
+                            val email = backStackEntry.arguments?.getString("email") ?: ""
+                            LoginScreen(navController, email)
+                        }
+                        composable(route = "RegisterScreen/{email}") { backStackEntry ->
+                            val email = backStackEntry.arguments?.getString("email") ?: ""
+                            RegisterScreen(navController, email)
+                        }
                         composable(route = "WebViewScreen") { WebViewScreen() }
+                    }
+
+                    val data: Uri? = intent.data
+
+                    if (data != null && data.scheme == "boarderoo" && data.host == "callback") {
+                        // Aplikacja została uruchomiona z callbacka
+                        val code = data.getQueryParameter("code")
+                        println("Code: $code")
+
+                        /*
+                        *
+                        * TUTAJ BĘDZIE ZAPYTANIE API DO BACKENDU CZY KONTO ISTNIEJE I JEŻELI TAK TO LOGOWANIE
+                        * A JEŻELI NIE TO REJESTRACJA (OBA Z PRZEKAZANIEM PARAMETRU)
+                        *
+                        * */
+                        val exist = false
+                        val email = "test@gmail.com"
+                        if(exist) {
+                            navController.navigate("LoginScreen/$email")
+                        }
+                        else{
+                            navController.navigate("RegisterScreen/$email")
+                        }
+
+                    } else {
+                        // Aplikacja została uruchomiona w tradycyjny sposób
+                        println("Aplikacja została uruchomiona standardowo")
                     }
                 }
             }
@@ -191,51 +220,9 @@ fun LogoScreen(navController: NavController) {
 @Composable
 fun WebViewScreen() {
 
-    /* //adres do zmiany na serwer w discord dev i tutaj w linku
-     val mUrl = "https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=http%3A%2F%2F192.168.1.17%3A8000%2Fcallback&scope=email"
-     val context = LocalContext.current
-
-     // Otwórz URL w zewnętrznej przeglądarce
-     LaunchedEffect(Unit) {
-         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(mUrl))
-         context.startActivity(intent)
-     }*/
-
     val context = LocalContext.current
-    /*val launcher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val code = result.data?.getStringExtra("auth_code")
-            // Kod autoryzacyjny dostępny, można go wykorzystać
-            Log.d("OAuth2", "Kod autoryzacyjny: $code")
-            // Możesz teraz wysłać kod do swojego backendu, aby uzyskać token
-        }
-    }
-
-    val discordUrl = "https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=http%3A%2F%2F192.168.1.17%2Fcallback&scope=email"
-
-    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(discordUrl))
-    launcher.launch(intent)
-
-     val context = LocalContext.current
-     var authCode: String? = null // Zmienna na przechwycony kod
-
-     // Launcher do otwierania Custom Tabs
-     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-         val returnedUri = result.data?.data
-
-         // Sprawdzenie, czy URL zawiera "code" i wyciągnięcie jego wartości
-         returnedUri?.let { uri ->
-             if (uri.toString().startsWith("https://192.168.1.14/callback")) {
-                 authCode = Uri.parse(uri.toString()).getQueryParameter("code")
-                 println("Przechwycony kod: $authCode")
-                 // Tutaj możesz wykorzystać `authCode` w API
-             }
-         }
-     }
-*/
      // Custom Tabs do otwarcia Discord OAuth2
-     val targetUrl = "https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=http%3A%2F%2F192.168.1.13%2Fcallback&scope=email"
+    val targetUrl = "https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=http%3A%2F%2F192.168.1.13%2Fcallback&scope=email"
 
     val customTabsIntent = CustomTabsIntent.Builder()
         .setShowTitle(true)
@@ -249,3 +236,10 @@ fun WebViewScreen() {
 fun PreviewLogoScreen() {
     LogoScreen(rememberNavController())
 }
+
+@Composable
+fun LoginScreen() {
+    val navController = rememberNavController()
+    navController.navigate("LoginScreen")
+}
+
