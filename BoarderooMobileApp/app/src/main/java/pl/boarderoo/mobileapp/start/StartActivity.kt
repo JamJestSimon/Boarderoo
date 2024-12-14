@@ -195,26 +195,28 @@ fun LogoScreen(navController: NavController) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
+
             val context = LocalContext.current
+
             val googleSignInClient = remember {
                 val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken("928336702407-0uvll9nktsjrbo8eohl8hhpis512gfom.apps.googleusercontent.com")
+                    .requestIdToken("928336702407-qnh2oanp2oofcliefcc1v24355lc1nan.apps.googleusercontent.com")
                     .requestEmail()
                     .build()
                 GoogleSignIn.getClient(context, gso)
             }
-            val activityResultLauncher = rememberLauncherForActivityResult(
+
+            val launcher = rememberLauncherForActivityResult(
                 contract = ActivityResultContracts.StartActivityForResult()
-            ) {result ->
+            ) { result ->
                 if (result.resultCode == Activity.RESULT_OK) {
-                    print(result)
-                    println("OKKKKKKKKK")
+                    val account = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                    println(account.result.email)
+                    // Sprawdź, czy konto zostało poprawnie pobrane
                 } else {
                     // Obsługuje niepowodzenie logowania
-                    print(result)
-                    //val errorCode = result.data?.let { GoogleSignIn.getSignedInAccountFromIntent(it).result }
-
-                    println("NNNNNNNNNNNNNNNNNOK")
+                    println("NNNNNNNNNNOKKK")
+                    println(result)
                 }
             }
 
@@ -226,7 +228,7 @@ fun LogoScreen(navController: NavController) {
                     .clip(RoundedCornerShape(buttonHeight / 2))
                     .clickable {
                         val signInIntent = googleSignInClient.signInIntent
-                        activityResultLauncher.launch(signInIntent)
+                        launcher.launch(signInIntent)
                     }
             )
             Spacer(modifier = Modifier.fillMaxWidth(0.03f)) // Przerwa między logo a przyciskami
