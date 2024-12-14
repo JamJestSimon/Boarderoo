@@ -38,7 +38,7 @@ import pl.boarderoo.mobileapp.PageWithTitle
 import pl.boarderoo.mobileapp.R
 
 @Composable
-fun LoginScreen(navController: NavController, email: String) {
+fun LoginScreen(navController: NavController) {
     val configuration = LocalConfiguration.current
     val screenWidth = configuration.screenWidthDp
 
@@ -67,13 +67,10 @@ fun LoginScreen(navController: NavController, email: String) {
             modifier = Modifier.fillMaxWidth() // Ustawia szerokość kolumny na pełną szerokość
         ) {
             var mail by remember { mutableStateOf("") }
-            if (email.isNotEmpty()) {
-                mail = email
-            }
             var isEmailValid by remember { mutableStateOf(true) }
             LightTextField(
                 placeholder = "Mail",
-                value = email,
+                value = mail,
                 onValueChange = {
                     mail = it
                     isEmailValid = it.contains("@") // Sprawdzenie, czy email zawiera '@'
@@ -187,5 +184,5 @@ fun LoginScreen(navController: NavController, email: String) {
 @Preview(showBackground = true)
 @Composable
 fun PreviewLoginScreen() {
-    LoginScreen(rememberNavController(), "test@gmail.com")
+    LoginScreen(rememberNavController())
 }

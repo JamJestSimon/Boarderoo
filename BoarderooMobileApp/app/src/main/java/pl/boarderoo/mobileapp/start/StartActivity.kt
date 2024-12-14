@@ -96,10 +96,7 @@ class StartActivity : ComponentActivity() {
                         }
                     ) {
                         composable(route = "LogoScreen") { LogoScreen(navController) }
-                        composable(route = "LoginScreen/{email}") { backStackEntry ->
-                            val email = backStackEntry.arguments?.getString("email") ?: ""
-                            LoginScreen(navController, email)
-                        }
+                        composable(route = "LoginScreen") { LoginScreen(navController) }
                         composable(route = "RegisterScreen/{email}") { backStackEntry ->
                             val email = backStackEntry.arguments?.getString("email") ?: ""
                             RegisterScreen(navController, email)
@@ -116,14 +113,14 @@ class StartActivity : ComponentActivity() {
 
                         /*
                         *
-                        * TUTAJ BĘDZIE ZAPYTANIE API DO BACKENDU CZY KONTO ISTNIEJE I JEŻELI TAK TO LOGOWANIE
+                        * TUTAJ BĘDZIE ZAPYTANIE API DO BACKENDU CZY KONTO ISTNIEJE I JEŻELI TAK TO LOGOWANIE auto
                         * A JEŻELI NIE TO REJESTRACJA (OBA Z PRZEKAZANIEM PARAMETRU)
                         *
                         * */
                         val exist = false
                         val email = "test@gmail.com"
                         if(exist) {
-                            navController.navigate("LoginScreen/$email")
+                            //LOGOWANIE
                         }
                         else{
                             navController.navigate("RegisterScreen/$email")
@@ -181,7 +178,7 @@ fun LogoScreen(navController: NavController) {
             buttonHeight = buttonHeight,
             fontSize = fontSize,
             onClick = {
-                navController.navigate("RegisterScreen")
+                navController.navigate("RegisterScreen/")
             }
         )
         Spacer(modifier = Modifier.fillMaxHeight(0.03f)) // Przerwa między logo a przyciskami
