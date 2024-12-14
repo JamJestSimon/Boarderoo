@@ -35,13 +35,13 @@ fun RegisterScreen(navController: NavController, email: String) {
     val textHeight = elementWidth / 4
     val fontSize = (textHeight.value * 0.4).sp
     val entries = remember {
-        mutableMapOf(
-            "Imię" to "",
-            "Nazwisko" to "",
-            "Miasto" to "",
-            "Mail" to "",
-            "Hasło" to "",
-            "Powtórz hasło" to ""
+        mutableStateListOf(
+            RegisterEntry("Imie", mutableStateOf("")),
+            RegisterEntry("Nazwisko", mutableStateOf("")),
+            RegisterEntry("Miasto", mutableStateOf("")),
+            RegisterEntry("Email", mutableStateOf("")),
+            RegisterEntry("Haslo", mutableStateOf("")),
+            RegisterEntry("Powtorz Haslo", mutableStateOf(""))
         )
     }
     if (email.isNotEmpty()) {
@@ -65,30 +65,30 @@ fun RegisterScreen(navController: NavController, email: String) {
             Column(
                 verticalArrangement = Arrangement.spacedBy((screenWidth * 0.03).dp)
             ) {
-                for (key in entries.keys) {
-                    if (key == "Email") {
+                for (entry in entries) {
+                    if (entry.name == "Email") {
                         var isEmailValid by remember { mutableStateOf(true) }
                         LightTextField(
-                            placeholder = key,
-                            value = entries.getValue(key),
+                            placeholder = entry.name,
+                            value = entry.data.value,
                             isError = !isEmailValid,
                             textWidth = textWidth,
                             textHeight = textHeight,
                             onValueChange = {
-                                entries[key] = it
+                                entry.data.value = it
                                 isEmailValid =
                                     it.contains("@") // Sprawdzenie, czy email zawiera '@'
                             }
                         )
                     } else {
                         LightTextField(
-                            placeholder = key,
-                            value = entries.getValue(key),
+                            placeholder = entry.name,
+                            value = entry.data.value,
                             isError = false,
                             textWidth = textWidth,
                             textHeight = textHeight,
                             onValueChange = {
-                                entries[key] = it
+                                entry.data.value = it
                             }
                         )
                     }
@@ -113,3 +113,7 @@ fun RegisterScreen(navController: NavController, email: String) {
 fun PreviewRegisterScreen() {
     RegisterScreen(rememberNavController(), "test@gmail.com")
 }
+
+data class RegisterEntry(
+    val name: String, var data: MutableState<String>
+)
