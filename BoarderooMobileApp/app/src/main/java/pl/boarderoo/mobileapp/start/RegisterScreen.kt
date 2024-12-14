@@ -7,7 +7,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -44,8 +46,12 @@ fun RegisterScreen(navController: NavController, email: String) {
             RegisterEntry("Powtorz Haslo", mutableStateOf(""))
         )
     }
+    println(email)
     if (email.isNotEmpty()) {
-        entries["Mail"] = email
+        val emailEntry = entries.find { it.name == "Email" }
+        println(emailEntry)
+        emailEntry?.data?.value = email
+        println(emailEntry)
     }
     BackHandler(
         enabled = true
