@@ -22,6 +22,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -113,12 +114,13 @@ fun PageWithTitle(text: String, screenWidth: Int, logoHeight: Dp, fontSize: Text
 }
 
 @Composable
-fun LightTextField(placeholder: String, value: String, isError: Boolean, textWidth: Dp, textHeight: Dp, onValueChange: (String) -> Unit) {
+fun LightTextField(placeholder: String, value: String, isError: Boolean, textWidth: Dp, textHeight: Dp, visualTransformation: VisualTransformation = VisualTransformation.None, onValueChange: (String) -> Unit) {
     OutlinedTextField(
         value = value,
         onValueChange = {
             onValueChange(it)
         },
+        visualTransformation = visualTransformation,
         isError = isError,
         modifier = Modifier
             .width(textWidth)

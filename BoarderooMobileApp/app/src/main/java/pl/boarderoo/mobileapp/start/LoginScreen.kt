@@ -85,6 +85,7 @@ fun LoginScreen(navController: NavController) {
             LightTextField(
                 placeholder = "Hasło",
                 value = password,
+                visualTransformation = PasswordVisualTransformation(),
                 onValueChange = {
                     password = it
                 },
