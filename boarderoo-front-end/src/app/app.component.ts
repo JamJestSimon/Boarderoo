@@ -1,29 +1,19 @@
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { JoinUsComponent } from './join-us/join-us.component';
-import { OurLocationComponent } from './our-location/our-location.component';
 import { CommonModule } from '@angular/common';
-import { ToastrService } from 'ngx-toastr';
+import { RouterOutlet } from '@angular/router';
+import { StartPageComponent } from "./start-page/start-page.component";
+import { MainPageComponent } from './main-page/main-page.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [JoinUsComponent, OurLocationComponent, CommonModule],
-  templateUrl: './app.component.html',
+  imports: [CommonModule, RouterOutlet],
   styleUrls: ['./app.component.css'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Dodajemy schemat
+  template: `<main>
+    <router-outlet />
+</main>`
 })
 export class AppComponent {
   title = 'boarderoo-front-end';
-  isJoinUsVisible = false;
-  ourLocationVisible = false
 
-  toggleJoinUs() {
-    this.isJoinUsVisible = !this.isJoinUsVisible;
-    console.log(this.isJoinUsVisible);
-  }
-
-  toggleOurLocation() {
-    this.ourLocationVisible = !this.ourLocationVisible;
-    console.log(this.ourLocationVisible);
-  }
 }

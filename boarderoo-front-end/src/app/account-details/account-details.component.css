@@ -1,0 +1,24 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+}
+
+.container {
+    display: flex;
+    justify-content: center; /* Wyśrodkowanie w poziomie */
+    height: 100vh; /* Wypełnia całą wysokość */
+}
+
+.content {
+    margin-top: 20px;
+    background-color: #A4691D; /* Kolor tła */
+    width: 50%; /* Ustawienie szerokości div */
+    height: 86%; /* Wypełnia całą wysokość */
+    border-radius: 40px;
+    border: 3px solid #422D29;
+}

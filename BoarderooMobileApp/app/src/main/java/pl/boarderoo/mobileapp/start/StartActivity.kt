@@ -255,7 +255,7 @@ fun WebViewScreen() {
 
     val context = LocalContext.current
      // Custom Tabs do otwarcia Discord OAuth2
-    val targetUrl = "https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=http%3A%2F%2F192.168.1.13%2Fcallback&scope=email"
+    val targetUrl = "https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=http%3A%2F%2F192.168.0.32%3A4200%2Fcallback&scope=email"
 
     val customTabsIntent = CustomTabsIntent.Builder()
         .setShowTitle(true)
