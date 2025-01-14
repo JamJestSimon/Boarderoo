@@ -57,3 +57,10 @@ body {
   .joinUsVisible {
     visibility: visible;
   }
+
+  .ourLocationInvisible {
+    visibility: hidden;
+  }
+  .ourLocationVisible {
+    visibility: visible;
+  }

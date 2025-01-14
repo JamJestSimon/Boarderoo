@@ -5,4 +5,4 @@ html, body {
     background-color: #EA962A;
     overflow: hidden;
   }
-  
+  @import 'https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css';

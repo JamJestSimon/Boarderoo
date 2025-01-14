@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="app.component.css">
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400&display=swap" rel="stylesheet">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
 </head>
 <body style="overflow: hidden;">
   <div class="container">
@@ -16,9 +17,12 @@
         <span class="text">Zanurz się w świat gier, które rozweselą, zmuszą do myślenia i zapewnią godziny wspólnej zabawy. Boarderoo – gry dla każdego, na każdą okazję!</span>
         <div class="button-container">
           <button class="button" (click)="toggleJoinUs()">Dołącz do nas</button>
-          <button class="button">Odwiedź nas stacjonarnie</button>
+          <button class="button" (click)="toggleOurLocation()">Odwiedź nas stacjonarnie</button>
           <div id="join-us-popup" [ngClass]="{ 'joinUsInvisible': !isJoinUsVisible, 'joinUsVisible': isJoinUsVisible }">
             <app-join-us (close)="toggleJoinUs()"></app-join-us>
+          </div>
+          <div id="our-location-popup" [ngClass]="{ 'ourLocationInvisible': !ourLocationVisible, 'ourLocationVisible': ourLocationVisible }">
+            <app-our-location (close)="toggleOurLocation()"></app-our-location>
           </div>
           
         </div>

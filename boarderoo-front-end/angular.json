@@ -85,7 +85,8 @@
               }
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css"
             ],
             "scripts": []
           }
