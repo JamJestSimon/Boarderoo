@@ -1,0 +1,59 @@
+body {
+    overflow: hidden;
+  }
+  
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 98%;
+    height: 100vh;
+  }
+  
+  .content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 35%;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .text-section {
+    margin-left: 30px;
+  }
+  
+  .text {
+    font-family: 'MPlusRounded1c', sans-serif;
+    font-size: 24px;
+    line-height: 1.5;
+    display: block;
+    color: #422D29;
+  }
+  
+  .button-container {
+    text-align: center;
+    margin-top: 40px;
+  }
+  
+  .button {
+    font-family: 'MPlusRounded1c', sans-serif;
+    font-size: 28px;
+    padding: 15px 40px;
+    background-color: #A4691D;
+    color: #422D29;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    margin: 0 5px;
+  }
+  
+  .joinUsInvisible {
+    visibility: hidden;
+  }
+  .joinUsVisible {
+    visibility: visible;
+  }

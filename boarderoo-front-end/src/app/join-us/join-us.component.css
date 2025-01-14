@@ -1,0 +1,160 @@
+/* Styl dla sekcji rejestracji */
+.join-us-right form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-group {
+    margin-bottom: 15px;
+  }
+  
+  .input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #422D29;
+  }
+  
+  .input-group input {
+    width: 80%;
+    padding: 10px;
+    border: 2px solid #422D29;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #422D29;
+    background-color: #f5cb95;
+  }
+  
+  .input-group input:focus {
+    border-color: #422D29;
+    outline: none;
+  }
+  
+  .forgot-password {
+    text-align: right;
+  }
+  
+  .forgot-password a {
+    color: #422D29;
+    font-size: 14px;
+    text-decoration: none;
+  }
+  
+  .forgot-password a:hover {
+    text-decoration: underline;
+  }
+  
+  .login-button {
+    background-color: #A4691D;
+    color: #422D29;
+    border: 2px solid #422D29;
+    border-radius: 30px;
+    padding: 12px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 40%;
+    margin-top: 10px;
+  }
+
+  .register-button {
+    background-color: #A4691D;
+    color: #422D29;
+    border: 2px solid #422D29;
+    border-radius: 30px;
+    padding: 12px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: auto;
+    max-width: 300px; /* opcjonalnie - ogranicz szerokość przycisku */
+    margin: 20px auto 0; /* wyśrodkowanie przycisku */
+  }
+  
+  .login-button:hover, .register-button:hover {
+    background-color: #A4691D;
+    border-color: #A4691D;
+    color: #422D29;
+  }
+  
+  /* Kreska oddzielająca logowanie i rejestrację */
+  .divider {
+    width: 5px;
+    background-color: #422D29;
+    height: 620px;
+    margin: 0 20px;
+    border-radius: 5px;
+  }
+  
+  .join-us-sections {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .join-us-left, .join-us-right {
+    width: 48%;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: #422D29;
+    cursor: pointer;
+  }
+  
+  .join-us-content {
+    background: #EA962A;
+    padding: 20px;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 80%;
+    max-width: 900px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 5px solid #422D29;
+  }
+  
+  .join-us-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .login-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 15px;
+  }
+  
+  .discord-button, .google-button {
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .discord-button:hover, .google-button:hover {
+    transform: scale(1.1);
+  }
+  
+  .discord-icon, .google-icon {
+    width: 40px;
+    height: 40px;
+  }
+  

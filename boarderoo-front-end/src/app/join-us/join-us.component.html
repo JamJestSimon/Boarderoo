@@ -1,0 +1,66 @@
+<div class="join-us-overlay">
+  <div class="join-us-content">
+    <button class="close-button" (click)="onClose()">×</button>
+    <div class="join-us-sections">
+      <!-- Formularz logowania -->
+      <div class="join-us-left">
+        <h2>Logowanie</h2>
+        <form>
+          <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Wprowadź email" />
+          </div>
+          <div class="input-group">
+            <label for="password">Hasło</label>
+            <input type="password" id="password" placeholder="Wprowadź hasło" />
+          </div>
+          <div class="forgot-password">
+            <a href="#">Zapomniałeś hasła?</a>
+          </div>
+          <button class="login-button" type="submit">Zaloguj</button>
+          <div class="login-buttons">
+            <button class="google-button">
+              <img src="google-logo.xml" alt="Google" class="google-icon" /> </button>
+            <button class="discord-button">
+              <img src="discord.png" alt="Discord" class="discord-icon" /></button>
+          </div>
+        </form>
+      </div>
+      
+      <div class="divider"></div>
+
+      <!-- Formularz rejestracji -->
+      <div class="join-us-right">
+        <h2>Rejestracja</h2>
+        <form>
+          <div class="input-group">
+            <label for="firstName">Imię</label>
+            <input type="text" id="firstName" placeholder="Wprowadź imię" />
+          </div>
+          <div class="input-group">
+            <label for="lastName">Nazwisko</label>
+            <input type="text" id="lastName" placeholder="Wprowadź nazwisko" />
+          </div>
+          <div class="input-group">
+            <label for="address">Adres</label>
+            <input type="text" id="address" placeholder="Wprowadź adres" />
+          </div>
+          <div class="input-group">
+            <label for="emailRegistration">Email</label>
+            <input type="email" id="emailRegistration" placeholder="Wprowadź email" />
+          </div>
+          <div class="input-group">
+            <label for="passwordRegistration">Hasło</label>
+            <input type="password" id="passwordRegistration" placeholder="Wprowadź hasło" />
+          </div>
+          <div class="input-group">
+            <label for="confirmPassword">Powtórz hasło</label>
+            <input type="password" id="confirmPassword" placeholder="Powtórz hasło" />
+          </div>
+          
+          <button class="register-button" type="submit">Zarejestruj</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
