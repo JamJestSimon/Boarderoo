@@ -7,7 +7,7 @@ import { ICreateOrderRequest, IPayPalConfig, NgxPayPalModule } from 'ngx-paypal'
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, NgxPayPalModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA], // Dodajemy schemat
@@ -21,7 +21,7 @@ export class CartComponent {
     email: string = '';  // Dodajemy zmienną na e-mail
     sumPrice: number = 7.12;
     constructor(private toastr: ToastrService) {}
-    
+
     ngOnInit(): void {
       this.initConfig();
     }
@@ -29,7 +29,7 @@ export class CartComponent {
     private initConfig(): void {
       this.payPalConfig = {
           currency: 'EUR',
-          clientId: 'sb',
+          clientId: 'AZ8pZw6s44qSnIantY7aDEjGZ0mG8oMwKWLTtIpzub6boKxbGSk0OFSEfw5usTA2HfHU7me4daTaw23c',
           createOrderOnClient: (data) => < ICreateOrderRequest > {
               intent: 'CAPTURE',
               purchase_units: [{
@@ -59,7 +59,7 @@ export class CartComponent {
           },
           style: {
               label: 'paypal',
-              layout: 'vertical'
+              layout: 'horizontal'
           },
           onApprove: (data, actions) => {
               console.log('onApprove - transaction was approved, but not authorized', data, actions);

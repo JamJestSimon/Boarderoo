@@ -6,6 +6,7 @@ import { provideToastr } from 'ngx-toastr';
 import { provideRouter } from '@angular/router';
 import { StartPageComponent } from './app/start-page/start-page.component';
 import { CallbackComponent } from './app/callback/callback.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -18,6 +19,6 @@ bootstrapApplication(AppComponent, {
       { path: "", component: StartPageComponent },
       { path: "gry", component: MainPageComponent },
       { path: "callback", component: CallbackComponent},
-    ]),
+    ]), NgxPayPalModule
   ]
 }).catch((err) => console.error(err));

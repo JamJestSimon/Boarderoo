@@ -9,7 +9,6 @@
           <button class="close-button" (click)="onClose()">×</button>
         </div>
       </div>
-  
       <div class="cart-sections">
         
   
@@ -20,10 +19,18 @@
         <div class="cart-right">
             <div class="tabs">
                 <span class="summary-label">Podsumowanie</span>
+                <div class="order-dates">
+                    <span class="">Data wypożyczenia:</span>
+                    <span class="">{{sumPrice}}</span>
+                    <span class="">Data zwrotu:</span>
+                    <span class="">{{sumPrice}}</span>
+                </div>
                 <span class="summary-label">Suma: {{sumPrice}}</span>
-                <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                
+                
+                
             </div>
-            
+            <ngx-paypal class="paypal-button" [config]="payPalConfig"></ngx-paypal>
         </div>
       </div>
     </div>

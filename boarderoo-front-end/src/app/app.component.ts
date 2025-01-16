@@ -8,7 +8,7 @@ import { AccountDetailComponent } from "./account-details/account-details.compon
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, AccountDetailComponent],
+  imports: [CommonModule, RouterOutlet],
   styleUrls: ['./app.component.css'],
   template: `<main>
     <router-outlet />
