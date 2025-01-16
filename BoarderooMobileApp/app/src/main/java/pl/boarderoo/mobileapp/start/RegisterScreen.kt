@@ -42,7 +42,7 @@ fun RegisterScreen(navController: NavController, email: String) {
         mutableStateListOf(
             RegisterEntry("Imie", mutableStateOf("")),
             RegisterEntry("Nazwisko", mutableStateOf("")),
-            RegisterEntry("Miasto", mutableStateOf("")),
+            RegisterEntry("Adres", mutableStateOf("")),
             RegisterEntry("Email", mutableStateOf("")),
             RegisterEntry("Haslo", mutableStateOf("")),
             RegisterEntry("Powtorz Haslo", mutableStateOf(""))
