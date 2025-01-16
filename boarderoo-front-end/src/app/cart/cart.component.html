@@ -11,21 +11,52 @@
       </div>
       <div class="cart-sections">
         
+
   
         <!-- Formularz danych po lewej -->
         <div class="cart-left">
+            <div class="order-list">
+                <div *ngFor="let item of items" class="order-item">
+                    <div class="order-img-container">
+                      <img [src]="item.src" alt="Awatar" class="order-img" />
+                    </div>
+                    <div class="order-details">
+                      <h3 class="order-title">{{ item.title }}</h3>
+                      <p class="order-price">{{days}} dni x {{ item.price }} zł = {{days * item.price}} zł</p>
+                    </div>
+                    <button class="remove-button" (click)="removeItem(item)">Usuń</button>
+                  </div>
+                  
+
+            </div>
+            <div class="date-range">
+                <span>Wybierz okres wypożyczenia:</span>
+                <input type="text" id="date-range" placeholder="Wybierz daty" readonly (click)="openDatePicker()" [(ngModel)]="formattedDateRange" class="calendar-input">
+            </div>
+              
+              <!-- Okno kalendarza -->
+              <div class="calendar-overlay" *ngIf="isDatePickerOpen">
+                <div class="calendar-container">
+                  <label>Data wypożyczenia:</label>
+                  <input type="date" [(ngModel)]="dateStart" (change)="updateDateRange()" [min]="minDate" [max]="dateStop" class="date-input">
+                  <label>Data zwrotu:</label>
+                  <input type="date" [(ngModel)]="dateStop" [min]="dateStart" (change)="updateDateRange()" class="date-input">
+                  <button (click)="closeDatePicker()">Zamknij</button>
+                </div>
+              </div>
+
         </div>
         <!-- Sekcja przycisków po prawej -->
         <div class="cart-right">
             <div class="tabs">
                 <span class="summary-label">Podsumowanie</span>
                 <div class="order-dates">
-                    <span class="">Data wypożyczenia:</span>
-                    <span class="">{{sumPrice}}</span>
-                    <span class="">Data zwrotu:</span>
-                    <span class="">{{sumPrice}}</span>
+                    <span >Data wypożyczenia:</span>
+                    <span >{{dateStart}}</span>
+                    <span style="margin-top: 10px;">Data zwrotu:</span>
+                    <span >{{dateStop}}</span>
                 </div>
-                <span class="summary-label">Suma: {{sumPrice}}</span>
+                <span class="summary-label">Suma: {{sumPrice}} zł</span>
                 
                 
                 

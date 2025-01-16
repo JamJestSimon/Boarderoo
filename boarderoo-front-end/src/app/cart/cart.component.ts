@@ -19,11 +19,67 @@ export class CartComponent {
 
     toastContainer: ToastContainerDirective | undefined;
     email: string = '';  // Dodajemy zmienną na e-mail
-    sumPrice: number = 7.12;
+    sumPrice: string = '';
+    dateStart: string = ""
+    dateStop: string = ""
+    days: number = 1;
+    formattedDateRange: string = '';
+    isDatePickerOpen: boolean = false;
+    items = [
+      { src: 'cart.png', title: 'Item 1', price: 4.99 },
+      { src: 'avatar.png', title: 'Item 2', price: 3.99 },
+      { src: 'discord.png', title: 'Item 3', price: 5.99 }
+    ];
+    minDate: string | undefined;
     constructor(private toastr: ToastrService) {}
+
+    calculateTotalPrice() {
+      this.sumPrice = this.items.reduce((sum, item) => sum + (this.days * item.price), 0).toFixed(2);
+      console.log(this.sumPrice);
+    }
+  
+
+    removeItem(item: any) {
+      const index = this.items.indexOf(item);
+      if (index > -1) {
+        this.items.splice(index, 1);
+      }
+      this.calculateTotalPrice();
+    }
+    // Otwiera kalendarz
+  openDatePicker(): void {
+    this.isDatePickerOpen = true;
+  }
+
+  // Zamknięcie kalendarza
+  closeDatePicker(): void {
+    this.isDatePickerOpen = false;
+  }
+
+  // Aktualizuje wyświetlanie zakresu dat
+  updateDateRange(): void {
+    if (this.dateStart && this.dateStop) {
+      this.formattedDateRange = `${this.dateStart} - ${this.dateStop}`;
+      this.calculateDaysDifference();
+      this.calculateTotalPrice();
+    }
+  }
+
 
     ngOnInit(): void {
       this.initConfig();
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = (today.getMonth() + 1).toString().padStart(2, '0'); // Dodaje zero na początku, jeśli miesiąc ma tylko 1 cyfrę
+      const day = today.getDate().toString().padStart(2, '0'); // Dodaje zero na początku, jeśli dzień ma tylko 1 cyfrę
+      this.formattedDateRange = `${year}-${month}-${day}` + " - " + `${year}-${month}-${day}`;
+      this.calculateTotalPrice();
+      this.dateStart = `${year}-${month}-${day}`;
+      this.dateStop = `${year}-${month}-${day}`;
+
+      this.minDate = `${year}-${month}-${day}`
+      console.log("MIN: " + this.minDate);
+
     }
 
     private initConfig(): void {
@@ -113,5 +169,46 @@ export class CartComponent {
   
     toggleDetails(order: any) {
       order.showDetails = !order.showDetails;
+    }
+
+    calculateDaysDifference() {
+      if (this.formattedDateRange) {
+        const dateRangeParts = this.formattedDateRange.split(' - ');
+  
+        if (dateRangeParts.length === 2) {
+          const startDateString = dateRangeParts[0];
+          const endDateString = dateRangeParts[1];
+          // Konwersja z formatu "dd-MM-yyyy" na obiekt Date
+          const startDate = this.convertToDate(startDateString);
+          const endDate = this.convertToDate(endDateString);
+          console.log(startDate);
+          console.log(endDate);
+          if (startDate && endDate) {
+            // Oblicz różnicę w dniach
+            this.days = this.calculateDateDifference(startDate, endDate);
+          }
+        }
+      }
+    }
+
+    convertToDate(dateString: string): Date | null {
+      const dateParts = dateString.split('-');
+      if (dateParts.length === 3) {
+        const day = parseInt(dateParts[0], 10);
+        const month = parseInt(dateParts[1], 10) - 1; // Miesiące w JavaScript zaczynają się od 0
+        const year = parseInt(dateParts[2], 10);
+        console.log("Dzień: " + day);
+        console.log("Miesiąc: " + month);
+        console.log("Rok: " + year);
+        console.log(new Date(year, month, day));
+        return new Date(day, month, year);
+      }
+      return null;
+    }
+
+    calculateDateDifference(startDate: Date, endDate: Date): number {
+      const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
+      console.log(timeDiff);
+      return Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // Dni
     }
 }

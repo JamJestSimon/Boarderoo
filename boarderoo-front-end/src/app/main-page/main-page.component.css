@@ -1,3 +1,23 @@
 body {
     overflow: hidden;
   }
+  .container {
+    display: flex;
+    width: 100%;
+    height: 100%; /* Opcjonalnie, jeśli chcesz, aby divy zajmowały całą wysokość */
+  }
+  
+  .left-pane {
+    width: 30%;
+    background-color: #f0f0f0; /* Przykładowy kolor tła */
+    padding: 10px;
+    box-sizing: border-box; /* Uwzględnij padding w szerokości */
+  }
+  
+  .right-pane {
+    width: 70%;
+    background-color: black; /* Przykładowy kolor tła */
+    padding: 10px;
+    box-sizing: border-box; /* Uwzględnij padding w szerokości */
+  }
+  
