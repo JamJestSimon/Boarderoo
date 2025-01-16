@@ -1,0 +1,34 @@
+# Visual Studio Code settings
+.vscode/
+
+# Build directories
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# Dependency directories
+packages/
+node_modules/
+
+# By-products of NuGet
+project.lock.json
+project.fragment.lock.json
+*.nupkg
+*.snupkg
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Dotenv (for environment variables)
+.env
