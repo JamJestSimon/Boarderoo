@@ -1,1 +1,30 @@
-<p>cart works!</p>
+
+<div class="cart-overlay">
+    <div class="cart-content">
+      <!-- Pasek z koszykiem -->
+      <div class="cart-top">
+        <div class="cart">
+          <img src="cart.png" alt="Awatar" class="cart-img" />
+          <span>Koszyk</span>
+          <button class="close-button" (click)="onClose()">×</button>
+        </div>
+      </div>
+  
+      <div class="cart-sections">
+        
+  
+        <!-- Formularz danych po lewej -->
+        <div class="cart-left">
+        </div>
+        <!-- Sekcja przycisków po prawej -->
+        <div class="cart-right">
+            <div class="tabs">
+                <span class="summary-label">Podsumowanie</span>
+                <span class="summary-label">Suma: {{sumPrice}}</span>
+                <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  </div>

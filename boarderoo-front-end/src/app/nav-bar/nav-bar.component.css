@@ -42,8 +42,13 @@
 
 /* Cart */
 .navbar-cart {
-    text-decoration: none;
-    color: #333;
+    position: relative;
+}
+
+.navbar-cart-button {
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .navbar-icon {
@@ -77,15 +82,15 @@
 }
 
 .accountDetailsInvisible {
-    visibility: hidden;
+    display: none;
   }
   .accountDetailsVisible {
-    visibility: visible;
+    display: block;
   }
 
   .cartInvisible {
-    visibility: hidden;
+    display: none;
   }
   .cartVisible {
-    visibility: visible;
+    display: block;
   }

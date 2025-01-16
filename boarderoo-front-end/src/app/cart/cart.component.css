@@ -1,0 +1,113 @@
+/* Kontener na overlay */
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.cart-top {
+    width: 100%;
+    background-color: #422D29;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    box-sizing: border-box;
+}
+
+/* Kontener dla całego pop-up */
+.cart-content {
+    background: #EA962A;
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 80%;
+    max-width: 900px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    border: 5px solid #422D29;
+    box-sizing: border-box;
+}
+
+/* Styl dla avatar i nazwy */
+.cart {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.cart span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #EA962A;
+}
+
+.cart-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+/* Kontener dla sekcji (przyciski i formularz obok siebie) */
+.cart-sections {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+/* Sekcja przycisków po prawej */
+.cart-right {
+    width: 30%;
+    background-color: #422D29;
+}
+
+.summary-label {
+    font-weight: bold;
+    font-size: 24px;
+    padding: 10px;
+}
+
+/* Zmieniamy układ przycisków na pionowy */
+.tabs {
+    display: flex;
+    flex-direction: column;
+    color:#EA962A;
+}
+
+/* Sekcja formularza po lewej */
+.cart-left {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: #EA962A;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.close-button:hover {
+    transform: scale(1.1);
+}

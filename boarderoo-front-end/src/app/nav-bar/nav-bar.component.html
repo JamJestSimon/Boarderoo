@@ -6,23 +6,20 @@
   
     <div class="navbar-actions">
       <!-- Koszyk -->
-      <a href="/cart" class="navbar-cart">
+      <div class="navbar-user">
+      <button class="navbar-cart-button" (click)="toggleCart()">
         <img src="cart.png" alt="Cart" class="navbar-icon">
-      </a>
-
-      <button class="navbar-cart" (click)="toggleCart()">
-        <img src="cart.png" alt="Cart" class="navbar-icon">
-      </button>
-      <div id="cart-popup" [ngClass]="{ 'accountDetailsInvisible': !isCartVisible, 'accountDetailsVisible': isCartVisible }">
-          <app-account-details (close)="toggleAccountDetails()"></app-account-details>
+        </button>
+        <div id="cart-popup" [ngClass]="{ 'cartInvisible': !isCartVisible, 'cartVisible': isCartVisible }">
+            <app-cart (close)="toggleCart()"></app-cart>
         </div>
-  
+        </div>
       <!-- Menu użytkownika -->
       <div class="navbar-user">
         <button class="navbar-user-button" (click)="toggleAccountDetails()">
           <img src="avatar.png" alt="User" class="navbar-icon">
         </button>
-        <div id="account-details-popup" [ngClass]="{ 'cartInvisible': !isAccountDetailsVisible, 'cartVisible': isAccountDetailsVisible }">
+        <div id="account-details-popup" [ngClass]="{ 'accountDetailsInvisible': !isAccountDetailsVisible, 'accountDetailsVisible': isAccountDetailsVisible }">
             <app-account-details (close)="toggleAccountDetails()"></app-account-details>
           </div>
       </div>

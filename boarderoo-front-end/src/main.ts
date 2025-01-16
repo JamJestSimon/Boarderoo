@@ -18,6 +18,6 @@ bootstrapApplication(AppComponent, {
       { path: "", component: StartPageComponent },
       { path: "gry", component: MainPageComponent },
       { path: "callback", component: CallbackComponent},
-    ])
+    ]),
   ]
 }).catch((err) => console.error(err));
