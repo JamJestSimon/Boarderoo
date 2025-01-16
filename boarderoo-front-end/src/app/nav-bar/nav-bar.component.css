@@ -82,3 +82,10 @@
   .accountDetailsVisible {
     visibility: visible;
   }
+
+  .cartInvisible {
+    visibility: hidden;
+  }
+  .cartVisible {
+    visibility: visible;
+  }

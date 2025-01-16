@@ -12,10 +12,16 @@ import { CommonModule } from '@angular/common';
 export class NavBarComponent {
 
   isAccountDetailsVisible = false;
+  isCartVisible = false;
 
   toggleAccountDetails() {
     this.isAccountDetailsVisible = !this.isAccountDetailsVisible;
     console.log(this.isAccountDetailsVisible);
+  }
+
+  toggleCart() {
+    this.isCartVisible = !this.isCartVisible;
+    console.log(this.isCartVisible);
   }
 
 

@@ -43,23 +43,93 @@
   
         <!-- Formularz danych po prawej -->
         <div class="account-details-right">
-          <h2>Dane</h2>
-          <form>
-            <div class="input-group">
-              <label for="firstName">Imię</label>
-              <input type="text" id="firstName" name="firstName" placeholder="Wprowadź imię" />
+            <div [style.display]="openedTab === 'data' ? 'block' : 'none'">
+                <h2>Dane</h2>
+                <form>
+                    <div class="input-row">
+                      <div class="input-group">
+                        <label for="firstName">Imię</label>
+                        <input type="text" id="firstName" name="firstName" placeholder="Wprowadź imię" />
+                      </div>
+                      <div class="input-group">
+                        <label for="lastName">Nazwisko</label>
+                        <input type="text" id="lastName" name="lastName" placeholder="Wprowadź nazwisko" />
+                      </div>
+                    </div>
+                    <div class="input-row">
+                      <div class="input-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Wprowadź email" />
+                      </div>
+                      <div class="input-group">
+                        <label for="address">Adres</label>
+                        <input type="text" id="address" name="address" placeholder="Wprowadź adres" />
+                      </div>
+                    </div>
+                  <button class="save-button" type="submit">Zapisz zmiany</button>
+                </form>
             </div>
-            <div class="input-group">
-              <label for="lastName">Nazwisko</label>
-              <input type="text" id="lastName" name="lastName" placeholder="Wprowadź nazwisko" />
+            <div [style.display]="openedTab === 'password' ? 'block' : 'none'">
+                <h2>Zmiana hasła</h2>
+                <form>
+                    <div class="input-row">
+                      <div class="input-group">
+                        <label for="oldPassword">Stare hasło</label>
+                        <input type="password" id="oldPassword" name="oldPassword" placeholder="Podaj stare hasło" />
+                      </div>
+                    </div>
+                    <div class="input-row">
+                      <div class="input-group">
+                        <label for="newPassword">Nowe hasło</label>
+                        <input type="password" id="newPassword" name="newPassword" placeholder="Podaj nowe hasło" />
+                      </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group">
+                          <label for="retypePassword">Powtórz hasło</label>
+                          <input type="password" id="retypePassword" name="retypePassword" placeholder="Powtórz nowe hasło" />
+                        </div>
+                      </div>
+                  <button class="save-button" type="submit">Zapisz zmiany</button>
+                </form>
             </div>
-            <div class="input-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="Wprowadź email" />
-            </div>
-            <button class="save-button" type="submit">Zapisz zmiany</button>
-          </form>
-        </div>
+            <div [style.display]="openedTab === 'orderHistory' ? 'block' : 'none'">
+                <h2>Historia zamówień</h2>
+                <div class="order-list">
+                    <div class="order-content" *ngFor="let order of orders">
+                        <div class="order-row">
+                          <div class="order-info">
+                            <div class="order-number">
+                              <strong>Numer zamówienia:</strong> {{ order.number }}
+                            </div>
+                            <div class="order-date">
+                              Data: {{ order.date }}
+                            </div>
+                          </div>
+                          <div class="order-price">
+                            <div class="order-total">
+                              Cena: {{ order.price | currency }}
+                            </div>
+                          </div>
+                          <div class="order-arrow">
+                            <button class="expand-button" (click)="toggleDetails(order)">
+                                <span [class]="order.showDetails ? 'arrow-up' : 'arrow-down'"></span>
+                              </button>
+                          </div>
+                        </div>
+                        <div *ngIf="order.showDetails" class="order-details">
+                          <p>Szczegóły zamówienia:</p>
+                          <ul>
+                            <li *ngFor="let item of order.items">{{ item.name }} - {{ item.quantity }} dni x {{ item.price }} zł</li>
+                          </ul>
+                          <p>Status zamówienia: {{order.status}}</p>
+                          <button class="cancel-button" type="submit">Anuluj zamówienie</button>
+                        </div>
+                      </div>
+                </div>
+                
+              </div>
+          </div>
       </div>
     </div>
   </div>

@@ -17,11 +17,13 @@ export class AccountDetailComponent {
     email: string = '';  // Dodajemy zmienną na e-mail
     currentTab: string = 'data';
     tmpCurrentTab: string = ''
+    openedTab: string = ''
     userName: string | undefined;
     constructor(private toastr: ToastrService) {}
 
     ngOnInit(): void {
       this.userName = "Adrian"
+      this.openedTab = 'data';
     }
     
     onClose() {
@@ -31,18 +33,21 @@ export class AccountDetailComponent {
     showData() {
       this.currentTab = 'data';
       this.tmpCurrentTab = 'data';
+      this.openedTab = 'data';
       console.log(this.currentTab);
     }
   
     showPassword() {
       this.currentTab = 'password';
       this.tmpCurrentTab = 'password';
+      this.openedTab = 'password';
       console.log(this.currentTab);
     }
   
     showOrderHistory() {
       this.currentTab = 'orderHistory';
       this.tmpCurrentTab = 'orderHistory';
+      this.openedTab = 'orderHistory';
       console.log(this.currentTab);
     }
 
@@ -78,5 +83,57 @@ export class AccountDetailComponent {
           progressAnimation: 'increasing',
         });
       }
+    }
+
+    orders = [
+      {
+        number: 'DSJNSADJKN',
+        date: '2025-01-15',
+        price: 120.50,
+        items: [
+          { name: 'Produkt A', quantity: 2, price: 40 },
+          { name: 'Produkt B', quantity: 1, price: 40.50 }
+        ],
+        status: 'Anulowane',
+        showDetails: false
+      },
+      {
+        number: 'DSJNSADJKN',
+        date: '2025-01-15',
+        price: 120.50,
+        items: [
+          { name: 'Produkt A', quantity: 2, price: 40 },
+          { name: 'Produkt B', quantity: 1, price: 40.50 }
+        ],
+        status: 'Zwrócone',
+        showDetails: false
+      },
+      {
+        number: 'DSJNSADJKN',
+        date: '2025-01-15',
+        price: 120.50,
+        items: [
+          { name: 'Produkt A', quantity: 2, price: 40 },
+          { name: 'Produkt B', quantity: 1, price: 40.50 }
+        ],
+        status: 'Odebrane',
+        showDetails: false
+      },
+      {
+        number: 'DSJNSADJKN',
+        date: '2025-01-15',
+        price: 120.50,
+        items: [
+          { name: 'Produkt A', quantity: 2, price: 40 },
+          { name: 'Produkt B', quantity: 1, price: 40.50 }
+        ],
+        status: 'Oczekujące na odbiór',
+        showDetails: false
+      },
+      // Kolejne zamówienia
+    ];
+  
+    toggleDetails(order: any) {
+      order.showDetails = !order.showDetails;
     }
 }
