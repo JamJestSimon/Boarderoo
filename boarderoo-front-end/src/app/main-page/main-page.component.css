@@ -296,3 +296,10 @@ body {
   .option-label {
     margin-top: 200px;
   }
+
+  .gameDetailsInvisible {
+    display: none;
+  }
+  .gameDetailsVisible {
+    display: block;
+  }

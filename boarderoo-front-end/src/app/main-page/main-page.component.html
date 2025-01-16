@@ -1,4 +1,7 @@
 <app-nav-bar></app-nav-bar>
+<div id="account-details-popup" [ngClass]="{ 'gameDetailsInvisible': !isGameDetailsVisible, 'gameDetailsVisible': isGameDetailsVisible }">
+  <app-game-details (close)="toggleGameDetails()"></app-game-details>
+</div>
 
 <div class="container">
   <div class="left-pane">
@@ -133,117 +136,20 @@
   <button class="confirm-button">Zatwierdź</button>
   </div>
   <div class="right-pane">
-    <div class="card">
+    <div class="card" *ngFor="let card of cards" (click)="toggleGameDetails()">
         <img src="wladca.png" alt="Opis obrazka" class="card-image">
         <div class="card-text">
-          <h3>Władca Pierścieni. Podróże przez Śródziemie</h3>
-          <p>Wydawca: Rebel</p>
-          <p>Wiek: 14 - 99</p>
-          <p>Liczba graczy: 1 - 10</p>
-          <p>Kategoria: Strategiczna</p>
+          <h3>{{ card.title }}</h3>
+          <p>Wydawca: {{ card.publisher }}</p>
+          <p>Wiek: {{ card.age }}</p>
+          <p>Liczba graczy: {{ card.players }}</p>
+          <p>Kategoria: {{ card.category }}</p>
         </div>
-        <div class="card-price">Cena: 199,99 PLN</div> <!-- Dodana cena -->
-      </div>
-      <div class="card">
-        <img src="wladca.png" alt="Opis obrazka" class="card-image">
-        <div class="card-text">
-          <h3>Władca Pierścieni. Podróże przez Śródziemie</h3>
-          <p>Wydawca: Rebel</p>
-          <p>Wiek: 14 - 99</p>
-          <p>Liczba graczy: 1 - 10</p>
-          <p>Kategoria: Strategiczna</p>
-        </div>
-        <div class="card-price">Cena: 199,99 PLN</div> <!-- Dodana cena -->
-      </div>
-      <div class="card">
-        <img src="wladca.png" alt="Opis obrazka" class="card-image">
-        <div class="card-text">
-          <h3>Władca Pierścieni. Podróże przez Śródziemie</h3>
-          <p>Wydawca: Rebel</p>
-          <p>Wiek: 14 - 99</p>
-          <p>Liczba graczy: 1 - 10</p>
-          <p>Kategoria: Strategiczna</p>
-        </div>
-        <div class="card-price">Cena: 199,99 PLN</div> <!-- Dodana cena -->
-      </div>
-      <div class="card">
-        <img src="wladca.png" alt="Opis obrazka" class="card-image">
-        <div class="card-text">
-          <h3>Władca Pierścieni. Podróże przez Śródziemie</h3>
-          <p>Wydawca: Rebel</p>
-          <p>Wiek: 14 - 99</p>
-          <p>Liczba graczy: 1 - 10</p>
-          <p>Kategoria: Strategiczna</p>
-        </div>
-        <div class="card-price">Cena: 199,99 PLN</div> <!-- Dodana cena -->
-      </div>
-      <div class="card">
-        <img src="wladca.png" alt="Opis obrazka" class="card-image">
-        <div class="card-text">
-          <h3>Władca Pierścieni. Podróże przez Śródziemie</h3>
-          <p>Wydawca: Rebel</p>
-          <p>Wiek: 14 - 99</p>
-          <p>Liczba graczy: 1 - 10</p>
-          <p>Kategoria: Strategiczna</p>
-        </div>
-        <div class="card-price">Cena: 199,99 PLN</div> <!-- Dodana cena -->
-      </div>
-      <div class="card">
-        <img src="wladca.png" alt="Opis obrazka" class="card-image">
-        <div class="card-text">
-          <h3>Władca Pierścieni. Podróże przez Śródziemie</h3>
-          <p>Wydawca: Rebel</p>
-          <p>Wiek: 14 - 99</p>
-          <p>Liczba graczy: 1 - 10</p>
-          <p>Kategoria: Strategiczna</p>
-        </div>
-        <div class="card-price">Cena: 199,99 PLN</div> <!-- Dodana cena -->
-      </div>
-      <div class="card">
-        <img src="wladca.png" alt="Opis obrazka" class="card-image">
-        <div class="card-text">
-          <h3>Władca Pierścieni. Podróże przez Śródziemie</h3>
-          <p>Wydawca: Rebel</p>
-          <p>Wiek: 14 - 99</p>
-          <p>Liczba graczy: 1 - 10</p>
-          <p>Kategoria: Strategiczna</p>
-        </div>
-        <div class="card-price">Cena: 199,99 PLN</div> <!-- Dodana cena -->
-      </div>
-      <div class="card">
-        <img src="wladca.png" alt="Opis obrazka" class="card-image">
-        <div class="card-text">
-          <h3>Władca Pierścieni. Podróże przez Śródziemie</h3>
-          <p>Wydawca: Rebel</p>
-          <p>Wiek: 14 - 99</p>
-          <p>Liczba graczy: 1 - 10</p>
-          <p>Kategoria: Strategiczna</p>
-        </div>
-        <div class="card-price">Cena: 199,99 PLN</div> <!-- Dodana cena -->
-      </div>
-      <div class="card">
-        <img src="wladca.png" alt="Opis obrazka" class="card-image">
-        <div class="card-text">
-          <h3>Władca Pierścieni. Podróże przez Śródziemie</h3>
-          <p>Wydawca: Rebel</p>
-          <p>Wiek: 14 - 99</p>
-          <p>Liczba graczy: 1 - 10</p>
-          <p>Kategoria: Strategiczna</p>
-        </div>
-        <div class="card-price">Cena: 199,99 PLN</div> <!-- Dodana cena -->
-      </div>
-      <div class="card">
-        <img src="wladca.png" alt="Opis obrazka" class="card-image">
-        <div class="card-text">
-          <h3>Władca Pierścieni. Podróże przez Śródziemie</h3>
-          <p>Wydawca: Rebel</p>
-          <p>Wiek: 14 - 99</p>
-          <p>Liczba graczy: 1 - 10</p>
-          <p>Kategoria: Strategiczna</p>
-        </div>
-        <div class="card-price">Cena: 199,99 PLN</div> <!-- Dodana cena -->
+        <div class="card-price">Cena: {{ card.price }}</div>
       </div>
 
       
   </div>
 </div>
+
+

@@ -2,37 +2,24 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA, HostListener } from '@angular/core';
 import { NavBarComponent } from "../nav-bar/nav-bar.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { GameDetailsComponent } from '../game-details/game-details.component';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [NavBarComponent, CommonModule, FormsModule],
+  imports: [NavBarComponent, CommonModule, FormsModule, GameDetailsComponent],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA], // Dodajemy schemat
 })
 export class MainPageComponent {
+  isGameDetailsVisible = false;
 
-  cards = [
-    {
-      name: "Gra 1",
-      producer: "Producent 1",
-      genre: "Przygodowa",
-      players: "2-4",
-      age: "12",
-      price: "15",
-      image: "discord.png"
-    },
-    {
-      name: "Gra 2",
-      producer: "Producent 2",
-      genre: "Strategiczna",
-      players: "3-6",
-      age: "10",
-      price: "20",
-      image: "path/to/image2.jpg"
-    }
-  ];
+  toggleGameDetails() {
+    this.isGameDetailsVisible = !this.isGameDetailsVisible;
+    console.log(this.isGameDetailsVisible);
+  }
+  
   minRange = 1; // Minimalna wartość suwaka
   maxRange = 8; // Maksymalna wartość suwaka
   step = 1; // Krok przesuwania
@@ -68,6 +55,123 @@ export class MainPageComponent {
       [this.minValueAge, this.maxValueAge] = [this.maxValueAge, this.minValueAge];
     }
   }
+
+
+  cards = [
+    { 
+      title: "Władca Pierścieni. Podróże przez Śródziemie", 
+      publisher: "Rebel", 
+      age: "14 - 99", 
+      players: "1 - 10", 
+      category: "Strategiczna", 
+      price: "199,99 PLN" 
+    },
+    { 
+      title: "Gra o Tron. Gra planszowa", 
+      publisher: "Fantasy Flight", 
+      age: "18 - 99", 
+      players: "2 - 6", 
+      category: "Strategiczna", 
+      price: "250,00 PLN" 
+    },
+    { 
+      title: "Catan", 
+      publisher: "Kosmos", 
+      age: "10 - 99", 
+      players: "3 - 4", 
+      category: "Strategiczna", 
+      price: "150,00 PLN" 
+    },
+    { 
+      title: "Catan", 
+      publisher: "Kosmos", 
+      age: "10 - 99", 
+      players: "3 - 4", 
+      category: "Strategiczna", 
+      price: "150,00 PLN" 
+    },
+    { 
+      title: "Catan", 
+      publisher: "Kosmos", 
+      age: "10 - 99", 
+      players: "3 - 4", 
+      category: "Strategiczna", 
+      price: "150,00 PLN" 
+    },
+    { 
+      title: "Catan", 
+      publisher: "Kosmos", 
+      age: "10 - 99", 
+      players: "3 - 4", 
+      category: "Strategiczna", 
+      price: "150,00 PLN" 
+    },
+    { 
+      title: "Catan", 
+      publisher: "Kosmos", 
+      age: "10 - 99", 
+      players: "3 - 4", 
+      category: "Strategiczna", 
+      price: "150,00 PLN" 
+    },
+    { 
+      title: "Catan", 
+      publisher: "Kosmos", 
+      age: "10 - 99", 
+      players: "3 - 4", 
+      category: "Strategiczna", 
+      price: "150,00 PLN" 
+    },
+    { 
+      title: "Catan", 
+      publisher: "Kosmos", 
+      age: "10 - 99", 
+      players: "3 - 4", 
+      category: "Strategiczna", 
+      price: "150,00 PLN" 
+    },
+    { 
+      title: "Catan", 
+      publisher: "Kosmos", 
+      age: "10 - 99", 
+      players: "3 - 4", 
+      category: "Strategiczna", 
+      price: "150,00 PLN" 
+    },
+    { 
+      title: "Catan", 
+      publisher: "Kosmos", 
+      age: "10 - 99", 
+      players: "3 - 4", 
+      category: "Strategiczna", 
+      price: "150,00 PLN" 
+    },
+    { 
+      title: "Catan", 
+      publisher: "Kosmos", 
+      age: "10 - 99", 
+      players: "3 - 4", 
+      category: "Strategiczna", 
+      price: "150,00 PLN" 
+    },
+    { 
+      title: "Catan", 
+      publisher: "Kosmos", 
+      age: "10 - 99", 
+      players: "3 - 4", 
+      category: "Strategiczna", 
+      price: "150,00 PLN" 
+    },
+    { 
+      title: "Catan", 
+      publisher: "Kosmos", 
+      age: "10 - 99", 
+      players: "3 - 4", 
+      category: "Strategiczna", 
+      price: "150,00 PLN" 
+    }
+    // Dodaj kolejne obiekty, jeśli potrzeba
+];
 
 
   options = ['Opcja 1', 'Opcja 2', 'Opcja 3', 'Opcja 4'];

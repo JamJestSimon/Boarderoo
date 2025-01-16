@@ -24,7 +24,9 @@
                       <h3 class="order-title">{{ item.title }}</h3>
                       <p class="order-price">{{days}} dni x {{ item.price }} zł = {{days * item.price}} zł</p>
                     </div>
-                    <button class="remove-button" (click)="removeItem(item)">Usuń</button>
+                    <button class="remove-button" (click)="removeItem(item)">
+                      <img src="delete.png" alt="Logout" class="navbar-icon">
+                    </button>
                   </div>
                   
 
