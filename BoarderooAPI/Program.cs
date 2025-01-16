@@ -20,7 +20,8 @@ builder.Services.AddSingleton(FirestoreDb.Create("boarderoo-71469"));
 builder.Services.AddScoped<FireBaseService>();
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<RegisterService>();
-
+builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<GameService>();
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

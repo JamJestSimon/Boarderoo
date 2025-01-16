@@ -12,23 +12,29 @@ namespace BoarderooAPI.Controllers;
 public class UserController: ControllerBase
 {
     private readonly FireBaseService _firebaseService;
+    private readonly UserService _userService;
+    private readonly GameService _gameService;
     
-    public UserController(FireBaseService firebaseService)
+    public UserController(FireBaseService firebaseService,UserService userService,GameService gameService)
     {
         _firebaseService = firebaseService;
+        _userService=userService;
+        _gameService=gameService;
+
+
     }
 
     [HttpGet(Name = "GetUsers")]
     public async Task<ActionResult> GetAllUsers()
     {
-        var response=await _firebaseService.GetAllUsers(); 
+        var response=await _userService.GetAllUsers(); 
         return ConvertServiceResultToActionResult(response);
     }
 
     [HttpPost(Name = "PostUser")]
     public async Task<ActionResult> AddUser(User user)
     {
-            var response=await _firebaseService.AddUser(user);
+            var response=await _userService.AddUser(user);
             return ConvertServiceResultToActionResult(response);
         
     }
@@ -38,17 +44,16 @@ public class UserController: ControllerBase
     public async Task<ActionResult> DeleteUser(string email)
     {
 
-            var response=await _firebaseService.DeleteUser(email);
+            var response=await _userService.DeleteUser(email);
             return ConvertServiceResultToActionResult(response);
 
     }
 
 
     [HttpPut]
-    [Route("{email}")]
-    public async Task<ActionResult> UpdateUser(string email,GeoPoint Location,string name,string password,string surname)
+    public async Task<ActionResult> UpdateUser(User user)
     {
-           var response=await _firebaseService.UpdateUser(email,Location,name,password,surname);
+           var response=await _userService.UpdateUser(user);
             return ConvertServiceResultToActionResult(response);
     }
     
@@ -56,10 +61,10 @@ public class UserController: ControllerBase
     [Route("{email}")]
     public async Task<ActionResult> GetUser(string email)
     {
-        var response=await _firebaseService.GetUserByEmail(email);
+        var response=await _userService.GetUserByEmail(email);
         return ConvertServiceResultToActionResult(response);
     }
-    private ActionResult ConvertServiceResultToActionResult<T>(UserServiceResult<T> serviceResult)
+    private ActionResult ConvertServiceResultToActionResult<T>(ServiceResult<T> serviceResult)
 {
     if (serviceResult.ResultCode==200)
     {
