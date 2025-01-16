@@ -1,24 +1,177 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body, html {
-    height: 100%;
-}
-
-.container {
+/* Kontener na overlay */
+.account-details-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
-    justify-content: center; /* Wyśrodkowanie w poziomie */
-    height: 100vh; /* Wypełnia całą wysokość */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
 }
 
-.content {
-    margin-top: 20px;
-    background-color: #A4691D; /* Kolor tła */
-    width: 50%; /* Ustawienie szerokości div */
-    height: 86%; /* Wypełnia całą wysokość */
-    border-radius: 40px;
-    border: 3px solid #422D29;
+.account-details-left {
+    width: 100%; /* Zajmuje całą szerokość */
+    background-color: #422D29;
+    padding: 20px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    box-sizing: border-box; /* Upewniamy się, że padding i border są wliczane do szerokości */
 }
+
+/* Kontener dla całego pop-up */
+.account-details-content {
+    background: #EA962A; /* Kolor tła */
+    border-radius: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 80%;
+    max-width: 900px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 5px solid #422D29;
+    box-sizing: border-box; /* Upewniamy się, że padding i border są wliczane do szerokości */
+}
+
+
+/* Styl dla avatar i nazwy */
+.avatar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.avatar span {
+    font-size: 20px;
+    font-weight: bold;
+    color: #EA962A;
+}
+
+.avatar-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+/* Kontener dla sekcji (przyciski i formularz obok siebie) */
+.account-details-sections {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px; /* Odstęp między sekcjami */
+    width: 100%;
+}
+
+/* Sekcja przycisków po lewej */
+.account-details-tabs {
+    width: 30%; /* Ustalamy szerokość sekcji przycisków */
+    background-color: #422D29;
+}
+
+/* Zmieniamy układ przycisków na pionowy */
+.tabs {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Styl przycisków */
+.tab-button {
+    background-color: transparent;
+    border: 0px solid #422D29;
+    border-radius: 0; /* Usunięcie zaokrąglonych rogów */
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #EA962A;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    width: 100%; /* Przyciski wypełniają całą szerokość */
+    text-align: left; /* Wyrównanie tekstu do lewej */
+    padding-left: 20px; /* Wyrównanie tekstu od lewej */
+}
+
+.tab-button:hover {
+    background-color: #EA962A;
+    color: #422D29;
+}
+
+.tab-button.hover {
+  background-color: #EA962A;
+  color: #422D29;
+}
+
+/* Sekcja formularza po prawej */
+.account-details-right {
+    width: 65%; /* Ustalamy szerokość sekcji formularza */
+}
+
+/* Styl dla formularza */
+.account-details-right form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #422D29;
+}
+
+.input-group input {
+    width: 80%;
+    padding: 10px;
+    border: 2px solid #422D29;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #422D29;
+    background-color: #f5cb95;
+}
+
+.input-group input:focus {
+    border-color: #422D29;
+    outline: none;
+}
+
+.save-button {
+    background-color: #A4691D;
+    color: #422D29;
+    border: 2px solid #422D29;
+    border-radius: 30px;
+    padding: 12px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    width: auto;
+    max-width: 300px;
+    margin: 20px auto 0;
+}
+
+.save-button:hover {
+    background-color: #A4691D;
+    border-color: #A4691D;
+    color: #422D29;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 30px;
+    color: #EA962A;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+
+  .close-button:hover {
+    
+  }
+  

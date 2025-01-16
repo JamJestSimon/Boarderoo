@@ -1,4 +1,68 @@
-<app-nav-bar></app-nav-bar>
-<div class="container">
-    <div class="content"></div>
-</div>
+<div class="account-details-overlay">
+    <div class="account-details-content">
+      <!-- Pasek z awatarem -->
+      <div class="account-details-left">
+        <div class="avatar">
+          <img src="avatar.png" alt="Awatar" class="avatar-img" />
+          <span class="username">{{userName}}</span>
+          <button class="close-button" (click)="onClose()">×</button>
+        </div>
+      </div>
+  
+      <div class="account-details-sections">
+        <!-- Sekcja przycisków po lewej -->
+        <div class="account-details-tabs">
+            <div class="tabs">
+              <button 
+                class="tab-button" 
+                (click)="showData()" 
+                [class.hover]="currentTab === 'data'"
+                (mouseenter)="setHovered()"
+                (mouseleave)="resetHovered()">
+                Dane
+              </button>
+              <button 
+                class="tab-button" 
+                (click)="showPassword()" 
+                [class.hover]="currentTab === 'password'"
+                (mouseenter)="setHovered()"
+                (mouseleave)="resetHovered()">
+                Hasło
+              </button>
+              <button 
+                class="tab-button" 
+                (click)="showOrderHistory()" 
+                [class.hover]="currentTab === 'orderHistory'"
+                (mouseenter)="setHovered()"
+                (mouseleave)="resetHovered()">
+                Historia zamówień
+              </button>
+            </div>
+          </div>
+          
+  
+        <!-- Formularz danych po prawej -->
+        <div class="account-details-right">
+          <h2>Dane</h2>
+          <form>
+            <div class="input-group">
+              <label for="firstName">Imię</label>
+              <input type="text" id="firstName" name="firstName" placeholder="Wprowadź imię" />
+            </div>
+            <div class="input-group">
+              <label for="lastName">Nazwisko</label>
+              <input type="text" id="lastName" name="lastName" placeholder="Wprowadź nazwisko" />
+            </div>
+            <div class="input-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="Wprowadź email" />
+            </div>
+            <button class="save-button" type="submit">Zapisz zmiany</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="toast-container" class="toast-top-right"></div>
+  

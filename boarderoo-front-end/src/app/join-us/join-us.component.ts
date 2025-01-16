@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms'; // Importowanie FormsModule
 
@@ -20,6 +20,7 @@ export class JoinUsComponent {
   onClose() {
     this.close.emit(); // Emitowanie zdarzenia
   }
+
 
   showSuccess() {
     this.toastr.overlayContainer = this.toastContainer;

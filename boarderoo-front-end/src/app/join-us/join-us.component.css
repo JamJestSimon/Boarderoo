@@ -50,32 +50,35 @@ h2 {
   .login-button {
     background-color: #A4691D;
     color: #422D29;
-    border: 2px solid #422D29;
     border-radius: 30px;
     padding: 12px 30px;
     font-size: 18px;
     cursor: pointer;
     width: 40%;
+    border: 2px solid #A4691D;
     margin-top: 10px;
+    transition: transform 0.3s ease;
+    
   }
 
   .register-button {
     background-color: #A4691D;
     color: #422D29;
-    border: 2px solid #422D29;
     border-radius: 30px;
     padding: 12px 30px;
     font-size: 18px;
+    border: 2px solid #A4691D;
     cursor: pointer;
     width: auto;
     max-width: 300px; /* opcjonalnie - ogranicz szerokość przycisku */
     margin: 20px auto 0; /* wyśrodkowanie przycisku */
+    transition: transform 0.3s ease;
   }
   
   .login-button:hover, .register-button:hover {
     background-color: #A4691D;
-    border-color: #A4691D;
     color: #422D29;
+    transform: scale(1.1);
   }
   
   /* Kreska oddzielająca logowanie i rejestrację */

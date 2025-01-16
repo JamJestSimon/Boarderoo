@@ -7,14 +7,17 @@
     <div class="navbar-actions">
       <!-- Koszyk -->
       <a href="/cart" class="navbar-cart">
-        <img src="cart-icon.png" alt="Cart" class="navbar-icon">
+        <img src="cart.png" alt="Cart" class="navbar-icon">
       </a>
   
       <!-- Menu użytkownika -->
       <div class="navbar-user">
-        <button class="navbar-user-button">
-          <img src="user-icon.png" alt="User" class="navbar-icon">
+        <button class="navbar-user-button" (click)="toggleAccountDetails()">
+          <img src="avatar.png" alt="User" class="navbar-icon">
         </button>
+        <div id="account-details-popup" [ngClass]="{ 'accountDetailsInvisible': !isAccountDetailsVisible, 'accountDetailsVisible': isAccountDetailsVisible }">
+            <app-account-details (close)="toggleAccountDetails()"></app-account-details>
+          </div>
       </div>
     </div>
   </nav>

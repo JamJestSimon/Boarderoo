@@ -5,10 +5,9 @@
     justify-content: space-between;
     width: 99%;
     height: 8vh;
-    background-color: #A4691D;
+    background-color: #422D29;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
-    border: 3px solid #422D29;
 }
 
 /* Logo */
@@ -30,14 +29,15 @@
 .navbar-logo-text {
     font-size: 20px;
     font-weight: bold;
-    color: #422D29;
+    color: #EA962A;
 }
 
 /* Actions container */
 .navbar-actions {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
+    margin-right: 10px;
 }
 
 /* Cart */
@@ -47,7 +47,7 @@
 }
 
 .navbar-icon {
-    height: 28px;
+    height: 40px;
 }
 
 /* User Menu */
@@ -76,3 +76,9 @@
     width: 150px;
 }
 
+.accountDetailsInvisible {
+    visibility: hidden;
+  }
+  .accountDetailsVisible {
+    visibility: visible;
+  }

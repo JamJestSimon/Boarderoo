@@ -5,7 +5,6 @@ import { provideAnimations } from '@angular/platform-browser/animations'; // Ani
 import { provideToastr } from 'ngx-toastr';
 import { provideRouter } from '@angular/router';
 import { StartPageComponent } from './app/start-page/start-page.component';
-import { AccountDetailsComponent } from './app/account-details/account-details.component';
 import { CallbackComponent } from './app/callback/callback.component';
 
 bootstrapApplication(AppComponent, {
@@ -18,7 +17,6 @@ bootstrapApplication(AppComponent, {
     provideRouter([
       { path: "", component: StartPageComponent },
       { path: "gry", component: MainPageComponent },
-      { path: "konto", component: AccountDetailsComponent},
       { path: "callback", component: CallbackComponent},
     ])
   ]
