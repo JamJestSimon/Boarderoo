@@ -2,9 +2,150 @@
 
 <div class="container">
   <div class="left-pane">
-    Lewy div (30%)
+    <span class="filtr-label">Filtry</span>
+    <div class="divider"></div>
+
+    <label for="gameName">Nazwa:</label>
+    <div class="input-group">
+        <input type="text" id="gameName" placeholder="Szukaj po nazwie" />
+      </div>
+
+      <span class="option-label">Wydawcy:</span>
+<div class="dropdown-container">
+  <!-- Pole, które otworzy dropdown dla wydawców -->
+  <div class="dropdown-input" (click)="toggleDropdown($event)">
+    <input type="text" [value]="selectedOptions.join(', ')" readonly placeholder="Wybierz opcje" />
+  </div>
+
+  <!-- Rozwijane menu dla wydawców -->
+  <div class="dropdown-table" *ngIf="isDropdownOpen">
+    <table>
+      <tr *ngFor="let option of options">
+        <td>
+          <input type="checkbox" [checked]="selectedOptions.includes(option)" (change)="onSelectionChange(option)" />
+        </td>
+        <td>{{ option }}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<span class="option-label">Kategorie:</span>
+<div class="dropdown-container">
+  <!-- Pole, które otworzy dropdown dla kategorii -->
+  <div class="dropdown-input" (click)="toggleCategoryDropdown($event)">
+    <input type="text" [value]="selectedCategories.join(', ')" readonly placeholder="Wybierz kategorie" />
+  </div>
+
+  <!-- Rozwijane menu dla kategorii -->
+  <div class="dropdown-table" *ngIf="isCategoryDropdownOpen">
+    <table>
+      <tr *ngFor="let category of categories">
+        <td>
+          <input type="checkbox" [checked]="selectedCategories.includes(category)" (change)="onCategorySelectionChange(category)" />
+        </td>
+        <td>{{ category }}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+    <label for="range-slider">Liczba osób:</label>
+  <div class="slider-container">
+    <div class="slider-track"></div>
+    <input
+      type="range"
+      [(ngModel)]="minValue"
+      [min]="minRange"
+      [max]="maxRange"
+      [step]="step"
+      (input)="updateSlider()"
+      class="thumb thumb-left"
+    />
+    <input
+      type="range"
+      [(ngModel)]="maxValue"
+      [min]="minRange"
+      [max]="maxRange"
+      [step]="step"
+      (input)="updateSlider()"
+      class="thumb thumb-right"
+    />
+  </div>
+  <div class="slider-values">
+    <span>Min: {{ minValue }}</span>
+    <span>Max: {{ maxValue }}</span>
+  </div>
+
+  <label for="range-slider">Wiek graczy:</label>
+  <div class="slider-container">
+    <div class="slider-track"></div>
+    <input
+      type="range"
+      [(ngModel)]="minValueAge"
+      [min]="minRangeAge"
+      [max]="maxRangeAge"
+      [step]="stepAge"
+      (input)="updateSliderAge()"
+      class="thumb thumb-left"
+    />
+    <input
+      type="range"
+      [(ngModel)]="maxValueAge"
+      [min]="minRangeAge"
+      [max]="maxRangeAge"
+      [step]="stepAge"
+      (input)="updateSliderAge()"
+      class="thumb thumb-right"
+    />
+  </div>
+  <div class="slider-values">
+    <span>Min: {{ minValueAge }}</span>
+    <span>Max: {{ maxValueAge }}</span>
+  </div>
+
+  <label for="range-slider">Rok wydania:</label>
+  <div class="slider-container">
+    <div class="slider-track"></div>
+    <input
+      type="range"
+      [(ngModel)]="minValueYear"
+      [min]="minRangeYear"
+      [max]="maxRangeYear"
+      [step]="stepYear"
+      (input)="updateSliderYear()"
+      class="thumb thumb-left"
+    />
+    <input
+      type="range"
+      [(ngModel)]="maxValueYear"
+      [min]="minRangeYear"
+      [max]="maxRangeYear"
+      [step]="stepYear"
+      (input)="updateSliderYear()"
+      class="thumb thumb-right"
+    />
+  </div>
+  <div class="slider-values">
+    <span>Min: {{ minValueYear }}</span>
+    <span>Max: {{ maxValueYear }}</span>
+  </div>
   </div>
   <div class="right-pane">
-    Prawy div (70%)
+    <div class="card">Karta 1</div>
+    <div class="card">Karta 2</div>
+    <div class="card">Karta 3</div>
+    <div class="card">Karta 4</div>
+    <div class="card">Karta 5</div>
+    <div class="card">Karta 6</div>
+    <div class="card">Karta 7</div>
+    <div class="card">Karta 8</div>
+    <div class="card">Karta 9</div>
+    <div class="card">Karta 10</div>
+    <div class="card">Karta 11</div>
+    <div class="card">Karta 12</div>
+    <div class="card">Karta 13</div>
+    <div class="card">Karta 14</div>
+    <div class="card">Karta 15</div>
+    <div class="card">Karta 16</div>
   </div>
 </div>
