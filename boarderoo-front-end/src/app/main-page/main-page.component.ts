@@ -12,6 +12,27 @@ import { FormsModule } from '@angular/forms';
   schemas: [CUSTOM_ELEMENTS_SCHEMA], // Dodajemy schemat
 })
 export class MainPageComponent {
+
+  cards = [
+    {
+      name: "Gra 1",
+      producer: "Producent 1",
+      genre: "Przygodowa",
+      players: "2-4",
+      age: "12",
+      price: "15",
+      image: "discord.png"
+    },
+    {
+      name: "Gra 2",
+      producer: "Producent 2",
+      genre: "Strategiczna",
+      players: "3-6",
+      age: "10",
+      price: "20",
+      image: "path/to/image2.jpg"
+    }
+  ];
   minRange = 1; // Minimalna wartość suwaka
   maxRange = 8; // Maksymalna wartość suwaka
   step = 1; // Krok przesuwania

@@ -14,15 +14,39 @@ body {
     background-color: #422D29; /* Przykładowy kolor tła */
     color: #EA962A;
     text-align: center;
-    padding: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     box-sizing: border-box; /* Uwzględnij padding w szerokości */
     border-radius:  10px;
+    margin-top: 10px;
   }
 
   .filtr-label {
     font-weight: bold;
     font-size: 24px;
   }
+
+  .confirm-button {
+    width: 60%;
+    padding: 10px;
+    background-color: #EA962A; /* Kolor tła przycisku */
+    color: #422D29; /* Kolor tekstu */
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 40px; /* Odstęp od innych elementów */
+    transition: transform 0.3s ease;
+}
+
+.confirm-button:hover {
+    transform: scale(1.1);
+}
+
+
 
   .divider {
     width: 100%;
@@ -94,7 +118,10 @@ body {
   
   .right-pane {
     width: 73%;
-    padding-right: 10px;
+    padding-right: 20px;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
     box-sizing: border-box; /* Uwzględnij padding w szerokości */
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 kolumny o równej szerokości */
@@ -108,11 +135,59 @@ body {
     background-color: #f5cb95;
     border: 2px solid #422D29;
     border-radius: 8px;
-    padding: 20px;
-    text-align: center;
+    padding: 10px; /* Zmniejszony padding, by uwzględnić obrazek */
+    text-align: left; /* Tekst wyrównany do lewej */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    height: 150px; /* Ustaw stałą wysokość kart */
+    height: 165px; /* Pozwól wysokości dostosować się do treści */
+    display: flex; /* Użycie Flexboxa dla układu poziomego */
+    align-items: flex-start; /* Wyrównanie obrazka i tekstu w pionie, zaczynając od góry */
+    gap: 15px; /* Odstęp między obrazkiem a tekstem */
+    position: relative; /* Pozwala na pozycjonowanie ceny względem karty */
+    transition: transform 0.3s ease;
   }
+
+  .card:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+  }
+  
+  .card-image {
+    width: 160px; /* Szerokość obrazka */
+    height: 160px; /* Wysokość obrazka */
+    object-fit: cover; /* Dopasowanie obrazka bez zniekształceń */
+    border-radius: 10%; /* Zaokrąglenie obrazka (np. awatar) */
+    border: 2px solid #422D29;
+  }
+  
+  .card-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Wyrównanie tekstu do góry */
+  }
+  
+  .card-text h3 {
+    margin: 0 0 5px; /* Marginesy między tytułem a opisem */
+    font-size: 18px;
+    color: #422D29;
+  }
+  
+  .card-text p {
+    margin: 0;
+    font-size: 14px;
+    color: #6E4E43;
+  }
+  
+  .card-price {
+    position: absolute; /* Pozycjonowanie absolutne */
+    bottom: 10px; /* Odstęp od dołu karty */
+    right: 10px; /* Odstęp od prawej krawędzi */
+    font-size: 16px;
+    color: #422D29;
+    font-weight: bold;
+  }
+  
+
+  
   
   /* Ustawienia dla samego paska przewijania */
 ::-webkit-scrollbar {
