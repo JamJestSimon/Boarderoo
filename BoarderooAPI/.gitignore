@@ -1,5 +1,6 @@
 # Visual Studio Code settings
 .vscode/
+.vs/
 
 # Build directories
 bin/
