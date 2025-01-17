@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import pl.boarderoo.mobileapp.main.AppRuntimeData
+import pl.boarderoo.mobileapp.datastore.AppRuntimeData
 import pl.boarderoo.mobileapp.retrofit.models.OrderModel
 import pl.boarderoo.mobileapp.retrofit.services.OrderService
 

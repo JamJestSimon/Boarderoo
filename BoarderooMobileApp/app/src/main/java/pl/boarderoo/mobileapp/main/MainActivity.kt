@@ -37,10 +37,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.firebase.auth.ActionCodeInfo
 import kotlinx.coroutines.launch
 import pl.boarderoo.mobileapp.LightButton
 import pl.boarderoo.mobileapp.R
+import pl.boarderoo.mobileapp.datastore.AppRuntimeData
 import pl.boarderoo.mobileapp.datastore.saveLoginData
 import pl.boarderoo.mobileapp.start.StartActivity
 import pl.boarderoo.mobileapp.ui.theme.BoarderooMobileAppTheme
@@ -169,7 +169,7 @@ class MainActivity : ComponentActivity() {
                                     composable(route = "MainScreen") { MainScreen() }
                                     composable(route = "GameScreen") { GameScreen() }
                                     composable(route = "OrderScreen") { OrderScreen() }
-                                    composable(route = "CartScreen") { OrderScreen() }
+                                    composable(route = "CartScreen") { CartScreen() }
                                     composable(route = "AccountInfo") { AccountInfo() }
                                 }
                             }

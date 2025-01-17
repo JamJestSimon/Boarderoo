@@ -1,4 +1,4 @@
-package pl.boarderoo.mobileapp.main
+package pl.boarderoo.mobileapp.datastore
 
 import pl.boarderoo.mobileapp.retrofit.models.GameModel
 import pl.boarderoo.mobileapp.retrofit.models.UserModel

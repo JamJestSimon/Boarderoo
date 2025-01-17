@@ -52,7 +52,7 @@ import pl.boarderoo.mobileapp.DarkButton
 import pl.boarderoo.mobileapp.R
 import pl.boarderoo.mobileapp.datastore.getLoginState
 import pl.boarderoo.mobileapp.datastore.getUserEmail
-import pl.boarderoo.mobileapp.main.AppRuntimeData
+import pl.boarderoo.mobileapp.datastore.AppRuntimeData
 import pl.boarderoo.mobileapp.main.MainActivity
 import pl.boarderoo.mobileapp.retrofit.services.UserService
 import pl.boarderoo.mobileapp.ui.theme.BoarderooMobileAppTheme

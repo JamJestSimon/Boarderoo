@@ -43,7 +43,7 @@ import pl.boarderoo.mobileapp.LightTextField
 import pl.boarderoo.mobileapp.PageWithTitle
 import pl.boarderoo.mobileapp.R
 import pl.boarderoo.mobileapp.datastore.saveLoginData
-import pl.boarderoo.mobileapp.main.AppRuntimeData
+import pl.boarderoo.mobileapp.datastore.AppRuntimeData
 import pl.boarderoo.mobileapp.main.MainActivity
 import pl.boarderoo.mobileapp.retrofit.services.LoginService
 import pl.boarderoo.mobileapp.retrofit.services.UserService
