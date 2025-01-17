@@ -31,13 +31,16 @@ public class LoginService
         {
             if (data[0].GetValue<bool>("IsVerified") == true)
             {
-                if (password == data[0].GetValue<string>("Password"))
+                string hash = data[0].GetValue<string>("Password");
+                string password_hashed=HashService.hashfunction(password);
+                if (password_hashed == hash )
                 {
                     //pomyslnie zalogowano
                     return new ServiceResult<string>
                     {
                         Message = "Uzytkownik zalogowany poprawnie!",
-                        ResultCode = 200
+                        ResultCode = 200,
+                        Data="Ok"
                     };
 
                 }

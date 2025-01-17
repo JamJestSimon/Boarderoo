@@ -68,14 +68,14 @@ public class UserController: ControllerBase
 {
     if (serviceResult.ResultCode==200)
     {
-        return Ok(serviceResult.Data); // Sukces
+        return Ok(serviceResult); // Sukces
     }
 
     if (serviceResult.ResultCode is not null)
     {
         return StatusCode(serviceResult.ResultCode ?? 500, new { Message = serviceResult.Message });
     }
-    return BadRequest(new { Message = serviceResult.Message });
+    return BadRequest(serviceResult);
 }
     // [HttpGet(Name = "GetLogin")]
     // public async Task<ActionResult> Login(string email,string password)

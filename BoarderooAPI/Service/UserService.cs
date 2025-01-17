@@ -22,13 +22,15 @@ public async Task<ServiceResult<User>> AddUser(User user)
          var usersCollection = this.getUserCollection();
             var newUser=ConvertModeltoDocument(user);
             newUser.Location=geoPoint;
+            newUser.Password=HashService.hashfunction(user.Password);
             await usersCollection.AddAsync(newUser);
+            var u=ConvertDocumentToModel(newUser);
             //nie ma uzytnika w bazie (dodajemy)
               return new ServiceResult<User>
         {
             Message="Uzytkownik dodany poprawnie!",
             ResultCode=200,
-            Data=user
+            Data=u
         };
     }
         else return new ServiceResult<User>
@@ -78,7 +80,7 @@ public async Task<ServiceResult<User>> AddUser(User user)
                 { "Email",user.Email},
                 { "Location",user.Location },
                 { "Name",user.Name },
-                { "Password",user.Password },
+                { "Password",HashService.hashfunction(user.Password) },
                 { "Surname",user.Surname }
             };
             

@@ -12,16 +12,32 @@ public RegisterService(UserService userService)
 }
 
 
-    public int Register(string mail, string password)
+    public async Task<ServiceResult<string>> Register(string mail, string password)
     {
+        try
+        {
+return new ServiceResult<string>
+        {
+            Message="Zarejestrowano pomyslnie!",
+            ResultCode=200
+        };
+        }
+        catch(Exception e)
+        {
+            return new ServiceResult<string>
+        {
+            Message="Blad"+e.ToString(),
+            ResultCode=500
+        };
+        }
         //sprawdzamy czy uzytkownik istnieje w bazie danych
         //generujesz token uzytkownika z data
         //dodajesz do bazy danych
         //wysylasz maila z linkiem
-        return 0;
+       // return 0;
     }
 
-    public async Task<int> Register(string email,string password, FireBaseService fireBaseService)
+    public async Task<ServiceResult<string>> Register(string email,string password, FireBaseService fireBaseService)
     {
 
         var usersCollection = _userService.getUserCollectionByEmail(email);
@@ -41,11 +57,19 @@ public RegisterService(UserService userService)
             //await EmailService.SendEmail();//wysylamy email z kodem
             //dodajesz do bazy danych
             //wysylasz maila z linkiem
-            return 200;
+            return new ServiceResult<string>
+        {
+            Message="Zarejestrowano pomyslnie!",
+            ResultCode=200
+        };
         }else
         {
           //uzytkownik juz istnieje w bazie danych
-          return 400;//
+           return new ServiceResult<string>
+        {
+            Message="Brak uzytkownika o takim emailu!",
+            ResultCode=400
+        };
         }
     }
 }

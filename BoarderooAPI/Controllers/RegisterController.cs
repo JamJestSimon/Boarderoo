@@ -1,17 +1,17 @@
-using Microsoft.AspNetCore.Mvc;
-using BoarderooAPI.Model;
-using BoarderooAPI.Service;
+// using Microsoft.AspNetCore.Mvc;
+// using BoarderooAPI.Model;
+// using BoarderooAPI.Service;
 
-namespace BoarderooAPI.Controllers;
+// namespace BoarderooAPI.Controllers;
 
- [ApiController]
- [Route("[controller]")]
+//  [ApiController]
+//  [Route("[controller]")]
 
- public class RegisterController:ControllerBase
- {
-    private readonly RegisterService _registerService;
-    public RegisterController(RegisterService registerService)
-    {
-        this._registerService=registerService;
-    }
- }
+//  public class RegisterController:ControllerBase
+//  {
+//     private readonly RegisterService _registerService;
+//     public RegisterController(RegisterService registerService)
+//     {
+//         this._registerService=registerService;
+//     }
+//  }
