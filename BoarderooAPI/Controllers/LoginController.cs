@@ -16,9 +16,9 @@ namespace BoarderooAPI.Controllers;
     }
 
     [HttpPost(Name = "Login")]
-    public async Task<ActionResult> Login(string email,string password)
+    public async Task<ActionResult> Login([FromBody] LoginRequest request)
     {
-        var response=await _loginService.Login(email,password); 
+        var response=await _loginService.Login(request.Email,request.Password); 
         return ConvertServiceResultToActionResult(response);
     }
 
