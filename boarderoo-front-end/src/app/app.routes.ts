@@ -7,6 +7,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 import { PasswordResetComponent } from './password-reset/password-reset.component';
 import { AccountDetailComponent } from './account-details/account-details.component';
 import { AccountVerificationComponent } from './account-verification/account-verification.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 
 export const routes: Routes = [
   { path: "", component: StartPageComponent },
@@ -15,4 +16,5 @@ export const routes: Routes = [
   { path: "adminPanel", component: AdminPanelComponent},
   { path: "resetHasla", component: PasswordResetComponent},
   { path: "weryfikacja", component: AccountVerificationComponent},
+  { path: "admin", component: AdminLoginComponent},
 ];

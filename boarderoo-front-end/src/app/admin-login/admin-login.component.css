@@ -13,8 +13,8 @@
     background-color: #422D29; /* Kolor tła */
     color: #EA962A; /* Kolor tekstu */
     padding: 20px;
-    width: 800px;
-    height: 400px;
+    width: 400px;
+    height: 600px;
     border-radius: 10px; /* Zaokrąglone rogi */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Cień */
     text-align: center; /* Tekst na środku */
@@ -32,6 +32,27 @@
     padding: 5px;
     border: 3px solid #EA962A;
     cursor: pointer;
+  }
+
+  .input-container {
+    margin-top: 30px;
+    text-align: left;
+  }
+
+  label {
+    margin-top: 20px;
+    display: block;
+    font-weight: bold;
+  }
+
+
+  .login-input {
+    display: block;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #f5cb95;
+    border: 2px solid #EA962A;
+    border-radius: 5px;
   }
 
   .submit-button {
