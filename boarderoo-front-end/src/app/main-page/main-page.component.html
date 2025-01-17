@@ -1,6 +1,6 @@
 <app-nav-bar></app-nav-bar>
 <div id="account-details-popup" [ngClass]="{ 'gameDetailsInvisible': !isGameDetailsVisible, 'gameDetailsVisible': isGameDetailsVisible }">
-  <app-game-details (close)="toggleGameDetails()"></app-game-details>
+  <app-game-details (close)="toggleGameDetails()" [selectedCard]="selectedCard"></app-game-details>
 </div>
 
 <div class="container">
@@ -136,7 +136,7 @@
   <button class="confirm-button">Zatwierdź</button>
   </div>
   <div class="right-pane">
-    <div class="card" *ngFor="let card of cards" (click)="toggleGameDetails()">
+    <div class="card" *ngFor="let card of cards" (click)="toggleGameDetails(card)">
         <img src="wladca.png" alt="Opis obrazka" class="card-image">
         <div class="card-text">
           <h3>{{ card.title }}</h3>

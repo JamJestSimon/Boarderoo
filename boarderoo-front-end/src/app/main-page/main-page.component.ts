@@ -13,11 +13,15 @@ import { GameDetailsComponent } from '../game-details/game-details.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA], // Dodajemy schemat
 })
 export class MainPageComponent {
+[x: string]: any;
   isGameDetailsVisible = false;
+  selectedCard: any = null;
 
-  toggleGameDetails() {
-    this.isGameDetailsVisible = !this.isGameDetailsVisible;
-    console.log(this.isGameDetailsVisible);
+  toggleGameDetails(card?: any) {
+    if (card) {
+      this.selectedCard = card; // Ustawiamy wybraną kartę
+    }
+    this.isGameDetailsVisible = !this.isGameDetailsVisible; // Przełączamy widoczność
   }
   
   minRange = 1; // Minimalna wartość suwaka
@@ -64,7 +68,11 @@ export class MainPageComponent {
       age: "14 - 99", 
       players: "1 - 10", 
       category: "Strategiczna", 
-      price: "199,99 PLN" 
+      price: "199,99" ,
+      photos: "discord.png,wladca.png,avatar.png",
+      year: "2015",
+      description : "Jednemu tylko panu służę: królowi Marchii, Theodenowi, synowi Thengla – odparł Eomer. – Nie służymy potędze dalekiego Czarnego Kraju, lecz nie prowadzimy też z nią otwartej wojny. Jeśli więc przed nią uciekacie, opuśćcie lepiej nasz kraj. Na całym pograniczu szerzy się niepokój i jesteśmy zagrożeni; pragniemy jednak tylko zachować wolność i żyć tak, jak żyliśmy, poprzestając na swoim, nie służąc obcym panom, ani dobrym, ani złym. W lepszych czasach chętnie i przyjaźnie witaliśmy cudzoziemców, lecz w tych niespokojnych dniach obcy, nieproszeni goście muszą się u nas spotykać z podejrzliwym i surowym przyjęciem. Mówcie! Coście za jedni? Komu służycie? Na czyj rozkaz ścigacie orków po naszym stepie Jednemu tylko panu służę: królowi Marchii, Theodenowi, synowi Thengla – odparł Eomer. – Nie służymy potędze dalekiego Czarnego Kraju, lecz nie prowadzimy też z nią otwartej wojny. Jeśli więc przed nią uciekacie, opuśćcie lepiej nasz kraj. Na całym pograniczu szerzy się niepokój i jesteśmy zagrożeni; pragniemy jednak tylko zachować wolność i żyć tak, jak żyliśmy, poprzestając na swoim, nie służąc obcym panom, ani dobrym, ani złym. W lepszych czasach chętnie i przyjaźnie witaliśmy cudzoziemców, lecz w tych niespokojnych dniach obcy, nieproszeni goście muszą się u nas spotykać z podejrzliwym i surowym przyjęciem. Mówcie! Coście za jedni? Komu służycie? Na czyj rozkaz ścigacie orków po naszym stepie?"
+
     },
     { 
       title: "Gra o Tron. Gra planszowa", 
