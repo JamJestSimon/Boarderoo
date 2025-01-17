@@ -6,6 +6,7 @@ import retrofit2.Response
 
 interface UserServiceInterface {
     suspend fun getUserByEmail(email: String): Response<ResponseModel<UserModel>>
+    suspend fun editUser(userModel: UserModel): Response<ResponseModel<String>>
 }
 
 class UserService(
@@ -13,5 +14,9 @@ class UserService(
 ) : UserServiceInterface {
     override suspend fun getUserByEmail(email: String): Response<ResponseModel<UserModel>> {
         return apiService.getUserByEmail(email)
+    }
+
+    override suspend fun editUser(userModel: UserModel): Response<ResponseModel<String>> {
+        return apiService.editUser(userModel)
     }
 }
