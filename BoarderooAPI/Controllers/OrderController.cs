@@ -48,7 +48,7 @@ namespace BoarderooAPI.Controllers;
 
 
     [HttpGet]
-    [Route("/Order/user/{id}")]
+    [Route("/Order/user/{email}")]
     public async Task<ActionResult> GetOrdersByUser(string email)
     {
       
