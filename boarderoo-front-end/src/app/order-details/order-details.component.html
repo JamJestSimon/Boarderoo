@@ -1,1 +1,34 @@
-<p>order-details works!</p>
+<div class="order-details-overlay">
+    <div class="order-details-content">
+        <div class="order-details-top">
+            <div class="order-details">
+                <div>
+                    <span>Zamówienie numer {{selectedOrder.number}}</span>
+                </div>
+                <button class="close-button" (click)="onClose()">×</button>
+            </div>
+        </div>
+        <div class="order-details-sections">
+            <div class="order-section-left">
+                <span class="header">Wypożyczone przedmioty:</span>
+                <div class="divider"></div>
+            </div>
+            <div class="order-section-middle">
+                <span class="header">Dane klienta:</span>
+                <div class="divider"></div>
+            </div>
+            <div class="order-section-right">
+                <span class="header">Dane transakcji:</span>
+                <div class="divider"></div>
+            </div>
+    </div>
+    <div class="input-container">
+        <label for="example-select">Kategoria:</label>
+        <select id="example-select" class="custom-select">
+          <option value="option1">Opcja 1</option>
+          <option value="option2">Opcja 2</option>
+          <option value="option3">Opcja 3</option>
+          <option value="option4">Opcja 4</option>
+        </select>
+      </div>
+</div>

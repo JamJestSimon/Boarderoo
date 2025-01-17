@@ -155,6 +155,7 @@ body {
     width: 100%; /* Ustaw szerokość na 100% rodzica */
     box-sizing: border-box; /* Uwzględnij padding w szerokości */
     transition: transform 0.3s ease;
+    cursor: pointer;
   }
 
   .order-card:hover {
@@ -192,17 +193,9 @@ body {
     font-weight: bold;
   }
 
-  .status-pending {
-    color: #f5cb95;
-    font-weight: bold;
+  .orderDetailsInvisible {
+    display: none;
   }
-
-  .status-completed {
-    color: #57d9a3;
-    font-weight: bold;
-  }
-
-  .status-canceled {
-    color: #e57373;
-    font-weight: bold;
+  .orderDetailsVisible {
+    display: block;
   }
