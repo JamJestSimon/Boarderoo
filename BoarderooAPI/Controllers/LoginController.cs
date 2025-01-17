@@ -15,7 +15,7 @@ namespace BoarderooAPI.Controllers;
         this._loginService=loginService;
     }
 
-    [HttpGet(Name = "Login")]
+    [HttpPost(Name = "Login")]
     public async Task<ActionResult> Login(string email,string password)
     {
         var response=await _loginService.Login(email,password); 
@@ -29,7 +29,7 @@ namespace BoarderooAPI.Controllers;
         return Ok(serviceResult); // Sukces
     }
 
-    if (serviceResult.ResultCode is not null)
+    if (serviceResult.ResultCode is null)
     {
         return StatusCode(serviceResult.ResultCode ?? 500, new { Message = serviceResult.Message });
     }
