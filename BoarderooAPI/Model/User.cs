@@ -6,7 +6,7 @@ public class User
     public string Email{get; set;}
     public bool IsVerified {get; set;}
 
-    public GeoPoint Location {get; set;}
+    public GeoPoint Location {get; set;} // adres zamiast tego
     public string Name {get; set;}
 
     public string Password {get; set;}

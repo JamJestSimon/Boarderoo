@@ -10,5 +10,6 @@ public class Game
     public string Players_number {get; set;}
     public string Year { get; set;}
     public int Rating {get; set;}
-    public bool enabled {get; set;}
+    public bool Enabled {get; set;}
+    public int Available_copies {get; set;}
 }

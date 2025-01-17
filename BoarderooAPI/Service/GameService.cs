@@ -143,6 +143,7 @@ using Google.Cloud.Firestore;
         try
         {
             var gamesCollection = getGameCollection();
+            //tutaj popraw jesli jest pusta
             if(gamesCollection!=null)
             {
                 var gameList = await gamesCollection.GetSnapshotAsync();
