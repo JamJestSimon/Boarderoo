@@ -8,6 +8,7 @@ import { PasswordResetComponent } from './password-reset/password-reset.componen
 import { AccountDetailComponent } from './account-details/account-details.component';
 import { AccountVerificationComponent } from './account-verification/account-verification.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { OrdersListComponent } from './orders-list/orders-list.component';
 
 export const routes: Routes = [
   { path: "", component: StartPageComponent },
@@ -17,4 +18,5 @@ export const routes: Routes = [
   { path: "resetHasla", component: PasswordResetComponent},
   { path: "weryfikacja", component: AccountVerificationComponent},
   { path: "admin", component: AdminLoginComponent},
+  { path: "zamowienia", component: OrdersListComponent},
 ];

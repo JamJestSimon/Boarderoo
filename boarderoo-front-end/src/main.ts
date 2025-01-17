@@ -11,6 +11,7 @@ import { AdminPanelComponent } from './app/admin-panel/admin-panel.component';
 import { PasswordResetComponent } from './app/password-reset/password-reset.component';
 import { AccountVerificationComponent } from './app/account-verification/account-verification.component';
 import { AdminLoginComponent } from './app/admin-login/admin-login.component';
+import { OrdersListComponent } from './app/orders-list/orders-list.component';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -27,6 +28,7 @@ bootstrapApplication(AppComponent, {
       { path: "resetHasla", component: PasswordResetComponent},
       { path: "weryfikacja", component: AccountVerificationComponent},
       { path: "admin", component: AdminLoginComponent},
+      { path: "zamowienia", component: OrdersListComponent},
     ]), NgxPayPalModule
   ]
 }).catch((err) => console.error(err));
