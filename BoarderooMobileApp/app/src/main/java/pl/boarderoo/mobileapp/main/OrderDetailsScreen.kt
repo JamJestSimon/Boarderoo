@@ -11,5 +11,5 @@ fun OrderDetailsScreen() {
 @Preview
 @Composable
 fun OrderDetailsScreenPreview() {
-
+    OrderDetailsScreen()
 }
