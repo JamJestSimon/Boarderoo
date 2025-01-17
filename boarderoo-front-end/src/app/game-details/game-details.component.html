@@ -1,7 +1,7 @@
 <!-- Kontener na powiększone zdjęcie -->
 <div class="zoomed-image-overlay" *ngIf="showZoomedImage">
     <div class="zoomed-image-container">
-        <img [src]="photos[currentPhotoIndex]" alt="Powiększone zdjęcie" />
+        <img [src]="photos[currentPhotoIndex]" alt="Powiększone zdjęcie" (click)=" closeZoomedImage()" />
         <button class="close-zoomed-image" (click)="closeZoomedImage()">×</button>
     </div>
 </div>

@@ -53,10 +53,26 @@
 
 .navbar-icon {
     height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.navbar-icon:hover {
+    transform: scale(1.1);
 }
 
 /* User Menu */
-.navbar-user {
+.userOptionsInvisible {
+    position: relative;
+    display: none;
+}
+
+.userOptionsVisible {
+    position: relative;
+    display:block;
+    
+}
+
+.navbar-user{
     position: relative;
 }
 

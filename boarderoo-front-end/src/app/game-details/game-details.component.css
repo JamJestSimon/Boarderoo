@@ -158,7 +158,7 @@
     max-height: 160px;
     object-fit: cover;
     transition: transform 0.3s ease;
-    cursor: pointer;
+    cursor: zoom-in;
   }
   
   .gallery-controls {
@@ -279,7 +279,8 @@
 .zoomed-image-container {
     position: relative;
     max-width: 90%;
-    max-height: 980%;
+    max-height: 90%;
+    cursor: zoom-out;
 }
 
 .zoomed-image-container img {

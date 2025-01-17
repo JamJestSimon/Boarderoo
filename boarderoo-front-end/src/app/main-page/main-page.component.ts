@@ -16,6 +16,7 @@ export class MainPageComponent {
 [x: string]: any;
   isGameDetailsVisible = false;
   selectedCard: any = null;
+  isAdmin = false;
 
   toggleGameDetails(card?: any) {
     if (card) {

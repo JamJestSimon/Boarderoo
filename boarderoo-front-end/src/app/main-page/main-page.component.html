@@ -1,4 +1,4 @@
-<app-nav-bar></app-nav-bar>
+<app-nav-bar [isAdmin]="isAdmin"></app-nav-bar>
 <div id="account-details-popup" [ngClass]="{ 'gameDetailsInvisible': !isGameDetailsVisible, 'gameDetailsVisible': isGameDetailsVisible }">
   <app-game-details (close)="toggleGameDetails()" [selectedCard]="selectedCard"></app-game-details>
 </div>

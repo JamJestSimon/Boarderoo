@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, Input } from '@angular/core';
 import { AccountDetailComponent } from "../account-details/account-details.component";
 import { CommonModule } from '@angular/common';
 import { CartComponent } from '../cart/cart.component';
@@ -14,10 +14,12 @@ export class NavBarComponent {
 
   isAccountDetailsVisible = false;
   isCartVisible = false;
+  @Input() isAdmin?: boolean;
 
   toggleAccountDetails() {
     this.isAccountDetailsVisible = !this.isAccountDetailsVisible;
     console.log(this.isAccountDetailsVisible);
+    console.log(this.isAdmin);
   }
 
   toggleCart() {
