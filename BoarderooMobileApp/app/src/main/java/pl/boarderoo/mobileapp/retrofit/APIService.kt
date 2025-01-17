@@ -41,9 +41,9 @@ interface APIService {
         @Body orderModel: OrderModel
     ): Response<ResponseModel<String>>
 
-    @GET("Order")
-    suspend fun getOrdersByUser(
-        @Body userModel: UserModel
+    @GET("Order/user/{email}")
+    suspend fun getOrdersByUserEmail(
+        @Path("email") email: String
     ): Response<ResponseModel<List<OrderModel>>>
 
     @GET("Order/{id}")

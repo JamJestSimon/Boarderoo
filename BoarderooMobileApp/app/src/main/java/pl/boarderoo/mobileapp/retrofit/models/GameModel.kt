@@ -1,6 +1,7 @@
 package pl.boarderoo.mobileapp.retrofit.models
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -12,9 +13,9 @@ data class GameModel(
     val price: Float,
     val description: String,
     val publisher: String,
-    val players_number: String,
+    @SerializedName("players_number") val playersNumber: String,
     val year: String,
-    val rating: Int,
+    val rating: String,
     val enabled: Boolean,
-    val available_copies: Int
+    @SerializedName("available_copies") val availableCopies: Int
 ) : Parcelable

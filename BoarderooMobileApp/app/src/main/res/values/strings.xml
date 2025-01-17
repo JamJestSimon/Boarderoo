@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Boarderoo</string>
     <string name="url">https://boarderoo-928336702407.europe-central2.run.app/</string>
+    <string name="discord_redirect">https://discord.com/oauth2/authorize?client_id=1303087880503296182&amp;response_type=code&amp;redirect_uri=https%3A%2F%2Fboarderoo-71469.firebaseapp.com%2Fcallback&amp;scope=email</string>
 </resources>

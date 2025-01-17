@@ -17,7 +17,7 @@ class OrderService(
     private val apiService: APIService = getRetrofitClient()
 ) : OrderServiceInterface {
     override suspend fun getOrdersByUser(userModel: UserModel): Response<ResponseModel<List<OrderModel>>> {
-        return apiService.getOrdersByUser(userModel)
+        return apiService.getOrdersByUserEmail(userModel.email)
     }
 
     override suspend fun getOrderById(id: String): Response<ResponseModel<OrderModel>> {

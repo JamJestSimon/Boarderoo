@@ -2,7 +2,6 @@ package pl.boarderoo.mobileapp.retrofit.models
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import java.util.Date
 
 @Parcelize
 data class UserModel(
@@ -12,6 +11,5 @@ data class UserModel(
     val name: String,
     val password: String,
     val surname: String,
-    val token: String,
-    val tokenCreationDate: Date
+    val token: String
 ) : Parcelable

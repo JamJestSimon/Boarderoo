@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -34,6 +35,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import coil.compose.AsyncImage
 import pl.boarderoo.mobileapp.ui.theme.outlinedTextFieldColors
 
 @Composable
@@ -169,18 +171,32 @@ fun DialogBox(closeDialog: () -> Unit, content: @Composable () -> Unit) {
 }
 
 @Composable
-fun ErrorState(modifier: Modifier = Modifier) {
+fun ErrorState(modifier: Modifier = Modifier, errorMessage: String, onClose: () -> Unit) {
     Column(
-        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "You got an error!",
-            fontSize = 32.sp,
+            text = "Wystąpił błąd:\n\n$errorMessage",
+            fontSize = 20.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = FontFamily(Font(R.font.mplusrounded1cregular)),
+            textAlign = TextAlign.Center,
             modifier = Modifier.padding(top = 20.dp)
         )
+        Spacer(modifier = Modifier.height(16.dp))
+        LightButton(
+            text = "Odśwież",
+            fontSize = 16.sp,
+            onClick = { onClose() }
+        )
     }
+}
+
+@Composable
+fun ImageFromUrl(url: String) {
+    AsyncImage(
+        model = url,
+        contentDescription = "Image from URL"
+    )
 }

@@ -2,10 +2,12 @@ package pl.boarderoo.mobileapp.retrofit.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import pl.boarderoo.mobileapp.retrofit.models.ResponseModel
 import pl.boarderoo.mobileapp.retrofit.models.UserModel
 import pl.boarderoo.mobileapp.retrofit.services.UserService
 
@@ -19,6 +21,8 @@ class UserDetailsViewModel(
     val orderList: StateFlow<UserModel?> get() = _userDetails.asStateFlow()
     val errorMessage: StateFlow<String?> get() = _errorMessage.asStateFlow()
     val isLoading: StateFlow<Boolean> get() = _isLoading.asStateFlow()
+
+    val gson = Gson()
 
     fun getOrderDetails(email: String) {
         viewModelScope.launch {
@@ -34,7 +38,7 @@ class UserDetailsViewModel(
                 val error = response.errorBody()
                 if(error != null) {
                     _isLoading.value = false
-                    _errorMessage.value = error.toString()
+                    _errorMessage.value = gson.fromJson(error.string(), ResponseModel::class.java).message
                 }
             }
         }

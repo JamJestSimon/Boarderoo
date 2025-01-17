@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -160,6 +161,8 @@ fun LogoScreen(navController: NavController) {
     val buttonWidth = (screenWidth * 0.70).dp
     val buttonHeight = elementWidth / 4
     val fontSize = (buttonHeight.value * 0.4).sp
+
+    val discordUrl = stringResource(R.string.discord_redirect)
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -250,7 +253,7 @@ fun LogoScreen(navController: NavController) {
                     )
                     .clip(RoundedCornerShape(buttonHeight / 2))
                     .clickable {
-                        val targetUrl = "https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=http%3A%2F%2F192.168.1.13%2Fcallback&scope=email"
+                        val targetUrl = discordUrl
 
                         val customTabsIntent = CustomTabsIntent.Builder()
                             .setShowTitle(true)

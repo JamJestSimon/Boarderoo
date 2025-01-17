@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val context = LocalContext.current
                     val navController = rememberNavController()
-                    var selectedRoute by remember { mutableStateOf("Main Screen") }
+                    var selectedRoute by remember { mutableStateOf("Strona Główna") }
                     val scope = rememberCoroutineScope()
                     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
                     ModalNavigationDrawer(
@@ -70,42 +70,67 @@ class MainActivity : ComponentActivity() {
                                 HorizontalDivider()
                                 NavigationDrawerItem(
                                     label = { Text("Strona Główna") },
-                                    selected = selectedRoute == "MainScreen",
+                                    selected = selectedRoute == "Strona Główna",
                                     onClick = {
-                                        selectedRoute = "MainScreen"
+                                        selectedRoute = "Strona Główna"
                                         navController.navigate("MainScreen")
+                                        scope.launch {
+                                            drawerState.apply {
+                                                if (isClosed) open() else close()
+                                            }
+                                        }
                                     }
                                 )
                                 NavigationDrawerItem(
                                     label = { Text("Gry") },
-                                    selected = selectedRoute == "GameScreen",
+                                    selected = selectedRoute == "Gry",
                                     onClick = {
-                                        selectedRoute = "GameScreen"
+                                        selectedRoute = "Gry"
                                         navController.navigate("GameScreen")
+                                        scope.launch {
+                                            drawerState.apply {
+                                                if (isClosed) open() else close()
+                                            }
+                                        }
                                     }
                                 )
                                 NavigationDrawerItem(
                                     label = { Text("Zamówienia") },
-                                    selected = selectedRoute == "OrderScreen",
+                                    selected = selectedRoute == "Zamówienia",
                                     onClick = {
-                                        selectedRoute = "OrderScreen"
+                                        selectedRoute = "Zamówienia"
                                         navController.navigate("OrderScreen")
+                                        scope.launch {
+                                            drawerState.apply {
+                                                if (isClosed) open() else close()
+                                            }
+                                        }
                                     }
                                 )
                                 NavigationDrawerItem(
                                     label = { Text("Koszyk") },
-                                    selected = selectedRoute == "CartScreen",
+                                    selected = selectedRoute == "Koszyk",
                                     onClick = {
-                                        selectedRoute = "CartScreen"
+                                        selectedRoute = "Koszyk"
                                         navController.navigate("CartScreen")
+                                        scope.launch {
+                                            drawerState.apply {
+                                                if (isClosed) open() else close()
+                                            }
+                                        }
                                     }
                                 )
                                 NavigationDrawerItem(
                                     label = { Text("Konto") },
-                                    selected = selectedRoute == "AccountInfo",
+                                    selected = selectedRoute == "Konto",
                                     onClick = {
-                                        selectedRoute = "AccountInfo"
+                                        selectedRoute = "Konto"
                                         navController.navigate("AccountInfo")
+                                        scope.launch {
+                                            drawerState.apply {
+                                                if (isClosed) open() else close()
+                                            }
+                                        }
                                     }
                                 )
                                 Box(
@@ -114,7 +139,7 @@ class MainActivity : ComponentActivity() {
                                         .fillMaxSize()
                                 ) {
                                     Box(
-                                        modifier = Modifier.align(Alignment.BottomEnd)
+                                        modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp)
                                     ) {
                                         LightButton(
                                             text = "Wyloguj",
