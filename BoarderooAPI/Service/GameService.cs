@@ -71,6 +71,8 @@ using Google.Cloud.Firestore;
                 { "Players_number",game.Players_number },
                 { "Year",game.Year },
                 { "Rating",game.Rating },
+                {"Price",game.Price},
+                {"Available_copies",game.Available_copies}
             };
 
             DocumentReference gameDocument=data.Reference;
@@ -137,6 +139,43 @@ using Google.Cloud.Firestore;
     {
 
     }
+     public async Task<ServiceResult<GameDocument>>GetGame(string id)
+    {
+        try
+        {
+            var Collection=getGameCollectionById(id);
+            var data=await Collection.GetSnapshotAsync();
+            if (!data.Exists)
+        {
+            //brak uzytkownika w bazie
+            return new ServiceResult<GameDocument>
+        {
+            Message="Brak gry o takim id!",
+            ResultCode=404
+        };
+        }
+        else
+        {
+            var game = data.ConvertTo<GameDocument>();
+            //var help=ConvertDocumentToModel(user);
+             return new ServiceResult<GameDocument>
+        {
+            Message="Uzytkownik pobrany poprawnie!",
+            ResultCode=200,
+            Data=game
+        };
+        }
+
+        }
+        catch (Exception e)
+        {
+            return new ServiceResult<GameDocument>
+        {
+            Message="Blad"+e.ToString(),
+            ResultCode=500
+        };
+        }
+    }
 
     public async Task<ServiceResult<List<GameDocument>>> GetAllGames()
     {
@@ -158,10 +197,11 @@ using Google.Cloud.Firestore;
                     g.Description=game.GetValue<string>("Description");
                     g.Publisher=game.GetValue<string>("Publisher");
                     g.Players_number=game.GetValue<string>("Players_number");
-                    g.Rating=game.GetValue<int>("Rating");
+                    g.Rating=game.GetValue<string>("Rating");
                     g.Year=game.GetValue<string>("Year");
-                    //g.Enabled=game.GetValue<bool>("Enabled");
-
+                    g.Enabled=game.GetValue<bool>("Enabled");
+                    g.Available_copies=game.GetValue<int>("Available_copies");
+                    g.Price=game.GetValue<float>("Price");
                     games.Add(g);
                 }
             }

@@ -71,7 +71,7 @@ public class UserController: ControllerBase
         return Ok(serviceResult); // Sukces
     }
 
-    if (serviceResult.ResultCode is not null)
+    if (serviceResult.ResultCode is null)
     {
         return StatusCode(serviceResult.ResultCode ?? 500, new { Message = serviceResult.Message });
     }
