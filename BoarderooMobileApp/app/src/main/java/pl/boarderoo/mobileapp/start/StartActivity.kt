@@ -1,6 +1,8 @@
 package pl.boarderoo.mobileapp.start
 
 import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -26,6 +28,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,6 +42,9 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.sp
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -46,16 +53,27 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import pl.boarderoo.mobileapp.DarkButton
 import pl.boarderoo.mobileapp.R
+import pl.boarderoo.mobileapp.datastore.getLoginState
+import pl.boarderoo.mobileapp.main.MainActivity
 import pl.boarderoo.mobileapp.ui.theme.BoarderooMobileAppTheme
-
 
 class StartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val animationSpeed = 400
 
         setContent {
+            val context = LocalContext.current
+            val isLoggedIn by getLoginState(context).collectAsState(initial = false)
+            if(isLoggedIn) {
+                context.startActivity(
+                    Intent(
+                        context,
+                        MainActivity::class.java
+                    )
+                )
+                (context as Activity).finish()
+            }
             BoarderooMobileAppTheme {
                 Surface(
                     color = colorResource(R.color.backgroundColor)

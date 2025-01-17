@@ -1,10 +1,14 @@
 package pl.boarderoo.mobileapp
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -27,6 +31,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import pl.boarderoo.mobileapp.ui.theme.outlinedTextFieldColors
 
 @Composable
@@ -136,4 +141,23 @@ fun LightTextField(placeholder: String, value: String, isError: Boolean, textWid
             )
         }
     )
+}
+
+@Composable
+fun DialogBox(closeDialog: () -> Unit, content: @Composable () -> Unit) {
+    Dialog(onDismissRequest = { closeDialog() }) {
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(16.dp))
+                .background(colorResource(id = R.color.backgroundColor)) // Kolor tła dialogu
+                .border(
+                    BorderStroke(2.dp, colorResource(id = R.color.buttonColor)),
+                    RoundedCornerShape(16.dp)
+                ) // Obramowanie
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            content()
+        }
+    }
 }
