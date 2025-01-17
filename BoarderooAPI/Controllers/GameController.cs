@@ -30,6 +30,14 @@ public class GameController:ControllerBase
         
     }
 
+    [HttpGet]
+    [Route("{id}")]
+    public async Task<ActionResult> GetGame(string id)
+    {
+        var response=await _gameService.GetGame(id);
+        return ConvertServiceResultToActionResult(response);
+    }
+
     [HttpDelete]
     [Route("{id}")]
     public async Task<ActionResult> DeleteGame(string id)

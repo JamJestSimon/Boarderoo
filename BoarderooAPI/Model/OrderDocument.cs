@@ -16,10 +16,10 @@ public class OrderDocument
     public StatusType Status {get; set;} //wybieralne z listy
     [FirestoreProperty]
 
-    public UserDocument User{get; set;}
+    public string User{get; set;}
     [FirestoreProperty]
 
-    public List<GameDocument> Items{get; set;}
+    public List<string> Items{get; set;}
     [FirestoreProperty]
 
     public float Price {get; set;}

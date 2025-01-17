@@ -13,7 +13,7 @@ public class UserDocument
     [FirestoreProperty]
     public bool IsVerified {get; set;}
     [FirestoreProperty]
-    public GeoPoint Location {get; set;}
+    public string Address {get; set;}
     [FirestoreProperty]
     public string Name {get; set;}
 

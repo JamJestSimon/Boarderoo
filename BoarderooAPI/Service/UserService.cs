@@ -16,7 +16,7 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
         try{
         var userCollection = this.getUserCollectionByEmail(user.Email);
         var data = await userCollection.GetSnapshotAsync();
-        var geoPoint = new GeoPoint(user.Location.Latitude, user.Location.Longitude);
+       
          if(data.Documents.Count<1)
     {
          var usersCollection = this.getUserCollection();
@@ -51,6 +51,7 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
     }
      public async Task<ServiceResult<UserDocument>> ResetPassword(string mail,string password)
     {
+        //mailem 
         try
         {
 return new ServiceResult<UserDocument>
@@ -96,8 +97,7 @@ return new ServiceResult<UserDocument>
                
                 Dictionary<string, object> userdict = new Dictionary<string, object>()
             {
-                { "Email",user.Email},
-                { "Location",user.Location },
+                { "Address",user.Address },
                 { "Name",user.Name },
                 { "Password",HashService.hashfunction(user.Password) },
                 { "Surname",user.Surname }
@@ -238,7 +238,7 @@ return new ServiceResult<UserDocument>
                     u.Id=user.Id;
                     u.Email=user.GetValue<string>("Email");
                     u.IsVerified = user.GetValue<bool>("IsVerified");
-                    u.Location = user.GetValue<GeoPoint>("Location");
+                    u.Address = user.GetValue<string>("Address");
                     u.Name = user.GetValue<string>("Name");
                     u.Password = user.GetValue<string>("Password");
                     u.Surname = user.GetValue<string>("Surname");

@@ -24,7 +24,7 @@ public class GameDocument
     [FirestoreProperty]
     public string Year { get; set;}
     [FirestoreProperty]
-    public int Rating {get; set;}
+    public string Rating {get; set;}
     [FirestoreProperty]
     public bool Enabled {get; set;}
     [FirestoreProperty]

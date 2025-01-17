@@ -16,11 +16,11 @@ namespace BoarderooAPI.Controllers;
     }
 
     [HttpPost(Name = "Register")]
-    public async Task<ActionResult> Register(LoginRequest data)
+    public async Task<ActionResult> Register(LoginRequest request)
     {
-        //var response=await _registerService.Register(email,password); 
-        //return ConvertServiceResultToActionResult(response);
-        return Ok();
+        var response=await _registerService.Register(request.Email,request.Password); 
+        return ConvertServiceResultToActionResult(response);
+        //return Ok();
     }
     private ActionResult ConvertServiceResultToActionResult<T>(ServiceResult<T> serviceResult)
 {

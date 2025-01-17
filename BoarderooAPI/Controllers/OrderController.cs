@@ -18,6 +18,7 @@ namespace BoarderooAPI.Controllers;
     [HttpPost(Name = "PostOrder")]
     public async Task<ActionResult> AddOrder(OrderDocument order)
     {
+
         var response=await _orderService.AddOrder(order); 
         return ConvertServiceResultToActionResult(response);
     }
@@ -38,11 +39,20 @@ namespace BoarderooAPI.Controllers;
             return ConvertServiceResultToActionResult(response);
 
     }
-
     [HttpGet(Name = "GetOrders")]
-    public async Task<ActionResult> GetAllUsers()
+    public async Task<ActionResult> GetAllOrders()
     {
         var response=await _orderService.GetAllOrders(); 
+        return ConvertServiceResultToActionResult(response);
+    }
+
+
+    [HttpGet]
+    [Route("/Order/user/{id}")]
+    public async Task<ActionResult> GetOrdersByUser(string email)
+    {
+      
+        var response=await _orderService.GetOrderByUser(email); 
         return ConvertServiceResultToActionResult(response);
     }
 
