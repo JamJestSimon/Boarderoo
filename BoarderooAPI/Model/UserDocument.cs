@@ -5,6 +5,8 @@ namespace BoarderooAPI.Model;
 [FirestoreData]
 public class UserDocument
 {
+     [FirestoreProperty]
+    public string Id {get; set;}
     [FirestoreProperty]
     public string Email{get; set;}
 

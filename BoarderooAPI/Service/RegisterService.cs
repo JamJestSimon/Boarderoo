@@ -5,26 +5,43 @@ namespace BoarderooAPI.Service;
 public class RegisterService
 {
 private readonly UserService _userService;
+private readonly EmailService _emailService;
 
-public RegisterService(UserService userService)
+public RegisterService(UserService userService,EmailService emailService)
 {
-            _userService = userService; 
+            _userService = userService;
+            _emailService=emailService;
 }
 
 
-    public async Task<ServiceResult<string>> Register(string mail, string password)
+    public async Task<ServiceResult<UserDocument>> Register(UserDocument user)
     {
+        //sprawdz czy jest ziomek w bazie danyhc
         try
         {
-return new ServiceResult<string>
+             var usersCollection = _userService.getUserCollectionByEmail(user.Email);
+        var data = await usersCollection.GetSnapshotAsync();
+        if (data == null)
         {
-            Message="Zarejestrowano pomyslnie!",
+            var u=_userService.AddUser(user);
+            return new ServiceResult<UserDocument>
+        {
+            Message="Uzytkownik juz istnieje!",
             ResultCode=200
         };
         }
+        else 
+        {
+            return new ServiceResult<UserDocument>
+        {
+            Message="Uzytkownik juz istnieje!",
+            ResultCode=400
+        };
+        }
+        }
         catch(Exception e)
         {
-            return new ServiceResult<string>
+            return new ServiceResult<UserDocument>
         {
             Message="Blad"+e.ToString(),
             ResultCode=500
@@ -46,7 +63,7 @@ return new ServiceResult<string>
         {
             //brak uzytkownika w bazie
             //generujesz token uzytkownika z data
-            User u=new User();
+            UserDocument u=new UserDocument();
             u.Email=email;
             u.Password=password;
            // u.Token=""; //  tutaj trzeba bedzie generowac token
@@ -57,6 +74,7 @@ return new ServiceResult<string>
             //await EmailService.SendEmail();//wysylamy email z kodem
             //dodajesz do bazy danych
             //wysylasz maila z linkiem
+            await _emailService.SendEmailAsync("pokipl123@gmail.com","test","siem, wysyłam wiadomość testową dla ciebie ok ok?");
             return new ServiceResult<string>
         {
             Message="Zarejestrowano pomyslnie!",

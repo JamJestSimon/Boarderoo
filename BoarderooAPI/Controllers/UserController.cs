@@ -32,7 +32,7 @@ public class UserController: ControllerBase
     }
 
     [HttpPost(Name = "PostUser")]
-    public async Task<ActionResult> AddUser(User user)
+    public async Task<ActionResult> AddUser(UserDocument user)
     {
             var response=await _userService.AddUser(user);
             return ConvertServiceResultToActionResult(response);
@@ -51,7 +51,7 @@ public class UserController: ControllerBase
 
 
     [HttpPut]
-    public async Task<ActionResult> UpdateUser(User user)
+    public async Task<ActionResult> UpdateUser(UserDocument user)
     {
            var response=await _userService.UpdateUser(user);
             return ConvertServiceResultToActionResult(response);

@@ -5,10 +5,11 @@ namespace BoarderooAPI.Service;
 public class LoginService
 {
     private readonly UserService _userService;
-
-    public LoginService(UserService userService)
+    private readonly EmailService _emailService;
+    public LoginService(UserService userService,EmailService emailService)
     {
         _userService = userService;
+        _emailService=emailService;
     }
 
 
@@ -42,6 +43,7 @@ public class LoginService
                         ResultCode = 200,
                         Data="Ok"
                     };
+                    
 
                 }
                 else
@@ -76,7 +78,7 @@ public class LoginService
         {
                 return new ServiceResult<string>
         {
-            Message="Blad"+e.ToString(),
+            Message="Blad: "+e.ToString(),
             ResultCode=500
         };
         }

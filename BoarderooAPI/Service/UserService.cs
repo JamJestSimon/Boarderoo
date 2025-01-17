@@ -11,7 +11,7 @@ public UserService(FireBaseService firebaseService)
             _database = firebaseService.getDatabase(); 
 
 }
-public async Task<ServiceResult<User>> AddUser(User user)
+public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
     {
         try{
         var userCollection = this.getUserCollectionByEmail(user.Email);
@@ -20,20 +20,20 @@ public async Task<ServiceResult<User>> AddUser(User user)
          if(data.Documents.Count<1)
     {
          var usersCollection = this.getUserCollection();
-            var newUser=ConvertModeltoDocument(user);
-            newUser.Location=geoPoint;
-            newUser.Password=HashService.hashfunction(user.Password);
-            await usersCollection.AddAsync(newUser);
-            var u=ConvertDocumentToModel(newUser);
+            //var newUser=ConvertModeltoDocument(user);
+            //newUser.Location=geoPoint;
+            //newUser.Password=HashService.hashfunction(user.Password);
+            await usersCollection.AddAsync(user);
+            //var u=ConvertDocumentToModel(newUser);
             //nie ma uzytnika w bazie (dodajemy)
-              return new ServiceResult<User>
+              return new ServiceResult<UserDocument>
         {
             Message="Uzytkownik dodany poprawnie!",
             ResultCode=200,
-            Data=u
+            Data=user
         };
     }
-        else return new ServiceResult<User>
+        else return new ServiceResult<UserDocument>
         {
             Message="Juz istnieje uzytkownik o takim emailu!",
             ResultCode=409
@@ -41,7 +41,7 @@ public async Task<ServiceResult<User>> AddUser(User user)
         }
         catch (Exception e)
         {
-            return new ServiceResult<User>
+            return new ServiceResult<UserDocument>
         {
             Message="Blad"+e.ToString(),
             ResultCode=500
@@ -49,15 +49,34 @@ public async Task<ServiceResult<User>> AddUser(User user)
         }
         
     }
+     public async Task<ServiceResult<UserDocument>> ResetPassword(string mail,string password)
+    {
+        try
+        {
+return new ServiceResult<UserDocument>
+        {
+            Message="ok",
+            ResultCode=200
+        };
+        }
+        catch (Exception e)
+        {
+            return new ServiceResult<UserDocument>
+        {
+            Message="Blad"+e.ToString(),
+            ResultCode=500
+        };
+        }
+    }
 
-    public async Task<ServiceResult<User>> UpdateUser(User user)
+    public async Task<ServiceResult<UserDocument>> UpdateUser(UserDocument user)
     {
         try{
     var emailDocuments = this.getUserCollectionByEmail(user.Email);
     var data = await emailDocuments.GetSnapshotAsync();
     if(data.Documents.Count<1)
     {
-        return new ServiceResult<User>
+        return new ServiceResult<UserDocument>
         {
             Message="Brak uzytkownika o takim emailu!",
             ResultCode=404
@@ -65,7 +84,7 @@ public async Task<ServiceResult<User>> AddUser(User user)
     }
         if (!data[0].Exists)
         {
-            return new ServiceResult<User>
+            return new ServiceResult<UserDocument>
         {
             Message="Brak uzytkownika o takim emailu!",
             ResultCode=404
@@ -88,9 +107,9 @@ public async Task<ServiceResult<User>> AddUser(User user)
 
             await emailDocument.UpdateAsync(userdict);
             var usersCollection = getUserCollectionByEmail(user.Email);
-            var updatedUser = data[0].ConvertTo<User>();
+            var updatedUser = data[0].ConvertTo<UserDocument>();
 
-             return new ServiceResult<User>
+             return new ServiceResult<UserDocument>
         {
             Message="Uzytkownik zaaktualizowany poprawnie!",
             ResultCode=200,
@@ -101,7 +120,7 @@ public async Task<ServiceResult<User>> AddUser(User user)
         }}
          catch(Exception e)
         {
-                return new ServiceResult<User>
+                return new ServiceResult<UserDocument>
         {
             Message="Blad"+e.ToString(),
             ResultCode=500
@@ -111,14 +130,14 @@ public async Task<ServiceResult<User>> AddUser(User user)
 
     }
 
-    public async Task<ServiceResult<User>> DeleteUser(string email)//moze jeszcze haslo?
+    public async Task<ServiceResult<UserDocument>> DeleteUser(string email)//moze jeszcze haslo?
     {
         try{
         var usersCollection = this.getUserCollectionByEmail(email);
         var data = await usersCollection.GetSnapshotAsync();
         if(data.Documents.Count<1)
     {
-        return new ServiceResult<User>
+        return new ServiceResult<UserDocument>
         {
             Message="Brak uzytkownika o takim emailu!",
             ResultCode=404
@@ -126,7 +145,7 @@ public async Task<ServiceResult<User>> AddUser(User user)
     }
         if (!data[0].Exists)
         {
-            return new ServiceResult<User>
+            return new ServiceResult<UserDocument>
         {
             Message="Brak uzytkownika o takim emailu!",
             ResultCode=404
@@ -137,7 +156,7 @@ public async Task<ServiceResult<User>> AddUser(User user)
             DocumentReference emailDocument=data.Documents[0].Reference;
 
             await emailDocument.DeleteAsync();
-            return new ServiceResult<User>
+            return new ServiceResult<UserDocument>
         {
             Message="Uzytkownik usuniety pomyslnie!",
             ResultCode=200
@@ -146,7 +165,7 @@ public async Task<ServiceResult<User>> AddUser(User user)
         }}
         catch(Exception e)
         {
-                return new ServiceResult<User>
+                return new ServiceResult<UserDocument>
         {
             Message="Blad"+e.ToString(),
             ResultCode=500
@@ -154,7 +173,7 @@ public async Task<ServiceResult<User>> AddUser(User user)
         }
     }
 
-    public async Task<ServiceResult<User>> GetUserByEmail(string email)
+    public async Task<ServiceResult<UserDocument>> GetUserByEmail(string email)
     {
         try{
         var usersCollection = this.getUserCollectionByEmail(email);
@@ -162,7 +181,7 @@ public async Task<ServiceResult<User>> AddUser(User user)
         //data=data[0];
         if(data.Documents.Count<1)
     {
-        return new ServiceResult<User>
+        return new ServiceResult<UserDocument>
         {
             Message="Brak uzytkownika o takim emailu!",
             ResultCode=404
@@ -171,7 +190,7 @@ public async Task<ServiceResult<User>> AddUser(User user)
         if (!data[0].Exists)
         {
             //brak uzytkownika w bazie
-            return new ServiceResult<User>
+            return new ServiceResult<UserDocument>
         {
             Message="Brak uzytkownika o takim emailu!",
             ResultCode=404
@@ -180,17 +199,18 @@ public async Task<ServiceResult<User>> AddUser(User user)
         else
         {
             var user = data[0].ConvertTo<UserDocument>();
-            var help=ConvertDocumentToModel(user);
-             return new ServiceResult<User>
+            //var help=ConvertDocumentToModel(user);
+            user.Id=data[0].Id;
+             return new ServiceResult<UserDocument>
         {
             Message="Uzytkownik pobrany poprawnie!",
             ResultCode=200,
-            Data=help
+            Data=user
         };
         }}
         catch (Exception e)
         {
-            return new ServiceResult<User>
+            return new ServiceResult<UserDocument>
         {
             Message="Blad"+e.ToString(),
             ResultCode=500
@@ -199,9 +219,9 @@ public async Task<ServiceResult<User>> AddUser(User user)
         
     }
 
-    public async Task<ServiceResult<List<User>>> GetAllUsers()
+    public async Task<ServiceResult<List<UserDocument>>> GetAllUsers()
     {
-           var users=new List<User>();
+           var users=new List<UserDocument>();
             // get users collection
             try{
             var usersCollection = _database.Collection("users");
@@ -214,7 +234,8 @@ public async Task<ServiceResult<User>> AddUser(User user)
                 foreach (var user in userList.Documents)
                 {
                     // create user object using the fields of the record
-                    User u = new User();
+                    UserDocument u = new UserDocument();
+                    u.Id=user.Id;
                     u.Email=user.GetValue<string>("Email");
                     u.IsVerified = user.GetValue<bool>("IsVerified");
                     u.Location = user.GetValue<GeoPoint>("Location");
@@ -222,7 +243,7 @@ public async Task<ServiceResult<User>> AddUser(User user)
                     u.Password = user.GetValue<string>("Password");
                     u.Surname = user.GetValue<string>("Surname");
                     u.Token = user.GetValue<string>("Token");
-                    u.TokenCreationDate = user.GetValue<DateTime>("TokenCreationDate");
+                    u.TokenCreationDate = user.GetValue<Timestamp>("TokenCreationDate");
                     //u.TokenCreationDate = user.GetValue<Google.Cloud.Firestore.Timestamp>("TokenCreationDate");
                     // add to users list
                     users.Add(u);
@@ -231,13 +252,13 @@ public async Task<ServiceResult<User>> AddUser(User user)
             else
             {
                 
-                 return new ServiceResult<List<User>>
+                 return new ServiceResult<List<UserDocument>>
             {
             Message="Brak uzytkownikow!",
             ResultCode=404
             };
             }
-            return new ServiceResult<List<User>>
+            return new ServiceResult<List<UserDocument>>
             {
             Message="Uzytkownicy pobrani pomyslnie!",
             ResultCode=200,
@@ -246,7 +267,7 @@ public async Task<ServiceResult<User>> AddUser(User user)
             }
             catch (Exception e)
             {
-            return new ServiceResult<List<User>>
+            return new ServiceResult<List<UserDocument>>
             {
             Message="Blad"+e.ToString(),
             ResultCode=500
@@ -254,14 +275,14 @@ public async Task<ServiceResult<User>> AddUser(User user)
             }
         }
 
-    public async Task<ServiceResult<User>> UpdateToken(string email,string token)
+    public async Task<ServiceResult<UserDocument>> UpdateToken(string email,string token)
     {
         try{
     var emailDocuments = this.getUserCollectionByEmail(email);
     var data = await emailDocuments.GetSnapshotAsync();
     if(data.Documents.Count<1)
     {
-        return new ServiceResult<User>
+        return new ServiceResult<UserDocument>
         {
             Message="Brak uzytkownika o takim emailu!",
             ResultCode=404
@@ -283,9 +304,9 @@ public async Task<ServiceResult<User>> AddUser(User user)
 
             await emailDocument.UpdateAsync(userdict);
             var usersCollection = this.getUserCollectionByEmail(email);
-            var user = data[0].ConvertTo<User>();
+            var user = data[0].ConvertTo<UserDocument>();
 
-            return new ServiceResult<User>
+            return new ServiceResult<UserDocument>
         {
             Message="Uzytkownik zaaktualizowany poprawnie!",
             ResultCode=200,
@@ -296,7 +317,7 @@ public async Task<ServiceResult<User>> AddUser(User user)
         }}
         catch (Exception e)
         {
-            return new ServiceResult<User>
+            return new ServiceResult<UserDocument>
         {
             Message="Blad"+e.ToString(),
             ResultCode=500
@@ -304,14 +325,14 @@ public async Task<ServiceResult<User>> AddUser(User user)
         }
     }
 
-    public async Task<ServiceResult<User>> UpdateVerified(string email, bool state)
+    public async Task<ServiceResult<UserDocument>> UpdateVerified(string email, bool state)
     {
         try{
         var emailDocuments = this.getUserCollectionByEmail(email);
     var data = await emailDocuments.GetSnapshotAsync();
     if(data.Documents.Count<1)
     {
-        return new ServiceResult<User>
+        return new ServiceResult<UserDocument>
         {
             Message="Brak uzytkownika o takim emailu!",
             ResultCode=404
@@ -330,8 +351,8 @@ public async Task<ServiceResult<User>> AddUser(User user)
 
             await emailDocument.UpdateAsync(userdict);
             var usersCollection = this.getUserCollectionByEmail(email);
-            var user = data[0].ConvertTo<User>();
-            return new ServiceResult<User>
+            var user = data[0].ConvertTo<UserDocument>();
+            return new ServiceResult<UserDocument>
         {
             Message="wartosc Verifed dla uzytkownika zaaktualizowana poprawnie!",
             ResultCode=200,
@@ -340,40 +361,14 @@ public async Task<ServiceResult<User>> AddUser(User user)
     }
     catch (Exception e)
     {
-        return new ServiceResult<User>
+        return new ServiceResult<UserDocument>
         {
             Message="Blad"+e.ToString(),
             ResultCode=500
         };
     }
     }
-     private static UserDocument ConvertModeltoDocument(User user)
-    {
-        return new UserDocument{
-            Email=user.Email,
-            IsVerified=user.IsVerified,
-            Location=user.Location,
-            Name=user.Name,
-            Password=user.Password,
-            Surname=user.Surname,
-            Token=user.Token,
-            TokenCreationDate=Timestamp.FromDateTime(user.TokenCreationDate)
-        };
-    }
-    private static User ConvertDocumentToModel(UserDocument userDocument)
-    {
-        return new User
-        {
-            Email=userDocument.Email,
-            IsVerified=Convert.ToBoolean(userDocument.IsVerified),
-            Location=userDocument.Location,
-            Name=userDocument.Name,
-            Password=userDocument.Password,
-            Surname=userDocument.Surname,
-            Token=userDocument.Token,
-            TokenCreationDate=userDocument.TokenCreationDate.ToDateTime()
-        };
-    }
+
 
     public Google.Cloud.Firestore.CollectionReference getUserCollection()
     {

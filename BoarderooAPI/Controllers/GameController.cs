@@ -23,7 +23,7 @@ public class GameController:ControllerBase
     }
 
     [HttpPost(Name = "PostGame")]
-    public async Task<ActionResult> AddGame(Game game)
+    public async Task<ActionResult> AddGame(GameDocument game)
     {
             var response=await _gameService.AddGame(game);
             return ConvertServiceResultToActionResult(response);
@@ -42,7 +42,7 @@ public class GameController:ControllerBase
 
 
     [HttpPut]
-    public async Task<ActionResult> UpdateGame(Game game)
+    public async Task<ActionResult> UpdateGame(GameDocument game)
     {
            var response=await _gameService.UpdateGame(game);
             return ConvertServiceResultToActionResult(response);
@@ -55,7 +55,7 @@ public class GameController:ControllerBase
         return Ok(serviceResult); // Sukces
     }
 
-    if (serviceResult.ResultCode is not null)
+    if (serviceResult.ResultCode is null)
     {
         return StatusCode(serviceResult.ResultCode ?? 500, new { Message = serviceResult.Message });
     }

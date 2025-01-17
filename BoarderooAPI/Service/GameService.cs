@@ -13,22 +13,24 @@ using Google.Cloud.Firestore;
         _database = firebaseService.getDatabase(); 
     }
 
-    public async Task<ServiceResult<Game>> AddGame(Game game)
+    public async Task<ServiceResult<GameDocument>> AddGame(GameDocument game)
     {
          try{
-        var Collection = getGameCollection();
+        var Collection = getGameCollectionByName(game.Name);
         var data = await Collection.GetSnapshotAsync();
          if(data.Documents.Count<1)
         {
-            await Collection.AddAsync(game);
-              return new ServiceResult<Game>
+            var gamesCollection=getGameCollection();
+
+            await gamesCollection.AddAsync(game);
+              return new ServiceResult<GameDocument>
         {
             Message="Gra dodana poprawnie!",
             ResultCode=200,
             Data=game
         };
-    }
-        else return new ServiceResult<Game>
+        }
+        else return new ServiceResult<GameDocument>
         {
             Message="Juz istnieje gra o takiej nazwie!",
             ResultCode=409
@@ -36,7 +38,7 @@ using Google.Cloud.Firestore;
         }
         catch (Exception e)
         {
-            return new ServiceResult<Game>
+            return new ServiceResult<GameDocument>
         {
             Message="Blad"+e.ToString(),
             ResultCode=500
@@ -44,15 +46,15 @@ using Google.Cloud.Firestore;
         }
     }
 
-    public async Task<ServiceResult<Game>> UpdateGame(Game game)
+    public async Task<ServiceResult<GameDocument>> UpdateGame(GameDocument game)
     {
         try
         {
             var Collection= getGameCollectionById(game.Id); 
             var data = await Collection.GetSnapshotAsync();
-             if (!data[0].Exists)
+             if (!data.Exists)
         {
-            return new ServiceResult<Game>
+            return new ServiceResult<GameDocument>
         {
             Message="Brak gry o takim id!",
             ResultCode=404
@@ -71,13 +73,13 @@ using Google.Cloud.Firestore;
                 { "Rating",game.Rating },
             };
 
-            DocumentReference gameDocument=data.Documents[0].Reference;
+            DocumentReference gameDocument=data.Reference;
 
             await gameDocument.UpdateAsync(gamedict);
-            var gamesCollection = this.getGameCollectionById(game.Id);
-            var updatedGame = data[0].ConvertTo<Game>();
+            var gamesCollection = getGameCollectionById(game.Id);
+            var updatedGame = data.ConvertTo<GameDocument>();
 
-             return new ServiceResult<Game>
+             return new ServiceResult<GameDocument>
         {
             Message="Uzytkownik zaaktualizowany poprawnie!",
             ResultCode=200,
@@ -87,7 +89,7 @@ using Google.Cloud.Firestore;
         }
         catch(Exception e)
         {
-                    return new ServiceResult<Game>
+                    return new ServiceResult<GameDocument>
         {
             Message="Blad"+e.ToString(),
             ResultCode=500
@@ -96,25 +98,25 @@ using Google.Cloud.Firestore;
 
     }
 
-    public async Task<ServiceResult<Game>> DeleteGame(string id)
+    public async Task<ServiceResult<GameDocument>> DeleteGame(string id)
     {
         try
         {
             var Collection = getGameCollectionById(id);
             var data = await Collection.GetSnapshotAsync();
-            if (!data[0].Exists)
+            if (!data.Exists)
         {
-            return new ServiceResult<Game>
+            return new ServiceResult<GameDocument>
         {
-            Message="Brak gry o takim emailu!",
+            Message="Brak gry o takim id!",
             ResultCode=404
         };}
         else
         {
-            DocumentReference gameDocument=data.Documents[0].Reference;
+            DocumentReference gameDocument=data.Reference;
 
             await gameDocument.DeleteAsync();
-            return new ServiceResult<Game>
+            return new ServiceResult<GameDocument>
         {
             Message="Uzytkownik usuniety pomyslnie!",
             ResultCode=200
@@ -124,7 +126,7 @@ using Google.Cloud.Firestore;
         }
         catch(Exception e)
         {
-        return new ServiceResult<Game>
+        return new ServiceResult<GameDocument>
         {
             Message="Blad"+e.ToString(),
             ResultCode=500
@@ -136,9 +138,9 @@ using Google.Cloud.Firestore;
 
     }
 
-    public async Task<ServiceResult<List<Game>>> GetAllGames()
+    public async Task<ServiceResult<List<GameDocument>>> GetAllGames()
     {
-        var games = new List<Game>();
+        var games = new List<GameDocument>();
 
         try
         {
@@ -149,12 +151,13 @@ using Google.Cloud.Firestore;
                 var gameList = await gamesCollection.GetSnapshotAsync();
                 foreach (var game in gameList.Documents)
                 {
-                    Game g = new Game();
+                    GameDocument g = new GameDocument();
+                    g.Id=game.Id;
                     g.Name=game.GetValue<string>("Name");
                     g.Type=game.GetValue<string>("Type");
                     g.Description=game.GetValue<string>("Description");
                     g.Publisher=game.GetValue<string>("Publisher");
-                    g.Players_number=game.GetValue<string>("Players_Number");
+                    g.Players_number=game.GetValue<string>("Players_number");
                     g.Rating=game.GetValue<int>("Rating");
                     g.Year=game.GetValue<string>("Year");
                     //g.Enabled=game.GetValue<bool>("Enabled");
@@ -164,13 +167,13 @@ using Google.Cloud.Firestore;
             }
             else
             {
-                     return new ServiceResult<List<Game>>
+                     return new ServiceResult<List<GameDocument>>
             {
             Message="Brak gier!",
             ResultCode=404
             };
             }
-            return new ServiceResult<List<Game>>
+            return new ServiceResult<List<GameDocument>>
             {
             Message="Gry pobrane pomyslnie!",
             ResultCode=200,
@@ -179,7 +182,7 @@ using Google.Cloud.Firestore;
         }
         catch(Exception e)
         {
-           return new ServiceResult<List<Game>>
+           return new ServiceResult<List<GameDocument>>
             {
             Message="Blad"+e.ToString(),
             ResultCode=500
@@ -191,12 +194,14 @@ using Google.Cloud.Firestore;
     {
         return _database.Collection("games");
     }
-    public Google.Cloud.Firestore.Query getGameCollectionById(string id)
-    {
-        return _database.Collection("games").WhereEqualTo("Id", id);
-    }
-    public Google.Cloud.Firestore.DocumentReference getUserCollectionById(string id)
+    public Google.Cloud.Firestore.DocumentReference getGameCollectionById(string id)
     {
         return _database.Collection("games").Document(id);
     }
+    public Google.Cloud.Firestore.Query getGameCollectionByName(string name)
+    {
+        return _database.Collection("games").WhereEqualTo("Name", name);
+    }
+  
+
  }
