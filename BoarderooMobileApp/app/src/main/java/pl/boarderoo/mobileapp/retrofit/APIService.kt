@@ -1,5 +1,6 @@
 package pl.boarderoo.mobileapp.retrofit
 
+import pl.boarderoo.mobileapp.retrofit.data.LoginRequest
 import pl.boarderoo.mobileapp.retrofit.models.GameModel
 import pl.boarderoo.mobileapp.retrofit.models.OrderModel
 import pl.boarderoo.mobileapp.retrofit.models.ResponseModel
@@ -30,13 +31,20 @@ interface APIService {
     @GET("Game")
     suspend fun getGames(): Response<ResponseModel<List<GameModel>>>
 
+    @GET("Game/{id}")
+    suspend fun getGameById(
+        @Path("id") id: String
+    ): Response<ResponseModel<GameModel>>
+
     @POST("Order")
     suspend fun addOrder(
         @Body orderModel: OrderModel
     ): Response<ResponseModel<String>>
 
     @GET("Order")
-    suspend fun getOrders(): Response<ResponseModel<List<OrderModel>>>
+    suspend fun getOrdersByUser(
+        @Body userModel: UserModel
+    ): Response<ResponseModel<List<OrderModel>>>
 
     @GET("Order/{id}")
     suspend fun getOrderById(

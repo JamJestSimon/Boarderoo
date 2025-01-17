@@ -1,8 +1,6 @@
 package pl.boarderoo.mobileapp.start
 
 import android.app.Activity
-import android.app.ActivityManager.AppTask
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -44,9 +42,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.sp
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -59,7 +54,7 @@ import pl.boarderoo.mobileapp.datastore.getLoginState
 import pl.boarderoo.mobileapp.datastore.getUserEmail
 import pl.boarderoo.mobileapp.main.AppRuntimeData
 import pl.boarderoo.mobileapp.main.MainActivity
-import pl.boarderoo.mobileapp.retrofit.UserService
+import pl.boarderoo.mobileapp.retrofit.services.UserService
 import pl.boarderoo.mobileapp.ui.theme.BoarderooMobileAppTheme
 
 class StartActivity : ComponentActivity() {

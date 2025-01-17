@@ -1,5 +1,7 @@
-package pl.boarderoo.mobileapp.retrofit
+package pl.boarderoo.mobileapp.retrofit.services
 
+import pl.boarderoo.mobileapp.retrofit.APIService
+import pl.boarderoo.mobileapp.retrofit.getRetrofitClient
 import pl.boarderoo.mobileapp.retrofit.models.ResponseModel
 import pl.boarderoo.mobileapp.retrofit.models.UserModel
 import retrofit2.Response
