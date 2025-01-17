@@ -57,7 +57,7 @@ fun DarkButton(text: String, buttonWidth: Dp, buttonHeight: Dp, fontSize: TextUn
 }
 
 @Composable
-fun LightButton(text: String, buttonWidth: Dp, buttonHeight: Dp, fontSize: TextUnit, onClick: () -> Unit) {
+fun LightButton(text: String, buttonWidth: Dp? = null, buttonHeight: Dp? = null, fontSize: TextUnit, onClick: () -> Unit) {
     Button(
         onClick = {
             onClick()
@@ -67,7 +67,11 @@ fun LightButton(text: String, buttonWidth: Dp, buttonHeight: Dp, fontSize: TextU
         ),
         modifier = Modifier
             .padding(horizontal = 16.dp)
-            .size(width = buttonWidth, height = buttonHeight)
+            .then(
+                if (buttonWidth != null && buttonHeight != null) {
+                    Modifier.size(width = buttonWidth, height = buttonHeight)
+                } else Modifier
+            )
     ) {
         Text(
             text = text,

@@ -43,9 +43,11 @@ import pl.boarderoo.mobileapp.LightTextField
 import pl.boarderoo.mobileapp.PageWithTitle
 import pl.boarderoo.mobileapp.R
 import pl.boarderoo.mobileapp.datastore.saveLoginData
+import pl.boarderoo.mobileapp.main.AppRuntimeData
 import pl.boarderoo.mobileapp.main.MainActivity
 import pl.boarderoo.mobileapp.retrofit.LoginService
-import pl.boarderoo.mobileapp.retrofit.models.ErrorModel
+import pl.boarderoo.mobileapp.retrofit.UserService
+import pl.boarderoo.mobileapp.retrofit.models.ResponseModel
 
 @Composable
 fun LoginScreen(navController: NavController) {
@@ -53,6 +55,7 @@ fun LoginScreen(navController: NavController) {
     val screenWidth = configuration.screenWidthDp
 
     val loginService = LoginService()
+    val userService = UserService()
     val scope = rememberCoroutineScope()
     val snackbarHostState = remember { SnackbarHostState() }
     val context = LocalContext.current
@@ -143,6 +146,7 @@ fun LoginScreen(navController: NavController) {
                                     }
                                     if (response.code() == 200) {
                                         saveLoginData(context, true, mail)
+                                        AppRuntimeData.user = userService.getUserByEmail(mail).body()!!.data
                                         context.startActivity(
                                             Intent(
                                                 context,
@@ -152,7 +156,7 @@ fun LoginScreen(navController: NavController) {
                                         (context as Activity).finish()
                                     } else {
                                         loginErrorCode = response.code()
-                                        loginErrorMessage = gson.fromJson(response.errorBody()!!.string(), ErrorModel::class.java).message
+                                        loginErrorMessage = gson.fromJson(response.errorBody()!!.string(), ResponseModel::class.java).message
                                         loginError = true
                                     }
                                 }

@@ -23,7 +23,7 @@ fun getLoginState(context: Context): Flow<Boolean> {
     }
 }
 
-fun getUserToken(context: Context): Flow<String?> {
+fun getUserEmail(context: Context): Flow<String?> {
     return context.dataStore.data.map { preferences ->
         preferences[PreferencesKeys.USER_EMAIL]
     }
