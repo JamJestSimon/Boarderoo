@@ -1,6 +1,7 @@
 using BoarderooAPI.Model;
 using FirebaseAdmin.Auth;
 using Google.Cloud.Firestore;
+using System.Xml.Linq;
 namespace BoarderooAPI.Service;
 public class UserService
 {
@@ -67,6 +68,57 @@ return new ServiceResult<UserDocument>
             Message="Blad"+e.ToString(),
             ResultCode=500
         };
+        }
+    }
+
+    public async Task<ServiceResult<string>> UpdateUserPassword(LoginRequest request)
+    {
+        try
+        {
+            var emailDocuments = this.getUserCollectionByEmail(request.Email);
+            var data = await emailDocuments.GetSnapshotAsync();
+            if (data.Documents.Count < 1)
+            {
+                return new ServiceResult<string>
+                {
+                    Message = "Brak uzytkownika o takim emailu!",
+                    ResultCode = 404
+                };
+            }
+            if (!data[0].Exists)
+            {
+                return new ServiceResult<string>
+                {
+                    Message = "Brak uzytkownika o takim emailu!",
+                    ResultCode = 404
+                };
+            }
+            else
+            {
+                Dictionary<string, object> userdict = new Dictionary<string, object>()
+                {
+                    { "Password", HashService.hashfunction(request.Password) },
+                };
+
+                DocumentReference emailDocument = data.Documents[0].Reference;
+
+                await emailDocument.UpdateAsync(userdict);
+
+                return new ServiceResult<string>
+                {
+                    Message = "Uzytkownik zaktualizowany poprawnie!",
+                    ResultCode = 200,
+                    Data = "Ok"
+                };
+            }
+        }
+        catch (Exception e)
+        {
+            return new ServiceResult<string>
+            {
+                Message = "Blad" + e.ToString(),
+                ResultCode = 500
+            };
         }
     }
 

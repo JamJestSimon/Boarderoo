@@ -56,6 +56,13 @@ public class UserController : ControllerBase
         var response = await _userService.UpdateUser(email, name, surname, address);
         return ConvertServiceResultToActionResult(response);
     }
+
+    [HttpPut("password")]
+    public async Task<ActionResult> UpdateUserPassword([FromBody] LoginRequest request)
+    {
+        var response = await _userService.UpdateUserPassword(request);
+        return ConvertServiceResultToActionResult(response);
+    }
     
     [HttpGet]
     [Route("{email}")]

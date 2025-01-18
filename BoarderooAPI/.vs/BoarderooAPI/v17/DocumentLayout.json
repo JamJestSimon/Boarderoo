@@ -65,10 +65,6 @@
           "SelectedChildIndex": 5,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
-            {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "LoginController.cs",
@@ -83,14 +79,18 @@
               "EditorCaption": ""
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\UserService.cs",
               "RelativeDocumentMoniker": "Service\\UserService.cs",
-              "ToolTip": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\UserService.cs*",
-              "RelativeToolTip": "Service\\UserService.cs*",
-              "ViewState": "AgIAAFAAAAAAAAAAAIAwwGcAAABIAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\UserService.cs",
+              "RelativeToolTip": "Service\\UserService.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAcwGMAAABPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-18T13:25:09.112Z",
               "EditorCaption": ""
@@ -128,7 +128,7 @@
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
               "ToolTip": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Controllers\\UserController.cs",
               "RelativeToolTip": "Controllers\\UserController.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAiwDUAAACTAAAAAAAAAA==",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAmwD8AAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-18T12:25:47.751Z",
               "EditorCaption": ""
