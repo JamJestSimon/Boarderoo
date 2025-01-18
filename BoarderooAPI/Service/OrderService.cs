@@ -1,34 +1,35 @@
 using BoarderooAPI.Model;
 using FirebaseAdmin.Auth;
 using Google.Cloud.Firestore;
+using System;
 namespace BoarderooAPI.Service;
 public class OrderService
  {
 
  
- private readonly FirestoreDb _database;
+    private readonly FirestoreDb _database;
+    private readonly Random _random;
     public OrderService(FireBaseService firebaseService)
     {
-        _database = firebaseService.getDatabase(); 
+        _database = firebaseService.getDatabase();
+        _random = new Random();
     }
     public async Task<ServiceResult<OrderDocument>>AddOrder(OrderDocument order)
     {
          try{
-        //var Collection = getOrderCollectionById(order.Id);
-        //var data = await Collection.GetSnapshotAsync();
 
          var ordersCollection = getOrderCollection();
-            var newOrder=new OrderDocument();
-            //var n=ConvertModeltoDocument(newOrder);
-            await ordersCollection.AddAsync(newOrder);
-            //var u=ConvertDocumentToModel(newUser);
-            //nie ma uzytnika w bazie (dodajemy)
+            string prefix = "ORD";
+            string timestamp = DateTime.Now.ToString("yyyyMMddHHmmss");
+            string randomSuffix = _random.Next(1000, 9999).ToString();
+            order.Id = $"{prefix}-{timestamp}-{randomSuffix}";
+            await ordersCollection.AddAsync(order);
               return new ServiceResult<OrderDocument>
-        {
-            Message="Uzytkownik dodany poprawnie!",
-            ResultCode=200,
-            Data=order
-        };
+            {
+                Message="Zamowienie dodane poprawnie!",
+                ResultCode=200,
+                Data=order
+            };
     
         }
         catch (Exception e)
@@ -91,9 +92,9 @@ public class OrderService
     {
         try
         {
-            var Collection=getOrderCollectionById(id);
+            var Collection = _database.Collection("orders").WhereEqualTo("Id", id);
             var data=await Collection.GetSnapshotAsync();
-            if (!data.Exists)
+            if (data == null)
         {
             //brak uzytkownika w bazie
             return new ServiceResult<OrderDocument>
@@ -104,11 +105,10 @@ public class OrderService
         }
         else
         {
-            var order = data.ConvertTo<OrderDocument>();
-            //var help=ConvertDocumentToModel(user);
+            var order = data[0].ConvertTo<OrderDocument>();
              return new ServiceResult<OrderDocument>
         {
-            Message="Uzytkownik pobrany poprawnie!",
+            Message="Zamowienie pobrane poprawnie!",
             ResultCode=200,
             Data=order
         };
