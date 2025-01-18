@@ -7,19 +7,19 @@ using Google.Protobuf.WellKnownTypes;
 using Microsoft.AspNetCore.Mvc;
 namespace BoarderooAPI.Controllers;
 
- [ApiController]
- [Route("[controller]")]
-public class UserController: ControllerBase
+[ApiController]
+[Route("[controller]")]
+public class UserController : ControllerBase
 {
     private readonly FireBaseService _firebaseService;
     private readonly UserService _userService;
     private readonly GameService _gameService;
-    
-    public UserController(FireBaseService firebaseService,UserService userService,GameService gameService)
+
+    public UserController(FireBaseService firebaseService, UserService userService, GameService gameService)
     {
         _firebaseService = firebaseService;
-        _userService=userService;
-        _gameService=gameService;
+        _userService = userService;
+        _gameService = gameService;
 
 
     }
@@ -27,16 +27,16 @@ public class UserController: ControllerBase
     [HttpGet(Name = "GetUsers")]
     public async Task<ActionResult> GetAllUsers()
     {
-        var response=await _userService.GetAllUsers(); 
+        var response = await _userService.GetAllUsers();
         return ConvertServiceResultToActionResult(response);
     }
 
     [HttpPost(Name = "PostUser")]
     public async Task<ActionResult> AddUser(UserDocument user)
     {
-            var response=await _userService.AddUser(user);
-            return ConvertServiceResultToActionResult(response);
-        
+        var response = await _userService.AddUser(user);
+        return ConvertServiceResultToActionResult(response);
+
     }
 
     [HttpDelete]
@@ -44,17 +44,17 @@ public class UserController: ControllerBase
     public async Task<ActionResult> DeleteUser(string email)
     {
 
-            var response=await _userService.DeleteUser(email);
-            return ConvertServiceResultToActionResult(response);
+        var response = await _userService.DeleteUser(email);
+        return ConvertServiceResultToActionResult(response);
 
     }
 
 
     [HttpPut]
-    public async Task<ActionResult> UpdateUser(UserDocument user)
+    public async Task<ActionResult> UpdateUser([FromQuery] string email, [FromQuery] string? name, [FromQuery] string? surname, [FromQuery] string? address)
     {
-           var response=await _userService.UpdateUser(user);
-            return ConvertServiceResultToActionResult(response);
+        var response = await _userService.UpdateUser(email, name, surname, address);
+        return ConvertServiceResultToActionResult(response);
     }
     
     [HttpGet]
