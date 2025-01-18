@@ -4,14 +4,14 @@
     "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\BoarderooAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\BoarderooAPI.csproj": {
+    "/home/michal/Boarderoo/Boarderoo/BoarderooAPI/BoarderooAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\BoarderooAPI.csproj",
+        "projectUniqueName": "/home/michal/Boarderoo/Boarderoo/BoarderooAPI/BoarderooAPI.csproj",
         "projectName": "BoarderooAPI",
-        "projectPath": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\BoarderooAPI.csproj",
-        "packagesPath": "C:\\Users\\szymo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\obj\\",
+        "projectPath": "/home/michal/Boarderoo/Boarderoo/BoarderooAPI/BoarderooAPI.csproj",
+        "packagesPath": "/home/michal/.nuget/packages/",
+        "outputPath": "/home/michal/Boarderoo/Boarderoo/BoarderooAPI/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Users\\szymo\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder",
@@ -40,13 +40,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -96,7 +90,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

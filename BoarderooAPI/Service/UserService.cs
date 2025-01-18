@@ -24,7 +24,7 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
          var usersCollection = this.getUserCollection();
             //var newUser=ConvertModeltoDocument(user);
             //newUser.Location=geoPoint;
-            //newUser.Password=HashService.hashfunction(user.Password);
+            user.Password=HashService.hashfunction(user.Password);
             await usersCollection.AddAsync(user);
             //var u=ConvertDocumentToModel(newUser);
             //nie ma uzytnika w bazie (dodajemy)
@@ -51,12 +51,13 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
         }
         
     }
-     public async Task<ServiceResult<UserDocument>> ResetPassword(string mail,string password)
+     public async Task<ServiceResult<string>> ResetPassword(string mail,string password)
     {
         //mailem 
         try
         {
-return new ServiceResult<UserDocument>
+            
+        return new ServiceResult<string>
         {
             Message="ok",
             ResultCode=200
@@ -64,7 +65,30 @@ return new ServiceResult<UserDocument>
         }
         catch (Exception e)
         {
-            return new ServiceResult<UserDocument>
+            return new ServiceResult<string>
+        {
+            Message="Blad"+e.ToString(),
+            ResultCode=500
+        };
+        }
+    }
+
+    public async Task<ServiceResult<string>> ResetPasswordValidate(string mail)
+    {
+        //mailem 
+        try
+        {
+            //sprawdz czy istnieje
+            //jesli istnieje wyslij maila
+        return new ServiceResult<string>
+        {
+            Message="ok",
+            ResultCode=200
+        };
+        }
+        catch (Exception e)
+        {
+            return new ServiceResult<string>
         {
             Message="Blad"+e.ToString(),
             ResultCode=500
@@ -302,7 +326,7 @@ return new ServiceResult<UserDocument>
                     u.Password = user.GetValue<string>("Password");
                     u.Surname = user.GetValue<string>("Surname");
                     u.Token = user.GetValue<string>("Token");
-                    u.TokenCreationDate = user.GetValue<Timestamp>("TokenCreationDate");
+                    u.TokenCreationDate = DateTime.UtcNow;
                     //u.TokenCreationDate = user.GetValue<Google.Cloud.Firestore.Timestamp>("TokenCreationDate");
                     // add to users list
                     users.Add(u);
