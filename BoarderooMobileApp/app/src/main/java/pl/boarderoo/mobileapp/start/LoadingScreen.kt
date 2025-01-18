@@ -12,13 +12,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import kotlinx.coroutines.flow.first
 import pl.boarderoo.mobileapp.R
 import pl.boarderoo.mobileapp.datastore.AppRuntimeData
 import pl.boarderoo.mobileapp.datastore.getLoginState
@@ -31,13 +30,13 @@ class LoadingScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val userService = UserService()
             val context = LocalContext.current
-            val isLoggedIn by getLoginState(context).collectAsState(initial = false)
-            val email by getUserEmail(context).collectAsState(initial = "")
-            Log.d("DATASTORE", "isLoggedIn: $isLoggedIn")
-            Log.d("DATASTORE", "email: $email")
-            LaunchedEffect(isLoggedIn) {
+            LaunchedEffect(Unit) {
+                val userService = UserService()
+                val isLoggedIn = getLoginState(context).first()
+                val email = getUserEmail(context).first()
+                Log.d("DATASTORE", "isLoggedIn: $isLoggedIn")
+                Log.d("DATASTORE", "email: $email")
                 if (isLoggedIn) {
                     AppRuntimeData.user = email?.let { userService.getUserByEmail(it).body()?.data }
                     context.startActivity(
