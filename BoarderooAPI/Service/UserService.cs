@@ -70,10 +70,10 @@ return new ServiceResult<UserDocument>
         }
     }
 
-    public async Task<ServiceResult<UserDocument>> UpdateUser(UserDocument user)
+    public async Task<ServiceResult<UserDocument>> UpdateUser(string email, string? name, string? surname, string? address)
     {
         try{
-    var emailDocuments = this.getUserCollectionByEmail(user.Email);
+    var emailDocuments = this.getUserCollectionByEmail(email);
     var data = await emailDocuments.GetSnapshotAsync();
     if(data.Documents.Count<1)
     {
@@ -93,25 +93,23 @@ return new ServiceResult<UserDocument>
         }
         else
         {
-           
-               
+
                 Dictionary<string, object> userdict = new Dictionary<string, object>()
             {
-                { "Address",user.Address },
-                { "Name",user.Name },
-                { "Password",HashService.hashfunction(user.Password) },
-                { "Surname",user.Surname }
+                { "Address", address == null ? data[0].GetValue<string>("Address") : address },
+                { "Name", name == null ? data[0].GetValue<string>("Name") : name },
+                { "Surname", surname == null ? data[0].GetValue<string>("Surname") : surname }
             };
             
             DocumentReference emailDocument=data.Documents[0].Reference;
 
             await emailDocument.UpdateAsync(userdict);
-            var usersCollection = getUserCollectionByEmail(user.Email);
+            var usersCollection = getUserCollectionByEmail(email);
             var updatedUser = data[0].ConvertTo<UserDocument>();
 
              return new ServiceResult<UserDocument>
         {
-            Message="Uzytkownik zaaktualizowany poprawnie!",
+            Message="Uzytkownik zaktualizowany poprawnie!",
             ResultCode=200,
             Data=updatedUser
         };
