@@ -3,6 +3,7 @@ package pl.boarderoo.mobileapp.main
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -23,6 +24,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,6 +43,8 @@ import kotlinx.coroutines.launch
 import pl.boarderoo.mobileapp.LightButton
 import pl.boarderoo.mobileapp.R
 import pl.boarderoo.mobileapp.datastore.AppRuntimeData
+import pl.boarderoo.mobileapp.datastore.getLoginState
+import pl.boarderoo.mobileapp.datastore.getUserEmail
 import pl.boarderoo.mobileapp.datastore.saveLoginData
 import pl.boarderoo.mobileapp.start.StartActivity
 import pl.boarderoo.mobileapp.ui.theme.BoarderooMobileAppTheme
@@ -50,6 +54,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val isLoggedIn by getLoginState(LocalContext.current).collectAsState(initial = false)
+            val email by getUserEmail(LocalContext.current).collectAsState(initial = "")
+            Log.d("DATASTORE", "isLoggedIn: $isLoggedIn")
+            Log.d("DATASTORE", "email: $email")
             BoarderooMobileAppTheme {
                 Surface(
                     color = colorResource(R.color.backgroundColor)
