@@ -62,7 +62,10 @@ public class LoginService
                 string token=Convert.ToBase64String(Guid.NewGuid().ToByteArray());
                 var state = await _userService.UpdateToken(email, token);
                 // wpisujesz to do bazy danych (token i data)
-                var result=await _emailService.SendEmailAsync(email,"Weryfikacja Boarderoo","Witaj, twoj link aktywacyjny do Boarderoo Application to:");
+                string url=$"https://boarderoo-71469.firebaseapp.com/?code={token}";
+                string message=$"Witaj, twoj link aktywacyjny do Boarderoo Application to: {url}";
+                //var result=await _emailService.SendEmailAsync(email,"Weryfikacja Boarderoo",message);
+                var result=message;
                 return new ServiceResult<string>
             {
                 Message="Link weryfikacyjny zostal wyslany na mail!",

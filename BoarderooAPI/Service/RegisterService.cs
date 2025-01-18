@@ -124,7 +124,7 @@ public RegisterService(UserService userService,EmailService emailService,FireBas
             //Timestamp protoTimestamp = Timestamp.FromDateTime(DateTime.UtcNow.AddHours(-24));
             var now = Timestamp.FromDateTime(DateTime.UtcNow.AddHours(-24));
 
-        if (now>time)
+        if (now>=time)
         {
             _userService.UpdateVerified(user.Email,true);
              return new ServiceResult<string>

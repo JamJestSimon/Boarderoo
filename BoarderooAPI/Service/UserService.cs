@@ -23,7 +23,7 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
          var usersCollection = this.getUserCollection();
             //var newUser=ConvertModeltoDocument(user);
             //newUser.Location=geoPoint;
-            //newUser.Password=HashService.hashfunction(user.Password);
+            user.Password=HashService.hashfunction(user.Password);
             await usersCollection.AddAsync(user);
             //var u=ConvertDocumentToModel(newUser);
             //nie ma uzytnika w bazie (dodajemy)
