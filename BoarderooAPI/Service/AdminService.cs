@@ -28,7 +28,8 @@ namespace BoarderooAPI.Service
                 else
                 {
                     var admin = data[0].ConvertTo<AdminDocument>();
-                    if(admin.password != password)
+                    string password_hashed = HashService.hashfunction(password);
+                    if (admin.password != password_hashed)
                     {
                         return new ServiceResult<string>
                         {
