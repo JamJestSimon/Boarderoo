@@ -1,4 +1,5 @@
 using BoarderooAPI.Model;
+using BoarderooAPI.Requests;
 using FirebaseAdmin.Auth;
 using Google.Cloud.Firestore;
 using System.Xml.Linq;
@@ -71,7 +72,7 @@ return new ServiceResult<UserDocument>
         }
     }
 
-    public async Task<ServiceResult<string>> UpdateUserPassword(LoginRequest request)
+    public async Task<ServiceResult<string>> UpdateUserPassword(PasswordUpdateRequest request)
     {
         try
         {
@@ -95,9 +96,17 @@ return new ServiceResult<UserDocument>
             }
             else
             {
+                if(data[0].GetValue<string>("Password") != request.OldPassword)
+                {
+                    return new ServiceResult<string>
+                    {
+                        Message = "Incorrect password",
+                        ResultCode = 400
+                    };
+                }
                 Dictionary<string, object> userdict = new Dictionary<string, object>()
                 {
-                    { "Password", HashService.hashfunction(request.Password) },
+                    { "Password", HashService.hashfunction(request.NewPassword) },
                 };
 
                 DocumentReference emailDocument = data.Documents[0].Reference;

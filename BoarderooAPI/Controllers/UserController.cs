@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using BoarderooAPI.Model;
+using BoarderooAPI.Requests;
 using BoarderooAPI.Service;
 using FirebaseAdmin.Auth;
 using Google.Cloud.Firestore;
@@ -58,7 +59,7 @@ public class UserController : ControllerBase
     }
 
     [HttpPut("password")]
-    public async Task<ActionResult> UpdateUserPassword([FromBody] LoginRequest request)
+    public async Task<ActionResult> UpdateUserPassword([FromBody] PasswordUpdateRequest request)
     {
         var response = await _userService.UpdateUserPassword(request);
         return ConvertServiceResultToActionResult(response);
