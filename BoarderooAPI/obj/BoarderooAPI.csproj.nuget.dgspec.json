@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/michal/Boarderoo/Boarderoo/BoarderooAPI/BoarderooAPI.csproj": {}
+    "/home/michal/Desktop/Boarderoo/Boarderoo/BoarderooAPI/BoarderooAPI.csproj": {}
   },
   "projects": {
-    "/home/michal/Boarderoo/Boarderoo/BoarderooAPI/BoarderooAPI.csproj": {
+    "/home/michal/Desktop/Boarderoo/Boarderoo/BoarderooAPI/BoarderooAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/michal/Boarderoo/Boarderoo/BoarderooAPI/BoarderooAPI.csproj",
+        "projectUniqueName": "/home/michal/Desktop/Boarderoo/Boarderoo/BoarderooAPI/BoarderooAPI.csproj",
         "projectName": "BoarderooAPI",
-        "projectPath": "/home/michal/Boarderoo/Boarderoo/BoarderooAPI/BoarderooAPI.csproj",
+        "projectPath": "/home/michal/Desktop/Boarderoo/Boarderoo/BoarderooAPI/BoarderooAPI.csproj",
         "packagesPath": "/home/michal/.nuget/packages/",
-        "outputPath": "/home/michal/Boarderoo/Boarderoo/BoarderooAPI/obj/",
+        "outputPath": "/home/michal/Desktop/Boarderoo/Boarderoo/BoarderooAPI/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/michal/.nuget/NuGet/NuGet.Config"
@@ -32,13 +32,7 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
@@ -88,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.111/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

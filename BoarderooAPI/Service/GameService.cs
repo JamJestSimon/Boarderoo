@@ -191,7 +191,7 @@ using Google.Cloud.Firestore;
                 foreach (var game in gameList.Documents)
                 {
                     GameDocument g = new GameDocument();
-                    g.Id=game.Id;
+                    //g.Id=game.Id;
                     g.Image = game.GetValue<List<string>>("Image");
                     g.Name=game.GetValue<string>("Name");
                     g.Type=game.GetValue<string>("Type");
@@ -200,8 +200,8 @@ using Google.Cloud.Firestore;
                     g.Players_number=game.GetValue<string>("Players_number");
                     g.Rating=game.GetValue<string>("Rating");
                     g.Year=game.GetValue<string>("Year");
-                    g.Enabled=game.GetValue<bool>("Enabled");
-                    g.Available_copies=game.GetValue<int>("Available_copies");
+                    //g.Enabled=game.GetValue<bool>("Enabled");
+                    //g.Available_copies=game.GetValue<int>("Available_copies");
                     g.Price=game.GetValue<float>("Price");
                     games.Add(g);
                 }

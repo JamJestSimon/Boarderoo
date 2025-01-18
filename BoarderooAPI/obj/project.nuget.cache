@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vRobwNE1e6Q=",
+  "dgSpecHash": "VsC19d57Gw9V/YYwKI+OLjE031zSUH5xqZ8FrCsHDB1PN8Yx627kTNksh50iLSCdjx8d5vDDdRfXguaS5PPu4g==",
   "success": true,
-  "projectFilePath": "/home/michal/Boarderoo/Boarderoo/BoarderooAPI/BoarderooAPI.csproj",
+  "projectFilePath": "/home/michal/Desktop/Boarderoo/Boarderoo/BoarderooAPI/BoarderooAPI.csproj",
   "expectedPackageFiles": [
     "/home/michal/.nuget/packages/bouncycastle.cryptography/2.5.0/bouncycastle.cryptography.2.5.0.nupkg.sha512",
     "/home/michal/.nuget/packages/firebaseadmin/3.1.0/firebaseadmin.3.1.0.nupkg.sha512",

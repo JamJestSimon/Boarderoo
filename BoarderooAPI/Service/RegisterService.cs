@@ -18,47 +18,6 @@ public RegisterService(UserService userService,EmailService emailService,FireBas
             _database=firebaseService.getDatabase();
 }
 
-
-    // public async Task<ServiceResult<UserDocument>> Register(UserDocument user)
-    // {
-    //     //sprawdz czy jest ziomek w bazie danyhc
-    //     try
-    //     {
-    //          var usersCollection = _userService.getUserCollectionByEmail(user.Email);
-    //     var data = await usersCollection.GetSnapshotAsync();
-    //     if (data!=null)
-    //     {
-    //         var u=_userService.AddUser(user);
-    //         return new ServiceResult<UserDocument>
-    //     {
-    //         Message="Uzytkownik juz istnieje!",
-    //         ResultCode=200
-    //     };
-    //     }
-    //     else 
-    //     {
-    //         return new ServiceResult<UserDocument>
-    //     {
-    //         Message="Uzytkownik juz istnieje!",
-    //         ResultCode=400
-    //     };
-    //     }
-    //     }
-    //     catch(Exception e)
-    //     {
-    //         return new ServiceResult<UserDocument>
-    //     {
-    //         Message="Blad"+e.ToString(),
-    //         ResultCode=500
-    //     };
-    //     }
-    //     //sprawdzamy czy uzytkownik istnieje w bazie danych
-    //     //generujesz token uzytkownika z data
-    //     //dodajesz do bazy danych
-    //     //wysylasz maila z linkiem
-    //    // return 0;
-    // }
-
     public async Task<ServiceResult<string>> Register(UserDocument user)
     {
 
@@ -66,22 +25,13 @@ public RegisterService(UserService userService,EmailService emailService,FireBas
         var data = await usersCollection.GetSnapshotAsync();
         if (data.Documents.Count<1)
         {
-            //brak uzytkownika w bazie
-            //generujesz token uzytkownika z data
-           // u.Token=""; //  tutaj trzeba bedzie generowac token
-            //u.TokenCreationDate=;
-            byte[] token=Guid.NewGuid().ToByteArray();
-            string utf8Token = System.Text.Encoding.UTF8.GetString(token);
+            string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
+            .Replace("+", "-")
+            .Replace("/", "_")
+            .TrimEnd('=');
+            user.IsVerified=false;
             await _userService.AddUser(user);
-            await _userService.UpdateToken(user.Email,utf8Token); //aktualizujemy token
-            //await EmailService.SendEmail();//wysylamy email z kodem
-            //dodajesz do bazy danych
-            //wysylasz maila z linkiem
-            
-
-
-    // Wysłanie e-maila
-    //await emailService.SendEmailAsync("recipient@example.com", "Temat wiadomości", "<h1>Treść wiadomości</h1>");
+            await _userService.UpdateToken(user.Email,token); //aktualizujemy token
             string url=$"https://boarderoo-71469.firebaseapp.com/?code={token}";
             string message=$"Witaj, twoj link aktywacyjny do Boarderoo Application to: {url}";
             //var result=await _emailService.SendEmailAsync(email,$"Weryfikacja Boarderoo",message);
@@ -122,9 +72,9 @@ public RegisterService(UserService userService,EmailService emailService,FireBas
             var user=data[0].ConvertTo<UserDocument>();
             var time=user.TokenCreationDate;
             //Timestamp protoTimestamp = Timestamp.FromDateTime(DateTime.UtcNow.AddHours(-24));
-            var now = Timestamp.FromDateTime(DateTime.UtcNow.AddHours(-24));
+            var now = DateTime.UtcNow.AddHours(-24);
 
-        if (now>=time)
+        if (now<time)
         {
             _userService.UpdateVerified(user.Email,true);
              return new ServiceResult<string>
