@@ -13,28 +13,6 @@ public class LoginService
         _emailService=emailService;
     }
 
-    public async Task<ServiceResult<string>>Verify(string email,string password,string token)
-    {
-        try
-        {
-            return new ServiceResult<string>
-                    {
-                        Message = "Brak uzytkownika w bazie danych!",
-                        ResultCode = 400
-                    };
-        
-        }
-        catch (Exception e)
-        {
-return new ServiceResult<string>
-        {
-            Message="Blad: "+e.ToString(),
-            ResultCode=500
-        };
-        }
-        
-
-    }
     public async Task<ServiceResult<string>> Login(string email, string password)
     {
         try
@@ -79,19 +57,44 @@ return new ServiceResult<string>
             }
             else if(data[0].GetValue<bool>("IsVerified") == false)
             {
+                var user=_userService.getUserCollectionByEmail(email);
+                var userSnapshot = await user.GetSnapshotAsync();                
+                var time=data[0].ConvertTo<UserDocument>().TokenCreationDate;
+            //Timestamp protoTimestamp = Timestamp.FromDateTime(DateTime.UtcNow.AddHours(-24));
+            var now = DateTime.UtcNow.AddHours(-24);
+
+        if (now>time)
+        {
+
+        
                 // w przeciwnym przypadku
                 // generujesz tokena
-                string token=Convert.ToBase64String(Guid.NewGuid().ToByteArray());
-                var state = await _userService.UpdateToken(email, token);
+                //string token=Convert.ToBase64String(Guid.NewGuid().ToByteArray());
                 // wpisujesz to do bazy danych (token i data)
-                var result=await _emailService.SendEmailAsync(email,"Weryfikacja Boarderoo","Witaj, twoj link aktywacyjny do Boarderoo Application to:");
-                return new ServiceResult<string>
-            {
-                Message="Link weryfikacyjny zostal wyslany na mail!",
-                ResultCode=200,
-                Data=result
-            
-            };    
+                string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
+            .Replace("+", "-")
+            .Replace("/", "_")
+            .TrimEnd('=');
+            var state = await _userService.UpdateToken(email, token);
+            await _userService.UpdateToken(email,token); //aktualizujemy token
+            string url=$"https://boarderoo-71469.firebaseapp.com/?code={token}";
+            string message=$"Witaj, twoj link aktywacyjny do Boarderoo Application to: {url}";
+            //var result=await _emailService.SendEmailAsync(email,$"Weryfikacja Boarderoo",message);
+            var result=message;
+            return new ServiceResult<string>
+        {
+            Message="Wyslano token logowania!",
+            ResultCode=200,
+            Data=result
+           
+        };
+        }else return new ServiceResult<string>
+        {
+            Message="Token jest aktywny!",
+            ResultCode=200,
+            Data=time.ToString()
+           
+        };
             }
 
         return new ServiceResult<string>

@@ -24,7 +24,7 @@ public class UserDocument
     [FirestoreProperty]
     public string Token {get; set;}
     [FirestoreProperty]
-    public Google.Cloud.Firestore.Timestamp TokenCreationDate {get; set;}
+    public DateTime TokenCreationDate {get; set;}
     
 
 }

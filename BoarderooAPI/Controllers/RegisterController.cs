@@ -16,11 +16,20 @@ namespace BoarderooAPI.Controllers;
     }
 
     [HttpPost(Name = "Register")]
-    public async Task<ActionResult> Register(LoginRequest request)
+    public async Task<ActionResult> Register(UserDocument user)
     {
-        var response=await _registerService.Register(request.Email,request.Password); 
+        var response=await _registerService.Register(user); 
         return ConvertServiceResultToActionResult(response);
         //return Ok();
+    }
+
+    [HttpPost]
+    [Route("/verify/{token}")]
+    public async Task<ActionResult> Verify(string token)
+    {
+        var response=await _registerService.Verify(token);
+        return ConvertServiceResultToActionResult(response);
+
     }
     private ActionResult ConvertServiceResultToActionResult<T>(ServiceResult<T> serviceResult)
 {
