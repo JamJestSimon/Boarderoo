@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { ICreateOrderRequest, IPayPalConfig, NgxPayPalModule } from 'ngx-paypal';
+import { GameCard } from '../GameCard';
 
 @Component({
   selector: 'app-cart',
@@ -25,11 +26,7 @@ export class CartComponent {
     days: number = 1;
     formattedDateRange: string = '';
     isDatePickerOpen: boolean = false;
-    items = [
-      { src: 'cart.png', title: 'Item 1', price: 4.99 },
-      { src: 'avatar.png', title: 'Item 2', price: 3.99 },
-      { src: 'discord.png', title: 'Item 3', price: 5.99 }
-    ];
+    items: GameCard[] = [];
     minDate: string | undefined;
     constructor(private toastr: ToastrService) {}
 
@@ -38,13 +35,35 @@ export class CartComponent {
       console.log(this.sumPrice);
     }
   
+    updateCart(){
+      const storedCartItems = sessionStorage.getItem('cartItems');
+      if (storedCartItems) {
+        console.log()
+        this.items = JSON.parse(storedCartItems);  // Przypisanie danych do items\
+        this.items.forEach(item => {
+          // Zamiana przecinka na kropkę i konwersja na float
+          item.price = parseFloat(item.price.toString().replace(',', '.'));
+        });
+        this.calculateTotalPrice();  // Obliczenie ceny po załadowaniu
+        console.log(this.items);
+      }
+    }
 
     removeItem(item: any) {
+      console.log("Usuwam: ", item);
       const index = this.items.indexOf(item);
       if (index > -1) {
         this.items.splice(index, 1);
       }
       this.calculateTotalPrice();
+      this.updateSessionStorage();
+      console.log("Nowa lista po usunięciu: ", this.items);
+    }
+
+    
+    updateSessionStorage() {
+      console.log("Aktualizowanie sessionStorage");
+      sessionStorage.setItem('cartItems', JSON.stringify(this.items));
     }
     // Otwiera kalendarz
   openDatePicker(): void {
@@ -79,6 +98,8 @@ export class CartComponent {
 
       this.minDate = `${year}-${month}-${day}`
       console.log("MIN: " + this.minDate);
+
+      this.updateCart();
 
     }
 

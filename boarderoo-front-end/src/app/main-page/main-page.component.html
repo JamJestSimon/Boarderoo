@@ -141,11 +141,11 @@
         <div class="card-text">
           <h3>{{ card.title }}</h3>
           <p>Wydawca: {{ card.publisher }}</p>
-          <p>Wiek: {{ card.age }}</p>
-          <p>Liczba graczy: {{ card.players }}</p>
+          <p>Wiek: {{ card.ageFrom }} - {{ card.ageTo }}</p>
+          <p>Liczba graczy: {{ card.playersFrom }} - {{ card.playersTo }}</p>
           <p>Kategoria: {{ card.category }}</p>
         </div>
-        <div class="card-price">Cena: {{ card.price }}</div>
+        <div class="card-price">Cena: {{ card.price }} zł</div>
       </div>
 
       

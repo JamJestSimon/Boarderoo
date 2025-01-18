@@ -5,25 +5,25 @@
       <!-- Formularz logowania -->
       <div class="join-us-left">
         <h2>Logowanie</h2>
-        <form (ngSubmit)="showSuccess()">
+        <form>
           <div class="input-group">
-            <label for="email">Email</label>
+            <label for="emailLogin">Email</label>
             <input
               type="email"
-              id="email"
-              [(ngModel)]="email"
-              name="email"
+              id="emailLogin"
+              name="emailLogin"
               placeholder="Wprowadź email"
+              [(ngModel)]="emailLogin"
             />
           </div>
           <div class="input-group">
-            <label for="password">Hasło</label>
-            <input type="password" id="password" placeholder="Wprowadź hasło" />
+            <label for="passwordLogin">Hasło</label>
+            <input type="password" id="passwordLogin" placeholder="Wprowadź hasło" name="passwordLogin" [(ngModel)]="passwordLogin"/>
           </div>
           <div class="forgot-password">
-            <a href="#" (click)="showSuccess()">Zapomniałeś hasła?</a>
+            <a href="#" (click)="forgotPasswordSend()">Zapomniałeś hasła?</a>
           </div>
-          <button class="login-button" type="submit">Zaloguj</button>
+          <button class="login-button" (click)="LogIn()">Zaloguj</button>
         </form>
 
         <!-- Przyciski logowania Google i Discord -->
@@ -46,7 +46,7 @@
           </button>
 
           <!-- Discord Sign-In -->
-          <button class="discord-button">
+          <button class="discord-button" (click)="signInWithGoogle()">
             <img src="discord.png" alt="Discord" class="discord-icon" />
           </button>
         </div>
@@ -60,30 +60,31 @@
         <form>
           <div class="input-group">
             <label for="firstName">Imię</label>
-            <input type="text" id="firstName" placeholder="Wprowadź imię" />
+            <input type="text" id="firstName" name="firstName" [(ngModel)]="firstName" placeholder="Wprowadź imię" />
           </div>
           <div class="input-group">
             <label for="lastName">Nazwisko</label>
-            <input type="text" id="lastName" placeholder="Wprowadź nazwisko" />
+            <input type="text" id="lastName" name="lastName" [(ngModel)]="lastName" placeholder="Wprowadź nazwisko" />
           </div>
           <div class="input-group">
             <label for="address">Adres</label>
-            <input type="text" id="address" placeholder="Wprowadź adres" />
+            <input type="text" id="address" name="address" [(ngModel)]="address" placeholder="Wprowadź adres" />
           </div>
           <div class="input-group">
             <label for="emailRegistration">Email</label>
-            <input type="email" id="emailRegistration" placeholder="Wprowadź email" />
+            <input type="email" id="emailRegistration" name="emailRegistration" [(ngModel)]="emailRegistration" placeholder="Wprowadź email" [value]="emailLogin" />
           </div>
           <div class="input-group">
             <label for="passwordRegistration">Hasło</label>
-            <input type="password" id="passwordRegistration" placeholder="Wprowadź hasło" />
+            <input type="password" id="passwordRegistration" name="passwordRegistration" [(ngModel)]="passwordRegistration" placeholder="Wprowadź hasło" [value]="passwordLogin" />
           </div>
           <div class="input-group">
             <label for="confirmPassword">Powtórz hasło</label>
-            <input type="password" id="confirmPassword" placeholder="Powtórz hasło" />
+            <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword" placeholder="Powtórz hasło" />
           </div>
 
-          <button class="register-button" type="submit">Zarejestruj</button>
+          <button class="register-button" (click)="register()">Zarejestruj</button>
+
         </form>
       </div>
     </div>

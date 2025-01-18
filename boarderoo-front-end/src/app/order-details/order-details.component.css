@@ -102,9 +102,33 @@
     transform: scale(1.1);
 }
 .input-container{
-    width: 60%;
+    width: 20%;
     margin: 10px auto; /* Centruje element poziomo */
     display: block; 
+}
+
+.confirm-button {
+    width: 60%;
+    padding: 10px;
+    background-color: #A4691D; /* Kolor tła przycisku */
+    color: #422D29; /* Kolor tekstu */
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #422D29;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 40px; /* Odstęp od innych elementów */
+    transition: transform 0.3s ease;
+}
+
+.confirm-button:hover {
+    transform: scale(1.1);
+}
+
+.input-container label {
+    font-weight: bold;
+    font-size: 24px;
+    color: #422D29;
 }
 
 .custom-select {
@@ -114,6 +138,7 @@
     border-radius: 10px;
     font-size: 16px;
     width: 85%;
+    text-align: center;
   }
   
   .custom-select label {

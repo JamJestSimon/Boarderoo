@@ -3,11 +3,16 @@ import { NavBarComponent } from "../nav-bar/nav-bar.component";
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { GameDetailsComponent } from '../game-details/game-details.component';
+import { HttpClient, HttpClientModule, HttpParams } from '@angular/common/http';
+import { CustomResponse } from '../CustomResponse';
+import { ToastrService } from 'ngx-toastr';
+import { GameCard } from '../GameCard';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-main-page',
   standalone: true,
-  imports: [NavBarComponent, CommonModule, FormsModule, GameDetailsComponent],
+  imports: [NavBarComponent, CommonModule, FormsModule, GameDetailsComponent, HttpClientModule],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css',
   schemas: [CUSTOM_ELEMENTS_SCHEMA], // Dodajemy schemat
@@ -62,125 +67,59 @@ export class MainPageComponent {
   }
 
 
-  cards = [
-    { 
-      title: "Władca Pierścieni. Podróże przez Śródziemie", 
-      publisher: "Rebel", 
-      age: "14 - 99", 
-      players: "1 - 10", 
-      category: "Strategiczna", 
-      price: "199,99" ,
-      photos: "discord.png,wladca.png,avatar.png",
-      year: "2015",
-      description : "Jednemu tylko panu służę: królowi Marchii, Theodenowi, synowi Thengla – odparł Eomer. – Nie służymy potędze dalekiego Czarnego Kraju, lecz nie prowadzimy też z nią otwartej wojny. Jeśli więc przed nią uciekacie, opuśćcie lepiej nasz kraj. Na całym pograniczu szerzy się niepokój i jesteśmy zagrożeni; pragniemy jednak tylko zachować wolność i żyć tak, jak żyliśmy, poprzestając na swoim, nie służąc obcym panom, ani dobrym, ani złym. W lepszych czasach chętnie i przyjaźnie witaliśmy cudzoziemców, lecz w tych niespokojnych dniach obcy, nieproszeni goście muszą się u nas spotykać z podejrzliwym i surowym przyjęciem. Mówcie! Coście za jedni? Komu służycie? Na czyj rozkaz ścigacie orków po naszym stepie Jednemu tylko panu służę: królowi Marchii, Theodenowi, synowi Thengla – odparł Eomer. – Nie służymy potędze dalekiego Czarnego Kraju, lecz nie prowadzimy też z nią otwartej wojny. Jeśli więc przed nią uciekacie, opuśćcie lepiej nasz kraj. Na całym pograniczu szerzy się niepokój i jesteśmy zagrożeni; pragniemy jednak tylko zachować wolność i żyć tak, jak żyliśmy, poprzestając na swoim, nie służąc obcym panom, ani dobrym, ani złym. W lepszych czasach chętnie i przyjaźnie witaliśmy cudzoziemców, lecz w tych niespokojnych dniach obcy, nieproszeni goście muszą się u nas spotykać z podejrzliwym i surowym przyjęciem. Mówcie! Coście za jedni? Komu służycie? Na czyj rozkaz ścigacie orków po naszym stepie?"
+  cards: GameCard[] = []
+  constructor(private toastr: ToastrService, private http: HttpClient,private router: Router) {}
+  GetGames() {
+    const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
+    const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/game';
+    const fullUrl = proxyUrl + targetUrl;
+    console.log(fullUrl);
+    this.http.get<CustomResponse>(fullUrl).subscribe(response => {
+      for (let i = 0; i < response.data.length; i++) {
+        const item: any = response.data[0];
+        console.log(item);
+        console.log(typeof item); 
+        // Tworzymy obiekt typu GameCard
+        const gameCard: GameCard = {
+          title: item.name || 'Brak tytułu',               // name -> title
+          publisher: item.publisher || 'Brak wydawcy',     // publisher
+          category: item.type || 'Brak kategorii',         // type -> category
+          price: item.price,// || parseFloat(item.price.toString()),    // price
+          year: parseInt(item.year.toString(), 10) || 0,    // year
+          description: item.description || 'Brak opisu',    // description
+          photos: item.image ? [item.image] : ['discord.png'],  // Jeśli jest image, to użyj go, w przeciwnym razie przypisz domyślne zdjęcie
+          ageFrom: parseInt(item.rating.split(' - ')[0], 10),  // players_number -> playersFrom
+          ageTo: parseInt(item.rating.split(' - ')[1], 10),     // players_number -> playersTo
+          playersFrom: parseInt(item.players_number.split(' - ')[0], 10) || 1,  // players_number -> playersFrom
+          playersTo: parseInt(item.players_number.split(' - ')[1], 10) || 2,    // players_number -> playersTo
+          action: ''                                        // Akcja (możesz dodać logikę, jeśli są dane)
+        };
+        
 
-    },
-    { 
-      title: "Gra o Tron. Gra planszowa", 
-      publisher: "Fantasy Flight", 
-      age: "18 - 99", 
-      players: "2 - 6", 
-      category: "Strategiczna", 
-      price: "250,00 PLN" 
-    },
-    { 
-      title: "Catan", 
-      publisher: "Kosmos", 
-      age: "10 - 99", 
-      players: "3 - 4", 
-      category: "Strategiczna", 
-      price: "150,00 PLN" 
-    },
-    { 
-      title: "Catan", 
-      publisher: "Kosmos", 
-      age: "10 - 99", 
-      players: "3 - 4", 
-      category: "Strategiczna", 
-      price: "150,00 PLN" 
-    },
-    { 
-      title: "Catan", 
-      publisher: "Kosmos", 
-      age: "10 - 99", 
-      players: "3 - 4", 
-      category: "Strategiczna", 
-      price: "150,00 PLN" 
-    },
-    { 
-      title: "Catan", 
-      publisher: "Kosmos", 
-      age: "10 - 99", 
-      players: "3 - 4", 
-      category: "Strategiczna", 
-      price: "150,00 PLN" 
-    },
-    { 
-      title: "Catan", 
-      publisher: "Kosmos", 
-      age: "10 - 99", 
-      players: "3 - 4", 
-      category: "Strategiczna", 
-      price: "150,00 PLN" 
-    },
-    { 
-      title: "Catan", 
-      publisher: "Kosmos", 
-      age: "10 - 99", 
-      players: "3 - 4", 
-      category: "Strategiczna", 
-      price: "150,00 PLN" 
-    },
-    { 
-      title: "Catan", 
-      publisher: "Kosmos", 
-      age: "10 - 99", 
-      players: "3 - 4", 
-      category: "Strategiczna", 
-      price: "150,00 PLN" 
-    },
-    { 
-      title: "Catan", 
-      publisher: "Kosmos", 
-      age: "10 - 99", 
-      players: "3 - 4", 
-      category: "Strategiczna", 
-      price: "150,00 PLN" 
-    },
-    { 
-      title: "Catan", 
-      publisher: "Kosmos", 
-      age: "10 - 99", 
-      players: "3 - 4", 
-      category: "Strategiczna", 
-      price: "150,00 PLN" 
-    },
-    { 
-      title: "Catan", 
-      publisher: "Kosmos", 
-      age: "10 - 99", 
-      players: "3 - 4", 
-      category: "Strategiczna", 
-      price: "150,00 PLN" 
-    },
-    { 
-      title: "Catan", 
-      publisher: "Kosmos", 
-      age: "10 - 99", 
-      players: "3 - 4", 
-      category: "Strategiczna", 
-      price: "150,00 PLN" 
-    },
-    { 
-      title: "Catan", 
-      publisher: "Kosmos", 
-      age: "10 - 99", 
-      players: "3 - 4", 
-      category: "Strategiczna", 
-      price: "150,00 PLN" 
-    }
-    // Dodaj kolejne obiekty, jeśli potrzeba
-];
+        console.log(gameCard);
+    
+        // Dodajemy gameCard do listy
+        this.cards.push(gameCard);
+      }
+    
+      console.log(this.cards); // Zobacz całą listę cards
+    }, error => {
+      console.error('Błąd:', error);
+      //this.failToast(error.error?.message);
+    });
+  }
+
+  ngOnInit(): void {
+    this.GetGames();
+    const sessionToken = localStorage.getItem('session_token');
+    if (!sessionToken) {
+      // Jeśli token jest pusty, przekierowujemy na stronę główną
+      this.router.navigate(['/']);
+
+      
+  }
+
+}
 
 
   options = ['Opcja 1', 'Opcja 2', 'Opcja 3', 'Opcja 4'];

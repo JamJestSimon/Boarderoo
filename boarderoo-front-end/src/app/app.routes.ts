@@ -9,14 +9,17 @@ import { AccountDetailComponent } from './account-details/account-details.compon
 import { AccountVerificationComponent } from './account-verification/account-verification.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { OrdersListComponent } from './orders-list/orders-list.component';
+import { GamesListComponent } from './games-list/games-list.component';
 
 export const routes: Routes = [
   { path: "", component: StartPageComponent },
   { path: "gry", component: MainPageComponent },
   { path: "callback", component: CallbackComponent},
-  { path: "adminPanel", component: AdminPanelComponent},
+  { path: "adminpanel", component: AdminPanelComponent},
   { path: "resetHasla", component: PasswordResetComponent},
   { path: "weryfikacja", component: AccountVerificationComponent},
   { path: "admin", component: AdminLoginComponent},
+  { path: "listagier", component: GamesListComponent},
   { path: "zamowienia", component: OrdersListComponent},
+
 ];

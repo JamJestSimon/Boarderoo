@@ -18,7 +18,7 @@
             <div class="order-list">
                 <div *ngFor="let item of items" class="order-item">
                     <div class="order-img-container">
-                      <img [src]="item.src" alt="Awatar" class="order-img" />
+                      <img [src]="item.photos[0]" alt="Awatar" class="order-img" />
                     </div>
                     <div class="order-details">
                       <h3 class="order-title">{{ item.title }}</h3>

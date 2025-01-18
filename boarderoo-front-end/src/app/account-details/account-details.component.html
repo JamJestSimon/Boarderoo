@@ -4,7 +4,7 @@
       <div class="account-details-left">
         <div class="avatar">
           <img src="avatar.png" alt="Awatar" class="avatar-img" />
-          <span class="username">{{userName}}</span>
+          <span class="username">{{user}}</span>
           <button class="close-button" (click)="onClose()">×</button>
         </div>
       </div>
@@ -49,24 +49,22 @@
                     <div class="input-row">
                       <div class="input-group">
                         <label for="firstName">Imię</label>
-                        <input type="text" id="firstName" name="firstName" placeholder="Wprowadź imię" />
-                      </div>
-                      <div class="input-group">
-                        <label for="lastName">Nazwisko</label>
-                        <input type="text" id="lastName" name="lastName" placeholder="Wprowadź nazwisko" />
+                        <input type="text" id="firstName" name="userName" placeholder="Wprowadź imię" [(ngModel)]="userName"/>
                       </div>
                     </div>
                     <div class="input-row">
                       <div class="input-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Wprowadź email" />
-                      </div>
-                      <div class="input-group">
-                        <label for="address">Adres</label>
-                        <input type="text" id="address" name="address" placeholder="Wprowadź adres" />
+                        <label for="lastName">Nazwisko</label>
+                        <input type="text" id="lastName" name="surname" placeholder="Wprowadź nazwisko" [(ngModel)]="surname"/>
                       </div>
                     </div>
-                  <button class="save-button" type="submit">Zapisz zmiany</button>
+                    <div class="input-row">
+                      <div class="input-group">
+                        <label for="address">Adres</label>
+                        <input type="text" id="address" name="address" placeholder="Wprowadź adres" [(ngModel)]="address"/>
+                      </div>
+                    </div>
+                  <button class="save-button" (click)="UpdateUser()">Zapisz zmiany</button>
                 </form>
             </div>
             <div [style.display]="openedTab === 'password' ? 'block' : 'none'">

@@ -23,12 +23,10 @@
             </div>
     </div>
     <div class="input-container">
-        <label for="example-select">Kategoria:</label>
+        <label for="example-select">Status:</label>
         <select id="example-select" class="custom-select">
-          <option value="option1">Opcja 1</option>
-          <option value="option2">Opcja 2</option>
-          <option value="option3">Opcja 3</option>
-          <option value="option4">Opcja 4</option>
+          <option *ngFor="let option of options" [value]="option">{{ option }}</option>
         </select>
+        <button class="confirm-button">Zatwierdź</button>
       </div>
 </div>

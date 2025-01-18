@@ -2,6 +2,8 @@ import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
+import { HttpClient } from '@angular/common/http';
+import { CustomResponse } from '../CustomResponse';
 
 @Component({
   selector: 'app-account-details',
@@ -15,15 +17,93 @@ export class AccountDetailComponent {
   
     toastContainer: ToastContainerDirective | undefined;
     email: string = '';  // Dodajemy zmienną na e-mail
+    user: string = '';  // Dodajemy zmienną na e-mail
+    surname: string = '';  // Dodajemy zmienną na e-mail
+    address: string = '';  // Dodajemy zmienną na e-mail
     currentTab: string = 'data';
     tmpCurrentTab: string = ''
     openedTab: string = ''
     userName: string | undefined;
-    constructor(private toastr: ToastrService) {}
+    constructor(private toastr: ToastrService, private http: HttpClient) {}
+      GetUser() {
+        const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
+        const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/user/' + this.email;
+        const fullUrl = proxyUrl + targetUrl;
+        console.log(fullUrl);
+        this.http.get<CustomResponse>(fullUrl).subscribe(response => {
+            console.log("user: ", response.data);
+            const item: any = response.data;
+
+            this.userName = item.name || '';
+            this.user = item.name || '';
+            this.email = item.email || '';
+            this.surname = item.surname || '';
+            //this.address
+
+        }, error => {
+          console.error('Błąd:', error);
+          //this.failToast(error.error?.message);
+        });
+      }
+
+      UpdateUser() {
+        const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
+        const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/user/' + this.email;
+        const fullUrl = proxyUrl + targetUrl;
+      
+        // Dane do zaktualizowania
+        const updateData = {
+          id: "2N9Wybuw879CZOD4pMLC",
+          email: "string",
+          isVerified: true,
+          location: {
+            latitude: 0,
+            longitude: 0
+          },
+          name: this.userName,
+          password: "string",
+          surname: this.surname,
+          token: "string",
+          tokenCreationDate: {}
+        }
+        
+        console.log('Request URL:', fullUrl);
+        console.log('Request Data:', updateData);
+      
+        this.http.put(fullUrl, updateData).subscribe(
+          response => {
+            console.log('User updated successfully:', response);
+            // Możesz dodać powiadomienie o sukcesie, np. Toast
+            // this.successToast('User updated successfully.');
+          },
+          error => {
+            console.error('Error updating user:', error);
+            // Możesz dodać powiadomienie o błędzie, np. Toast
+            // this.failToast('Failed to update user.');
+          }
+        );
+
+        this.GetUser();
+      }
 
     ngOnInit(): void {
-      this.userName = "Adrian"
+      this.email = localStorage.getItem('session_token') || '';
       this.openedTab = 'data';
+
+      
+    }
+
+    GetOrder() {
+      const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
+      const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/order/user/' + this.email;
+      const fullUrl = proxyUrl + targetUrl;
+      console.log(fullUrl);
+      this.http.get<CustomResponse>(fullUrl).subscribe(response => {
+        console.log("Zamówienia:", response.data);
+      }, error => {
+        console.error('Błąd:', error);
+        //this.failToast(error.error?.message);
+      });
     }
     
     onClose() {
@@ -35,6 +115,7 @@ export class AccountDetailComponent {
       this.tmpCurrentTab = 'data';
       this.openedTab = 'data';
       console.log(this.currentTab);
+      this.GetUser();
     }
   
     showPassword() {
@@ -48,6 +129,7 @@ export class AccountDetailComponent {
       this.currentTab = 'orderHistory';
       this.tmpCurrentTab = 'orderHistory';
       this.openedTab = 'orderHistory';
+      this.GetOrder();
       console.log(this.currentTab);
     }
 
