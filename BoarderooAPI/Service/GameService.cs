@@ -192,6 +192,7 @@ using Google.Cloud.Firestore;
                 {
                     GameDocument g = new GameDocument();
                     g.Id=game.Id;
+                    g.Image = game.GetValue<List<string>>("Image");
                     g.Name=game.GetValue<string>("Name");
                     g.Type=game.GetValue<string>("Type");
                     g.Description=game.GetValue<string>("Description");
