@@ -13,28 +13,6 @@ public class LoginService
         _emailService=emailService;
     }
 
-    public async Task<ServiceResult<string>>Verify(string email,string password,string token)
-    {
-        try
-        {
-            return new ServiceResult<string>
-                    {
-                        Message = "Brak uzytkownika w bazie danych!",
-                        ResultCode = 400
-                    };
-        
-        }
-        catch (Exception e)
-        {
-return new ServiceResult<string>
-        {
-            Message="Blad: "+e.ToString(),
-            ResultCode=500
-        };
-        }
-        
-
-    }
     public async Task<ServiceResult<string>> Login(string email, string password)
     {
         try
