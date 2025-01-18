@@ -7,10 +7,11 @@ import java.util.Date
 @Parcelize
 data class OrderModel(
     val id: String,
-    val start: Date,
-    val end: Date,
-    val status: StatusType,
-    val user: UserModel,
+    //TODO - odkomentować jak będzie działało
+    //val start: Date,
+    //val end: Date,
+    val status: Int,
+    val user: String,
     val items: List<GameModel>,
     val price: Float
 ) : Parcelable

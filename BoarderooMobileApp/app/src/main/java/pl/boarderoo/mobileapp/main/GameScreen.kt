@@ -1,6 +1,7 @@
 package pl.boarderoo.mobileapp.main
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -62,7 +63,7 @@ fun GameListScreen(navController: NavController) {
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.SpaceAround
+        verticalArrangement = Arrangement.Top
     ) {
         if (errorMessage.value != null) {
             ErrorState(
@@ -86,7 +87,7 @@ fun GameListScreen(navController: NavController) {
             ) {
                 itemsIndexed(gameList.value!!) { index, game ->
                     GameGridItem(game) {
-                        //TODO
+                        navController.navigate("GameDetailsScreen/${game.id}")
                     }
                 }
             }
@@ -98,11 +99,15 @@ fun GameListScreen(navController: NavController) {
 fun GameGridItem(gameModel: GameModel, onClick: () -> Unit) {
     Column(
         modifier = Modifier
-            .padding(6.dp)
+            .padding(25.dp)
             .clip(RoundedCornerShape(25.dp))
             .background(colorResource(id = R.color.buttonColor))
+            .clickable {
+                onClick()
+            }
     ) {
-        ImageFromUrl(gameModel.image[0])
+        //TODO - odkomentować jak będzie działało
+        //ImageFromUrl(gameModel.image[0])
         Text(gameModel.name)
         Text(gameModel.publisher)
         Text(gameModel.rating)
