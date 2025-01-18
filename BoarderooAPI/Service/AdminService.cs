@@ -1,4 +1,5 @@
 ﻿using BoarderooAPI.Model;
+using Google.Cloud.Firestore;
 
 namespace BoarderooAPI.Service
 {
@@ -37,9 +38,9 @@ namespace BoarderooAPI.Service
                     }
                     return new ServiceResult<string>
                     {
-                        Message = "",
+                        Message = "Logged in successfully",
                         ResultCode = 200,
-                        Data = admin
+                        Data = "Ok"
                     };
                 }
             }
@@ -55,7 +56,7 @@ namespace BoarderooAPI.Service
 
         public Google.Cloud.Firestore.Query getAdminByLogin(string login)
         {
-            return _database.Collection("admins").WhereEqualTo("Login", login);
+            return _database.Collection("admins").WhereEqualTo("login", login);
         }
     }
 }

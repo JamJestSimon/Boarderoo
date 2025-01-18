@@ -1,5 +1,6 @@
 using BoarderooAPI.Model;
 using FirebaseAdmin.Auth;
+using Google.Api;
 using Google.Cloud.Firestore;
 namespace BoarderooAPI.Service;
 public class LoginService
@@ -81,22 +82,6 @@ public class LoginService
             Message="Blad: "+e.ToString(),
             ResultCode=500
         };
-        }
-    }
-
-    public async Task<ServiceResult<string>> AdminLogin(string username, string password)
-    {
-        try
-        {
-            var data = await usersCollection.GetSnapshotAsync();
-        }
-        catch (Exception e)
-        {
-            return new ServiceResult<string>
-            {
-                Message="Blad: " + e.ToString(),
-                ResultCode=500
-            };
         }
     }
 }

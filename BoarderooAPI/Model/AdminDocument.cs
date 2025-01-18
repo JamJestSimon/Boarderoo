@@ -1,11 +1,13 @@
-﻿namespace BoarderooAPI.Model
+﻿using Google.Cloud.Firestore;
+
+namespace BoarderooAPI.Model
 {
     [FirestoreData]
     public class AdminDocument
     {
         [FirestoreProperty]
-        public string Login { get; set; }
+        public string login { get; set; }
         [FirestoreProperty]
-        public string Password { get; set; }
+        public string password { get; set; }
     }
 }

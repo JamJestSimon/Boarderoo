@@ -1,4 +1,6 @@
-﻿namespace BoarderooAPI.Requests
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BoarderooAPI.Requests
 {
     public class AdminLoginRequest
     {

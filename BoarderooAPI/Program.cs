@@ -21,6 +21,7 @@ builder.Services.AddScoped<FireBaseService>();
 builder.Services.AddScoped<LoginService>();
 builder.Services.AddScoped<RegisterService>();
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<AdminService>();
 builder.Services.AddScoped<GameService>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<EmailService>();

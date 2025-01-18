@@ -25,8 +25,7 @@ public class LoginController : ControllerBase
         return ConvertServiceResultToActionResult(response);
     }
 
-    [HttpPost(Name = "AdminLogin")]
-    [Route("admin")]
+    [HttpPost("Admin")]
     public async Task<ActionResult> AdminLogin([FromBody] AdminLoginRequest request)
     {
         var response = await _adminService.Login(request.Login, request.Password);
