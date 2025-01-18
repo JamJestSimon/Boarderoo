@@ -3,8 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\service\\gameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:service\\gameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\controllers\\gamecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:controllers\\gamecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\service\\loginservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:service\\loginservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\service\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:service\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\service\\adminservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,16 +43,8 @@
       "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:model\\admindocument.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\service\\googleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:service\\googleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\service\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -42,41 +58,103 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "LoginController.cs",
               "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Controllers\\LoginController.cs",
               "RelativeDocumentMoniker": "Controllers\\LoginController.cs",
               "ToolTip": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Controllers\\LoginController.cs",
               "RelativeToolTip": "Controllers\\LoginController.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAAwB4AAAAwAAAAAAAAAA==",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAxwB4AAAAwAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-18T10:48:56.763Z",
-              "IsPinned": true
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "GameService.cs",
+              "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\GameService.cs",
+              "RelativeDocumentMoniker": "Service\\GameService.cs",
+              "ToolTip": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\GameService.cs",
+              "RelativeToolTip": "Service\\GameService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAMIAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-18T12:58:51.045Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GameController.cs",
+              "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Controllers\\GameController.cs",
+              "RelativeDocumentMoniker": "Controllers\\GameController.cs",
+              "ToolTip": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Controllers\\GameController.cs",
+              "RelativeToolTip": "Controllers\\GameController.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAA1wBQAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-18T12:57:36.668Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Controllers\\UserController.cs",
+              "RelativeToolTip": "Controllers\\UserController.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAowD8AAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-18T12:25:47.751Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "OrderService.cs",
+              "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\OrderService.cs",
+              "RelativeDocumentMoniker": "Service\\OrderService.cs",
+              "ToolTip": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\OrderService.cs",
+              "RelativeToolTip": "Service\\OrderService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAG4AAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-18T12:23:23.986Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "Controllers\\OrderController.cs",
+              "ToolTip": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "Controllers\\OrderController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAADgvx0AAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-18T12:23:08.816Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "LoginService.cs",
               "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\LoginService.cs",
               "RelativeDocumentMoniker": "Service\\LoginService.cs",
               "ToolTip": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\LoginService.cs",
               "RelativeToolTip": "Service\\LoginService.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAQwCMAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAABEAAAAAAAAAAAAAwCMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-18T11:26:02.307Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "AdminLoginRequest.cs",
               "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Requests\\AdminLoginRequest.cs",
               "RelativeDocumentMoniker": "Requests\\AdminLoginRequest.cs",
@@ -89,7 +167,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "AdminService.cs",
               "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\AdminService.cs",
               "RelativeDocumentMoniker": "Service\\AdminService.cs",
@@ -102,7 +180,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "AdminDocument.cs",
               "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Model\\AdminDocument.cs",
               "RelativeDocumentMoniker": "Model\\AdminDocument.cs",
@@ -110,23 +188,12 @@
               "RelativeToolTip": "Model\\AdminDocument.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwAoAAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T10:44:50.938Z"
+              "WhenOpened": "2025-01-18T10:44:50.938Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "GoogleService.cs",
-              "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\GoogleService.cs",
-              "RelativeDocumentMoniker": "Service\\GoogleService.cs",
-              "ToolTip": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\GoogleService.cs",
-              "RelativeToolTip": "Service\\GoogleService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T23:34:53.964Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 10,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
@@ -134,11 +201,12 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAIAwwBcAAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T20:33:45.154Z"
+              "WhenOpened": "2024-10-29T20:33:45.154Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "EmailService.cs",
               "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\EmailService.cs",
               "RelativeDocumentMoniker": "Service\\EmailService.cs",
@@ -146,7 +214,12 @@
               "RelativeToolTip": "Service\\EmailService.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T23:33:34.891Z"
+              "WhenOpened": "2025-01-17T23:33:34.891Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             }
           ]
         }
