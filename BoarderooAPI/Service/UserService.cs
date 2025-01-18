@@ -120,7 +120,7 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
             }
             else
             {
-                if(data[0].GetValue<string>("Password") != request.OldPassword)
+                if(data[0].GetValue<string>("Password") != HashService.hashfunction(request.OldPassword))
                 {
                     return new ServiceResult<string>
                     {

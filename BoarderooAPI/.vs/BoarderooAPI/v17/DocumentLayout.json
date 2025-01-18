@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\service\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:service\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\service\\gameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:service\\gameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\requests\\passwordupdaterequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:requests\\passwordupdaterequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -17,18 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\service\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:service\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\service\\gameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:service\\gameservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymo\\documents\\tim\\boarderoo\\boarderooapi\\service\\loginservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -62,7 +62,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -74,7 +74,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "PasswordUpdateRequest.cs",
               "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Requests\\PasswordUpdateRequest.cs",
               "RelativeDocumentMoniker": "Requests\\PasswordUpdateRequest.cs",
@@ -87,19 +87,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\UserService.cs",
               "RelativeDocumentMoniker": "Service\\UserService.cs",
               "ToolTip": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\UserService.cs",
               "RelativeToolTip": "Service\\UserService.cs",
-              "ViewState": "AgIAAEsAAAAAAAAAAAAawGwAAABSAAAAAAAAAA==",
+              "ViewState": "AgIAAGoAAAAAAAAAAIAwwHoAAABpAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T13:25:09.112Z"
+              "WhenOpened": "2025-01-18T13:25:09.112Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
               "Title": "GameService.cs",
               "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\GameService.cs",
               "RelativeDocumentMoniker": "Service\\GameService.cs",
@@ -107,11 +108,12 @@
               "RelativeToolTip": "Service\\GameService.cs",
               "ViewState": "AgIAALIAAAAAAAAAAAAmwMIAAABDAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T12:58:51.045Z"
+              "WhenOpened": "2025-01-18T12:58:51.045Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "GameController.cs",
               "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Controllers\\GameController.cs",
               "RelativeDocumentMoniker": "Controllers\\GameController.cs",
@@ -123,7 +125,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "Controllers\\UserController.cs",
@@ -131,11 +133,12 @@
               "RelativeToolTip": "Controllers\\UserController.cs",
               "ViewState": "AgIAAC4AAAAAAAAAAAAmwD8AAAA8AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-18T12:25:47.751Z"
+              "WhenOpened": "2025-01-18T12:25:47.751Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "OrderService.cs",
               "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Service\\OrderService.cs",
               "RelativeDocumentMoniker": "Service\\OrderService.cs",
@@ -147,7 +150,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "OrderController.cs",
               "DocumentMoniker": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\Controllers\\OrderController.cs",
               "RelativeDocumentMoniker": "Controllers\\OrderController.cs",
