@@ -1908,9 +1908,9 @@
     "restore": {
       "projectUniqueName": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\BoarderooAPI.csproj",
       "projectName": "BoarderooAPI",
-      "projectPath": "/home/michal/Boarderoo/Boarderoo/BoarderooAPI/BoarderooAPI.csproj",
-      "packagesPath": "/home/michal/.nuget/packages/",
-      "outputPath": "/home/michal/Boarderoo/Boarderoo/BoarderooAPI/obj/",
+      "projectPath": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\BoarderooAPI.csproj",
+      "packagesPath": "C:\\Users\\szymo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Users\\szymo\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder",
@@ -1939,7 +1939,13 @@
         "warnAsError": [
           "NU1605"
         ]
-      }
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -1989,7 +1995,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
