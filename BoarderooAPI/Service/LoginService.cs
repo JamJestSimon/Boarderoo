@@ -13,7 +13,28 @@ public class LoginService
         _emailService=emailService;
     }
 
+    public async Task<ServiceResult<string>>Verify(string email,string password,string token)
+    {
+        try
+        {
+            return new ServiceResult<string>
+                    {
+                        Message = "Brak uzytkownika w bazie danych!",
+                        ResultCode = 400
+                    };
+        
+        }
+        catch (Exception e)
+        {
+return new ServiceResult<string>
+        {
+            Message="Blad: "+e.ToString(),
+            ResultCode=500
+        };
+        }
+        
 
+    }
     public async Task<ServiceResult<string>> Login(string email, string password)
     {
         try
@@ -56,23 +77,28 @@ public class LoginService
                     };
                 }
             }
-            else
+            else if(data[0].GetValue<bool>("IsVerified") == false)
             {
                 // w przeciwnym przypadku
                 // generujesz tokena
-                var token = "token";
+                string token=Convert.ToBase64String(Guid.NewGuid().ToByteArray());
                 var state = await _userService.UpdateToken(email, token);
                 // wpisujesz to do bazy danych (token i data)
+                var result=await _emailService.SendEmailAsync(email,"Weryfikacja Boarderoo","Witaj, twoj link aktywacyjny do Boarderoo Application to:");
                 return new ServiceResult<string>
-                    {
-                        Message = "tu trzeba rejestracje!",
-                        ResultCode = 400
-                    };
-                // i wysylasz maila z linkem
-                // i dajesz odpowiedz ze wyslano mail do weryfikacji       
+            {
+                Message="Link weryfikacyjny zostal wyslany na mail!",
+                ResultCode=200,
+                Data=result
+            
+            };    
             }
 
-
+        return new ServiceResult<string>
+        {
+            Message="Blad: ",
+            ResultCode=500
+        };
         }
         }
         catch (Exception e)

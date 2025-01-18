@@ -8,17 +8,21 @@ using MimeKit;
 
 public class EmailService
 {
+private readonly string _smtpHost = "smtp.mailersend.net";
+    private readonly int _smtpPort = 587;
+    private readonly string _smtpUsername = "MS_HUcHcp@trial-yzkq3406ypk4d796.mlsender.net"; // Wstaw swój email
+    private readonly string _smtpPassword = "WRugD8XmVvhw6N16"; // Wstaw hasło aplikacji, jeśli masz 2FA
 
     public EmailService()
     {
-        
+        var builder=new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json",optional:true,reloadOnChange:true);
+        IConfiguration configuration=builder.Build();
+        this._smtpHost=configuration["EMailSettings:SmtpServer"];
+        this._smtpPort=587;
+        this._smtpUsername=configuration["EMailSettings:SmtpUsername"];
+        this._smtpPassword=configuration["EMailSettings:SmtpPassword"];
     }
-   //private readonly string api="AIzaSyCkoO3i2vSW1VNnaTJgb_iHVYVK8FpIniQ";
-    private readonly string _smtpHost = "smtp.office365.com";
-    private readonly int _smtpPort = 587;
-    private readonly string _smtpUsername = "boarderooapp@outlook.com"; // Wstaw swój email
-    private readonly string _smtpPassword = "`TW4V;w8h+3*"; // Wstaw hasło aplikacji, jeśli masz 2FA
-
+    
     public async Task<string> SendEmailAsync(string toEmail, string subject, string body)
     {
          try

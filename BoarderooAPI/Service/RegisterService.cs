@@ -69,9 +69,9 @@ public RegisterService(UserService userService,EmailService emailService)
             u.Password=password;
            // u.Token=""; //  tutaj trzeba bedzie generowac token
             //u.TokenCreationDate=;
-            string token="";
-            //await _userService.AddUser(u);
-            //await _userService.UpdateToken(email,token); //aktualizujemy token
+            string token=Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+            await _userService.AddUser(u);
+            await _userService.UpdateToken(email,token); //aktualizujemy token
             //await EmailService.SendEmail();//wysylamy email z kodem
             //dodajesz do bazy danych
             //wysylasz maila z linkiem
@@ -81,7 +81,7 @@ public RegisterService(UserService userService,EmailService emailService)
     // Wysłanie e-maila
     //await emailService.SendEmailAsync("recipient@example.com", "Temat wiadomości", "<h1>Treść wiadomości</h1>");
 
-           var result=await _emailService.SendEmailAsync("pokipl123@gmail.com","test","siem, wysyłam wiadomość testową dla ciebie ok ok?");
+           var result=await _emailService.SendEmailAsync(email,"Weryfikacja Boarderoo","Witaj, twoj link aktywacyjny do Boarderoo Application to:");
             return new ServiceResult<string>
         {
             Message="Zarejestrowano pomyslnie!",
@@ -98,5 +98,14 @@ public RegisterService(UserService userService,EmailService emailService)
             ResultCode=400
         };
         }
+    }
+
+    public async Task<ServiceResult<string>>Verify(string email,string token)
+    {
+        return new ServiceResult<string>
+                    {
+                        Message = "Brak uzytkownika w bazie danych!",
+                        ResultCode = 400
+                    };
     }
 }
