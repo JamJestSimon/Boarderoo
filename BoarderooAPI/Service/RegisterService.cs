@@ -59,24 +59,21 @@ public RegisterService(UserService userService,EmailService emailService,FireBas
     //    // return 0;
     // }
 
-    public async Task<ServiceResult<string>> Register(string email,string password)
+    public async Task<ServiceResult<string>> Register(UserDocument user)
     {
 
-        var usersCollection = _userService.getUserCollectionByEmail(email);
+        var usersCollection = _userService.getUserCollectionByEmail(user.Email);
         var data = await usersCollection.GetSnapshotAsync();
         if (data.Documents.Count<1)
         {
             //brak uzytkownika w bazie
             //generujesz token uzytkownika z data
-            UserDocument u=new UserDocument();
-            u.Email=email;
-            u.Password=password;
            // u.Token=""; //  tutaj trzeba bedzie generowac token
             //u.TokenCreationDate=;
             byte[] token=Guid.NewGuid().ToByteArray();
             string utf8Token = System.Text.Encoding.UTF8.GetString(token);
-            await _userService.AddUser(u);
-            await _userService.UpdateToken(email,utf8Token); //aktualizujemy token
+            await _userService.AddUser(user);
+            await _userService.UpdateToken(user.Email,utf8Token); //aktualizujemy token
             //await EmailService.SendEmail();//wysylamy email z kodem
             //dodajesz do bazy danych
             //wysylasz maila z linkiem
