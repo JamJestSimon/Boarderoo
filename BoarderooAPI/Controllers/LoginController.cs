@@ -1,24 +1,35 @@
 using Microsoft.AspNetCore.Mvc;
 using BoarderooAPI.Model;
 using BoarderooAPI.Service;
+using BoarderooAPI.Requests;
 
 namespace BoarderooAPI.Controllers;
 
- [ApiController]
- [Route("[controller]")]
+[ApiController]
+[Route("[controller]")]
 
- public class LoginController:ControllerBase
- {
+public class LoginController : ControllerBase
+{
     private readonly LoginService _loginService;
-    public LoginController(LoginService loginService)
+    private readonly AdminService _adminService;
+    public LoginController(LoginService loginService, AdminService adminService)
     {
-        this._loginService=loginService;
+        this._loginService = loginService;
+        this._adminService = adminService;
     }
 
     [HttpPost(Name = "Login")]
     public async Task<ActionResult> Login([FromBody] LoginRequest request)
     {
-        var response=await _loginService.Login(request.Email,request.Password); 
+        var response = await _loginService.Login(request.Email, request.Password);
+        return ConvertServiceResultToActionResult(response);
+    }
+
+    [HttpPost(Name = "AdminLogin")]
+    [Route("admin")]
+    public async Task<ActionResult> AdminLogin([FromBody] AdminLoginRequest request)
+    {
+        var response = await _adminService.Login(request.Login, request.Password);
         return ConvertServiceResultToActionResult(response);
     }
 

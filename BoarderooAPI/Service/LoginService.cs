@@ -83,4 +83,20 @@ public class LoginService
         };
         }
     }
+
+    public async Task<ServiceResult<string>> AdminLogin(string username, string password)
+    {
+        try
+        {
+            var data = await usersCollection.GetSnapshotAsync();
+        }
+        catch (Exception e)
+        {
+            return new ServiceResult<string>
+            {
+                Message="Blad: " + e.ToString(),
+                ResultCode=500
+            };
+        }
+    }
 }
