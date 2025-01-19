@@ -18,3 +18,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BOARDEROO_71469 }}
           channelId: live
           projectId: boarderoo-71469
+          projectPath: "boarderoo-front-end"
