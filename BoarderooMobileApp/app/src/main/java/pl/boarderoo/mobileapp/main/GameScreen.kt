@@ -1,7 +1,6 @@
 package pl.boarderoo.mobileapp.main
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
@@ -20,17 +19,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -41,7 +37,6 @@ import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RangeSlider
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
@@ -55,9 +50,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -69,9 +62,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import pl.boarderoo.mobileapp.ElasticLightTextField
 import pl.boarderoo.mobileapp.ErrorState
-import pl.boarderoo.mobileapp.ImageFromUrl
 import pl.boarderoo.mobileapp.LightButton
-import pl.boarderoo.mobileapp.LightTextField
 import pl.boarderoo.mobileapp.R
 import pl.boarderoo.mobileapp.data.Categories
 import pl.boarderoo.mobileapp.data.Publishers
@@ -102,7 +93,7 @@ fun GameListScreen(navController: NavController) {
     val isLoading = viewModel.isLoading.collectAsState()
     val errorMessage = viewModel.errorMessage.collectAsState()
 
-    val player_default = 1.0f..8.0f
+    val player_default = 1.0f..10.0f
     val age_default = 0.0f..100.0f
     val year_default = 2000.0f..2025.0f
 
@@ -157,12 +148,10 @@ fun GameListScreen(navController: NavController) {
         val matchesCategory =
             category_filters.value.isEmpty() || category_filters.value.contains(game.type)
         val matchesPlayers =
-            player_range == player_range || (player_range.contains(minPlayers) && player_range.contains(
-                maxPlayers
-            ))
+            player_range == player_default || (player_range.contains(minPlayers) && player_range.contains(maxPlayers))
         val matchesAge =
-            age_range == age_range || (age_range.contains(minAge) && age_range.contains(maxAge))
-        val matchesYear = year_range == year_range || year_range.contains(game.year.toFloat())
+            age_range == age_default || (age_range.contains(minAge) && age_range.contains(maxAge))
+        val matchesYear = year_range == year_default || year_range.contains(game.year.toFloat())
 
         matchesSearch && matchesPublisher && matchesCategory && matchesPlayers && matchesAge && matchesYear
     }
@@ -327,82 +316,86 @@ fun GameListScreen(navController: NavController) {
                             }
                         }
                         Spacer(modifier = Modifier.height(6.dp))
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            textAlign = TextAlign.Center,
-                            text = "Liczba graczy"
-                        )
-                        RangeSlider(
-                            value = player_range,
-                            onValueChange = {
-                                val corrected_range = when {
-                                    it.start > it.endInclusive -> it.endInclusive..it.endInclusive
-                                    else -> it.start..it.endInclusive
-                                }
-                                player_range = corrected_range
-                            },
-                            valueRange = 1.0f..10.0f,
-                            modifier = Modifier.fillMaxWidth(),
-                            steps = 10
-                        )
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier.fillMaxWidth()
+                        Column(
+                            modifier = Modifier.padding(horizontal = 10.dp)
                         ) {
-                            Text("Min: ${player_range.start}")
-                            Text("Max: ${player_range.endInclusive}")
-                        }
-                        Spacer(modifier = Modifier.height(6.dp))
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            textAlign = TextAlign.Center,
-                            text = "Wiek"
-                        )
-                        RangeSlider(
-                            value = age_range,
-                            onValueChange = {
-                                val corrected_range = when {
-                                    it.start > it.endInclusive -> it.endInclusive..it.endInclusive
-                                    else -> it.start..it.endInclusive
-                                }
-                                age_range = corrected_range
-                            },
-                            valueRange = 0.0f..100.0f,
-                            modifier = Modifier.fillMaxWidth(),
-                            steps = 101
-                        )
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Text("Min: ${age_range.start}")
-                            Text("Max: ${age_range.endInclusive}")
-                        }
-                        Spacer(modifier = Modifier.height(6.dp))
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            textAlign = TextAlign.Center,
-                            text = "Rok wydania"
-                        )
-                        RangeSlider(
-                            value = year_range,
-                            onValueChange = {
-                                val corrected_range = when {
-                                    it.start > it.endInclusive -> it.endInclusive..it.endInclusive
-                                    else -> it.start..it.endInclusive
-                                }
-                                year_range = corrected_range
-                            },
-                            valueRange = 2000.0f..2025.0f,
-                            modifier = Modifier.fillMaxWidth(),
-                            steps = 26
-                        )
-                        Row(
-                            horizontalArrangement = Arrangement.SpaceBetween,
-                            modifier = Modifier.fillMaxWidth()
-                        ) {
-                            Text("Min: ${year_range.start}")
-                            Text("Max: ${year_range.endInclusive}")
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center,
+                                text = "Liczba graczy"
+                            )
+                            RangeSlider(
+                                value = player_range,
+                                onValueChange = {
+                                    val corrected_range = when {
+                                        it.start > it.endInclusive -> it.endInclusive..it.endInclusive
+                                        else -> it.start..it.endInclusive
+                                    }
+                                    player_range = corrected_range
+                                },
+                                valueRange = 1.0f..10.0f,
+                                modifier = Modifier.fillMaxWidth(),
+                                steps = 8
+                            )
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text("Min: ${player_range.start.toInt()}")
+                                Text("Max: ${player_range.endInclusive.toInt()}")
+                            }
+                            Spacer(modifier = Modifier.height(6.dp))
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center,
+                                text = "Wiek"
+                            )
+                            RangeSlider(
+                                value = age_range,
+                                onValueChange = {
+                                    val corrected_range = when {
+                                        it.start > it.endInclusive -> it.endInclusive..it.endInclusive
+                                        else -> it.start..it.endInclusive
+                                    }
+                                    age_range = corrected_range
+                                },
+                                valueRange = 0.0f..100.0f,
+                                modifier = Modifier.fillMaxWidth(),
+                                steps = 99
+                            )
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text("Min: ${age_range.start.toInt()}")
+                                Text("Max: ${age_range.endInclusive.toInt()}")
+                            }
+                            Spacer(modifier = Modifier.height(6.dp))
+                            Text(
+                                modifier = Modifier.fillMaxWidth(),
+                                textAlign = TextAlign.Center,
+                                text = "Rok wydania"
+                            )
+                            RangeSlider(
+                                value = year_range,
+                                onValueChange = {
+                                    val corrected_range = when {
+                                        it.start > it.endInclusive -> it.endInclusive..it.endInclusive
+                                        else -> it.start..it.endInclusive
+                                    }
+                                    year_range = corrected_range
+                                },
+                                valueRange = 2000.0f..2025.0f,
+                                modifier = Modifier.fillMaxWidth(),
+                                steps = 24
+                            )
+                            Row(
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text("Min: ${year_range.start.toInt()}")
+                                Text("Max: ${year_range.endInclusive.toInt()}")
+                            }
                         }
                         Spacer(modifier = Modifier.height(6.dp))
                         LightButton(
@@ -425,7 +418,7 @@ fun GameListScreen(navController: NavController) {
                 }
             }
             LazyVerticalGrid(
-                columns = GridCells.Fixed(count = 2)
+                columns = GridCells.Fixed(count = 1)
             ) {
                 itemsIndexed(filtered_games!!) { index, game ->
                     GameGridItem(game) {
@@ -443,7 +436,7 @@ fun GameGridItem(gameModel: GameModel, onClick: () -> Unit) {
         modifier = Modifier
             .padding(10.dp)
             .clip(RoundedCornerShape(25.dp))
-            .background(colorResource(id = R.color.buttonColor))
+            .background(colorResource(id = R.color.buttonSecondColor))
             .clickable {
                 onClick()
             }
@@ -451,12 +444,12 @@ fun GameGridItem(gameModel: GameModel, onClick: () -> Unit) {
     ) {
         //TODO - odkomentować jak będzie działało
         //ImageFromUrl(gameModel.image[0])
-        Text(gameModel.name)
-        Text(gameModel.publisher)
-        Text(gameModel.rating)
-        Text(gameModel.playersNumber)
-        Text(gameModel.type)
-        Text(gameModel.price.toString())
+        Text("Nazwa: ${gameModel.name}")
+        Text("Wydawca: ${gameModel.publisher}")
+        Text("Wiek: ${gameModel.rating}")
+        Text("Ilość graczy: ${gameModel.playersNumber}")
+        Text("Gatunek: ${gameModel.type}")
+        Text("Cena: ${gameModel.price} zł")
     }
 }
 

@@ -199,11 +199,26 @@ class MainActivity : ComponentActivity() {
                                     navController = navController,
                                     startDestination = "MainScreen"
                                 ) {
-                                    composable(route = "MainScreen") { MainScreen() }
-                                    composable(route = "GameScreen") { GameScreen() }
-                                    composable(route = "OrderScreen") { OrderScreen() }
-                                    composable(route = "CartScreen") { CartScreen() }
-                                    composable(route = "AccountInfo") { AccountInfo() }
+                                    composable(route = "MainScreen") {
+                                        selectedRoute = "Strona Główna"
+                                        MainScreen()
+                                    }
+                                    composable(route = "GameScreen") {
+                                        selectedRoute = "Gry"
+                                        GameScreen()
+                                    }
+                                    composable(route = "OrderScreen") {
+                                        selectedRoute = "Zamówienia"
+                                        OrderScreen()
+                                    }
+                                    composable(route = "CartScreen") {
+                                        selectedRoute = "Koszyk"
+                                        CartScreen()
+                                    }
+                                    composable(route = "AccountInfo") {
+                                        selectedRoute = "Konto"
+                                        AccountInfo()
+                                    }
                                 }
                             }
                         }

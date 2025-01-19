@@ -11,6 +11,7 @@ interface OrderServiceInterface {
     suspend fun getOrdersByUser(userModel: UserModel): Response<ResponseModel<List<OrderModel>>>
     suspend fun getOrderById(id: String): Response<ResponseModel<OrderModel>>
     suspend fun addOrder(orderModel: OrderModel): Response<ResponseModel<String>>
+    suspend fun cancelOrder(orderModel: OrderModel): Response<ResponseModel<OrderModel>>
 }
 
 class OrderService(
@@ -26,5 +27,9 @@ class OrderService(
 
     override suspend fun addOrder(orderModel: OrderModel): Response<ResponseModel<String>> {
         return apiService.addOrder(orderModel)
+    }
+
+    override suspend fun cancelOrder(orderModel: OrderModel): Response<ResponseModel<OrderModel>> {
+        return apiService.changeOrderStatus(orderModel.id, "Anulowane")
     }
 }

@@ -1,20 +1,23 @@
 package pl.boarderoo.mobileapp.main
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Button
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -27,7 +30,6 @@ import pl.boarderoo.mobileapp.LightButton
 import pl.boarderoo.mobileapp.R
 import pl.boarderoo.mobileapp.datastore.AppRuntimeData
 import pl.boarderoo.mobileapp.retrofit.viewmodels.GameDetailsViewModel
-import pl.boarderoo.mobileapp.retrofit.viewmodels.GameListViewModel
 
 @Composable
 fun GameDetailsScreen(
@@ -63,19 +65,33 @@ fun GameDetailsScreen(
                 )
             }
         } else {
-            Text(game.value!!.name)
-            Text(game.value!!.type)
-            Text(game.value!!.rating)
-            Text(game.value!!.publisher)
-            Text(game.value!!.description)
-            Text(game.value!!.playersNumber)
-            Text(game.value!!.year)
-            Text(game.value!!.price.toString())
-            LightButton(
-                text = "Dodaj do koszyka",
-                fontSize = 12.sp
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(10.dp)
+                    .clip(RoundedCornerShape(25.dp))
+                    .background(colorResource(id = R.color.buttonSecondColor))
+                    .padding(15.dp)
             ) {
-                AppRuntimeData.cart.add(game.value!!)
+                //TODO - odkomentować jak będzie działało
+                //ImageFromUrl(gameModel.image[0])
+                Text("Nazwa: ${game.value!!.name}")
+                Text("Wydawca: ${game.value!!.publisher}")
+                Text("Wiek: ${game.value!!.rating}")
+                Text("Ilość graczy: ${game.value!!.playersNumber}")
+                Text("Gatunek: ${game.value!!.type}")
+                Text("Cena: ${game.value!!.price} zł")
+                Text("Opis:\n${game.value!!.description}")
+            }
+            if(game.value!!.availableCopies > 0) {
+                LightButton(
+                    text = "Dodaj do koszyka",
+                    fontSize = 12.sp
+                ) {
+                    AppRuntimeData.cart.add(game.value!!)
+                }
+            } else {
+                Text("Produkt niedostępny")
             }
         }
     }
