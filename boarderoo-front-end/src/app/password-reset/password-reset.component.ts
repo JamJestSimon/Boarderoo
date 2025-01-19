@@ -35,9 +35,8 @@ export class PasswordResetComponent {
 
     resetPassword() {
       if( this.password == this.confirmPassword || this.password !==''){
-        const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
         const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/password/resetPassword/';
-        const fullUrl = proxyUrl + targetUrl;
+        const fullUrl = targetUrl;
         console.log(fullUrl);
         console.log(this.code)
         this.http.post<CustomResponse>(fullUrl, {password: this.password, token: this.code} ).subscribe(response => {

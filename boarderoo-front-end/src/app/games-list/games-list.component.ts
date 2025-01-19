@@ -83,9 +83,8 @@ export class GamesListComponent {
   cards: GameCard[] = []
     GetGames() {
       this.cards = [];
-      const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
       const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/game';
-      const fullUrl = proxyUrl + targetUrl;
+      const fullUrl = targetUrl;
       console.log(fullUrl);
       this.http.get<CustomResponse>(fullUrl).subscribe(response => {
         for (let i = 0; i < response.data.length; i++) {

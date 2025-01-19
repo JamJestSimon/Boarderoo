@@ -43,9 +43,8 @@ export class JoinUsComponent {
   }
 
   LogInPost() {
-    const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/login';
-    const fullUrl = proxyUrl + targetUrl;
+    const fullUrl = targetUrl;
     console.log(fullUrl);
     this.http.post<CustomResponse>(fullUrl, { email: this.emailLogin, password: this.passwordLogin }).subscribe(response => {
       console.log(response);
