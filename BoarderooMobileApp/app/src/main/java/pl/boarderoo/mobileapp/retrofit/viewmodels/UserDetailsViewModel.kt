@@ -18,13 +18,13 @@ class UserDetailsViewModel(
     private val _errorMessage = MutableStateFlow<String?>(null)
     private val _isLoading = MutableStateFlow(true)
 
-    val orderList: StateFlow<UserModel?> get() = _userDetails.asStateFlow()
+    val user: StateFlow<UserModel?> get() = _userDetails.asStateFlow()
     val errorMessage: StateFlow<String?> get() = _errorMessage.asStateFlow()
     val isLoading: StateFlow<Boolean> get() = _isLoading.asStateFlow()
 
     val gson = Gson()
 
-    fun getOrderDetails(email: String) {
+    fun getUserDetails(email: String) {
         viewModelScope.launch {
             _isLoading.value = true
             val response = service.getUserByEmail(email)

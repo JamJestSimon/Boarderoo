@@ -44,7 +44,7 @@ fun OrderScreen() {
         composable(route = "OrderListScreen") { OrderListScreen(navController) }
         composable(route = "OrderDetailsScreen/{id}") { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id") ?: ""
-            OrderDetailsScreen()
+            OrderDetailsScreen(navController, id)
         }
     }
 }

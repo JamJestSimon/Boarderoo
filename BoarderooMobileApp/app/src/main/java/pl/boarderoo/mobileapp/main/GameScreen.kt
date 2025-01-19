@@ -89,7 +89,7 @@ fun GameScreen() {
         composable(route = "GameListScreen") { GameListScreen(navController) }
         composable(route = "GameDetailsScreen/{id}") { backStackEntry ->
             val id = backStackEntry.arguments?.getString("id") ?: ""
-            GameDetailsScreen()
+            GameDetailsScreen(navController, id)
         }
     }
 }

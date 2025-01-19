@@ -8,3 +8,7 @@ enum class StatusType
     CANCELLED,
     FINISHED
 }
+
+fun intToEnum(value: Int): StatusType? {
+    return StatusType.entries.getOrNull(value)
+}
