@@ -12,6 +12,6 @@ data class OrderModel(
     //val end: Date,
     val status: Int,
     val user: String,
-    val items: List<GameModel>,
+    val items: List<String>,
     val price: Float
 ) : Parcelable

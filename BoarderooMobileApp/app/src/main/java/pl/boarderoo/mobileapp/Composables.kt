@@ -61,7 +61,7 @@ fun DarkButton(text: String, buttonWidth: Dp, buttonHeight: Dp, fontSize: TextUn
 }
 
 @Composable
-fun LightButton(text: String, buttonWidth: Dp? = null, buttonHeight: Dp? = null, fontSize: TextUnit, onClick: () -> Unit) {
+fun LightButton(text: String, buttonWidth: Dp? = null, buttonHeight: Dp? = null, fontSize: TextUnit, modifier: Modifier = Modifier, onClick: () -> Unit) {
     Button(
         onClick = {
             onClick()
@@ -69,7 +69,7 @@ fun LightButton(text: String, buttonWidth: Dp? = null, buttonHeight: Dp? = null,
         colors = ButtonDefaults.buttonColors(
             containerColor = colorResource(id = R.color.buttonSecondColor) // Kolor przycisku
         ),
-        modifier = Modifier
+        modifier = modifier
             .padding(horizontal = 16.dp)
             .then(
                 if (buttonWidth != null && buttonHeight != null) {
@@ -138,6 +138,29 @@ fun LightTextField(placeholder: String, value: String, isError: Boolean, textWid
         modifier = Modifier
             .width(textWidth)
             .height(textHeight)
+            .clip(RoundedCornerShape(10.dp)),
+        shape = RoundedCornerShape(10.dp), // Zaokrąglenie ramek
+        colors = outlinedTextFieldColors(),
+        singleLine = true,
+        placeholder = {
+            Text(
+                text = placeholder, // Tekst placeholdera
+                color = colorResource(id = R.color.textColor) // Opcjonalnie zmień kolor placeholdera
+            )
+        }
+    )
+}
+
+@Composable
+fun ElasticLightTextField(placeholder: String, value: String, isError: Boolean, modifier: Modifier, visualTransformation: VisualTransformation = VisualTransformation.None, onValueChange: (String) -> Unit) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = {
+            onValueChange(it)
+        },
+        visualTransformation = visualTransformation,
+        isError = isError,
+        modifier = modifier
             .clip(RoundedCornerShape(10.dp)),
         shape = RoundedCornerShape(10.dp), // Zaokrąglenie ramek
         colors = outlinedTextFieldColors(),

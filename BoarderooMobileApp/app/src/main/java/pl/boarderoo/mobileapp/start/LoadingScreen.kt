@@ -6,17 +6,24 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.flow.first
 import pl.boarderoo.mobileapp.R
 import pl.boarderoo.mobileapp.datastore.AppRuntimeData
@@ -66,8 +73,16 @@ class LoadingScreen : ComponentActivity() {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Image(
-                            painter = painterResource(R.drawable.logo),
-                            contentDescription = "Logo"
+                            painter = painterResource(id = R.drawable.logo),
+                            contentDescription = "Logo",
+                            modifier = Modifier
+                                .fillMaxWidth(0.6f) // Użyj obliczonego rozmiaru
+                                .padding(10.dp)
+                                .border(
+                                    BorderStroke(5.dp, colorResource(id = R.color.buttonColor)),
+                                    shape = RoundedCornerShape(25.dp)
+                                )
+                                .clip(RoundedCornerShape(25.dp))
                         )
                     }
                 }
