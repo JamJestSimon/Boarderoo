@@ -25,10 +25,15 @@
 
                     <!-- Wiersz 2: Producent, Kategoria, Zdjęcia -->
                     <div class="form-row">
+
                         <div class="form-group">
                             <label for="publisher">Producent:</label>
-                            <input id="publisher" type="text" [(ngModel)]="selectedCard.publisher" name="publisher" required />
-                        </div>
+                            <div class="input-container">
+                              <select id="publisher" [(ngModel)]="selectedCard.publisher" name="publisher" class="custom-select">
+                                <option *ngFor="let publisher of publishers" [value]="publisher">{{ publisher }}</option>
+                              </select>
+                            </div>
+                          </div>
 
                         <div class="form-group">
                             <label for="category">Kategoria:</label>
@@ -89,8 +94,8 @@
                         </div>
                     </div>
                     <div class="buttons">
-                        <button type="button" class="delete-button">Usuń</button>
-                        <button type="submit" class="submit-button">Zapisz</button>
+                        <button *ngIf="selectedCard?.action !== 'add'" type="button" class="delete-button">Usuń</button>
+                        <button class="submit-button" (click)="editGame()">Zapisz</button>
                     </div>
 
                 </form>
@@ -98,3 +103,4 @@
         </div>
     </div>
 </div>
+<div id="toast-container" class="toast-top-right"></div>

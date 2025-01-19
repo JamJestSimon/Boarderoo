@@ -22,7 +22,7 @@ export class GameDetailsComponent {
     ngOnChanges(): void {
       // Jeśli `selectedCard` się zmienia, aktualizujemy tablicę `photos`
       if (this.selectedCard?.photos) {
-          this.photos = this.selectedCard.photos.split(',');
+          this.photos = this.selectedCard.photos;
       }
       console.log("Zdjęcia: " + this.photos);
   }

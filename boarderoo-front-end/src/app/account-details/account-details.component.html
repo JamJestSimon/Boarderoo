@@ -73,22 +73,22 @@
                     <div class="input-row">
                       <div class="input-group">
                         <label for="oldPassword">Stare hasło</label>
-                        <input type="password" id="oldPassword" name="oldPassword" placeholder="Podaj stare hasło" />
+                        <input type="password" id="oldPassword" name="oldPassword" [(ngModel)]="oldPassword" placeholder="Podaj stare hasło" />
                       </div>
                     </div>
                     <div class="input-row">
                       <div class="input-group">
                         <label for="newPassword">Nowe hasło</label>
-                        <input type="password" id="newPassword" name="newPassword" placeholder="Podaj nowe hasło" />
+                        <input type="password" id="newPassword" name="newPassword" [(ngModel)]="newPassword" placeholder="Podaj nowe hasło" />
                       </div>
                     </div>
                     <div class="input-row">
                         <div class="input-group">
                           <label for="retypePassword">Powtórz hasło</label>
-                          <input type="password" id="retypePassword" name="retypePassword" placeholder="Powtórz nowe hasło" />
+                          <input type="password" id="retypePassword" name="retypePassword" [(ngModel)]="retypePassword" placeholder="Powtórz nowe hasło" />
                         </div>
                       </div>
-                  <button class="save-button" type="submit">Zapisz zmiany</button>
+                  <button class="save-button" (click)="changePassword()">Zapisz zmiany</button>
                 </form>
             </div>
             <div [style.display]="openedTab === 'orderHistory' ? 'block' : 'none'">

@@ -117,18 +117,13 @@ body {
   }
   
   .right-pane {
-    width: 73%;
-    padding-right: 20px;
-    padding-left: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    box-sizing: border-box; /* Uwzględnij padding w szerokości */
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 kolumny o równej szerokości */
     gap: 10px; /* Odstępy między kartami */
     overflow: hidden;
     max-height: 100%; /* Ogranicz wysokość do dostępnej przestrzeni */
     overflow-y: auto;
+    align-content: start; /* Wyrównanie wierszy na górze */
   }
 
   .card {
@@ -303,3 +298,4 @@ body {
   .gameDetailsVisible {
     display: block;
   }
+  

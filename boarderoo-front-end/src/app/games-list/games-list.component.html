@@ -9,7 +9,7 @@
       <img src="add_game.png" alt="Opis obrazka" class="card-new-game-image">
     </div>
     <div class="card" *ngFor="let card of cards" (click)="toggleGameEdit(card)">
-        <img src="wladca.png" alt="Opis obrazka" class="card-image">
+        <img [src]="card.photos[0]" alt="Opis obrazka" class="card-image">
         <div class="card-text">
           <h3>{{ card.title }}</h3>
           <p>Wydawca: {{ card.publisher }}</p>

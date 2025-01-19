@@ -1,4 +1,5 @@
 export interface GameCard {
+    id: string,
     title: string;
     publisher: string;
     category: string;

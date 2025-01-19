@@ -16,7 +16,7 @@ export const routes: Routes = [
   { path: "gry", component: MainPageComponent },
   { path: "callback", component: CallbackComponent},
   { path: "adminpanel", component: AdminPanelComponent},
-  { path: "resetHasla", component: PasswordResetComponent},
+  { path: "resethasla", component: PasswordResetComponent},
   { path: "weryfikacja", component: AccountVerificationComponent},
   { path: "admin", component: AdminLoginComponent},
   { path: "listagier", component: GamesListComponent},

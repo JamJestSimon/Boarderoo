@@ -5,11 +5,12 @@
         </a>
         <span class="text-span">Logowanie</span>
         <div class="input-container">
-            <label for="mail">e-mail</label>
-            <input id="mail" type="email" placeholder="Podaj adres e-mail" class="login-input">
-            <label for="password">Powtórz hasło:</label>
-            <input id="password" type="password" placeholder="Podaj hasło" class="login-input">
+            <label for="login">Login</label>
+            <input id="login" type="text" placeholder="Podaj login" class="login-input" name="login" [(ngModel)]="login">
+            <label for="password">Hasło</label>
+            <input id="password" type="password" placeholder="Podaj hasło" class="login-input" name="passwordLogin" [(ngModel)]="passwordLogin">
         </div>
-        <button class="submit-button">Zaloguj</button>
+        <button class="submit-button" (click)="LogIn()">Zaloguj</button>
     </div>
   </div>
+  <div id="toast-container" class="toast-top-right"></div>

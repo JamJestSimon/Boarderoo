@@ -20,6 +20,7 @@ import { Router } from '@angular/router';
 export class GamesListComponent {
   isGameEditVisible = false;
   selectedCard = {
+    id: "",
     title: "",
     publisher: "",
     category: "",
@@ -43,6 +44,7 @@ export class GamesListComponent {
     }
     else {
       this.selectedCard = {
+        id: "",
         title: "",
         publisher: "",
         category: "",
@@ -60,6 +62,9 @@ export class GamesListComponent {
   
     // Przełączamy widoczność formularza
     this.isGameEditVisible = !this.isGameEditVisible;
+    if(this.isGameEditVisible === false){
+     // window.location.reload();
+    }
   }
 
 
@@ -68,37 +73,39 @@ export class GamesListComponent {
       ngOnInit(): void {
         this.GetGames();
         const sessionToken = localStorage.getItem('session_token_admin');
-       // if (!sessionToken) {
+        if (!sessionToken) {
           // Jeśli token jest pusty, przekierowujemy na stronę główną
-       //   this.router.navigate(['/admin']);
-    //  }
+          this.router.navigate(['/admin']);
+      }
     }
 
 
   cards: GameCard[] = []
     GetGames() {
+      this.cards = [];
       const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
       const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/game';
       const fullUrl = proxyUrl + targetUrl;
       console.log(fullUrl);
       this.http.get<CustomResponse>(fullUrl).subscribe(response => {
         for (let i = 0; i < response.data.length; i++) {
-          const item: any = response.data[0];
+          const item: any = response.data[i];
           console.log(item);
           console.log(typeof item); 
           // Tworzymy obiekt typu GameCard
           const gameCard: GameCard = {
+            id: item.id,
             title: item.name || 'Brak tytułu',               // name -> title
             publisher: item.publisher || 'Brak wydawcy',     // publisher
             category: item.type || 'Brak kategorii',         // type -> category
             price: item.price,// || parseFloat(item.price.toString()),    // price
             year: parseInt(item.year.toString(), 10) || 0,    // year
             description: item.description || 'Brak opisu',    // description
-            photos: item.image ? [item.image] : ['discord.png'],  // Jeśli jest image, to użyj go, w przeciwnym razie przypisz domyślne zdjęcie
-            ageFrom: parseInt(item.rating.split(' - ')[0], 10),  // players_number -> playersFrom
-            ageTo: parseInt(item.rating.split(' - ')[1], 10),     // players_number -> playersTo
-            playersFrom: parseInt(item.players_number.split(' - ')[0], 10) || 1,  // players_number -> playersFrom
-            playersTo: parseInt(item.players_number.split(' - ')[1], 10) || 2,    // players_number -> playersTo
+            photos: item.image,
+            ageFrom: parseInt(item.rating.trim().split('-')[0], 10),  // players_number -> playersFrom
+            ageTo: parseInt(item.rating.trim().split('-')[1], 10),     // players_number -> playersTo
+            playersFrom: parseInt(item.players_number.trim().split('-')[0], 10) || 1,  // players_number -> playersFrom
+            playersTo: parseInt(item.players_number.trim().split('-')[1], 10) || 2,    // players_number -> playersTo
             action: ''                                        // Akcja (możesz dodać logikę, jeśli są dane)
           };
           

@@ -17,7 +17,7 @@ export class OrderDetailsComponent {
     this.close.emit(); // Emitowanie zdarzenia
   }
 
-  options: string[] = [
+  options = [
     'Zamówione',
     'Zapłacone',
     'Potwierdzone',

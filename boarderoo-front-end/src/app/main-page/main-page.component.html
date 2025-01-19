@@ -10,7 +10,7 @@
 
     <label for="gameName">Nazwa:</label>
     <div class="input-group">
-        <input type="text" id="gameName" placeholder="Szukaj po nazwie" />
+        <input type="text" id="gameName" placeholder="Szukaj po nazwie" name="pattern" [(ngModel)]="pattern"/>
       </div>
 
       <span class="option-label">Wydawcy:</span>
@@ -133,11 +133,11 @@
     <span>Max: {{ maxValueYear }}</span>
   </div>
 
-  <button class="confirm-button">Zatwierdź</button>
+  <button class="confirm-button" (click)="updateOrdersInput()">Zatwierdź</button>
   </div>
   <div class="right-pane">
-    <div class="card" *ngFor="let card of cards" (click)="toggleGameDetails(card)">
-        <img src="wladca.png" alt="Opis obrazka" class="card-image">
+    <div class="card" *ngFor="let card of cardsInput" (click)="toggleGameDetails(card)">
+        <img [src]="card.photos[0]" alt="Opis obrazka" class="card-image">
         <div class="card-text">
           <h3>{{ card.title }}</h3>
           <p>Wydawca: {{ card.publisher }}</p>

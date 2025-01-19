@@ -1,18 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Szymon\\Documents\\Projects\\Boarderoo\\BoarderooAPI\\",
+  "WorkspaceRootPath": "C:\\Users\\adria\\Desktop\\TIM\\Boarderoo\\BoarderooAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymon\\documents\\projects\\boarderoo\\boarderooapi\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\adria\\Desktop\\TIM\\Boarderoo\\BoarderooAPI\\Controllers\\WeatherForecastController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Controllers\\WeatherForecastController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymon\\documents\\projects\\boarderoo\\boarderooapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\adria\\Desktop\\TIM\\Boarderoo\\BoarderooAPI\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|c:\\users\\szymon\\documents\\projects\\boarderoo\\boarderooapi\\weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E8D8614E-75E1-4C32-A43C-426D7D4F58EE}|BoarderooAPI.csproj|solutionrelative:weatherforecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\adria\\Desktop\\TIM\\Boarderoo\\BoarderooAPI\\WeatherForecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:WeatherForecast.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,17 +22,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "WeatherForecastController.cs",
-              "DocumentMoniker": "C:\\Users\\Szymon\\Documents\\Projects\\Boarderoo\\BoarderooAPI\\Controllers\\WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Users\\adria\\Desktop\\TIM\\Boarderoo\\BoarderooAPI\\Controllers\\WeatherForecastController.cs",
               "RelativeDocumentMoniker": "Controllers\\WeatherForecastController.cs",
-              "ToolTip": "C:\\Users\\Szymon\\Documents\\Projects\\Boarderoo\\BoarderooAPI\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Users\\adria\\Desktop\\TIM\\Boarderoo\\BoarderooAPI\\Controllers\\WeatherForecastController.cs",
               "RelativeToolTip": "Controllers\\WeatherForecastController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-29T20:33:52.203Z",
               "EditorCaption": ""
@@ -41,31 +45,25 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\Szymon\\Documents\\Projects\\Boarderoo\\BoarderooAPI\\Program.cs",
+              "DocumentMoniker": "C:\\Users\\adria\\Desktop\\TIM\\Boarderoo\\BoarderooAPI\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\Szymon\\Documents\\Projects\\Boarderoo\\BoarderooAPI\\Program.cs",
+              "ToolTip": "C:\\Users\\adria\\Desktop\\TIM\\Boarderoo\\BoarderooAPI\\Program.cs",
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T20:33:45.154Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T20:33:45.154Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "WeatherForecast.cs",
-              "DocumentMoniker": "C:\\Users\\Szymon\\Documents\\Projects\\Boarderoo\\BoarderooAPI\\WeatherForecast.cs",
+              "DocumentMoniker": "C:\\Users\\adria\\Desktop\\TIM\\Boarderoo\\BoarderooAPI\\WeatherForecast.cs",
               "RelativeDocumentMoniker": "WeatherForecast.cs",
-              "ToolTip": "C:\\Users\\Szymon\\Documents\\Projects\\Boarderoo\\BoarderooAPI\\WeatherForecast.cs",
+              "ToolTip": "C:\\Users\\adria\\Desktop\\TIM\\Boarderoo\\BoarderooAPI\\WeatherForecast.cs",
               "RelativeToolTip": "WeatherForecast.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T20:33:40.568Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "WhenOpened": "2024-10-29T20:33:40.568Z"
             }
           ]
         }

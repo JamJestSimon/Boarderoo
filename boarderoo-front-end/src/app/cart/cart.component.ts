@@ -105,28 +105,28 @@ export class CartComponent {
 
     private initConfig(): void {
       this.payPalConfig = {
-          currency: 'EUR',
+          currency: 'PLN',
           clientId: 'AZ8pZw6s44qSnIantY7aDEjGZ0mG8oMwKWLTtIpzub6boKxbGSk0OFSEfw5usTA2HfHU7me4daTaw23c',
           createOrderOnClient: (data) => < ICreateOrderRequest > {
               intent: 'CAPTURE',
               purchase_units: [{
                   amount: {
-                      currency_code: 'EUR',
-                      value: '9.99',
+                      currency_code: 'PLN',
+                      value: this.sumPrice,
                       breakdown: {
                           item_total: {
-                              currency_code: 'EUR',
-                              value: '9.99'
+                              currency_code: 'PLN',
+                              value: this.sumPrice
                           }
                       }
                   },
                   items: [{
-                      name: 'Enterprise Subscription',
+                      name: 'Zamówienie HKDSBHBS',
                       quantity: '1',
                       category: 'DIGITAL_GOODS',
                       unit_amount: {
-                          currency_code: 'EUR',
-                          value: '9.99',
+                          currency_code: 'PLN',
+                          value: this.sumPrice,
                       },
                   }]
               }]
@@ -147,6 +147,12 @@ export class CartComponent {
           },
           onClientAuthorization: (data) => {
               console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+              console.log((data as any).purchase_units[0].payments.captures[0].id);//
+              sessionStorage.removeItem('cartItems');
+              //utwórz zamówienie ze statusem zapłacone
+              this.successToast("Zamówienie zostało opłacone!");
+              this.onClose();
+
           },
           onCancel: (data, actions) => {
               console.log('OnCancel', data, actions);
@@ -231,5 +237,25 @@ export class CartComponent {
       const timeDiff = Math.abs(endDate.getTime() - startDate.getTime());
       console.log(timeDiff);
       return Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // Dni
+    }
+
+    failToast(communicate: string) {
+      this.toastr.overlayContainer = this.toastContainer;
+      this.toastr.error(communicate, 'Błąd', {
+        positionClass: 'toast-top-right',
+        timeOut: 3000,
+        progressBar: true,
+        progressAnimation: 'increasing',
+      });
+    }
+  
+    successToast(communicate: string) {
+      this.toastr.overlayContainer = this.toastContainer;
+      this.toastr.success(communicate, 'Sukces', {
+        positionClass: 'toast-top-right',
+        timeOut: 3000,
+        progressBar: true,
+        progressAnimation: 'increasing',
+      });
     }
 }

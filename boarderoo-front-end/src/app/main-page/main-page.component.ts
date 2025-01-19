@@ -22,7 +22,9 @@ export class MainPageComponent {
   isGameDetailsVisible = false;
   selectedCard: any = null;
   isAdmin = false;
-
+  pattern=''
+  publisher=''
+  category=''
   toggleGameDetails(card?: any) {
     if (card) {
       this.selectedCard = card; // Ustawiamy wybraną kartę
@@ -40,6 +42,8 @@ export class MainPageComponent {
     if (this.minValue > this.maxValue) {
       [this.minValue, this.maxValue] = [this.maxValue, this.minValue];
     }
+    this.isCategoryDropdownOpen = false;
+    this.isDropdownOpen = false;
   }
 
   minRangeYear = 2000; // Minimalna wartość suwaka
@@ -52,6 +56,8 @@ export class MainPageComponent {
     if (this.minRangeYear > this.maxRangeYear) {
       [this.minRangeYear, this.maxRangeYear] = [this.maxRangeYear, this.minValueYear];
     }
+    this.isCategoryDropdownOpen = false;
+    this.isDropdownOpen = false;
   }
 
   minRangeAge = 0; // Minimalna wartość suwaka
@@ -64,10 +70,13 @@ export class MainPageComponent {
     if (this.minValueAge > this.maxValueAge) {
       [this.minValueAge, this.maxValueAge] = [this.maxValueAge, this.minValueAge];
     }
+    this.isCategoryDropdownOpen = false;
+    this.isDropdownOpen = false;
   }
 
 
-  cards: GameCard[] = []
+  cards: GameCard[] = [];
+  cardsInput: GameCard[] = [];
   constructor(private toastr: ToastrService, private http: HttpClient,private router: Router) {}
   GetGames() {
     const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
@@ -75,39 +84,67 @@ export class MainPageComponent {
     const fullUrl = proxyUrl + targetUrl;
     console.log(fullUrl);
     this.http.get<CustomResponse>(fullUrl).subscribe(response => {
+      console.log("gierki: ", response.data);
       for (let i = 0; i < response.data.length; i++) {
-        const item: any = response.data[0];
-        console.log(item);
+        const item: any = response.data[i];
+        console.log(item.image);
         console.log(typeof item); 
         // Tworzymy obiekt typu GameCard
         const gameCard: GameCard = {
+          id: item.id,
           title: item.name || 'Brak tytułu',               // name -> title
           publisher: item.publisher || 'Brak wydawcy',     // publisher
           category: item.type || 'Brak kategorii',         // type -> category
           price: item.price,// || parseFloat(item.price.toString()),    // price
           year: parseInt(item.year.toString(), 10) || 0,    // year
           description: item.description || 'Brak opisu',    // description
-          photos: item.image ? [item.image] : ['discord.png'],  // Jeśli jest image, to użyj go, w przeciwnym razie przypisz domyślne zdjęcie
-          ageFrom: parseInt(item.rating.split(' - ')[0], 10),  // players_number -> playersFrom
-          ageTo: parseInt(item.rating.split(' - ')[1], 10),     // players_number -> playersTo
-          playersFrom: parseInt(item.players_number.split(' - ')[0], 10) || 1,  // players_number -> playersFrom
-          playersTo: parseInt(item.players_number.split(' - ')[1], 10) || 2,    // players_number -> playersTo
+          photos: item.image, // Jeśli jest image, to użyj go, w przeciwnym razie przypisz domyślne zdjęcie
+          ageFrom: parseInt(item.rating.trim().split('-')[0], 10),  // players_number -> playersFrom
+          ageTo: parseInt(item.rating.trim().split('-')[1], 10),     // players_number -> playersTo
+          playersFrom: parseInt(item.players_number.trim().split('-')[0], 10) || 1,  // players_number -> playersFrom
+          playersTo: parseInt(item.players_number.trim().split('-')[1], 10) || 2,    // players_number -> playersTo
           action: ''                                        // Akcja (możesz dodać logikę, jeśli są dane)
         };
         
 
-        console.log(gameCard);
-    
+        
         // Dodajemy gameCard do listy
         this.cards.push(gameCard);
       }
-    
-      console.log(this.cards); // Zobacz całą listę cards
+      this.cardsInput = this.cards;
+      console.log(this.cardsInput);
+      this.updateOrdersInput();
     }, error => {
       console.error('Błąd:', error);
       //this.failToast(error.error?.message);
     });
   }
+
+  updateOrdersInput(): void {
+    this.cardsInput = this.cards.filter(card => card.title.includes(this.pattern.trim()));
+    if(this.selectedCategories.length !== 0){
+      this.cardsInput = this.cardsInput.filter(card => 
+        this.selectedCategories.some(category => card.category.includes(category)) &&
+        card.title.includes(this.pattern.trim())
+      );
+    }
+
+    if(this.selectedOptions.length !== 0){
+      this.cardsInput = this.cardsInput.filter(card => 
+        this.selectedOptions.some(publisher => card.publisher.includes(publisher)) &&
+        card.title.includes(this.pattern.trim())
+      );
+    }
+    this.cardsInput = this.cardsInput.filter(card => {
+    const isWithinRange = (card.ageFrom >= this.minValueAge && card.ageTo <= this.maxValueAge) && (card.year >= this.minValueYear && card.year <= this.maxValueYear) && (card.playersFrom >= this.minValue && card.playersTo <= this.maxValue)
+    return isWithinRange;
+  });
+
+  this.isCategoryDropdownOpen = false;
+  this.isDropdownOpen = false;
+  
+  }
+
 
   ngOnInit(): void {
     this.GetGames();
@@ -122,7 +159,7 @@ export class MainPageComponent {
 }
 
 
-  options = ['Opcja 1', 'Opcja 2', 'Opcja 3', 'Opcja 4'];
+  options = ['Fantasy Flight Games', 'Asmodee', 'Rebel', 'Days of Wonder', 'Ravensburger', 'Plaid Hat Games', 'Stonemaier Games', 'Portal Games,', 'Matagot', 'Lucky Duck Games'];
   
   // Zmienna przechowująca wybrane opcje
   selectedOptions: string[] = [];
@@ -134,6 +171,7 @@ export class MainPageComponent {
   toggleDropdown(event: Event) {
     event.stopPropagation();
     this.isDropdownOpen = !this.isDropdownOpen;
+    this.isCategoryDropdownOpen = false;
   }
 
   // Metoda do obsługi zmiany wybranej opcji
@@ -146,12 +184,13 @@ export class MainPageComponent {
   }
 
   isCategoryDropdownOpen = false;
-  categories = ['Kategoria 1', 'Kategoria 2', 'Kategoria 3'];
+  categories = ['Strategiczne', 'Przygodowe', 'Ekonomiczne', 'Logiczne', 'Rodzinne', 'Fantasy', 'Imprezowe', 'Dla dzieci'];
   selectedCategories: string[] = [];
 
   toggleCategoryDropdown(event: Event) {
     event.stopPropagation();
     this.isCategoryDropdownOpen = !this.isCategoryDropdownOpen;
+    this.isDropdownOpen = false;
   }
 
   onCategorySelectionChange(category: string) {
@@ -162,18 +201,6 @@ export class MainPageComponent {
     }
   }
 
-  @HostListener('document:click', ['$event'])
-onDocumentClick(event: MouseEvent) {
-  const targetElement = event.target as HTMLElement;
-
-  // Sprawdzamy, czy kliknięto wewnątrz dropdowna
-  const isInsideDropdown = targetElement.closest('.dropdown-container');
-  const isInsideCategoryDropdown = targetElement.closest('.category-dropdown-container');
-
-  // Zamykamy dropdowny tylko jeśli kliknięto poza nimi
-  this.isDropdownOpen = !!isInsideDropdown;
-  this.isCategoryDropdownOpen = !!isInsideCategoryDropdown;
-}
 
 }
 

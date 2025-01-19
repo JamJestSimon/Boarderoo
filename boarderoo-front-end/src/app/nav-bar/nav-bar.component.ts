@@ -35,9 +35,15 @@ export class NavBarComponent {
   }
   constructor(private toastr: ToastrService, private http: HttpClient, private router: Router) {}
   LogOut() {
-    localStorage.removeItem('session_token');
+    if(this.isAdmin === true){
+      localStorage.removeItem('session_token_admin');
+      this.router.navigate(['/admin']);
+    }
+    else{
+      localStorage.removeItem('session_token');
+      this.router.navigate(['/']);
+    }
     
-    this.router.navigate(['/']);  // Zakładając, że masz stronę logowania pod tym adresem
     
     // Ewentualnie wyświetlenie komunikatu o wylogowaniu
     this.successToast('Zostałeś pomyślnie wylogowany');

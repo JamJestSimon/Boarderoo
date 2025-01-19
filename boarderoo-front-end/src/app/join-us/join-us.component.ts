@@ -70,8 +70,14 @@ export class JoinUsComponent {
     }
   }
 
+  signInWithDiscord(): void {
+
+    const discordAuthUrl = 'https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=https%3A%2F%2Fboarderoo-71469.firebaseapp.com%2F&scope=email';
+    window.location.href = discordAuthUrl;
+  }
+
   signInWithGoogle(): void {
-    const clientId = '928336702407-1k491bc4lfncauce3nanjk6k4eoocn4g.apps.googleusercontent.com';
+    const clientId = '928336702407-bdifeaptq727tsor03bcbaqkvunbg7h1.apps.googleusercontent.com';
       // Wstaw swój Client ID z Google API Console
     const redirectUri = 'https://boarderoo-71469.firebaseapp.com'; // Lub inny odpowiedni URI
 
@@ -85,16 +91,23 @@ export class JoinUsComponent {
     const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/register';
     const fullUrl = proxyUrl + targetUrl;
-    console.log(fullUrl);
-    this.http.post<CustomResponse>(fullUrl, {
-      firstName: this.firstName,
-      lastName: this.lastName,
-      address: this.address,
-      email: this.emailRegistration,
-      password: this.passwordRegistration
-    }).subscribe(response => {
+    const regisUser = {
+      "id": "",
+      "email": this.emailRegistration,
+      "isVerified": true,
+      "address": this.address,
+      "name": this.firstName,
+      "password": this.passwordRegistration,
+      "surname": this.lastName,
+      "token": "string",
+      "tokenCreationDate": "2025-01-18T23:47:59.353Z"
+    }
+    console.log(regisUser);
+    this.http.post<CustomResponse>(fullUrl, regisUser ).subscribe(response => {
       console.log(response);
       this.successToast(response.message);
+      this.onClose();
+      
     }, error => {
       console.error('Błąd:', error);
       this.failToast(error.error?.message);
@@ -139,6 +152,25 @@ export class JoinUsComponent {
 
 
   forgotPasswordSend(){
-
+    if(this.emailLogin !== ''){
+      const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
+      const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/password/reset?email=' + this.emailLogin;
+      const fullUrl = proxyUrl + targetUrl;
+      console.log(fullUrl);
+      
+      this.http.get<CustomResponse>(fullUrl).subscribe(
+        (response) => {
+          console.log('Sukces:', response);
+          this.successToast("Wysłano link do resetu hasła"); // Powiadomienie o sukcesie
+        },
+        (error) => {
+          console.error('Błąd:', error);
+          this.failToast(error.error?.message); // Powiadomienie o błędzie
+        }
+      );
+    }
+    else{
+      this.failToast("Uzupełnij pole email w logowaniu!")
+    }
   }
 }

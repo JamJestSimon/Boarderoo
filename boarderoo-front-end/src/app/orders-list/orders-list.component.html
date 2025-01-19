@@ -12,23 +12,24 @@
 
     <label for="gameName">Numer zamówienia:</label>
     <div class="input-group">
-        <input type="text" id="orderNumber" placeholder="Szukaj po numerze zamówienia:" />
+        <input type="text" id="orderNumber" placeholder="Szukaj po numerze zamówienia:" name="pattern" [(ngModel)]="pattern"/>
       </div>
       <div class="input-container">
-        <label for="example-select">Kategoria:</label>
-        <select id="example-select" class="custom-select">
-          <option value="option1">Opcja 1</option>
+        <label for="example-select">Status:</label>
+        <select id="example-select" class="custom-select" name="status" [(ngModel)]="status">
+          <option value="">-</option>
+          <option value="Anulowane">Anulowane</option>
           <option value="option2">Opcja 2</option>
           <option value="option3">Opcja 3</option>
           <option value="option4">Opcja 4</option>
         </select>
       </div>
 
-  <button class="confirm-button">Zatwierdź</button>
+  <button class="confirm-button" (click)="updateOrdersInput()">Zatwierdź</button>
   </div>
   <div class="right-pane">
     <div class="right-pane">
-      <div *ngFor="let order of orders" class="order-card" (click)="toggleOrderDetails(order)">
+      <div *ngFor="let order of ordersInput" class="order-card" (click)="toggleOrderDetails(order)">
         <div class="order-left">
           <div class="order-number">Numer zamówienia: <strong>{{ order.number }}</strong></div>
           <div class="order-date">Data złożenia: <strong>{{ order.date }}</strong></div>

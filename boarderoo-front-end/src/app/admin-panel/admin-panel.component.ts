@@ -23,5 +23,12 @@ export class AdminPanelComponent {
       // Jeśli token jest pusty, przekierowujemy na stronę główną
       this.router.navigate(['/admin']);
   }
-  
-}}
+}
+goToGameList(){
+  this.router.navigate(['/listagier']);
+}
+
+goToOrderList(){
+  this.router.navigate(['/zamowienia']);
+}
+}

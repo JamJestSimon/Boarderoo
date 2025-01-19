@@ -29,7 +29,7 @@
         <!-- Przyciski logowania Google i Discord -->
         <div class="login-buttons">
           <!-- Google Sign-In -->
-          <button class="gsi-material-button">
+          <button class="gsi-material-button" (click)="signInWithGoogle()">
             <div class="gsi-material-button-state"></div>
             <div class="gsi-material-button-content-wrapper">
               <div class="gsi-material-button-icon">
@@ -46,7 +46,7 @@
           </button>
 
           <!-- Discord Sign-In -->
-          <button class="discord-button" (click)="signInWithGoogle()">
+          <button class="discord-button" (click)="signInWithDiscord()">
             <img src="discord.png" alt="Discord" class="discord-icon" />
           </button>
         </div>
@@ -72,11 +72,11 @@
           </div>
           <div class="input-group">
             <label for="emailRegistration">Email</label>
-            <input type="email" id="emailRegistration" name="emailRegistration" [(ngModel)]="emailRegistration" placeholder="Wprowadź email" [value]="emailLogin" />
+            <input type="email" id="emailRegistration" name="emailRegistration" [(ngModel)]="emailRegistration" placeholder="Wprowadź email" [value]="emailRegistration" />
           </div>
           <div class="input-group">
             <label for="passwordRegistration">Hasło</label>
-            <input type="password" id="passwordRegistration" name="passwordRegistration" [(ngModel)]="passwordRegistration" placeholder="Wprowadź hasło" [value]="passwordLogin" />
+            <input type="password" id="passwordRegistration" name="passwordRegistration" [(ngModel)]="passwordRegistration" placeholder="Wprowadź hasło" [value]="passwordRegistration" />
           </div>
           <div class="input-group">
             <label for="confirmPassword">Powtórz hasło</label>
