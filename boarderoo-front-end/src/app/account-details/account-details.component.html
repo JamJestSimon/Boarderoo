@@ -88,7 +88,7 @@
                           <input type="password" id="retypePassword" name="retypePassword" [(ngModel)]="retypePassword" placeholder="Powtórz nowe hasło" />
                         </div>
                       </div>
-                  <button class="save-button" (click)="changePassword()">Zapisz zmiany</button>
+                  <button class="save-button" (click)="PasswordUpdate()">Zapisz zmiany</button>
                 </form>
             </div>
             <div [style.display]="openedTab === 'orderHistory' ? 'block' : 'none'">
@@ -98,10 +98,10 @@
                         <div class="order-row">
                           <div class="order-info">
                             <div class="order-number">
-                              <strong>Numer zamówienia:</strong> {{ order.number }}
+                              <strong>Numer zamówienia:</strong> {{ order.id }}
                             </div>
                             <div class="order-date">
-                              Data: {{ order.date }}
+                              Data: {{ order.start }}
                             </div>
                           </div>
                           <div class="order-price">
@@ -115,15 +115,20 @@
                               </button>
                           </div>
                         </div>
-                        <div *ngIf="order.showDetails" class="order-details">
+                        <div class="order-details" *ngIf="order.showDetails">
                           <p>Szczegóły zamówienia:</p>
                           <ul>
-                            <li *ngFor="let item of order.items">{{ item.name }} - {{ item.quantity }} dni x {{ item.price }} zł</li>
+                            <li *ngFor="let item of order.items">{{ item }}</li>
                           </ul>
-                          <p>Status zamówienia: {{order.status}}</p>
-                          <button class="cancel-button" type="submit">Anuluj zamówienie</button>
+                          <p>Status zamówienia: {{ order.status }}</p>
+                        
+                          <!-- Wyświetl przycisk anulowania tylko, jeśli status to "Zapłacone" -->
+                          <button *ngIf="order.status === 'Zapłacone'" 
+                                  class="cancel-button" 
+                                  (click)="changeStatus(order)">
+                            Anuluj zamówienie
+                          </button>
                         </div>
-                      </div>
                 </div>
                 
               </div>

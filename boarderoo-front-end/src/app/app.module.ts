@@ -10,7 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [],
-  imports: [BrowserAnimationsModule, RouterModule.forRoot(routes),NgxPayPalModule, HttpClientModule],
+  imports: [BrowserAnimationsModule, RouterModule.forRoot(routes),NgxPayPalModule, HttpClientModule,],
   providers: [],
   bootstrap: []
 })

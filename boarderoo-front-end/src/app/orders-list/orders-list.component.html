@@ -31,12 +31,12 @@
     <div class="right-pane">
       <div *ngFor="let order of ordersInput" class="order-card" (click)="toggleOrderDetails(order)">
         <div class="order-left">
-          <div class="order-number">Numer zamówienia: <strong>{{ order.number }}</strong></div>
-          <div class="order-date">Data złożenia: <strong>{{ order.date }}</strong></div>
+          <div class="order-number">Numer zamówienia: <strong>{{ order.id }}</strong></div>
+          <div class="order-date">Data złożenia: <strong>{{ order.start }}</strong></div>
         </div>
         <div class="order-right">
           <div class="order-status">Status: <span>{{ order.status }}</span></div>
-          <div class="order-amount">Kwota: <strong>{{ order.amount }}</strong></div>
+          <div class="order-amount">Kwota: <strong>{{ order.price }} zł</strong></div>
         </div>
       </div>
       

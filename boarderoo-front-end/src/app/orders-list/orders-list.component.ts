@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, ViewChild } from '@angular/core';
 import { NavBarComponent } from '../nav-bar/nav-bar.component';
 import { CommonModule } from '@angular/common';
 import { OrderDetailsComponent } from '../order-details/order-details.component';
@@ -7,6 +7,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { OrderCard } from '../OrderCard';
 
 @Component({
   selector: 'app-orders-list',
@@ -22,33 +23,15 @@ export class OrdersListComponent {
   pattern = "";
   status = ""
   isOrderDetailsVisible = false;
+  orders: OrderCard[] = [];
   selectedOrder = "";
-  orders = [
-    { number: '#12345', date: '2025-01-15', status: 'Anulowane', amount: '250,00 PLN', statusClass: 'status-pending' },
-    { number: '#12346', date: '2025-01-14', status: 'Zrealizowane', amount: '300,00 PLN', statusClass: 'status-completed' },
-    { number: '#12347', date: '2025-01-15', status: 'Anulowane', amount: '150,00 PLN', statusClass: 'status-canceled' },
-    { number: '#12345', date: '2025-01-15', status: 'Oczekujące', amount: '250,00 PLN', statusClass: 'status-pending' },
-    { number: '#12346', date: '2025-01-14', status: 'Zrealizowane', amount: '300,00 PLN', statusClass: 'status-completed' },
-    { number: '#12347', date: '2025-01-15', status: 'Anulowane', amount: '150,00 PLN', statusClass: 'status-canceled' },
-    { number: '#12345', date: '2025-01-15', status: 'Oczekujące', amount: '250,00 PLN', statusClass: 'status-pending' },
-    { number: '#12346', date: '2025-01-14', status: 'Zrealizowane', amount: '300,00 PLN', statusClass: 'status-completed' },
-    { number: '#12347', date: '2025-01-15', status: 'Zrealizowane', amount: '150,00 PLN', statusClass: 'status-canceled' },
-    { number: '#12345', date: '2025-01-15', status: 'Oczekujące', amount: '250,00 PLN', statusClass: 'status-pending' },
-    { number: '#12346', date: '2025-01-14', status: 'Zrealizowane', amount: '300,00 PLN', statusClass: 'status-completed' },
-    { number: '#12347', date: '2025-01-15', status: 'Oczekujące', amount: '150,00 PLN', statusClass: 'status-canceled' },
-    { number: '#12345', date: '2025-01-15', status: 'Oczekujące', amount: '250,00 PLN', statusClass: 'status-pending' },
-    { number: '#12346', date: '2025-01-14', status: 'Zrealizowane', amount: '300,00 PLN', statusClass: 'status-completed' },
-    { number: '#12347', date: '2025-01-15', status: 'Anulowane', amount: '150,00 PLN', statusClass: 'status-canceled' },
-    { number: '#12345', date: '2025-01-15', status: 'Oczekujące', amount: '250,00 PLN', statusClass: 'status-pending' },
-    { number: '#12346', date: '2025-01-14', status: 'Zrealizowane', amount: '300,00 PLN', statusClass: 'status-completed' },
-    { number: '#12347', date: '2025-01-15', status: 'Anulowane', amount: '150,00 PLN', statusClass: 'status-canceled' },
-  ];
   ordersInput = this.orders;
+  @ViewChild(OrderDetailsComponent) child!: OrderDetailsComponent;
 
   updateOrdersInput(): void {
     console.log("1", this.orders);
 
-    this.ordersInput = this.orders.filter(order => order.number.includes(this.pattern.trim()));
+    this.ordersInput = this.orders.filter(order => order.id.includes(this.pattern.trim()));
     console.log("2", this.ordersInput);
     this.ordersInput = this.ordersInput.filter(order => order.status.includes(this.status.trim()));
     console.log("3", this.ordersInput);
@@ -59,6 +42,9 @@ export class OrdersListComponent {
       this.selectedOrder = order; // Ustawiamy wybraną kartę
     }
     this.isOrderDetailsVisible = !this.isOrderDetailsVisible;
+    if(this.isOrderDetailsVisible){
+      this.child.getUser();
+    }
     console.log("togle" + this.isOrderDetailsVisible);
   }
   
@@ -78,7 +64,29 @@ export class OrdersListComponent {
         const fullUrl = proxyUrl + targetUrl;
         console.log(fullUrl);
         this.http.get<CustomResponse>(fullUrl).subscribe(response => {
-          console.log("Zamówienia:", response.data);
+          // Przechodzimy przez każdy element w odpowiedzi
+          for (let i = 0; i < response.data.length; i++) {
+            const item: any = response.data[i];
+            console.log(item); // Logujemy item do konsoli
+    
+            // Tworzymy obiekt Order
+            const order: OrderCard = {
+              id: item.id,
+              start: new Date(item.start).toISOString().split('T')[0] || '2025-01-01T00:00:00.000Z', // Domyślna data
+              end: new Date(item.end).toISOString().split('T')[0] || '2025-01-01T00:00:00.000Z',    // Domyślna data
+              status: item.status || 'Brak statusu',
+              user: item.user || 'Brak użytkownika',
+              items: item.items || [], // Jeżeli brak przedmiotów, pusty array
+              price: item.price || 0,   // Jeżeli brak ceny, 0
+              showDetails: false,
+            };
+    
+            console.log(order); // Logujemy stworzony obiekt zamówienia
+    
+            // Dodajemy obiekt order do tablicy orders
+            this.orders.push(order);
+          }
+    
         }, error => {
           console.error('Błąd:', error);
           //this.failToast(error.error?.message);

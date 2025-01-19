@@ -3,30 +3,56 @@
         <div class="order-details-top">
             <div class="order-details">
                 <div>
-                    <span>Zamówienie numer {{selectedOrder.number}}</span>
+                    <span>Zamówienie numer {{ selectedOrder.id }}</span>
                 </div>
                 <button class="close-button" (click)="onClose()">×</button>
             </div>
         </div>
+
         <div class="order-details-sections">
+            <!-- Sekcja po lewej: Wypożyczone przedmioty -->
             <div class="order-section-left">
                 <span class="header">Wypożyczone przedmioty:</span>
                 <div class="divider"></div>
+                <ul>
+                    <li *ngFor="let item of selectedOrder.items">
+                        {{ item }}
+                    </li>
+                </ul>
             </div>
+
+            <!-- Sekcja pośrodku: Dane klienta -->
             <div class="order-section-middle">
                 <span class="header">Dane klienta:</span>
                 <div class="divider"></div>
+                <div>
+                    <p><strong>Imię:</strong> {{ name }}</p>
+                    <p><strong>Nazwisko:</strong> {{ surname }}</p>
+                    <p><strong>Email:</strong> {{ selectedOrder.user }}</p>
+                    <p><strong>Adres:</strong> {{ address }}</p>
+                </div>
             </div>
+
+            <!-- Sekcja po prawej: Dane transakcji -->
             <div class="order-section-right">
                 <span class="header">Dane transakcji:</span>
                 <div class="divider"></div>
+                <div>
+                    <p><strong>Numer zamówienia:</strong> {{ selectedOrder.id }}</p>
+                    <p><strong>Cena:</strong> {{ selectedOrder.price }} zł</p>
+                </div>
             </div>
+        </div>
+
+        <!-- Sekcja zmiany statusu -->
+        <div class="input-container">
+            <label for="example-select">Status:</label>
+            <select id="example-select" class="custom-select" [(ngModel)]="selectedOrder.status">
+                <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+            </select>
+            <button class="confirm-button" (click)="changeStatus()">Zatwierdź</button>
+        </div>
     </div>
-    <div class="input-container">
-        <label for="example-select">Status:</label>
-        <select id="example-select" class="custom-select">
-          <option *ngFor="let option of options" [value]="option">{{ option }}</option>
-        </select>
-        <button class="confirm-button">Zatwierdź</button>
-      </div>
 </div>
+
+<div id="toast-container" class="toast-top-right"></div>

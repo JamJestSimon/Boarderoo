@@ -1,14 +1,10 @@
 export interface OrderCard {
-    id: string;
-    publisher: string;
-    category: string;
-    price: number;
-    year: number;
-    description: string;
-    photos: string[];
-    ageFrom: number;
-    ageTo: number;
-    playersFrom: number;
-    playersTo: number;
-    action: string;
-  }
+  id: string;
+  start: string;          // Data rozpoczęcia (ISO 8601)
+  end: string;            // Data zakończenia (ISO 8601)
+  status: string;         // Status zamówienia
+  user: string;           // ID użytkownika
+  items: string[];        // Lista przedmiotów w zamówieniu
+  price: number;          // Całkowita cena zamówienia
+  showDetails: boolean
+}

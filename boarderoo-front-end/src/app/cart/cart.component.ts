@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { ICreateOrderRequest, IPayPalConfig, NgxPayPalModule } from 'ngx-paypal';
 import { GameCard } from '../GameCard';
+import { CustomResponse } from '../CustomResponse';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-cart',
@@ -28,7 +30,7 @@ export class CartComponent {
     isDatePickerOpen: boolean = false;
     items: GameCard[] = [];
     minDate: string | undefined;
-    constructor(private toastr: ToastrService) {}
+    constructor(private toastr: ToastrService, private http: HttpClient) {}
 
     calculateTotalPrice() {
       this.sumPrice = this.items.reduce((sum, item) => sum + (this.days * item.price), 0).toFixed(2);
@@ -103,6 +105,30 @@ export class CartComponent {
 
     }
 
+    NewOrder(){
+        const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
+        const sessionToken = localStorage.getItem('session_token');
+        const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/order';
+        const fullUrl = proxyUrl + targetUrl;
+        console.log(fullUrl);
+        const newOrder = {
+          "id": "string",
+          "start": new Date(this.dateStart).toISOString(),
+          "end": new Date(this.dateStop).toISOString(),
+          "status": "Zapłacone",
+          "user": sessionToken,
+          "items": this.items.map(item => item.title),
+          "price": this.sumPrice
+        }
+      this.http.post<CustomResponse>(fullUrl, newOrder).subscribe(response => {
+                  console.log(response);
+                  this.successToast(response.message);
+                }, error => {
+                  console.error('Błąd:', error);
+                  this.failToast(error.error?.message);
+                });
+    }
+
     private initConfig(): void {
       this.payPalConfig = {
           currency: 'PLN',
@@ -149,6 +175,7 @@ export class CartComponent {
               console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
               console.log((data as any).purchase_units[0].payments.captures[0].id);//
               sessionStorage.removeItem('cartItems');
+              this.NewOrder();
               //utwórz zamówienie ze statusem zapłacone
               this.successToast("Zamówienie zostało opłacone!");
               this.onClose();

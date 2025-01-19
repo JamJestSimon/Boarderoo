@@ -5,6 +5,7 @@ import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import { CustomResponse } from '../CustomResponse';
 import { request } from 'http';
+import { OrderCard } from '../OrderCard';
 
 @Component({
   selector: 'app-account-details',
@@ -21,6 +22,7 @@ export class AccountDetailComponent {
     user: string = '';  // Dodajemy zmienną na e-mail
     surname: string = '';  // Dodajemy zmienną na e-mail
     address: string = '';  // Dodajemy zmienną na e-mail
+    orders: OrderCard[] = [];
     currentTab: string = 'data';
     tmpCurrentTab: string = ''
     openedTab: string = ''
@@ -80,33 +82,7 @@ export class AccountDetailComponent {
       
     }
 
-    GetOrder() {
-      const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
-      const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/order/user/' + this.email;
-      const fullUrl = proxyUrl + targetUrl;
-      console.log(fullUrl);
-      this.http.get<CustomResponse>(fullUrl).subscribe(response => {
-        console.log("Zamówienia:", response.data);
-      }, error => {
-        console.error('Błąd:', error);
-        //this.failToast(error.error?.message);
-      });
-    }
-
-    changePassword(){
-      if(this.newPassword === '' || this.retypePassword === '' || this.oldPassword === ''){
-        this.failToast("Minimum jedno z pól jest puste!");
-      }
-      else {
-        if(this.newPassword !== this.retypePassword ){
-          this.failToast("Nowe hasła nie są identyczne");
-        }
-        else{
-          this.PasswordUpdate();
-        }
-      }
-      
-    }
+    
 
     PasswordUpdate() {
       const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
@@ -130,6 +106,43 @@ export class AccountDetailComponent {
       );
       this.user = this.userName || '';
     }
+
+
+    GetOrder() {
+        this.orders = []
+        const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
+        const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/order/user/' + this.email;
+        const fullUrl = proxyUrl + targetUrl;
+        console.log(fullUrl);
+        this.http.get<CustomResponse>(fullUrl).subscribe(response => {
+          // Przechodzimy przez każdy element w odpowiedzi
+          for (let i = 0; i < response.data.length; i++) {
+            const item: any = response.data[i];
+            console.log(item); // Logujemy item do konsoli
+    
+            // Tworzymy obiekt Order
+            const order: OrderCard = {
+              id: item.id,
+              start: new Date(item.start).toISOString().split('T')[0] || '2025-01-01T00:00:00.000Z', // Domyślna data
+              end: new Date(item.end).toISOString().split('T')[0] || '2025-01-01T00:00:00.000Z',    // Domyślna data
+              status: item.status || 'Brak statusu',
+              user: item.user || 'Brak użytkownika',
+              items: item.items || [], // Jeżeli brak przedmiotów, pusty array
+              price: item.price || 0,   // Jeżeli brak ceny, 0
+              showDetails: false,
+            };
+    
+            console.log(order); // Logujemy stworzony obiekt zamówienia
+    
+            // Dodajemy obiekt order do tablicy orders
+            this.orders.push(order);
+          }
+    
+        }, error => {
+          console.error('Błąd:', error);
+          //this.failToast(error.error?.message);
+        });
+      }
 
     
     onClose() {
@@ -176,7 +189,7 @@ export class AccountDetailComponent {
       const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/user/?email=' + sessionToken;
       const fullUrl = proxyUrl + targetUrl;
          
-      this.http.put<CustomResponse>(fullUrl, { password: "Adrian"}).subscribe(
+      this.http.put<CustomResponse>(fullUrl, { password: this.newPassword}).subscribe(
         response => {
           console.log(response);
           this.successToast(response.message);
@@ -193,53 +206,30 @@ export class AccountDetailComponent {
 
     }
 
-    orders = [
-      {
-        number: 'DSJNSADJKN',
-        date: '2025-01-15',
-        price: 120.50,
-        items: [
-          { name: 'Produkt A', quantity: 2, price: 40 },
-          { name: 'Produkt B', quantity: 1, price: 40.50 }
-        ],
-        status: 'Anulowane',
-        showDetails: false
-      },
-      {
-        number: 'DSJNSADJKN',
-        date: '2025-01-15',
-        price: 120.50,
-        items: [
-          { name: 'Produkt A', quantity: 2, price: 40 },
-          { name: 'Produkt B', quantity: 1, price: 40.50 }
-        ],
-        status: 'Zwrócone',
-        showDetails: false
-      },
-      {
-        number: 'DSJNSADJKN',
-        date: '2025-01-15',
-        price: 120.50,
-        items: [
-          { name: 'Produkt A', quantity: 2, price: 40 },
-          { name: 'Produkt B', quantity: 1, price: 40.50 }
-        ],
-        status: 'Odebrane',
-        showDetails: false
-      },
-      {
-        number: 'DSJNSADJKN',
-        date: '2025-01-15',
-        price: 120.50,
-        items: [
-          { name: 'Produkt A', quantity: 2, price: 40 },
-          { name: 'Produkt B', quantity: 1, price: 40.50 }
-        ],
-        status: 'Oczekujące na odbiór',
-        showDetails: false
-      },
-      // Kolejne zamówienia
-    ];
+    changeStatus(order:any){
+      const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
+  
+            const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/order?id=' + order.id + '&status=Anulowane';
+            const fullUrl = proxyUrl + targetUrl;
+               
+            this.http.put<CustomResponse>(fullUrl, null).subscribe(
+              response => {
+                console.log(response);
+                this.successToast(response.message);
+                // Możesz dodać powiadomienie o sukcesie, np. Toast
+                // this.successToast('User updated successfully.');
+              },
+              error => {
+                console.error('Error updating user:', error);
+                this.successToast("Zmiana nie powiodła się");
+                // Możesz dodać powiadomienie o błędzie, np. Toast
+                // this.failToast('Failed to update user.');
+              }
+            );
+        this.GetOrder();   
+    }
+
+   
   
     toggleDetails(order: any) {
       order.showDetails = !order.showDetails;
