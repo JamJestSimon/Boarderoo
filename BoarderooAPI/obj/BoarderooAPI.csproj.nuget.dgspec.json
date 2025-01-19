@@ -1,26 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\BoarderooAPI.csproj": {}
+    "C:\\Users\\Szymon\\Documents\\Projects\\Boarderoo\\BoarderooAPI\\BoarderooAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\BoarderooAPI.csproj": {
+    "C:\\Users\\Szymon\\Documents\\Projects\\Boarderoo\\BoarderooAPI\\BoarderooAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\BoarderooAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Szymon\\Documents\\Projects\\Boarderoo\\BoarderooAPI\\BoarderooAPI.csproj",
         "projectName": "BoarderooAPI",
-        "projectPath": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\BoarderooAPI.csproj",
-        "packagesPath": "C:\\Users\\szymo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\szymo\\Documents\\TIM\\Boarderoo\\BoarderooAPI\\obj\\",
+        "projectPath": "C:\\Users\\Szymon\\Documents\\Projects\\Boarderoo\\BoarderooAPI\\BoarderooAPI.csproj",
+        "packagesPath": "C:\\Users\\Szymon\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Szymon\\Documents\\Projects\\Boarderoo\\BoarderooAPI\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Users\\szymo\\AppData\\Roaming\\Godot\\mono\\GodotNuGetFallbackFolder",
-          "D:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\szymo\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Users\\szymo\\AppData\\Roaming\\NuGet\\config\\Godot.Offline.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Szymon\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -28,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -45,33 +40,12 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        },
-        "SdkAnalysisLevel": "9.0.100"
+        }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
-            "FirebaseAdmin": {
-              "target": "Package",
-              "version": "[3.1.0, )"
-            },
-            "Google.Apis.Gmail.v1": {
-              "target": "Package",
-              "version": "[1.68.0.3427, )"
-            },
-            "Google.Cloud.Firestore": {
-              "target": "Package",
-              "version": "[3.9.0, )"
-            },
-            "MailKit": {
-              "target": "Package",
-              "version": "[4.9.0, )"
-            },
-            "MimeKit": {
-              "target": "Package",
-              "version": "[4.9.0, )"
-            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
@@ -96,7 +70,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.102/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

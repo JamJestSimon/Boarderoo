@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BoarderooAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d6dda473ddb6698a9e422dcad33b20056fc5d30d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
 [assembly: System.Reflection.AssemblyProductAttribute("BoarderooAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BoarderooAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

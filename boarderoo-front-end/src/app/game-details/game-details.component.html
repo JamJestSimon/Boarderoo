@@ -1,0 +1,54 @@
+<!-- Kontener na powiększone zdjęcie -->
+<div class="zoomed-image-overlay" *ngIf="showZoomedImage">
+    <div class="zoomed-image-container">
+        <img [src]="photos[currentPhotoIndex]" alt="Powiększone zdjęcie" (click)=" closeZoomedImage()" />
+        <button class="close-zoomed-image" (click)="closeZoomedImage()">×</button>
+    </div>
+</div>
+
+<div class="game-details-overlay">
+    <div class="game-details-content">
+        <!-- Pasek z koszykiem -->
+        <div class="game-details-top">
+            <div class="game-details">
+                <div>
+                    <span>{{ selectedCard?.title }}</span>
+                    <span>Wydawca: {{ selectedCard?.publisher }}</span>
+                </div>
+                <button class="close-button" (click)="onClose()">×</button>
+            </div>
+        </div>
+        <div class="game-details-sections">
+            <!-- Galeria zdjęć po lewej -->
+            <div class="game-details-left">
+                <div class="gallery">
+                    <div class="gallery-wrapper">
+                        <img [src]="photos[currentPhotoIndex]" alt="Zdjęcie gry" (click)="zoomImage()" />
+                    </div>
+                    <div class="gallery-controls">
+                        <button (click)="prevPhoto()" class="gallery-button">‹</button>
+                        <button (click)="nextPhoto()" class="gallery-button">›</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Szczegóły po prawej -->
+            <div class="game-details-right">
+                <div class="game-details-pane">
+                    <div class="details-item"><strong>Kategoria:</strong> {{ selectedCard?.category }}</div>
+                    <div class="details-item"><strong>Liczba graczy:</strong> {{ selectedCard?.playersFrom }} - {{ selectedCard?.playersTo }}</div>
+                    <div class="details-item"><strong>Wiek:</strong> {{ selectedCard?.ageFrom }} - {{ selectedCard?.ageTo }}</div>
+                    <div class="details-item"><strong>Rok wydania:</strong> {{ selectedCard?.year }}</div>
+                </div>
+            </div>
+        </div>
+        <!-- Opis gry -->
+        <span class="description-span">Opis:</span>
+        <div class="game-details-description">
+            <span>{{ selectedCard?.description }}</span>
+        </div>
+        <div class="game-details-footer">
+            <div class="price">Cena za dzień: {{ selectedCard?.price }} PLN</div>
+            <button class="rent-button" (click)="onRent()">Wypożycz</button>
+        </div>
+    </div>
+</div>

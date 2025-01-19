@@ -1,1 +1,10 @@
+@import 'https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css';
+@import 'ngx-toastr/toastr';
+
 /* You can add global styles to this file, and also import other style files */
+html, body {
+    height: 100%;
+    width: 100%;
+    background-color: #EA962A;
+    overflow: hidden;
+  }

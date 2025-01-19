@@ -1,0 +1,66 @@
+{
+  "project_info": {
+    "project_number": "928336702407",
+    "project_id": "boarderoo-71469",
+    "storage_bucket": "boarderoo-71469.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928336702407:android:2e787ffb34417648ce07e2",
+        "android_client_info": {
+          "package_name": "pl.boarderoo.mobileapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928336702407-0uvll9nktsjrbo8eohl8hhpis512gfom.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.boarderoo.mobileapp",
+            "certificate_hash": "d3c7e62e062b0f95ea1e20ef5f4b541fc4b04650"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJkpmOL_yTqifY09ywL5ecShIWSuU0e1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:928336702407:android:2cc2c2e75c2f7c45ce07e2",
+        "android_client_info": {
+          "package_name": "pl.boarderoo.mobileapp.start"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "928336702407-4tadli24365snr2ccnpgismtjbqnd01k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.boarderoo.mobileapp.start",
+            "certificate_hash": "d3c7e62e062b0f95ea1e20ef5f4b541fc4b04650"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJkpmOL_yTqifY09ywL5ecShIWSuU0e1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

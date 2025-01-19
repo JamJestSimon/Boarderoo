@@ -1,4 +1,4 @@
-@BoarderooAPI_HostAddress = http://localhost:8080
+@BoarderooAPI_HostAddress = http://localhost:5093
 
 GET {{BoarderooAPI_HostAddress}}/weatherforecast/
 Accept: application/json

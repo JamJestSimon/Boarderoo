@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings.Global.getString
 import android.util.Log
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
@@ -34,6 +35,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -46,10 +48,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.app.ActivityCompat.startActivityForResult
+import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.android.gms.auth.api.identity.BeginSignInRequest
+import com.google.android.gms.auth.api.identity.Identity
+import com.google.android.gms.auth.api.identity.SignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import pl.boarderoo.mobileapp.DarkButton
 import pl.boarderoo.mobileapp.R
 import pl.boarderoo.mobileapp.ui.theme.BoarderooMobileAppTheme
@@ -149,6 +158,7 @@ fun LogoScreen(navController: NavController) {
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize()
     ) {
+
         Image(
             painter = painterResource(id = R.drawable.logo),
             contentDescription = "Logo",
@@ -185,6 +195,31 @@ fun LogoScreen(navController: NavController) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
         ) {
+
+            val context = LocalContext.current
+
+            val googleSignInClient = remember {
+                val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                    .requestIdToken("928336702407-qnh2oanp2oofcliefcc1v24355lc1nan.apps.googleusercontent.com")
+                    .requestEmail()
+                    .build()
+                GoogleSignIn.getClient(context, gso)
+            }
+
+            val launcher = rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.StartActivityForResult()
+            ) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    val account = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                    println(account.result.email)
+                    // Sprawdź, czy konto zostało poprawnie pobrane
+                } else {
+                    // Obsługuje niepowodzenie logowania
+                    println("NNNNNNNNNNOKKK")
+                    println(result)
+                }
+            }
+
             Image(
                 painter = painterResource(id = R.drawable.google_logo),
                 contentDescription = "Google Icon",
@@ -192,7 +227,8 @@ fun LogoScreen(navController: NavController) {
                     .size(buttonHeight) // Użyj obliczonego rozmiar
                     .clip(RoundedCornerShape(buttonHeight / 2))
                     .clickable {
-                        // Obsługa kliknięcia
+                        val signInIntent = googleSignInClient.signInIntent
+                        launcher.launch(signInIntent)
                     }
             )
             Spacer(modifier = Modifier.fillMaxWidth(0.03f)) // Przerwa między logo a przyciskami
@@ -219,7 +255,7 @@ fun WebViewScreen() {
 
     val context = LocalContext.current
      // Custom Tabs do otwarcia Discord OAuth2
-    val targetUrl = "https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=http%3A%2F%2F192.168.1.13%2Fcallback&scope=email"
+    val targetUrl = "https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=http%3A%2F%2F192.168.0.32%3A4200%2Fcallback&scope=email"
 
     val customTabsIntent = CustomTabsIntent.Builder()
         .setShowTitle(true)
