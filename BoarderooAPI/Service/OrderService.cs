@@ -48,7 +48,7 @@ public class OrderService
         {
             var Collection= getOrderCollectionById(id); 
             var data = await Collection.GetSnapshotAsync();
-             if (!data.Exists)
+             if (data == null)
         {
             return new ServiceResult<OrderDocument>
         {
@@ -64,11 +64,11 @@ public class OrderService
                 
             };
 
-            DocumentReference gameDocument=data.Reference;
+            DocumentReference gameDocument = data.Documents[0].Reference;
 
             await gameDocument.UpdateAsync(orderdict);
             var gamesCollection = getOrderCollectionById(id);
-            var updatedOrder = data.ConvertTo<OrderDocument>();
+            var updatedOrder = data.Documents[0].ConvertTo<OrderDocument>();
 
              return new ServiceResult<OrderDocument>
         {
@@ -182,7 +182,7 @@ public class OrderService
         try{
         var Collection = this.getOrderCollectionById(id);
         var data = await Collection.GetSnapshotAsync();
-        if (!data.Exists)
+        if (data == null)
         {
             return new ServiceResult<OrderDocument>
         {
@@ -192,7 +192,7 @@ public class OrderService
         }
         else
         {
-            DocumentReference emailDocument=data.Reference;
+            DocumentReference emailDocument = data.Documents[0].Reference;
 
             await emailDocument.DeleteAsync();
             return new ServiceResult<OrderDocument>
@@ -265,9 +265,9 @@ public class OrderService
     {
         return _database.Collection("orders");
     }
-    public Google.Cloud.Firestore.DocumentReference getOrderCollectionById(string id)
+    public Google.Cloud.Firestore.Query getOrderCollectionById(string id)
     {
-        return _database.Collection("orders").Document(id);
+        return _database.Collection("orders").WhereEqualTo("Id", id);
 
     }
      public Google.Cloud.Firestore.Query getOrderCollectionByEmail(string email)
