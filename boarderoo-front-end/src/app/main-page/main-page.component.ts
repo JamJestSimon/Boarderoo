@@ -79,8 +79,9 @@ export class MainPageComponent {
   cardsInput: GameCard[] = [];
   constructor(private toastr: ToastrService, private http: HttpClient,private router: Router) {}
   GetGames() {
+    const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/game';
-    const fullUrl = targetUrl;
+    const fullUrl = proxyUrl + targetUrl;
     console.log(fullUrl);
     this.http.get<CustomResponse>(fullUrl).subscribe(response => {
       console.log("gierki: ", response.data);
