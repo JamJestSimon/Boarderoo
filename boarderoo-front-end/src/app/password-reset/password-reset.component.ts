@@ -35,8 +35,9 @@ export class PasswordResetComponent {
 
     resetPassword() {
       if( this.password == this.confirmPassword || this.password !==''){
+        const proxyUrl = "https://cors-anywhere.herokuapp.com/"
         const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/password/resetPassword/';
-        const fullUrl = targetUrl;
+        const fullUrl = proxyUrl + targetUrl;
         console.log(fullUrl);
         console.log(this.code)
         this.http.post<CustomResponse>(fullUrl, {password: this.password, token: this.code} ).subscribe(response => {

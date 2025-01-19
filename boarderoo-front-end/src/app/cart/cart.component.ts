@@ -107,8 +107,9 @@ export class CartComponent {
 
     NewOrder(){
         const sessionToken = localStorage.getItem('session_token');
+        const proxyUrl = "https://cors-anywhere.herokuapp.com/"
         const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/order';
-        const fullUrl = targetUrl;
+        const fullUrl = proxyUrl + targetUrl;
         console.log(fullUrl);
         const newOrder = {
           "id": "string",

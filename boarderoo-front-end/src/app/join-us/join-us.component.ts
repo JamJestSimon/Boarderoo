@@ -43,8 +43,9 @@ export class JoinUsComponent {
   }
 
   LogInPost() {
+    const proxyUrl = "https://cors-anywhere.herokuapp.com/"
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/login';
-    const fullUrl = targetUrl;
+    const fullUrl = proxyUrl + targetUrl;
     console.log(fullUrl);
     this.http.post<CustomResponse>(fullUrl, { email: this.emailLogin, password: this.passwordLogin }).subscribe(response => {
       console.log(response);

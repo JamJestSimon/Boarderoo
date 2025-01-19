@@ -83,8 +83,9 @@ export class GamesListComponent {
   cards: GameCard[] = []
     GetGames() {
       this.cards = [];
+      const proxyUrl = "https://cors-anywhere.herokuapp.com/"
       const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/game';
-      const fullUrl = targetUrl;
+      const fullUrl = proxyUrl + targetUrl;
       console.log(fullUrl);
       this.http.get<CustomResponse>(fullUrl).subscribe(response => {
         for (let i = 0; i < response.data.length; i++) {
