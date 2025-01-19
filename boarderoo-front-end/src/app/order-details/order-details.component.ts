@@ -45,9 +45,9 @@ export class OrderDetailsComponent {
   constructor(private toastr: ToastrService, private http: HttpClient, private router: Router) {}
 
   changeStatus(){
-
+          const proxyUrl = "https://cors-anywhere.herokuapp.com/"
           const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/order?id=' + this.selectedOrder.id + '&status=' + this.selectedOrder.status;
-          const fullUrl = targetUrl;
+          const fullUrl = proxyUrl + targetUrl;
              
           this.http.put<CustomResponse>(fullUrl, null).subscribe(
             response => {
@@ -91,8 +91,9 @@ export class OrderDetailsComponent {
   }
 
   getUser(){
+      const proxyUrl = "https://cors-anywhere.herokuapp.com/"
       const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/user/' + this.selectedOrder.user;
-      const fullUrl = targetUrl;
+      const fullUrl = proxyUrl + targetUrl;
       console.log(fullUrl);
       
       this.http.get<CustomResponse2>(fullUrl).subscribe(

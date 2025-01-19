@@ -37,8 +37,9 @@ export class AdminLoginComponent {
     }
   
     LogInPost() {
+      const proxyUrl = "https://cors-anywhere.herokuapp.com/"
       const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/login/admin';
-      const fullUrl = targetUrl;
+      const fullUrl = proxyUrl + targetUrl;
       console.log(fullUrl);
       this.http.post<CustomResponse>(fullUrl, { login: this.login, password: this.passwordLogin }).subscribe(response => {
         localStorage.setItem('session_token_admin', this.login);
