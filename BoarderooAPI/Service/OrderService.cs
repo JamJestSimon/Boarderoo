@@ -149,9 +149,9 @@ public class OrderService
             {
                OrderDocument o = new OrderDocument();
                     o.Id=order.GetValue<string>("Id");
-                    o.Start=order.GetValue<Timestamp>("Start");
-                    o.End=order.GetValue<Timestamp>("End");
-                    o.Status=order.GetValue<OrderDocument.StatusType>("Status");
+                    o.Start=order.GetValue<DateTime>("Start");
+                    o.End=order.GetValue<DateTime>("End");
+                    o.Status=order.GetValue<string>("Status");
                     o.User=order.GetValue<string>("User");
                     o.Items=order.GetValue<List<string>>("Items");
                     o.Price=order.GetValue<float>("Price");
@@ -226,9 +226,9 @@ public class OrderService
                 {
                     OrderDocument o = new OrderDocument();
                     o.Id=order.GetValue<string>("Id");
-                    o.Start=order.GetValue<Timestamp>("Start");
-                    o.End=order.GetValue<Timestamp>("End");
-                    o.Status=order.GetValue<OrderDocument.StatusType>("Status");
+                    o.Start=order.GetValue<DateTime>("Start");
+                    o.End=order.GetValue<DateTime>("End");
+                    o.Status=order.GetValue<string>("Status");
                     o.User=order.GetValue<string>("User");
                     o.Items=order.GetValue<List<string>>("Items");
                     o.Price=order.GetValue<float>("Price");
