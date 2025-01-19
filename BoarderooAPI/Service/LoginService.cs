@@ -77,7 +77,7 @@ public class LoginService
             .TrimEnd('=');
             var state = await _userService.UpdateToken(email, token);
             await _userService.UpdateToken(email,token); //aktualizujemy token
-            string url=$"https://boarderoo-71469.firebaseapp.com/?code={token}";
+            string url=$"https://boarderoo-71469.firebaseapp.com/weryfikacja?code={token}";
             string message=$"Witaj, twoj link aktywacyjny do Boarderoo Application to: {url}";
             //var result=await _emailService.SendEmailAsync(email,$"Weryfikacja Boarderoo",message);
             var result=message;
