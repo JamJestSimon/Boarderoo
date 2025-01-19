@@ -57,6 +57,13 @@ namespace BoarderooAPI.Controllers;
         return ConvertServiceResultToActionResult(response);
     }
 
+    [HttpPut]
+    public async Task<ActionResult> UpdateStatus([FromQuery] string id, [FromQuery] string status)
+    {
+        var response = await _orderService.UpdateStatus(id, status);
+        return ConvertServiceResultToActionResult(response);
+    }
+
     private ActionResult ConvertServiceResultToActionResult<T>(ServiceResult<T> serviceResult)
 {
     if (serviceResult.ResultCode==200)
