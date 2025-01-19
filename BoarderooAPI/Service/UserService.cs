@@ -51,17 +51,52 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
         }
         
     }
-     public async Task<ServiceResult<string>> ResetPassword(string mail,string password)
+     public async Task<ServiceResult<string>> ResetPassword(string password,string token)
     {
         //mailem 
         try
         {
-            
-        return new ServiceResult<string>
+        var usersCollection = _database.Collection("users").WhereEqualTo("Token", token);
+        var data = await usersCollection.GetSnapshotAsync();
+        if (data.Documents.Count<1)
         {
-            Message="ok",
-            ResultCode=200
+             return new ServiceResult<string>
+                    {
+                        Message = "Brak uzytkownika w bazie danych!",
+                        ResultCode = 400
+                    };
+        }else
+        {
+            var user=data[0].ConvertTo<UserDocument>();
+            var time=user.TokenCreationDate;
+            //Timestamp protoTimestamp = Timestamp.FromDateTime(DateTime.UtcNow.AddHours(-24));
+            var now = DateTime.UtcNow.AddHours(-1);
+            if (now<time)
+        {
+           // await (user.Email,true);//change password
+           LoginRequest req=new LoginRequest();
+           req.Email=user.Email;
+           req.Password=password;
+            await ChangeUserPassword(req);
+             return new ServiceResult<string>
+        {
+            Message="Haslo zostalo zmienione!",
+            ResultCode=200,
+            Data=user.Email
         };
+        }
+         else
+        {
+            return new ServiceResult<string>
+        {
+            Message="Token wygasl!",
+            ResultCode=200,
+            Data=time.ToString()
+        };
+        }
+
+        }
+       
         }
         catch (Exception e)
         {
@@ -78,13 +113,36 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
         //mailem 
         try
         {
-            //sprawdz czy istnieje
-            //jesli istnieje wyslij maila
-        return new ServiceResult<string>
+             var usersCollection = getUserCollectionByEmail(mail);
+        var data = await usersCollection.GetSnapshotAsync();
+        if (data.Documents.Count<1)
         {
-            Message="ok",
-            ResultCode=200
+            return new ServiceResult<string>
+        {
+            Message="Uzytkownik o takim emailu nie istnieje!",
+            ResultCode=400
         };
+        }else
+        {
+string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
+            .Replace("+", "-")
+            .Replace("/", "_")
+            .TrimEnd('=');
+            var state = await UpdateToken(mail, token);
+           
+            string url=$"http://localhost:4200/resethasla?code={token}";
+            string message=$"Witaj, twoj link aktywacyjny do Boarderoo Application to: {url}";
+            //var result=await _emailService.SendEmailAsync(email,$"Weryfikacja Boarderoo",message);
+            var result=message;
+            return new ServiceResult<string>
+        {
+            Message="Wyslano token do zmiany hasla!",
+            ResultCode=200,
+            Data=result
+           
+        };
+        }
+       
         }
         catch (Exception e)
         {
@@ -93,6 +151,57 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
             Message="Blad"+e.ToString(),
             ResultCode=500
         };
+        }
+    }
+    public async Task<ServiceResult<string>> ChangeUserPassword(LoginRequest request)
+    {
+        try
+        {
+            var emailDocuments = this.getUserCollectionByEmail(request.Email);
+            var data = await emailDocuments.GetSnapshotAsync();
+            if (data.Documents.Count < 1)
+            {
+                return new ServiceResult<string>
+                {
+                    Message = "Brak uzytkownika o takim emailu!",
+                    ResultCode = 404
+                };
+            }
+            if (!data[0].Exists)
+            {
+                return new ServiceResult<string>
+                {
+                    Message = "Brak uzytkownika o takim emailu!",
+                    ResultCode = 404
+                };
+            }
+            else
+            {
+  
+                Dictionary<string, object> userdict = new Dictionary<string, object>()
+                {
+                    { "Password", HashService.hashfunction(request.Password) },
+                };
+
+                DocumentReference emailDocument = data.Documents[0].Reference;
+
+                await emailDocument.UpdateAsync(userdict);
+
+                return new ServiceResult<string>
+                {
+                    Message = "Uzytkownik zaktualizowany poprawnie!",
+                    ResultCode = 200,
+                    Data = "Ok"
+                };
+            }
+        }
+        catch (Exception e)
+        {
+            return new ServiceResult<string>
+            {
+                Message = "Blad" + e.ToString(),
+                ResultCode = 500
+            };
         }
     }
 
