@@ -6,7 +6,6 @@ import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CustomResponse } from '../CustomResponse';
-import { initializeApp } from "firebase/app";
 const firebaseConfig = {
   apiKey: "AIzaSyC_G5J-I5R0h_dcAkq8SG93GJjzwHQgLSs",
   authDomain: "boarderoo-71469.firebaseapp.com",
@@ -15,8 +14,6 @@ const firebaseConfig = {
   messagingSenderId: "928336702407",
   appId: "1:928336702407:web:5afa9c70251d94fece07e2"
 };
-
-const app = initializeApp(firebaseConfig);
 
 @Component({
   selector: 'app-game-edit',
