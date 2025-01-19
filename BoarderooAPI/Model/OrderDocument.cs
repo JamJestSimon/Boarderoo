@@ -8,12 +8,12 @@ public class OrderDocument
     [FirestoreProperty]
     public string Id {get; set;}
     [FirestoreProperty]
-    public Timestamp Start {get; set;}
+    public DateTime Start {get; set;}
     [FirestoreProperty]
-    public Timestamp End {get; set;}
+    public DateTime End {get; set;}
     [FirestoreProperty]
 
-    public StatusType Status {get; set;} //wybieralne z listy
+    public string Status {get; set;} //wybieralne z listy
     [FirestoreProperty]
 
     public string User{get; set;}
@@ -24,12 +24,5 @@ public class OrderDocument
 
     public float Price {get; set;}
     
-    public enum StatusType
-    {
-        Zamówione,
-        Zapłacone,
-        Potwierdzone,
-        Anulowane,
-        Zakończone,
-    }
+
 }
