@@ -45,10 +45,9 @@ export class OrderDetailsComponent {
   constructor(private toastr: ToastrService, private http: HttpClient, private router: Router) {}
 
   changeStatus(){
-    const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
 
           const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/order?id=' + this.selectedOrder.id + '&status=' + this.selectedOrder.status;
-          const fullUrl = proxyUrl + targetUrl;
+          const fullUrl = targetUrl;
              
           this.http.put<CustomResponse>(fullUrl, null).subscribe(
             response => {
@@ -92,9 +91,8 @@ export class OrderDetailsComponent {
   }
 
   getUser(){
-      const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
       const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/user/' + this.selectedOrder.user;
-      const fullUrl = proxyUrl + targetUrl;
+      const fullUrl = targetUrl;
       console.log(fullUrl);
       
       this.http.get<CustomResponse2>(fullUrl).subscribe(
