@@ -51,8 +51,9 @@ export class GameEditComponent {
 
     editGame() {
       console.log(this.selectedCard)
+        const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
         const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/game';
-        const fullUrl = targetUrl;
+        const fullUrl = proxyUrl + targetUrl;
         console.log(fullUrl);
         const newGame = {
         image: this.selectedCard.photos,
