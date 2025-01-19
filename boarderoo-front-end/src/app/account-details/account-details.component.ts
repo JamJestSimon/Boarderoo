@@ -32,8 +32,9 @@ export class AccountDetailComponent {
     userName: string | undefined;
     constructor(private toastr: ToastrService, private http: HttpClient) {}
       GetUser() {
+        const proxyUrl = "https://cors-anywhere.herokuapp.com/"
         const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/user/' + this.email;
-        const fullUrl = targetUrl;
+        const fullUrl = proxyUrl + targetUrl;
         console.log(fullUrl);
         this.http.get<CustomResponse>(fullUrl).subscribe(response => {
             console.log("user: ", response.data);
