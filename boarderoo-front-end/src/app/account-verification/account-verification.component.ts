@@ -35,8 +35,9 @@ export class AccountVerificationComponent {
 
 
   activateAccount() {
+      const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
       const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/verify/'+ this.code;
-      const fullUrl = targetUrl;
+      const fullUrl = proxyUrl + targetUrl;
       console.log(fullUrl);
       console.log(this.code)
       this.http.post<CustomResponse>(fullUrl, null ).subscribe(response => {

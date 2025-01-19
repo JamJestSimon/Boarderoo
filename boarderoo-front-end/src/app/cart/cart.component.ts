@@ -106,9 +106,10 @@ export class CartComponent {
     }
 
     NewOrder(){
+        const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
         const sessionToken = localStorage.getItem('session_token');
         const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/order';
-        const fullUrl = targetUrl;
+        const fullUrl = proxyUrl + targetUrl;
         console.log(fullUrl);
         const newOrder = {
           "id": "string",
