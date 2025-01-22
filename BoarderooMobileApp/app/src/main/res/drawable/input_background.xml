@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Tło kółka -->
+    <item>
+        <shape android:shape="oval">
+            <solid android:color="@color/buttonColor" /> <!-- Kolor tła kółka -->
+        </shape>
+    </item>
+
+    <!-- Ramka kółka -->
+    <item android:top="5dp" android:left="2dp" android:right="2dp" android:bottom="2dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/inputColor" /> <!-- Kolor ramki -->
+        </shape>
+    </item>
+
+</layer-list>
