@@ -78,6 +78,7 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
            req.Email=user.Email;
            req.Password=password;
             await ChangeUserPassword(req);
+            await UpdateToken(user.Email, "");
              return new ServiceResult<string>
         {
             Message="Haslo zostalo zmienione!",
@@ -90,7 +91,7 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
             return new ServiceResult<string>
         {
             Message="Token wygasl!",
-            ResultCode=200,
+            ResultCode=204,
             Data=time.ToString()
         };
         }

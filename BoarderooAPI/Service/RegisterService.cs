@@ -77,6 +77,8 @@ public RegisterService(UserService userService,EmailService emailService,FireBas
         if (now<time)
         {
             await _userService.UpdateVerified(user.Email,true);
+            await _userService.UpdateToken(user.Email, ""); //usuwanie tokena
+
              return new ServiceResult<string>
         {
             Message="Uzytkownik zweryfikowany poprawnie!",
@@ -89,7 +91,7 @@ public RegisterService(UserService userService,EmailService emailService,FireBas
             return new ServiceResult<string>
         {
             Message="Token wygasl!",
-            ResultCode=200,
+            ResultCode=204,
             Data=time.ToString()
         };
         }
