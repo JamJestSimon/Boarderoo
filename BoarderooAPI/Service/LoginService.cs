@@ -84,14 +84,14 @@ public class LoginService
             return new ServiceResult<string>
         {
             Message="Wyslano token logowania!",
-            ResultCode=200,
+            ResultCode=202,
             Data=result
            
         };
         }else return new ServiceResult<string>
         {
             Message="Token jest aktywny!",
-            ResultCode=200,
+            ResultCode=204,
             Data=time.ToString()
            
         };

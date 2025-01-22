@@ -16,6 +16,8 @@ public class UserDocument
     public string Address {get; set;}
     [FirestoreProperty]
     public string Name {get; set;}
+    [FirestoreProperty]
+    public string Authorization {get; set;}
 
     [FirestoreProperty]
     public string Password {get; set;}
