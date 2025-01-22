@@ -25,7 +25,17 @@ builder.Services.AddScoped<AdminService>();
 builder.Services.AddScoped<GameService>();
 builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<EmailService>();
+builder.Services.AddScoped<DiscordService>();
+builder.Services.AddScoped<GoogleService>();
 builder.Services.AddControllers();
+builder.Services.AddCors(opt => 
+{
+    opt.AddPolicy("CorsPolicy",policyBuilder =>
+    {
+        policyBuilder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+    });
+
+});
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -44,7 +54,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+app.UseCors("CorsPolicy");
 
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
