@@ -153,6 +153,7 @@ public class OrderService
                     o.End=order.GetValue<DateTime>("End");
                     o.Status=order.GetValue<string>("Status");
                     o.User=order.GetValue<string>("User");
+                    o.PaymentNumber=order.GetValue<string>("PaymentNumber");
                     o.Items=order.GetValue<List<string>>("Items");
                     o.Price=order.GetValue<float>("Price");
                     ordersList.Add(o);
@@ -230,6 +231,7 @@ public class OrderService
                     o.End=order.GetValue<DateTime>("End");
                     o.Status=order.GetValue<string>("Status");
                     o.User=order.GetValue<string>("User");
+                    o.PaymentNumber=order.GetValue<string>("PaymentNumber");
                     o.Items=order.GetValue<List<string>>("Items");
                     o.Price=order.GetValue<float>("Price");
 

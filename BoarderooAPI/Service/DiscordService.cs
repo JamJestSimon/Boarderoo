@@ -13,7 +13,7 @@ public class DiscordService
         _userService=userService;
     }
 
-    public async Task<ServiceResult<string>> GetDiscordUserInfo(string token)
+    public async Task<ServiceResult<string>> GetDiscordToken(string code)
     {
         string userId="1303087880503296182";
         string secret_key="lM6v9PP9dbEGNJR6z1o6FiW_iP3qD7EO";
@@ -23,7 +23,7 @@ public class DiscordService
             { "client_id", userId },
             { "client_secret", secret_key },
             { "grant_type", "authorization_code"  },
-            { "code", token },
+            { "code", code },
             { "redirect_uri", "https://boarderoo-71469.firebaseapp.com/" }
         };
 
@@ -58,4 +58,43 @@ public class DiscordService
                 };
             }
         }
-    }}
+    }
+    
+        public async Task<ServiceResult<string>> GetDiscordUserInfo(string token)
+    {
+        using (var client = new HttpClient())
+    {
+        // Nagłówek z tokenem dostępu
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        // Wysłanie zapytania do API Google
+        var response = await client.GetAsync("https://discord.com/api/v10/users/@me");
+
+        // Sprawdzenie, czy odpowiedź była pomyślna
+        if (response.IsSuccessStatusCode)
+        {
+            // Odczytanie odpowiedzi jako string
+            var responseString = await response.Content.ReadAsStringAsync();
+            
+                
+                return new ServiceResult<string>
+            {
+                Message="Uzytkownik zautoryzowany pomyslnie!",
+                ResultCode=200,
+                Data=responseString
+            };
+        }
+        else
+        {
+            Console.WriteLine("Błąd podczas pobierania danych użytkownika: " + response.StatusCode);
+            var json = await response.Content.ReadAsStringAsync();
+                return new ServiceResult<string>
+                {
+                    Message=$"Błąd: {json} - {response.ReasonPhrase}",
+                    ResultCode=400
+                };
+        }
+        }
+}
+    
+    
+    }
