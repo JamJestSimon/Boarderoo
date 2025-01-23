@@ -85,11 +85,20 @@ public class DiscordService
             var responseString = await response.Content.ReadAsStringAsync();
             using var jsonDoc = JsonDocument.Parse(responseString);
             var root = jsonDoc.RootElement;
+            var email = root.GetProperty("email").GetString();
+            var userCollection = _userService.getUserCollectionByEmail(email);
+            var data = await userCollection.GetSnapshotAsync();
+            bool exists=false;
+            if(data.Documents.Count>0)
+            {
+                exists=true;
+            }
 
             var template = new
             {
                 Email=root.GetProperty("email").GetString(),
-                Type="Discord"
+                Type="Discord",
+                Exists=exists
 
             };
             string result=JsonConvert.SerializeObject(template,Formatting.Indented);

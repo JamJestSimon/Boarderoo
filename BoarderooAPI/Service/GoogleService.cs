@@ -89,13 +89,21 @@ public class GoogleService
             var responseString = await response.Content.ReadAsStringAsync();
             using var jsonDoc = JsonDocument.Parse(responseString);
             var root = jsonDoc.RootElement;
-
+            var email = root.GetProperty("email").GetString();
+            var userCollection = _userService.getUserCollectionByEmail(email);
+            var data = await userCollection.GetSnapshotAsync();
+            bool exists=false;
+            if(data.Documents.Count>0)
+            {
+                exists=true;
+            }
             // Pobierz wartości z JSON
-            //var email = root.GetProperty("email").GetString();
+            
             var template = new
             {
-                Email=root.GetProperty("email").GetString(),
-                Type="Google"
+                Email=email,
+                Type="Google",
+                Exists=exists
 
             };
             string result=JsonConvert.SerializeObject(template,Formatting.Indented);

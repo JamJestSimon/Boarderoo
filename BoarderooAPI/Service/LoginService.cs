@@ -12,7 +12,64 @@ public class LoginService
         _userService = userService;
         _emailService=emailService;
     }
+    public async Task<ServiceResult<string>> OAuthLogin(string email,string type)
+    {
+        try
+        {
+        var usersCollection = _userService.getUserCollectionByEmail(email);
+        var data = await usersCollection.GetSnapshotAsync();
+        if (data == null)
+        {
+            return new ServiceResult<string>
+                    {
+                        Message = "Brak uzytkownika w bazie danych!",
+                        ResultCode = 404
+                    };
+        }
+        else
+        {
+             if (data[0].GetValue<string>("Authorization") == "discord")
+            {
+                    //pomyslnie zalogowano
+                    return new ServiceResult<string>
+                    {
+                        Message = "Uzytkownik zalogowany poprawnie!",
+                        ResultCode = 200,
+                        Data="Ok"
+                    };
+                    
+            }
+            else if(data[0].GetValue<string>("Authorization") == "google")
+            {
 
+                    //pomyslnie zalogowano
+                    return new ServiceResult<string>
+                    {
+                        Message = "Uzytkownik zalogowany poprawnie!",
+                        ResultCode = 200,
+                        Data="Ok"
+                    };
+                    
+
+              }
+                else return new ServiceResult<string>
+                    {
+                        Message = "Wystapil blad przy logowaniu!",
+                        ResultCode = 400
+                    };
+        }
+
+        }
+        catch(Exception e)
+        {
+            return new ServiceResult<string>
+        {
+            Message="Blad: "+e.ToString(),
+            ResultCode=500
+        };
+        }
+
+    }
     public async Task<ServiceResult<string>> Login(string email, string password)
     {
         try
@@ -25,6 +82,13 @@ public class LoginService
             return new ServiceResult<string>
                     {
                         Message = "Brak uzytkownika w bazie danych!",
+                        ResultCode = 400
+                    };
+        }else if(data[0].GetValue<string>("Authorization") != "local")
+        {
+            return new ServiceResult<string>
+                    {
+                        Message = "Niepoprawne informacje logowania!",
                         ResultCode = 400
                     };
         }
