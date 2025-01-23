@@ -4,7 +4,7 @@ using System.Text.Json;
 using BoarderooAPI.Service;
 using Newtonsoft.Json;
 //using Discord;
-
+namespace BoarderooAPI.Service;
 public class DiscordService
 {
     private readonly UserService _userService;

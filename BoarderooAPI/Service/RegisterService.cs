@@ -30,7 +30,10 @@ public RegisterService(UserService userService,EmailService emailService,FireBas
             .Replace("/", "_")
             .TrimEnd('=');
             user.IsVerified=false;
-            await _userService.AddUser(user);
+            if (user.Authorization!="discord"&&user.Authorization!="google")
+            {
+                user.Authorization="local";
+                await _userService.AddUser(user);
             await _userService.UpdateToken(user.Email,token); //aktualizujemy token
             string url=$"https://boarderoo-71469.firebaseapp.com/weryfikacja?code={token}";
             string message=$"Witaj, twoj link aktywacyjny do Boarderoo Application to: {url}";
@@ -43,6 +46,16 @@ public RegisterService(UserService userService,EmailService emailService,FireBas
             Data=result
            
         };
+            }
+            await _userService.AddUser(user);
+             return new ServiceResult<string>
+        {
+            Message="Zarejestrowano pomyslnie!",
+            ResultCode=200,
+            Data=user.Email
+           
+        };
+            
         }else
         {
           //uzytkownik juz istnieje w bazie danych

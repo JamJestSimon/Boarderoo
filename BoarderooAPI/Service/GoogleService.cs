@@ -1,7 +1,7 @@
 using System.Text.Json;
 using BoarderooAPI.Service;
 using Newtonsoft.Json;
-
+namespace BoarderooAPI.Service;
 public class GoogleService
 {
     private readonly UserService _userService;
