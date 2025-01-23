@@ -1,7 +1,8 @@
 
 using System.Net.Http.Headers;
-using System.Runtime.InteropServices;
+using System.Text.Json;
 using BoarderooAPI.Service;
+using Newtonsoft.Json;
 //using Discord;
 
 public class DiscordService
@@ -15,15 +16,18 @@ public class DiscordService
 
     public async Task<ServiceResult<string>> GetDiscordToken(string code)
     {
-        string userId="1303087880503296182";
-        string secret_key="lM6v9PP9dbEGNJR6z1o6FiW_iP3qD7EO";
+                string decodedString = System.Web.HttpUtility.UrlDecode(code);
+        var builder=new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json",optional:true,reloadOnChange:true);
+        IConfiguration configuration=builder.Build();
+        string userId=configuration["GoogleSettings:userID"];
+        string secret_key=configuration["GoogleSettings:secret_key"];
 
          var values = new Dictionary<string, string>
         {
             { "client_id", userId },
             { "client_secret", secret_key },
             { "grant_type", "authorization_code"  },
-            { "code", code },
+            { "code", decodedString },
             { "redirect_uri", "https://boarderoo-71469.firebaseapp.com/" }
         };
 
@@ -41,12 +45,17 @@ public class DiscordService
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();
+                using var jsonDoc = JsonDocument.Parse(responseString);
+            var root = jsonDoc.RootElement;
+
+            // Pobierz wartości z JSON
+            var accessToken = root.GetProperty("access_token").GetString();
                 
                 return new ServiceResult<string>
             {
                 Message="Uzytkownik zautoryzowany pomyslnie!",
                 ResultCode=200,
-                Data=json
+                Data=accessToken
             };
             }
             else
@@ -74,13 +83,22 @@ public class DiscordService
         {
             // Odczytanie odpowiedzi jako string
             var responseString = await response.Content.ReadAsStringAsync();
-            
+            using var jsonDoc = JsonDocument.Parse(responseString);
+            var root = jsonDoc.RootElement;
+
+            var template = new
+            {
+                Email=root.GetProperty("email").GetString(),
+                Type="Discord"
+
+            };
+            string result=JsonConvert.SerializeObject(template,Formatting.Indented);
                 
                 return new ServiceResult<string>
             {
                 Message="Uzytkownik zautoryzowany pomyslnie!",
                 ResultCode=200,
-                Data=responseString
+                Data=result
             };
         }
         else
