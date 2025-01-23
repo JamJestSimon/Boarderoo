@@ -25,6 +25,13 @@ public class LoginController : ControllerBase
         return ConvertServiceResultToActionResult(response);
     }
 
+    [HttpPost("OAuthLogin")]
+    public async Task<ActionResult> OAuthLogin([FromBody] LoginOAuthRequest request)
+    {
+        var response = await _loginService.OAuthLogin(request.Email, request.Type);
+        return ConvertServiceResultToActionResult(response);
+    }
+
     [HttpPost("Admin")]
     public async Task<ActionResult> AdminLogin([FromBody] AdminLoginRequest request)
     {
