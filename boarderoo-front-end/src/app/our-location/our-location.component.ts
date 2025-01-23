@@ -14,22 +14,22 @@ export class OurLocationComponent {
     this.close.emit(); // Emitowanie zdarzenia
   }
 
-  map: mapboxgl.Map | undefined; 
+  map: mapboxgl.Map | undefined;
   style = 'mapbox://styles/mapbox/streets-v11';
-  lat: number =52.253207569774126; 
+  lat: number = 52.253207569774126;
   lng: number = 20.895554141357806;
-  
+
   ngOnInit() {
     this.map = new mapboxgl.Map({
-       accessToken: 'pk.eyJ1IjoiaGV2eGlxdSIsImEiOiJjbTV3ZnBhcmowMmI4Mm1zZzdyZjQ2MHgzIn0.qsC-QTv_TXsQAMyj_13IKQ',
-       container: 'map',
-       style: this.style,
-       zoom: 13,
-       center: [this.lng, this.lat],
-     });
+      accessToken: 'pk.eyJ1IjoiaGV2eGlxdSIsImEiOiJjbTV3ZnBhcmowMmI4Mm1zZzdyZjQ2MHgzIn0.qsC-QTv_TXsQAMyj_13IKQ',
+      container: 'map',
+      style: this.style,
+      zoom: 13,
+      center: [this.lng, this.lat],
+    });
 
-     new mapboxgl.Marker()
+    new mapboxgl.Marker()
       .setLngLat([this.lng, this.lat]) // Ustawienie współrzędnych
       .addTo(this.map); // Dodanie do mapy
- }
+  }
 }

@@ -1,70 +1,71 @@
-
 <div class="cart-overlay">
-    <div class="cart-content">
-      <!-- Pasek z koszykiem -->
-      <div class="cart-top">
-        <div class="cart">
-          <img src="cart.png" alt="Awatar" class="cart-img" />
-          <span>Koszyk</span>
-          <button class="close-button" (click)="onClose()">×</button>
-        </div>
+  <div class="cart-content">
+    <!-- Pasek z koszykiem -->
+    <div class="cart-top">
+      <div class="cart">
+        <img src="cart.png" alt="Awatar" class="cart-img" />
+        <span>Koszyk</span>
+        <button class="close-button" (click)="onClose()">×</button>
       </div>
-      <div class="cart-sections">
-        
+    </div>
+    <div class="cart-sections">
 
-  
-        <!-- Formularz danych po lewej -->
-        <div class="cart-left">
-            <div class="order-list">
-                <div *ngFor="let item of items" class="order-item">
-                    <div class="order-img-container">
-                      <img [src]="item.photos[0]" alt="Awatar" class="order-img" />
-                    </div>
-                    <div class="order-details">
-                      <h3 class="order-title">{{ item.title }}</h3>
-                      <p class="order-price">{{days}} dni x {{ item.price }} zł = {{days * item.price}} zł</p>
-                    </div>
-                    <button class="remove-button" (click)="removeItem(item)">
-                      <img src="delete.png" alt="Logout" class="navbar-icon">
-                    </button>
-                  </div>
-                  
 
+
+      <!-- Formularz danych po lewej -->
+      <div class="cart-left">
+        <div class="order-list">
+          <div *ngFor="let item of items" class="order-item">
+            <div class="order-img-container">
+              <img [src]="getPhotoUrl(item.photos[0])" alt="Opis obrazka" class="order-img" />
             </div>
-            <div class="date-range">
-                <span>Wybierz okres wypożyczenia:</span>
-                <input type="text" id="date-range" placeholder="Wybierz daty" readonly (click)="openDatePicker()" [(ngModel)]="formattedDateRange" class="calendar-input">
+            <div class="order-details">
+              <h3 class="order-title">{{ item.title }}</h3>
+              <p class="order-price">{{days}} dni x {{ item.price }} zł = {{days * item.price}} zł</p>
             </div>
-              
-              <!-- Okno kalendarza -->
-              <div class="calendar-overlay" *ngIf="isDatePickerOpen">
-                <div class="calendar-container">
-                  <label>Data wypożyczenia:</label>
-                  <input type="date" [(ngModel)]="dateStart" (change)="updateDateRange()" [min]="minDate" [max]="dateStop" class="date-input">
-                  <label>Data zwrotu:</label>
-                  <input type="date" [(ngModel)]="dateStop" [min]="dateStart" (change)="updateDateRange()" class="date-input">
-                  <button (click)="closeDatePicker()">Zamknij</button>
-                </div>
-              </div>
+            <button class="remove-button" (click)="removeItem(item)">
+              <img src="delete.png" alt="Logout" class="navbar-icon">
+            </button>
+          </div>
+
 
         </div>
-        <!-- Sekcja przycisków po prawej -->
-        <div class="cart-right">
-            <div class="tabs">
-                <span class="summary-label">Podsumowanie</span>
-                <div class="order-dates">
-                    <span >Data wypożyczenia:</span>
-                    <span >{{dateStart}}</span>
-                    <span style="margin-top: 10px;">Data zwrotu:</span>
-                    <span >{{dateStop}}</span>
-                </div>
-                <span class="summary-label">Suma: {{sumPrice}} zł</span>
-                
-                
-                
-            </div>
-            <ngx-paypal class="paypal-button" [config]="payPalConfig"></ngx-paypal>
+        <div class="date-range">
+          <span>Wybierz okres wypożyczenia:</span>
+          <input type="text" id="date-range" placeholder="Wybierz daty" readonly (click)="openDatePicker()"
+            [(ngModel)]="formattedDateRange" class="calendar-input">
         </div>
+
+        <!-- Okno kalendarza -->
+        <div class="calendar-overlay" *ngIf="isDatePickerOpen">
+          <div class="calendar-container">
+            <label>Data wypożyczenia:</label>
+            <input type="date" [(ngModel)]="dateStart" (change)="updateDateRange()" [min]="minDate" [max]="dateStop"
+              class="date-input">
+            <label>Data zwrotu:</label>
+            <input type="date" [(ngModel)]="dateStop" [min]="dateStart" (change)="updateDateRange()" class="date-input">
+            <button (click)="closeDatePicker()">Zamknij</button>
+          </div>
+        </div>
+
+      </div>
+      <!-- Sekcja przycisków po prawej -->
+      <div class="cart-right">
+        <div class="tabs">
+          <span class="summary-label">Podsumowanie</span>
+          <div class="order-dates">
+            <span>Data wypożyczenia:</span>
+            <span>{{dateStart}}</span>
+            <span style="margin-top: 10px;">Data zwrotu:</span>
+            <span>{{dateStop}}</span>
+          </div>
+          <span class="summary-label">Suma: {{sumPrice}} zł</span>
+
+
+
+        </div>
+        <ngx-paypal class="paypal-button" [config]="payPalConfig"></ngx-paypal>
       </div>
     </div>
   </div>
+</div>

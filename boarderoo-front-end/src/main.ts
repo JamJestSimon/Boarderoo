@@ -13,6 +13,9 @@ import { AccountVerificationComponent } from './app/account-verification/account
 import { AdminLoginComponent } from './app/admin-login/admin-login.component';
 import { OrdersListComponent } from './app/orders-list/orders-list.component';
 import { GamesListComponent } from './app/games-list/games-list.component';
+import { environment } from './environment/environment';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app'
+import { provideStorage, getStorage } from '@angular/fire/storage'
 
 bootstrapApplication(AppComponent, {
   providers: [

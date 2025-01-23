@@ -18,7 +18,7 @@ export class NavBarComponent {
   isAccountDetailsVisible = false;
   isCartVisible = false;
   @Input() isAdmin?: boolean;
-  @ViewChild(CartComponent) cartComponent!: CartComponent; 
+  @ViewChild(CartComponent) cartComponent!: CartComponent;
 
   toggleAccountDetails() {
     this.isAccountDetailsVisible = !this.isAccountDetailsVisible;
@@ -33,25 +33,25 @@ export class NavBarComponent {
       this.cartComponent.updateCart();  // Wywołaj dodatkową metodę w CartComponent
     }
   }
-  constructor(private toastr: ToastrService, private http: HttpClient, private router: Router) {}
+  constructor(private toastr: ToastrService, private http: HttpClient, private router: Router) { }
   LogOut() {
-    if(this.isAdmin === true){
+    if (this.isAdmin === true) {
       localStorage.removeItem('session_token_admin');
       this.router.navigate(['/admin']);
     }
-    else{
+    else {
       localStorage.removeItem('session_token');
       this.router.navigate(['/']);
     }
-    
-    
+
+
     // Ewentualnie wyświetlenie komunikatu o wylogowaniu
     this.successToast('Zostałeś pomyślnie wylogowany');
   }
 
   successToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
-    
+
     // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.success(communicate, 'Sukces', {
       positionClass: 'toast-top-right',

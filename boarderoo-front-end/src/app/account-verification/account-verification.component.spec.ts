@@ -10,7 +10,7 @@ describe('AccountVerificationComponent', () => {
     await TestBed.configureTestingModule({
       imports: [AccountVerificationComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AccountVerificationComponent);
     component = fixture.componentInstance;

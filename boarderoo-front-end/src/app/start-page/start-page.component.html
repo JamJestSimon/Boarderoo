@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,28 +8,37 @@
   <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400&display=swap" rel="stylesheet">
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
 </head>
+
 <body style="overflow: hidden;">
   <router-outlet></router-outlet>
   <div class="container">
     <div class="content">
       <img src="logo.png" alt="Sample Image" class="logo">
       <div class="text-section">
-        <span class="text">Z Boarderoo każdy miłośnik gier planszowych znajdzie coś dla siebie. Oferujemy szeroki wybór gier – od klasycznych tytułów, po nowości, które podbijają rynek. Nasza misja to umożliwienie Ci radości z gry bez potrzeby dużych inwestycji. Wystarczy wypożyczyć, zagrać z rodziną i przyjaciółmi, a potem oddać, by zrobić miejsce na kolejne emocjonujące rozgrywki.</span>
-        <span class="text">W Boarderoo stawiamy na jakość, wygodę i pasję do gier. Dzięki łatwej i szybkiemu procesowi wypożyczeń, już dziś możesz cieszyć się ulubionymi grami planszowymi bez konieczności posiadania ich na stałe.</span>
-        <span class="text">Zanurz się w świat gier, które rozweselą, zmuszą do myślenia i zapewnią godziny wspólnej zabawy. Boarderoo – gry dla każdego, na każdą okazję!</span>
+        <span class="text">Z Boarderoo każdy miłośnik gier planszowych znajdzie coś dla siebie. Oferujemy szeroki wybór
+          gier – od klasycznych tytułów, po nowości, które podbijają rynek. Nasza misja to umożliwienie Ci radości z gry
+          bez potrzeby dużych inwestycji. Wystarczy wypożyczyć, zagrać z rodziną i przyjaciółmi, a potem oddać, by
+          zrobić miejsce na kolejne emocjonujące rozgrywki.</span>
+        <span class="text">W Boarderoo stawiamy na jakość, wygodę i pasję do gier. Dzięki łatwej i szybkiemu procesowi
+          wypożyczeń, już dziś możesz cieszyć się ulubionymi grami planszowymi bez konieczności posiadania ich na
+          stałe.</span>
+        <span class="text">Zanurz się w świat gier, które rozweselą, zmuszą do myślenia i zapewnią godziny wspólnej
+          zabawy. Boarderoo – gry dla każdego, na każdą okazję!</span>
         <div class="button-container">
           <button class="button" (click)="toggleJoinUs()">Dołącz do nas</button>
           <button class="button" (click)="toggleOurLocation()">Odwiedź nas stacjonarnie</button>
           <div id="join-us-popup" [ngClass]="{ 'joinUsInvisible': !isJoinUsVisible, 'joinUsVisible': isJoinUsVisible }">
             <app-join-us (close)="toggleJoinUs()"></app-join-us>
           </div>
-          <div id="our-location-popup" [ngClass]="{ 'ourLocationInvisible': !ourLocationVisible, 'ourLocationVisible': ourLocationVisible }">
+          <div id="our-location-popup"
+            [ngClass]="{ 'ourLocationInvisible': !ourLocationVisible, 'ourLocationVisible': ourLocationVisible }">
             <app-our-location (close)="toggleOurLocation()"></app-our-location>
           </div>
-          
+
         </div>
       </div>
     </div>
   </div>
 </body>
+
 </html>

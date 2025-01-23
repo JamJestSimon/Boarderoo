@@ -1,201 +1,226 @@
 body {
-    overflow: hidden;
-  }
-  .container {
-    display: flex;
-    margin-top: 10px;
-    width: 100%;
-    height: 87vh; /* Opcjonalnie, jeśli chcesz, aby divy zajmowały całą wysokość */
-    gap: 10px;
-  }
-  
-  .left-pane {
-    width: 25%;
-    background-color: #422D29; /* Przykładowy kolor tła */
-    color: #EA962A;
-    text-align: center;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    box-sizing: border-box; /* Uwzględnij padding w szerokości */
-    border-radius:  10px;
-    margin-top: 10px;
-  }
+  overflow: hidden;
+}
 
-  .filtr-label {
-    font-weight: bold;
-    font-size: 24px;
-  }
+.container {
+  display: flex;
+  margin-top: 10px;
+  width: 100%;
+  height: 87vh;
+  /* Opcjonalnie, jeśli chcesz, aby divy zajmowały całą wysokość */
+  gap: 10px;
+}
 
-  .confirm-button {
-    width: 60%;
-    padding: 10px;
-    background-color: #EA962A; /* Kolor tła przycisku */
-    color: #422D29; /* Kolor tekstu */
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 40px; /* Odstęp od innych elementów */
-    transition: transform 0.3s ease;
+.left-pane {
+  width: 25%;
+  background-color: #422D29;
+  /* Przykładowy kolor tła */
+  color: #EA962A;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  box-sizing: border-box;
+  /* Uwzględnij padding w szerokości */
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.filtr-label {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.confirm-button {
+  width: 60%;
+  padding: 10px;
+  background-color: #EA962A;
+  /* Kolor tła przycisku */
+  color: #422D29;
+  /* Kolor tekstu */
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 40px;
+  /* Odstęp od innych elementów */
+  transition: transform 0.3s ease;
 }
 
 .confirm-button:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 
 .custom-select {
-    padding: 10px;
-    background-color: #f5cb95;
-    border: 2px solid #EA962A;
-    border-radius: 10px;
-    font-size: 16px;
-    width: 85%;
-  }
-  
-  .custom-select label {
-    display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-  }
-  
+  padding: 10px;
+  background-color: #f5cb95;
+  border: 2px solid #EA962A;
+  border-radius: 10px;
+  font-size: 16px;
+  width: 85%;
+}
 
-  .divider {
-    width: 100%;
-    height: 3px;
-    background-color: #EA962A;
-    margin-top: 5px;
-    margin-bottom: 15px;
-  }
-
-  
-  .right-pane {
-    width: 100%;
-    padding-right: 30px;
-    padding-left: 20px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    box-sizing: border-box; /* Uwzględnij padding w szerokości */
-    display: block;
-    gap: 10px; /* Odstępy między kartami */
-    overflow: auto;
-    max-height: 100%; /* Ogranicz wysokość do dostępnej przestrzeni */
-    overflow-y: auto;
-  }
+.custom-select label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
 
 
+.divider {
+  width: 100%;
+  height: 3px;
+  background-color: #EA962A;
+  margin-top: 5px;
+  margin-bottom: 15px;
+}
 
 
-  /* Ustawienia dla samego paska przewijania */
+.right-pane {
+  width: 100%;
+  padding-right: 30px;
+  padding-left: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-sizing: border-box;
+  /* Uwzględnij padding w szerokości */
+  display: block;
+  gap: 10px;
+  /* Odstępy między kartami */
+  overflow: auto;
+  max-height: 100%;
+  /* Ogranicz wysokość do dostępnej przestrzeni */
+  overflow-y: auto;
+}
+
+
+
+
+/* Ustawienia dla samego paska przewijania */
 ::-webkit-scrollbar {
-    width: 12px; /* Szerokość paska przewijania w pionie */
-    height: 12px; /* Wysokość paska przewijania w poziomie */
+  width: 12px;
+  /* Szerokość paska przewijania w pionie */
+  height: 12px;
+  /* Wysokość paska przewijania w poziomie */
 }
 
 /* Ustawienia dla toru paska przewijania (część, po której pasek przewija się) */
 ::-webkit-scrollbar-track {
-    background-color: #f5cb95; /* Kolor tła toru */
-    border-radius: 10px; /* Zaokrąglenie rogów toru */
+  background-color: #f5cb95;
+  /* Kolor tła toru */
+  border-radius: 10px;
+  /* Zaokrąglenie rogów toru */
 }
 
 /* Ustawienia dla samego "uchwytu" paska przewijania */
 ::-webkit-scrollbar-thumb {
-    background-color: #422D29; /* Kolor uchwytu */
-    border-radius: 10px; /* Zaokrąglenie rogów uchwytu */
-    border: 3px solid #422D29; /* Obramowanie uchwytu */
+  background-color: #422D29;
+  /* Kolor uchwytu */
+  border-radius: 10px;
+  /* Zaokrąglenie rogów uchwytu */
+  border: 3px solid #422D29;
+  /* Obramowanie uchwytu */
 }
 
 /* Ustawienia dla uchwytu paska przewijania przy najechaniu */
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #A4691D; /* Jaśniejszy kolor przy najechaniu */
+  background-color: #A4691D;
+  /* Jaśniejszy kolor przy najechaniu */
 }
 
 .input-group {
-    margin-bottom: 15px;
-  }
+  margin-bottom: 15px;
+}
 
 .input-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #EA962A;
-  }
-  
-  .input-group input {
-    width: 80%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 2px solid #EA962A;
-    border-radius: 10px;
-    font-size: 16px;
-    color: #422D29;
-    background-color: #f5cb95;
-  }
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #EA962A;
+}
 
-  .input-group input:focus {
-    border-color: #422D29;
-    outline: none;
-  }
+.input-group input {
+  width: 80%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 2px solid #EA962A;
+  border-radius: 10px;
+  font-size: 16px;
+  color: #422D29;
+  background-color: #f5cb95;
+}
+
+.input-group input:focus {
+  border-color: #422D29;
+  outline: none;
+}
 
 
-  .order-card {
-    background-color: #f5cb95;
-    color: #422D29;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 10px;
-    border: 2px solid #422D29;
-    width: 100%; /* Ustaw szerokość na 100% rodzica */
-    box-sizing: border-box; /* Uwzględnij padding w szerokości */
-    transition: transform 0.3s ease;
-    cursor: pointer;
-  }
+.order-card {
+  background-color: #f5cb95;
+  color: #422D29;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  border: 2px solid #422D29;
+  width: 100%;
+  /* Ustaw szerokość na 100% rodzica */
+  box-sizing: border-box;
+  /* Uwzględnij padding w szerokości */
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
 
-  .order-card:hover {
-    transform: scale(1.02);
-  }
+.order-card:hover {
+  transform: scale(1.02);
+}
 
-  .order-left {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-  }
+.order-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
 
-  .order-right {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: center;
-  }
+.order-right {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+}
 
-  .order-date {
-    font-size: 18px; /* Zmniejszenie czcionki */
-  }
+.order-date {
+  font-size: 18px;
+  /* Zmniejszenie czcionki */
+}
 
-  .order-number{
-    font-size: 30px; /* Zmniejszenie czcionki */
-    font-weight: bold;
-  }
+.order-number {
+  font-size: 30px;
+  /* Zmniejszenie czcionki */
+  font-weight: bold;
+}
 
-  .order-status {
-    font-size: 24px; /* Zmniejszenie czcionki */
-  }
+.order-status {
+  font-size: 24px;
+  /* Zmniejszenie czcionki */
+}
 
-  .order-amount {
-    font-size: 24px; /* Zmniejszenie czcionki */
-    font-weight: bold;
-  }
+.order-amount {
+  font-size: 24px;
+  /* Zmniejszenie czcionki */
+  font-weight: bold;
+}
 
-  .orderDetailsInvisible {
-    display: none;
-  }
-  .orderDetailsVisible {
-    display: block;
-  }
+.orderDetailsInvisible {
+  display: none;
+}
+
+.orderDetailsVisible {
+  display: block;
+}

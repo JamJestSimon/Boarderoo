@@ -8,27 +8,27 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-admin-panel',
   standalone: true,
-  imports: [NavBarComponent,CommonModule, FormsModule, HttpClientModule],
+  imports: [NavBarComponent, CommonModule, FormsModule, HttpClientModule],
   templateUrl: './admin-panel.component.html',
   styleUrl: './admin-panel.component.css'
 })
 export class AdminPanelComponent {
   isAdmin = true;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     const sessionToken = localStorage.getItem('session_token_admin');
     if (!sessionToken) {
       // Jeśli token jest pusty, przekierowujemy na stronę główną
       this.router.navigate(['/admin']);
+    }
   }
-}
-goToGameList(){
-  this.router.navigate(['/listagier']);
-}
+  goToGameList() {
+    this.router.navigate(['/listagier']);
+  }
 
-goToOrderList(){
-  this.router.navigate(['/zamowienia']);
-}
+  goToOrderList() {
+    this.router.navigate(['/zamowienia']);
+  }
 }

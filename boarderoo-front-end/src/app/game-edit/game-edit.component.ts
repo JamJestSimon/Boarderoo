@@ -6,14 +6,7 @@ import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CustomResponse } from '../CustomResponse';
-const firebaseConfig = {
-  apiKey: "AIzaSyC_G5J-I5R0h_dcAkq8SG93GJjzwHQgLSs",
-  authDomain: "boarderoo-71469.firebaseapp.com",
-  projectId: "boarderoo-71469",
-  storageBucket: "boarderoo-71469.firebasestorage.app",
-  messagingSenderId: "928336702407",
-  appId: "1:928336702407:web:5afa9c70251d94fece07e2"
-};
+
 
 @Component({
   selector: 'app-game-edit',
@@ -23,97 +16,154 @@ const firebaseConfig = {
   styleUrl: './game-edit.component.css'
 })
 export class GameEditComponent {
-    @Output() close = new EventEmitter<void>(); // Definiujemy zdarzenie
-      toastContainer: ToastContainerDirective | undefined;
+  @Output() close = new EventEmitter<void>(); // Definiujemy zdarzenie
+  @Output() notify = new EventEmitter<boolean>();
+  toastContainer: ToastContainerDirective | undefined;
 
-    @Input() selectedCard: GameCard = {
-      id: '',
-      title: '',
-      publisher: '',
-      category: '',
-      price: 0,
-      year: 2015,
-      description: '',
-      photos: [],
-      ageFrom: 0,
-      ageTo: 100,
-      playersFrom: 1,
-      playersTo: 8,
-      action: ''
-    };
+  @Input() selectedCard: GameCard = {
+    id: '',
+    title: '',
+    publisher: '',
+    category: '',
+    price: 0,
+    year: 2015,
+    description: '',
+    photos: [],
+    ageFrom: 0,
+    ageTo: 100,
+    playersFrom: 1,
+    playersTo: 8,
+    action: ''
+  };
 
-    options = ['Strategiczne', 'Przygodowe', 'Ekonomiczne', 'Logiczne', 'Rodzinne', 'Fantasy', 'Imprezowe', 'Dla dzieci'];
-    publishers = ['Fantasy Flight Games', 'Asmodee', 'Rebel', 'Days of Wonder', 'Ravensburger', 'Plaid Hat Games', 'Stonemaier Games', 'Hobby World', 'Matagot', 'Z-Man Games'];
+  options = ['Strategiczne', 'Przygodowe', 'Ekonomiczne', 'Logiczne', 'Rodzinne', 'Fantasy', 'Imprezowe', 'Dla dzieci'];
+  publishers = ['Fantasy Flight Games', 'Asmodee', 'Rebel', 'Days of Wonder', 'Ravensburger', 'Plaid Hat Games', 'Stonemaier Games', 'Hobby World', 'Matagot', 'Z-Man Games'];
 
-    constructor(private toastr: ToastrService, private http: HttpClient, private router: Router) {}
+  constructor(private toastr: ToastrService, private http: HttpClient, private router: Router) { }
+  imageUrl: string | null = null;
 
 
 
     editGame() {
-      console.log(this.selectedCard)
-        const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
-        const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/game';
-        const fullUrl = proxyUrl + targetUrl;
-        console.log(fullUrl);
-        const newGame = {
-        image: this.selectedCard.photos,
-        id: this.selectedCard.id,
-        name: this.selectedCard.title,
-        type: this.selectedCard.category,
-        price: this.selectedCard.price,
-        description: this.selectedCard.description,
-        publisher: this.selectedCard.publisher,
-        players_number: this.selectedCard.playersFrom + " - " + this.selectedCard.playersTo,
-        year: this.selectedCard.year.toString(),
-        rating: this.selectedCard.ageFrom + " - " + this.selectedCard.ageTo,
-        enabled: true,
-        availible_copies: 10,
-      }
-      console.log(this.selectedCard.action)
-        if(this.selectedCard.action === 'add'){
-          this.http.post<CustomResponse>(fullUrl, newGame).subscribe(response => {
-            console.log(response);
-            this.successToast(response.message);
-          }, error => {
-            console.error('Błąd:', error);
-            this.failToast(error.error?.message);
-          });
-        }
-        else{
-          this.http.put<CustomResponse>(fullUrl, newGame).subscribe(response => {
-            console.log(response);
-            this.successToast(response.message);
-          }, error => {
-            console.error('Błąd:', error);
-            this.failToast(error.error?.message);
-          });
-        }
-        this.onClose();
-      }
-
-    onClose() {
       console.log(this.selectedCard);
-      this.close.emit(); // Emitowanie zdarzenia
-    }
+      const proxyUrl = ''; // Lokalny serwer proxy
+      const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/game';
+      const fullUrl = proxyUrl + targetUrl;
+  
+      const newGame = {
+          image: this.selectedCard.photos,
+          id: this.selectedCard.id,
+          name: this.selectedCard.title,
+          type: this.selectedCard.category,
+          price: this.selectedCard.price,
+          description: this.selectedCard.description,
+          publisher: this.selectedCard.publisher,
+          players_number: this.selectedCard.playersFrom + " - " + this.selectedCard.playersTo,
+          year: this.selectedCard.year.toString(),
+          rating: this.selectedCard.ageFrom + " - " + this.selectedCard.ageTo,
+          enabled: true,
+          availible_copies: 10,
+      };
+  
+      if (this.selectedCard.action === 'add') {
+          this.http.post<CustomResponse>(fullUrl, newGame).subscribe(
+              response => {
+                  console.log(response);
+                  this.successToast(response.message);
+                  this.notify.emit(true); // Powiadomienie o zakończeniu operacji
+                  this.onClose();
+              },
+              error => {
+                  console.error('Błąd:', error);
+                  this.failToast(error.error?.message);
+              }
+          );
+      } else {
+          this.http.put<CustomResponse>(fullUrl, newGame).subscribe(
+              response => {
+                  console.log(response);
+                  this.successToast(response.message);
+                  this.notify.emit(true); // Powiadomienie o zakończeniu operacji
+                  this.onClose();
+              },
+              error => {
+                  console.error('Błąd:', error);
+                  this.failToast(error.error?.message);
+              }
+          );
+      }
+      this.uploadFiles()
+  }
+  
 
-  onSubmit() {
-    // Implementacja zapisywania gry
-    console.log('Zapisano grę:', this.selectedCard);
+  onClose() {
+    console.log(this.selectedCard);
+    this.close.emit(); // Emitowanie zdarzenia
   }
 
-  onFileChange(event: any) {
-    const files: FileList = event.target.files;  // Typowanie files jako FileList
-    if (files.length) {
-      // Mapowanie plików na ich nazwy
-      const fileNames = Array.from(files).map((file: File) => file.name);
-      console.log(fileNames); // Tylko nazwy plików
-      this.selectedCard.photos = fileNames; // Zapisujemy nazwy plików w selectedCard
-    }
+  selectedFiles: File[] = []; // Zmienna do przechowywania plików
+
+  deleteGame() {
+    const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/game/' + this.selectedCard.id;
+
+    this.http.delete<CustomResponse>(targetUrl).subscribe(
+        response => {
+            console.log(response);
+            this.successToast(response.message);
+            this.notify.emit(true); // Powiadomienie o zakończeniu operacji
+            this.onClose();
+        },
+        error => {
+            console.error('Błąd:', error);
+            this.failToast(error.error?.message || 'Wystąpił błąd.');
+        }
+    );
+}
+
+
+files: FileList | null = null;
+
+onFileChange(event: Event): void {
+  const input = event.target as HTMLInputElement; // Rzutowanie na HTMLInputElement
+
+  if (input.files && input.files.length > 0) {
+    this.files = input.files; // Przypisanie do zmiennej
+    this.selectedFiles = Array.from(this.files); // Konwersja FileList na tablicę File[]
+
+    // Mapowanie nazw plików
+    const fileNames = this.selectedFiles.map((file: File) => file.name);
+    console.log(fileNames); // Wyświetla nazwy plików w konsoli
+
+    // Przypisanie nazw plików do `selectedCard.photos`
+    this.selectedCard.photos = fileNames;
+  } else {
+    console.warn('No files selected!');
   }
+}
+
+uploadFiles(): void {
+  if (this.files && this.files.length > 0) {
+    const formData = new FormData();
+
+    // Dodajemy wszystkie pliki z listy `files`
+    Array.from(this.files).forEach((file: File) => {
+      formData.append('files', file, file.name);  // 'files' to nazwa pola na backendzie
+    });
+    console
+    // Wysyłamy wszystkie pliki w jednym żądaniu
+    this.http.post('https://boarderoo-928336702407.europe-central2.run.app/', formData)
+      .subscribe(
+        response => console.log('Upload success:', response),
+        error => console.error('Upload error:', error)
+      );
+  } else {
+    console.error('No files selected');
+  }
+}
 
   failToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
-    
+
     // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.error(communicate, 'Błąd', {
       positionClass: 'toast-top-right',
@@ -125,7 +175,7 @@ export class GameEditComponent {
 
   successToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
-    
+
     // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.success(communicate, 'Sukces', {
       positionClass: 'toast-top-right',

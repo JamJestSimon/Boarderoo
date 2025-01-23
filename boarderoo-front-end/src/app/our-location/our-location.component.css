@@ -45,7 +45,8 @@
 /* Nagłówek nad mapą */
 .map-header {
   margin-bottom: 15px;
-  text-align: left; /* Wyrównanie do lewej */
+  text-align: left;
+  /* Wyrównanie do lewej */
 }
 
 .map-title {
@@ -73,7 +74,10 @@
 
 /* Wykluczenie marginesu dla markerów Mapbox */
 .mapboxgl-marker img {
-  margin: 0; /* Usuń jakiekolwiek marginesy */
-  padding: 0; /* Usuń ewentualne paddingi */
-  display: block; /* Zapobiegaj dziedziczeniu inline-spacing */
+  margin: 0;
+  /* Usuń jakiekolwiek marginesy */
+  padding: 0;
+  /* Usuń ewentualne paddingi */
+  display: block;
+  /* Zapobiegaj dziedziczeniu inline-spacing */
 }

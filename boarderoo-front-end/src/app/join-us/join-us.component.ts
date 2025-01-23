@@ -27,42 +27,58 @@ export class JoinUsComponent {
   passwordRegistration: string = ''; // Hasło z formularza rejestracji
   confirmPassword: string = ''; // Potwierdzenie hasła z formularza rejestracji
 
-  constructor(private toastr: ToastrService, private http: HttpClient, private router: Router) {}
+  constructor(private toastr: ToastrService, private http: HttpClient, private router: Router) { }
 
   onClose() {
     this.close.emit(); // Emitowanie zdarzenia
   }
 
-  LogIn(){
-     if(this.emailLogin === '' || this.passwordLogin === ''){
+  LogIn() {
+    if (this.emailLogin === '' || this.passwordLogin === '') {
       this.toastEmptyFields();
-     }
-     else{
+    }
+    else {
       this.LogInPost();
-     }
+    }
   }
 
   LogInPost() {
-    const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
+    const proxyUrl =''; // Lokalny serwer proxy
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/login';
     const fullUrl = proxyUrl + targetUrl;
     console.log(fullUrl);
-    this.http.post<CustomResponse>(fullUrl, { email: this.emailLogin, password: this.passwordLogin }).subscribe(response => {
-      console.log(response);
-      localStorage.setItem('session_token', this.emailLogin);
-      this.router.navigate(['/gry']);
-      this.successToast(response.message);
-    }, error => {
-      console.error('Błąd:', error);
-      this.failToast(error.error?.message);
-    });
+  
+    this.http.post<CustomResponse>(fullUrl, { email: this.emailLogin, password: this.passwordLogin }, { observe: 'response' })
+      .subscribe(response => {
+        console.log(response);
+  
+        if (response.status === 200) {
+          // Logowanie powiodło się
+          localStorage.setItem('session_token', this.emailLogin);
+          this.router.navigate(['/gry']);
+          this.successToast('Zalogowano pomyślnie!');
+        } else if (response.status === 202) {
+          // Wysłano link aktywacyjny
+          this.successToast('Wysłano link aktywacyjny. Sprawdź swoją skrzynkę e-mail.');
+        } else if (response.status === 204) {
+          // Link aktywacyjny już wysłany
+          this.successToast('Link aktywacyjny został już wcześniej wysłany. Sprawdź swoją skrzynkę e-mail.');
+        } else {
+          // Inne odpowiedzi (opcjonalnie)
+          this.failToast('Nieznana odpowiedź serwera.');
+        }
+      }, error => {
+        console.error('Błąd:', error);
+        this.failToast(error.error?.message || 'Wystąpił błąd podczas logowania.');
+      });
   }
+  
 
   register() {
-    if(this.firstName === '' || this.lastName === '' || this.address === '' || this.emailRegistration === '' || this.passwordRegistration === '' || this.confirmPassword === '') {
+    if (this.firstName === '' || this.lastName === '' || this.address === '' || this.emailRegistration === '' || this.passwordRegistration === '' || this.confirmPassword === '') {
       this.toastEmptyFields();
     }
-    else if(this.passwordRegistration !== this.confirmPassword) {
+    else if (this.passwordRegistration !== this.confirmPassword) {
       this.failToast("Podane hasła nie są identyczne");
     }
     else {
@@ -72,13 +88,13 @@ export class JoinUsComponent {
 
   signInWithDiscord(): void {
 
-    const discordAuthUrl = 'https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=https%3A%2F%2Fboarderoo-71469.firebaseapp.com%2F&scope=email';
+    const discordAuthUrl = 'https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=https%3A%2F%2Fboarderoo-71469.firebaseapp.com%2F&scope=email+identify';
     window.location.href = discordAuthUrl;
   }
 
   signInWithGoogle(): void {
     const clientId = '928336702407-bdifeaptq727tsor03bcbaqkvunbg7h1.apps.googleusercontent.com';
-      // Wstaw swój Client ID z Google API Console
+    // Wstaw swój Client ID z Google API Console
     const redirectUri = 'https://boarderoo-71469.firebaseapp.com'; // Lub inny odpowiedni URI
 
     const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=openid profile email`;
@@ -88,7 +104,7 @@ export class JoinUsComponent {
 
   // Funkcja do wysyłania danych rejestracji na serwer
   registerPost() {
-    const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
+    const proxyUrl = ''; // Lokalny serwer proxy
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/register';
     const fullUrl = proxyUrl + targetUrl;
     const regisUser = {
@@ -103,20 +119,20 @@ export class JoinUsComponent {
       "tokenCreationDate": "2025-01-18T23:47:59.353Z"
     }
     console.log(regisUser);
-    this.http.post<CustomResponse>(fullUrl, regisUser ).subscribe(response => {
+    this.http.post<CustomResponse>(fullUrl, regisUser).subscribe(response => {
       console.log(response);
       this.successToast(response.message);
       this.onClose();
-      
+
     }, error => {
       console.error('Błąd:', error);
       this.failToast(error.error?.message);
     });
   }
-  
+
   toastEmptyFields() {
     this.toastr.overlayContainer = this.toastContainer;
-    
+
     // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.error('Jedno z wymaganych pól nie jest uzupełnione', 'Błąd', {
       positionClass: 'toast-top-right',
@@ -128,7 +144,7 @@ export class JoinUsComponent {
 
   failToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
-    
+
     // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.error(communicate, 'Błąd', {
       positionClass: 'toast-top-right',
@@ -140,7 +156,7 @@ export class JoinUsComponent {
 
   successToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
-    
+
     // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.success(communicate, 'Sukces', {
       positionClass: 'toast-top-right',
@@ -151,13 +167,13 @@ export class JoinUsComponent {
   }
 
 
-  forgotPasswordSend(){
-    if(this.emailLogin !== ''){
-      const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
+  forgotPasswordSend() {
+    if (this.emailLogin !== '') {
+      const proxyUrl = ''; // Lokalny serwer proxy
       const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/password/reset?email=' + this.emailLogin;
       const fullUrl = proxyUrl + targetUrl;
       console.log(fullUrl);
-      
+
       this.http.get<CustomResponse>(fullUrl).subscribe(
         (response) => {
           console.log('Sukces:', response);
@@ -169,7 +185,7 @@ export class JoinUsComponent {
         }
       );
     }
-    else{
+    else {
       this.failToast("Uzupełnij pole email w logowaniu!")
     }
   }

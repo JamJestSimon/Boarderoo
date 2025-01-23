@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 export class CallbackComponent implements OnInit {
   queryParams: any;
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     // Nasłuchiwanie na parametry w URL

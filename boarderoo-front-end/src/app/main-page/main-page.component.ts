@@ -18,20 +18,20 @@ import { ActivatedRoute, Router } from '@angular/router';
   schemas: [CUSTOM_ELEMENTS_SCHEMA], // Dodajemy schemat
 })
 export class MainPageComponent {
-[x: string]: any;
+  [x: string]: any;
   isGameDetailsVisible = false;
   selectedCard: any = null;
   isAdmin = false;
-  pattern=''
-  publisher=''
-  category=''
+  pattern = ''
+  publisher = ''
+  category = ''
   toggleGameDetails(card?: any) {
     if (card) {
       this.selectedCard = card; // Ustawiamy wybraną kartę
     }
     this.isGameDetailsVisible = !this.isGameDetailsVisible; // Przełączamy widoczność
   }
-  
+
   minRange = 1; // Minimalna wartość suwaka
   maxRange = 8; // Maksymalna wartość suwaka
   step = 1; // Krok przesuwania
@@ -77,9 +77,9 @@ export class MainPageComponent {
 
   cards: GameCard[] = [];
   cardsInput: GameCard[] = [];
-  constructor(private toastr: ToastrService, private http: HttpClient,private router: Router) {}
+  constructor(private toastr: ToastrService, private http: HttpClient, private router: Router) { }
   GetGames() {
-    const proxyUrl = 'http://localhost:8080/'; // Lokalny serwer proxy
+    const proxyUrl = ''; // Lokalny serwer proxy
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/game';
     const fullUrl = proxyUrl + targetUrl;
     console.log(fullUrl);
@@ -88,7 +88,7 @@ export class MainPageComponent {
       for (let i = 0; i < response.data.length; i++) {
         const item: any = response.data[i];
         console.log(item.image);
-        console.log(typeof item); 
+        console.log(typeof item);
         // Tworzymy obiekt typu GameCard
         const gameCard: GameCard = {
           id: item.id,
@@ -105,9 +105,9 @@ export class MainPageComponent {
           playersTo: parseInt(item.players_number.trim().split('-')[1], 10) || 2,    // players_number -> playersTo
           action: ''                                        // Akcja (możesz dodać logikę, jeśli są dane)
         };
-        
 
-        
+
+
         // Dodajemy gameCard do listy
         this.cards.push(gameCard);
       }
@@ -120,29 +120,34 @@ export class MainPageComponent {
     });
   }
 
+  getPhotoUrl(fileName: string): string {
+    const baseUrl = 'https://firebasestorage.googleapis.com/v0/b/boarderoo-71469.firebasestorage.app/o/';
+    return `${baseUrl}${encodeURIComponent(fileName)}?alt=media`;
+  }
+
   updateOrdersInput(): void {
     this.cardsInput = this.cards.filter(card => card.title.includes(this.pattern.trim()));
-    if(this.selectedCategories.length !== 0){
-      this.cardsInput = this.cardsInput.filter(card => 
+    if (this.selectedCategories.length !== 0) {
+      this.cardsInput = this.cardsInput.filter(card =>
         this.selectedCategories.some(category => card.category.includes(category)) &&
         card.title.includes(this.pattern.trim())
       );
     }
 
-    if(this.selectedOptions.length !== 0){
-      this.cardsInput = this.cardsInput.filter(card => 
+    if (this.selectedOptions.length !== 0) {
+      this.cardsInput = this.cardsInput.filter(card =>
         this.selectedOptions.some(publisher => card.publisher.includes(publisher)) &&
         card.title.includes(this.pattern.trim())
       );
     }
     this.cardsInput = this.cardsInput.filter(card => {
-    const isWithinRange = (card.ageFrom >= this.minValueAge && card.ageTo <= this.maxValueAge) && (card.year >= this.minValueYear && card.year <= this.maxValueYear) && (card.playersFrom >= this.minValue && card.playersTo <= this.maxValue)
-    return isWithinRange;
-  });
+      const isWithinRange = (card.ageFrom >= this.minValueAge && card.ageTo <= this.maxValueAge) && (card.year >= this.minValueYear && card.year <= this.maxValueYear) && (card.playersFrom >= this.minValue && card.playersTo <= this.maxValue)
+      return isWithinRange;
+    });
 
-  this.isCategoryDropdownOpen = false;
-  this.isDropdownOpen = false;
-  
+    this.isCategoryDropdownOpen = false;
+    this.isDropdownOpen = false;
+
   }
 
 
@@ -153,14 +158,14 @@ export class MainPageComponent {
       // Jeśli token jest pusty, przekierowujemy na stronę główną
       this.router.navigate(['/']);
 
-      
-  }
 
-}
+    }
+
+  }
 
 
   options = ['Fantasy Flight Games', 'Asmodee', 'Rebel', 'Days of Wonder', 'Ravensburger', 'Plaid Hat Games', 'Stonemaier Games', 'Portal Games,', 'Matagot', 'Lucky Duck Games'];
-  
+
   // Zmienna przechowująca wybrane opcje
   selectedOptions: string[] = [];
 

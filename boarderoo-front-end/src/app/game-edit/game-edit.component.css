@@ -49,22 +49,29 @@
 }
 
 .game-details span {
-    display: block; /* Każdy span zajmuje nową linię */
-    margin: 0; /* Reset marginesów, aby uniknąć niepotrzebnych odstępów */
+    display: block;
+    /* Każdy span zajmuje nową linię */
+    margin: 0;
+    /* Reset marginesów, aby uniknąć niepotrzebnych odstępów */
     text-align: left;
 }
 
 .game-details span:first-child {
-    font-size: 24px; /* Większa czcionka */
-    font-weight: bold; /* Pogrubienie */
+    font-size: 24px;
+    /* Większa czcionka */
+    font-weight: bold;
+    /* Pogrubienie */
     color: #EA962A;
 }
 
 .game-details span:nth-child(2) {
-    font-size: 16px; /* Mniejsza czcionka */
-    font-weight: normal; /* Normalna czcionka */
+    font-size: 16px;
+    /* Mniejsza czcionka */
+    font-weight: normal;
+    /* Normalna czcionka */
     color: #EA962A;
-    margin-top: 5px; /* Odstęp między elementami */
+    margin-top: 5px;
+    /* Odstęp między elementami */
 }
 
 .game-details-sections {
@@ -75,6 +82,7 @@
     flex: 1;
     justify-content: space-between;
 }
+
 /* Formularz */
 form {
     display: flex;
@@ -87,8 +95,10 @@ form {
 .form-row {
     display: flex;
     justify-content: space-between;
-    gap: 15px; /* Zmniejszony gap */
-    flex-wrap: wrap; /* Umożliwia zawijanie, jeśli elementy nie mieszczą się w jednej linii */
+    gap: 15px;
+    /* Zmniejszony gap */
+    flex-wrap: wrap;
+    /* Umożliwia zawijanie, jeśli elementy nie mieszczą się w jednej linii */
 }
 
 /* Grupa formularza */
@@ -98,25 +108,28 @@ form {
     flex-direction: column;
     align-items: flex-start;
     flex: 1;
-    min-width: 120px; /* Zabezpieczenie minimalnej szerokości */
+    min-width: 120px;
+    /* Zabezpieczenie minimalnej szerokości */
 }
 
 .input-container {
-  width: 100%;
+    width: 100%;
 }
 
 .custom-select {
-  width: 100%;
-  padding: 10px;
-  border-radius: 5px;
-  border: 2px solid #422D29;
-  background-color: #f5cb95;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #422D29;
+    background-color: #f5cb95;
 }
 
-.buttons{
+.buttons {
     display: flex;
-    justify-content: flex-end; /* Opcjonalnie: wyrównanie przycisków do prawej */
-    gap: 10px; /* Odstęp między przyciskami */
+    justify-content: flex-end;
+    /* Opcjonalnie: wyrównanie przycisków do prawej */
+    gap: 10px;
+    /* Odstęp między przyciskami */
 }
 
 .delete-button {
@@ -128,7 +141,8 @@ form {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-left: 10px; /* Odstęp między przyciskami */
+    margin-left: 10px;
+    /* Odstęp między przyciskami */
     transition: transform 0.3s ease;
 }
 
@@ -142,13 +156,15 @@ form {
 }
 
 
-input, textarea {
+input,
+textarea {
     width: 100%;
     padding: 10px;
     border-radius: 5px;
     border: 2px solid #422D29;
     font-size: 14px;
-    box-sizing: border-box; /* Uwzględnia padding w szerokości */
+    box-sizing: border-box;
+    /* Uwzględnia padding w szerokości */
     background-color: #f5cb95;
 }
 
@@ -195,24 +211,32 @@ input[type="file"] {
 
 /* Ustawienia dla samego paska przewijania */
 ::-webkit-scrollbar {
-    width: 12px; /* Szerokość paska przewijania w pionie */
-    height: 12px; /* Wysokość paska przewijania w poziomie */
+    width: 12px;
+    /* Szerokość paska przewijania w pionie */
+    height: 12px;
+    /* Wysokość paska przewijania w poziomie */
 }
 
 /* Ustawienia dla toru paska przewijania (część, po której pasek przewija się) */
 ::-webkit-scrollbar-track {
-    background-color: #f5cb95; /* Kolor tła toru */
-    border-radius: 10px; /* Zaokrąglenie rogów toru */
+    background-color: #f5cb95;
+    /* Kolor tła toru */
+    border-radius: 10px;
+    /* Zaokrąglenie rogów toru */
 }
 
 /* Ustawienia dla samego "uchwytu" paska przewijania */
 ::-webkit-scrollbar-thumb {
-    background-color: #422D29; /* Kolor uchwytu */
-    border-radius: 10px; /* Zaokrąglenie rogów uchwytu */
-    border: 3px solid #422D29; /* Obramowanie uchwytu */
+    background-color: #422D29;
+    /* Kolor uchwytu */
+    border-radius: 10px;
+    /* Zaokrąglenie rogów uchwytu */
+    border: 3px solid #422D29;
+    /* Obramowanie uchwytu */
 }
 
 /* Ustawienia dla uchwytu paska przewijania przy najechaniu */
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #A4691D; /* Jaśniejszy kolor przy najechaniu */
+    background-color: #A4691D;
+    /* Jaśniejszy kolor przy najechaniu */
 }

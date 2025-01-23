@@ -68,11 +68,11 @@
 
 .userOptionsVisible {
     position: relative;
-    display:block;
-    
+    display: block;
+
 }
 
-.navbar-user{
+.navbar-user {
     position: relative;
 }
 
@@ -99,14 +99,16 @@
 
 .accountDetailsInvisible {
     display: none;
-  }
-  .accountDetailsVisible {
-    display: block;
-  }
+}
 
-  .cartInvisible {
-    display: none;
-  }
-  .cartVisible {
+.accountDetailsVisible {
     display: block;
-  }
+}
+
+.cartInvisible {
+    display: none;
+}
+
+.cartVisible {
+    display: block;
+}

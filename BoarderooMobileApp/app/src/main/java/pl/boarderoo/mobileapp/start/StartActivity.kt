@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import androidx.compose.material.Button
 import android.provider.Settings.Global.getString
 import android.util.Log
 import android.view.ViewGroup
@@ -69,7 +70,6 @@ class StartActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         val animationSpeed = 400
-
         setContent {
             BoarderooMobileAppTheme {
                 Surface(
@@ -171,6 +171,42 @@ fun LogoScreen(navController: NavController) {
                 )
                 .clip(RoundedCornerShape(25.dp))
         )
+        Spacer(modifier = Modifier.fillMaxHeight(0.05f)) // Przerwa między logo a przyciskami
+        Button(onClick = {
+            // Start the PayPal Checkout
+            PayPalCheckout.startCheckout(
+                createOrder = { createOrderActions: CreateOrderActions ->
+                    // Tworzenie zamówienia z kwotą i walutą
+                    val purchaseUnit = PurchaseUnit(
+                        amount = com.paypal.checkout.createorder.Amount(
+                            currencyCode = CurrencyCode.USD, // Waluta (np. USD)
+                            value = "10.00" // Kwota (np. 10.00 USD)
+                        )
+                    )
+                    val orderRequest = OrderRequest(
+                        intent = OrderIntent.CAPTURE,
+                        purchaseUnitList = listOf(purchaseUnit)
+                    )
+                    createOrderActions.create(orderRequest)
+                },
+                onApprove = { approval ->
+                    // Obsługa zatwierdzenia płatności
+                    approval.orderActions.capture { result ->
+                        Toast.makeText(context, "Płatność zakończona sukcesem!", Toast.LENGTH_LONG).show()
+                    }
+                },
+                onCancel = {
+                    // Obsługa anulowania płatności
+                    Toast.makeText(context, "Płatność anulowana!", Toast.LENGTH_LONG).show()
+                },
+                onError = { errorInfo ->
+                    // Obsługa błędów
+                    Toast.makeText(context, "Błąd płatności: ${errorInfo.reason}", Toast.LENGTH_LONG).show()
+                }
+            )
+        }) {
+            Text("Zapłać $10.00")
+        }
         Spacer(modifier = Modifier.fillMaxHeight(0.05f)) // Przerwa między logo a przyciskami
         DarkButton(
             text = "Logowanie",

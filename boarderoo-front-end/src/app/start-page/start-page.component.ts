@@ -18,19 +18,26 @@ export class StartPageComponent implements OnInit {
   isJoinUsVisible = false;
   ourLocationVisible = false;
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     // Sprawdzamy, czy token sesji jest zapisany w localStorage
     const sessionToken = localStorage.getItem('session_token');
     this.route.queryParams.subscribe(params => {
       const code = params['code'];
-      
+
       if (code) {
-        console.log('Kod autoryzacyjny:', code);
+        if (code.includes('google')) {
+          console.log('Kod autoryzacyjny zawiera "google":', code);
+          
+        } else {
+          console.log('Kod autoryzacyjny:', code);
+        }
       } else {
         console.log('Brak kodu autoryzacyjnego w URL');
       }
+
+
     });
 
     if (sessionToken) {
