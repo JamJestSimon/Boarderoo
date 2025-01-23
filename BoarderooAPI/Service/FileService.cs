@@ -21,13 +21,12 @@ using Google.Apis.Auth.OAuth2;
         }; //409
             }
         
-         try
-            {
+        //  try
+        //     {
                 using var fileStream = file.OpenReadStream();
                 var firebaseStorage = new FirebaseStorage("boarderoo-71469.firebasestorage.app");
-
-                 var fileName = Path.GetFileName(file.FileName);
-        var uploadTask = await firebaseStorage
+                var fileName = Path.GetFileName(file.FileName);
+                var uploadTask = await firebaseStorage
             .Child("files")      // Folder w Firebase Storage
             .Child(fileName)       // Nazwa pliku
             .PutAsync(fileStream); // Przesłanie strumienia
@@ -37,15 +36,15 @@ using Google.Apis.Auth.OAuth2;
                     ResultCode=200,
                     Data=uploadTask
                  };
-            }
-            catch (Exception ex)
-            {
-                        return new ServiceResult<string>
-                {
-                    Message=$"Błąd podczas przesyłania pliku: {ex.Message}",
-                    ResultCode=500
-                }; //409
-            }
+            // }
+            // catch (Exception ex)
+            // {
+            //             return new ServiceResult<string>
+            //     {
+            //         Message=$"Błąd podczas przesyłania pliku: {ex.Message}",
+            //         ResultCode=500
+            //     }; //409
+            // }
     }
   }
   
