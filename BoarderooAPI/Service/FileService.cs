@@ -21,8 +21,8 @@ using Google.Apis.Auth.OAuth2;
         }; //409
             }
         
-        //  try
-        //     {
+         try
+            {
                 using var fileStream = file.OpenReadStream();
                 var firebaseStorage = new FirebaseStorage("boarderoo-71469.firebasestorage.app");
                 var fileName = Path.GetFileName(file.FileName);
@@ -32,19 +32,19 @@ using Google.Apis.Auth.OAuth2;
             .PutAsync(fileStream); // Przesłanie strumienia
                  return new ServiceResult<string>
                  {
-                    Message=$"Dodano plik",
+                    Message="Dodano plik",
                     ResultCode=200,
                     Data=uploadTask
                  };
-            // }
-            // catch (Exception ex)
-            // {
-            //             return new ServiceResult<string>
-            //     {
-            //         Message=$"Błąd podczas przesyłania pliku: {ex.Message}",
-            //         ResultCode=500
-            //     }; //409
-            // }
+            }
+            catch (Exception ex)
+            {
+                        return new ServiceResult<string>
+                {
+                    Message=$"Błąd podczas przesyłania pliku: {ex.Message}",
+                    ResultCode=500
+                }; //409
+            }
     }
   }
   
