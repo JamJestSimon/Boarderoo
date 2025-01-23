@@ -17,10 +17,10 @@ private readonly string _smtpHost = "smtp.mailersend.net";
     {
         var builder=new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json",optional:true,reloadOnChange:true);
         IConfiguration configuration=builder.Build();
-        this._smtpHost=configuration["EMailSettings:SmtpServer"];
+        this._smtpHost=configuration["EmailSettings:SmtpServer"];
         this._smtpPort=587;
-        this._smtpUsername=configuration["EMailSettings:SmtpUsername"];
-        this._smtpPassword=configuration["EMailSettings:SmtpPassword"];
+        this._smtpUsername=configuration["EmailSettings:SmtpUsername"];
+        this._smtpPassword=configuration["EmailSettings:SmtpPassword"];
     }
     
     public async Task<string> SendEmailAsync(string toEmail, string subject, string body)

@@ -1,4 +1,6 @@
+using System.Text.Json;
 using BoarderooAPI.Service;
+using Newtonsoft.Json;
 
 public class GoogleService
 {
@@ -10,8 +12,10 @@ public class GoogleService
      public async Task<ServiceResult<string>> GetGoogleToken(string code)
     {
         string decodedString = System.Web.HttpUtility.UrlDecode(code);
-        string userId="928336702407-bdifeaptq727tsor03bcbaqkvunbg7h1.apps.googleusercontent.com";
-        string secret_key="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";
+        var builder=new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json",optional:true,reloadOnChange:true);
+        IConfiguration configuration=builder.Build();
+        string userId=configuration["GoogleSettings:userID"];
+        string secret_key=configuration["GoogleSettings:secret_key"];
 
          var values = new Dictionary<string, string>
         {
@@ -28,6 +32,14 @@ public class GoogleService
 
             var response = await client.PostAsync("https://oauth2.googleapis.com/token", content);
             var responseString = await response.Content.ReadAsStringAsync();
+
+            using var jsonDoc = JsonDocument.Parse(responseString);
+            var root = jsonDoc.RootElement;
+
+            // Pobierz wartości z JSON
+            var accessToken = root.GetProperty("access_token").GetString();
+            int expiresIn = root.GetProperty("expires_in").GetInt32();
+
             // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bot", token);
             // client.DefaultRequestHeaders.Add("User-Agent", "CSharp App");
 
@@ -36,12 +48,14 @@ public class GoogleService
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();
+                string dec = System.Web.HttpUtility.UrlDecode(json);
+                var result = dec.Trim().TrimStart('/').TrimEnd('/');
                 
                 return new ServiceResult<string>
             {
                 Message="Uzytkownik zautoryzowany pomyslnie!",
                 ResultCode=200,
-                Data=json
+                Data=accessToken
             };
             }
             else
@@ -59,6 +73,9 @@ public class GoogleService
     {
         using (var client = new HttpClient())
     {
+        
+        // Pobranie access_token
+        //string accessToken = deserializedData.GetProperty("access_token").GetString();
         // Nagłówek z tokenem dostępu
         client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
 
@@ -70,22 +87,33 @@ public class GoogleService
         {
             // Odczytanie odpowiedzi jako string
             var responseString = await response.Content.ReadAsStringAsync();
-            
+            using var jsonDoc = JsonDocument.Parse(responseString);
+            var root = jsonDoc.RootElement;
+
+            // Pobierz wartości z JSON
+            //var email = root.GetProperty("email").GetString();
+            var template = new
+            {
+                Email=root.GetProperty("email").GetString(),
+                Type="Google"
+
+            };
+            string result=JsonConvert.SerializeObject(template,Formatting.Indented);
                 
                 return new ServiceResult<string>
             {
                 Message="Uzytkownik zautoryzowany pomyslnie!",
                 ResultCode=200,
-                Data=responseString
+                Data=result
             };
         }
         else
         {
             Console.WriteLine("Błąd podczas pobierania danych użytkownika: " + response.StatusCode);
-            var json = await response.Content.ReadAsStringAsync();
+            var jres = await response.Content.ReadAsStringAsync();
                 return new ServiceResult<string>
                 {
-                    Message=$"Błąd: {json} - {response.ReasonPhrase}",
+                    Message=$"Błąd: {jres} - {response.ReasonPhrase}",
                     ResultCode=400
                 };
         }
