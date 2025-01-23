@@ -17,6 +17,10 @@ public class OrderDocument
     [FirestoreProperty]
 
     public string User{get; set;}
+
+    [FirestoreProperty]
+
+    public string PaymentNumber{get; set;}
     [FirestoreProperty]
 
     public List<string> Items{get; set;}
