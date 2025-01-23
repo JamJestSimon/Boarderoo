@@ -27,6 +27,7 @@ builder.Services.AddScoped<OrderService>();
 builder.Services.AddScoped<EmailService>();
 builder.Services.AddScoped<DiscordService>();
 builder.Services.AddScoped<GoogleService>();
+builder.Services.AddScoped<FileService>();
 builder.Services.AddControllers();
 builder.Services.AddCors(opt => 
 {

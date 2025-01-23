@@ -6,8 +6,6 @@ public class FireBaseService
 {
     private readonly FirestoreDb _firestoreDB;
 
-
-    // Przydaloby sie dodac jeszcze jakas autoryzacje przed wykonywaniem tych metod
     public FireBaseService(FirestoreDb firestoreDb)
     {
         _firestoreDB=firestoreDb;
@@ -17,5 +15,4 @@ public class FireBaseService
         return _firestoreDB;
     } 
 
-    
 }
