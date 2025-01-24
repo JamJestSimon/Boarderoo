@@ -14,8 +14,8 @@ public class GoogleService
         string decodedString = System.Web.HttpUtility.UrlDecode(code);
         var builder=new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json",optional:true,reloadOnChange:true);
         IConfiguration configuration=builder.Build();
-        string userId=configuration["GoogleSettings:userID"];
-        string secret_key=configuration["GoogleSettings:secret_key"];
+        string userId="928336702407-bdifeaptq727tsor03bcbaqkvunbg7h1.apps.googleusercontent.com";
+        string secret_key="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";
 
          var values = new Dictionary<string, string>
         {
