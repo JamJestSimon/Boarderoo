@@ -16,21 +16,21 @@ public class AppAuthorizationController:ControllerBase
         _googleService=googleService;
      }
 
-    [HttpGet]
-     [Route("/discorduser/{token}")]
-    public async Task<ActionResult> GetDiscordUserInfo(string token)
+    [HttpPost]
+     [Route("/discorduser")]
+    public async Task<ActionResult> GetDiscordUserInfo([FromBody]LoginOAuthRequest token)
     {
-        var tokenresponse =await _discordService.GetDiscordToken(token);
+        var tokenresponse =await _discordService.GetDiscordToken(token.Token);
         var response=await _discordService.GetDiscordUserInfo(tokenresponse.Data);
         return ConvertServiceResultToActionResult(tokenresponse);
 
     }
 
-    [HttpGet]
-     [Route("/googleuser/{token}")]
-    public async Task<ActionResult> GetGoogleUserInfo(string token)
+    [HttpPost]
+     [Route("/googleuser")]
+    public async Task<ActionResult> GetGoogleUserInfo([FromBody]LoginOAuthRequest token)
     {
-        var tokenresponse =await _googleService.GetGoogleToken(token);
+        var tokenresponse =await _googleService.GetGoogleToken(token.Token);
         var response=await _googleService.GetGoogleUserInfo(tokenresponse.Data);
         return ConvertServiceResultToActionResult(tokenresponse);
     }

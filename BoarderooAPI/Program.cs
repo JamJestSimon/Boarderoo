@@ -31,13 +31,9 @@ builder.Services.AddScoped<FileService>();
 builder.Services.AddControllers();
 builder.Services.AddCors(opt => 
 {
-    opt.AddPolicy("CorsPolicy",policyBuilder =>
+    opt.AddPolicy("AllowAll",policyBuilder =>
     {
-        policyBuilder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200",
-        "https://discord.com",
-        "https://oauth2.googleapis.com",
-        "smtp.mailersend.net"
-        );
+        policyBuilder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
     });
 
 });
@@ -59,7 +55,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-app.UseCors("CorsPolicy");
+app.UseCors("AllowAll");
 
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";
