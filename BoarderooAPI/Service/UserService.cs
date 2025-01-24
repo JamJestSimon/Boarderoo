@@ -488,7 +488,7 @@ string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
                 Dictionary<string, object> userdict = new Dictionary<string, object>()
             {
                 { "Token",token},
-                { "TokenCreationDate", Google.Cloud.Firestore.Timestamp.FromDateTime(DateTime.UtcNow) }
+                { "TokenCreationDate", Google.Cloud.Firestore.Timestamp.FromDateTime(DateTime.UtcNow.AddDays(-10)) }
             };
             
             DocumentReference emailDocument=data.Documents[0].Reference;

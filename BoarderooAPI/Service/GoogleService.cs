@@ -74,7 +74,7 @@ public class GoogleService
                 return new ServiceResult<string>
                 {
                     Message=$"Błąd połączenia: {ex}",
-                    ResultCode=400
+                    ResultCode=504
                 };
             }
            
