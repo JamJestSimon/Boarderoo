@@ -33,7 +33,11 @@ builder.Services.AddCors(opt =>
 {
     opt.AddPolicy("CorsPolicy",policyBuilder =>
     {
-        policyBuilder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200");
+        policyBuilder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200",
+        "https://discord.com",
+        "https://oauth2.googleapis.com",
+        "smtp.mailersend.net"
+        );
     });
 
 });
