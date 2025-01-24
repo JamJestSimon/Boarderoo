@@ -32,6 +32,7 @@ import pl.boarderoo.mobileapp.datastore.getUserEmail
 import pl.boarderoo.mobileapp.main.MainActivity
 import pl.boarderoo.mobileapp.retrofit.services.UserService
 import pl.boarderoo.mobileapp.ui.theme.BoarderooMobileAppTheme
+import pl.boarderoo.mobileapp.volley.PayPalVolley
 
 class LoadingScreen : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +40,9 @@ class LoadingScreen : ComponentActivity() {
         setContent {
             val context = LocalContext.current
             LaunchedEffect(Unit) {
+                PayPalVolley.createRequestQueue(context)
                 val userService = UserService()
+                userService.getUserByEmail("a") //wake-up call for Cloud Run Instance, to protect from errors
                 val isLoggedIn = getLoginState(context).first()
                 val email = getUserEmail(context).first()
                 Log.d("DATASTORE", "isLoggedIn: $isLoggedIn")

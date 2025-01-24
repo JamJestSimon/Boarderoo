@@ -52,6 +52,7 @@ import pl.boarderoo.mobileapp.ui.theme.BoarderooMobileAppTheme
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("MAIN ACTIVITY", "Reached")
         super.onCreate(savedInstanceState)
         setContent {
             val isLoggedIn by getLoginState(LocalContext.current).collectAsState(initial = false)
@@ -220,6 +221,10 @@ class MainActivity : ComponentActivity() {
                                         AccountInfo()
                                     }
                                 }
+                                //val data: Uri? = intent.data
+                                //if (data != null && data.scheme == "boarderoo" && data.host == "paypal") {
+                                //    navController.navigate("CartScreen")
+                                //}
                             }
                         }
                     }

@@ -30,6 +30,18 @@
             android:theme="@style/Theme.BoarderooMobileApp">
         </activity>
         <activity
+            android:name=".main.CheckoutFragment"
+            android:launchMode="singleTop"
+            android:exported="true"
+            android:theme="@style/Theme.BoarderooMobileApp">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <data android:scheme="boarderoo" android:host="paypal"/>
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".start.LoadingScreen"
             android:exported="true"
             android:theme="@style/Theme.BoarderooMobileApp">

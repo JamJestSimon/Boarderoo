@@ -1,6 +1,9 @@
 [versions]
 agp = "8.3.2"
+androidNetworking = "1.0.4"
 browser = "1.8.0"
+cardPayments = "1.7.1"
+checkout = "0.7.3"
 coilCompose = "2.4.0"
 converterGson = "2.9.0"
 datastorePreferences = "1.1.2"
@@ -15,12 +18,15 @@ activityCompose = "1.10.0"
 composeBom = "2025.01.00"
 lifecycleViewmodelKtx = "2.8.7"
 navigationCompose = "2.8.5"
+paymentButtons = "1.7.1"
 playServicesAuth = "21.3.0"
 googleGmsGoogleServices = "4.4.2"
 firebaseAuth = "23.1.0"
 retrofit = "2.9.0"
+volley = "1.2.1"
 
 [libraries]
+android-networking = { module = "com.github.amitshekhariitbhu.Fast-Android-Networking:android-networking", version.ref = "androidNetworking" }
 androidx-browser = { module = "androidx.browser:browser", version.ref = "browser" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
@@ -43,9 +49,12 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+payment-buttons = { module = "com.paypal.android:payment-buttons", version.ref = "paymentButtons" }
+paypal-web-payments = { module = "com.paypal.android:paypal-web-payments", version.ref = "cardPayments" }
 play-services-auth = { module = "com.google.android.gms:play-services-auth", version.ref = "playServicesAuth" }
 firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version.ref = "firebaseAuth" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+volley = { module = "com.android.volley:volley", version.ref = "volley" }
 
 
 [plugins]

@@ -37,6 +37,8 @@ import pl.boarderoo.mobileapp.LightButton
 import pl.boarderoo.mobileapp.R
 import pl.boarderoo.mobileapp.retrofit.services.OrderService
 import pl.boarderoo.mobileapp.retrofit.viewmodels.OrderDetailsViewModel
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 data class OrderItem(
     val name: String,
@@ -82,6 +84,7 @@ fun OrderDetailsScreen(navController: NavController, id: String) {
                 )
             }
         } else {
+            val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
             Column(
                 modifier = Modifier
                     .padding(10.dp)
@@ -98,6 +101,9 @@ fun OrderDetailsScreen(navController: NavController, id: String) {
                 )
                 Text(
                     text = "Status: ${order.value!!.status}"
+                )
+                Text(
+                    text = "Okres zamówienia: ${order.value!!.start.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().format(formatter)} - ${order.value!!.end.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().format(formatter)}"
                 )
                 Text(
                     text = "Wartość zamówienia: ${order.value!!.price} zł"

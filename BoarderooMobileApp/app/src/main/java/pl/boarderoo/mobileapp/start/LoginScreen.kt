@@ -28,6 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -72,6 +73,8 @@ fun LoginScreen(navController: NavController) {
     var loginError by remember { mutableStateOf(false) }
     var loginErrorCode by remember { mutableStateOf(0) }
     var loginErrorMessage by remember { mutableStateOf("") }
+
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     val gson = Gson()
     BackHandler(
@@ -131,6 +134,7 @@ fun LoginScreen(navController: NavController) {
                         buttonWidth = elementWidth,
                         buttonHeight = elementHeight,
                         onClick = {
+                            keyboardController?.hide()
                             if (!isEmailValid || mail == "" || password == "") {
                                 scope.launch {
                                     snackbarHostState
@@ -140,10 +144,7 @@ fun LoginScreen(navController: NavController) {
                                 }
                             } else {
                                 scope.launch {
-                                    var response = loginService.getLoginResult(mail, password)
-                                    if (response.code() == 500) {
-                                        response = loginService.getLoginResult(mail, password)
-                                    }
+                                    val response = loginService.getLoginResult(mail, password)
                                     if (response.code() == 200) {
                                         saveLoginData(context, true, mail)
                                         AppRuntimeData.user = userService.getUserByEmail(mail).body()!!.data

@@ -1,5 +1,6 @@
 package pl.boarderoo.mobileapp.main
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -40,6 +41,7 @@ fun MainScreen() {
     val errorMessage = viewModel.errorMessage.collectAsState()
 
     LaunchedEffect(orderList) {
+        Log.d("MAIN SCREEN", "Reached")
         viewModel.getOrderList()
     }
 
@@ -84,12 +86,11 @@ fun MainScreen() {
             )
             Spacer(modifier = Modifier.height(30.dp))
             val orderCount = orderList.value!!.count { order -> order.status != "Anulowane" && order.status != "Zakończone" }
-            var suffix: String
-            if (orderCount == 1) suffix = "oczekujące zamówienie"
-            if (orderCount < 5) suffix = "oczekujące zamówienia"
-            else suffix = "oczekujących zamówień"
+            val suffix: String = if (orderCount == 1) "oczekujące zamówienie"
+            else if (orderCount < 5) "oczekujące zamówienia"
+            else "oczekujących zamówień"
             Text(
-                text = "Masz ${orderCount} ${suffix} na swoim koncie",
+                text = "Masz $orderCount $suffix na swoim koncie",
                 color = colorResource(R.color.textColor),
                 modifier = Modifier.fillMaxWidth(0.8f),
                 textAlign = TextAlign.Center
