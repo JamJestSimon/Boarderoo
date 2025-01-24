@@ -22,7 +22,7 @@ public class AppAuthorizationController:ControllerBase
     {
         var tokenresponse =await _discordService.GetDiscordToken(token);
         var response=await _discordService.GetDiscordUserInfo(tokenresponse.Data);
-        return ConvertServiceResultToActionResult(response);
+        return ConvertServiceResultToActionResult(tokenresponse);
 
     }
 
@@ -32,7 +32,7 @@ public class AppAuthorizationController:ControllerBase
     {
         var tokenresponse =await _googleService.GetGoogleToken(token);
         var response=await _googleService.GetGoogleUserInfo(tokenresponse.Data);
-        return ConvertServiceResultToActionResult(response);
+        return ConvertServiceResultToActionResult(tokenresponse);
     }
 
     private ActionResult ConvertServiceResultToActionResult<T>(ServiceResult<T> serviceResult)
