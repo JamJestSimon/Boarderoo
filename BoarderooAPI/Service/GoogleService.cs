@@ -14,8 +14,8 @@ public class GoogleService
         string decodedString = System.Web.HttpUtility.UrlDecode(code);
         var builder=new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json",optional:true,reloadOnChange:true);
         IConfiguration configuration=builder.Build();
-        string userId="928336702407-bdifeaptq727tsor03bcbaqkvunbg7h1.apps.googleusercontent.com";
-        string secret_key="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";
+        string userId=configuration["GoogleSettings:userID"];
+        string secret_key=configuration["GoogleSettings:secret_key"];
 
          var values = new Dictionary<string, string>
         {
@@ -25,11 +25,12 @@ public class GoogleService
             { "code", decodedString },
             { "redirect_uri", "https://boarderoo-71469.firebaseapp.com" }
         };
+        var content = new FormUrlEncodedContent(values);
+
 
         using (var client = new HttpClient())
         {
-             var content = new FormUrlEncodedContent(values);
-
+            try{
             var response = await client.PostAsync("https://oauth2.googleapis.com/token", content);
             var responseString = await response.Content.ReadAsStringAsync();
 
@@ -45,7 +46,7 @@ public class GoogleService
 
             // var response = await client.GetAsync($"https://discord.com/api/v10/users/{userId}");
 
-            if (response.IsSuccessStatusCode)
+             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();
                 string dec = System.Web.HttpUtility.UrlDecode(json);
@@ -67,6 +68,16 @@ public class GoogleService
                     ResultCode=400
                 };
             }
+            }
+            catch(Exception ex)
+            {
+                return new ServiceResult<string>
+                {
+                    Message=$"Błąd połączenia: {ex}",
+                    ResultCode=400
+                };
+            }
+           
         }}
 
         public async Task<ServiceResult<string>> GetGoogleUserInfo(string token)
