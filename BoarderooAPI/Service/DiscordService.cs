@@ -19,8 +19,8 @@ public class DiscordService
                 string decodedString = System.Web.HttpUtility.UrlDecode(code);
         var builder=new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json",optional:true,reloadOnChange:true);
         IConfiguration configuration=builder.Build();
-        string userId=configuration["GoogleSettings:userID"];
-        string secret_key=configuration["GoogleSettings:secret_key"];
+        string userId=configuration["DiscordSettings:userID"];
+        string secret_key=configuration["DiscordSettings:secret_key"];
 
          var values = new Dictionary<string, string>
         {
