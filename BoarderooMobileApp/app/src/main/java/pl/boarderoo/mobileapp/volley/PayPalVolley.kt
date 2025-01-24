@@ -23,12 +23,13 @@ import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
 
 object PayPalVolley {
-    private val clientId =
+    private const val clientId =
         "AZ8pZw6s44qSnIantY7aDEjGZ0mG8oMwKWLTtIpzub6boKxbGSk0OFSEfw5usTA2HfHU7me4daTaw23c"
-    private val clientSecret =
+    private const val clientSecret =
         "EF0wmIvMIGKKiRhxYSXIBrvqw4r_z0PhyA0xCha_kNhjYGbTDuSvfsiZYea9OiUkxyaT0SHmY0QJ74pR"
     private var requestQueue: RequestQueue? = null
     private val gson = Gson()
+    private const val returnUrl = "boarderoo://paypal"
 
     fun createRequestQueue(context: Context) {
         requestQueue = Volley.newRequestQueue(context)
@@ -64,7 +65,19 @@ object PayPalVolley {
                     "Authorization" to accessToken!!
                 )
                 val bodyRaw = """{
-                    "intent": "CAPTURE|AUTHORIZE",
+                    "intent": "CAPTURE",
+                    "payment_source": {
+                        "paypal": {
+                            "experience_context": {
+                                "payment_method_preference": "IMMEDIATE_PAYMENT_REQUIRED",
+                                "landing_page": "LOGIN",
+                                "shipping_preference": "NO_SHIPPING",
+                                "user_action": "PAY_NOW",
+                                "return_url": "$returnUrl",
+                                "cancel_url": "https://example.com/cancelUrl"
+                            }
+                        }
+                    },
                     "purchase_units": [
                         {
                             "amount": {
@@ -110,7 +123,7 @@ object PayPalVolley {
         body: JsonObject? = null
     ): Deferred<JsonObject?> {
         return CoroutineScope(Dispatchers.IO).async {
-            Log.println(Log.INFO, "INFO", "Starting VyOS Request")
+            Log.println(Log.INFO, "INFO", "Starting PayPal Request")
             val url = "https://api-m.sandbox.paypal.com/$endpoint"
             val response = suspendCoroutine<String> { continuation ->
                 val stringRequest = object : StringRequest(
@@ -120,7 +133,7 @@ object PayPalVolley {
                         continuation.resume(response)
                     },
                     Response.ErrorListener { error ->
-                        Log.println(Log.WARN, "VOLLEY_DEBUG", error.toString())
+                        Log.println(Log.WARN, "VOLLEY_DEBUG", error.message ?: "No message")
                         if (error is TimeoutError || error is NoConnectionError) {
                             continuation.resumeWithException(Exception("Timeout - server unreachable"))
                         } else {
@@ -149,7 +162,8 @@ object PayPalVolley {
                     }
 
                     override fun getBody(): ByteArray {
-                        if(body == null) return super.getBody()
+                        if(body == null && endpoint.contains("capture")) return ByteArray(0)
+                        else if(body == null) return super.getBody()
                         return gson.toJson(body).toByteArray(Charsets.UTF_8)
                     }
                 }

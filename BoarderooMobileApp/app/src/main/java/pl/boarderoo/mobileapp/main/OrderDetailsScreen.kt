@@ -37,6 +37,7 @@ import pl.boarderoo.mobileapp.LightButton
 import pl.boarderoo.mobileapp.R
 import pl.boarderoo.mobileapp.retrofit.services.OrderService
 import pl.boarderoo.mobileapp.retrofit.viewmodels.OrderDetailsViewModel
+import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
@@ -103,7 +104,7 @@ fun OrderDetailsScreen(navController: NavController, id: String) {
                     text = "Status: ${order.value!!.status}"
                 )
                 Text(
-                    text = "Okres zamówienia: ${order.value!!.start.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().format(formatter)} - ${order.value!!.end.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().format(formatter)}"
+                    text = "Okres zamówienia: ${LocalDate.parse(order.value!!.start, DateTimeFormatter.ISO_DATE_TIME)} - ${LocalDate.parse(order.value!!.end, DateTimeFormatter.ISO_DATE_TIME)}"
                 )
                 Text(
                     text = "Wartość zamówienia: ${order.value!!.price} zł"

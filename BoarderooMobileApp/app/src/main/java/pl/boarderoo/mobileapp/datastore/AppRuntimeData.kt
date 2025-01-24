@@ -8,4 +8,5 @@ object AppRuntimeData {
     var user: UserModel? = null
     var cart: ArrayList<GameModel> = ArrayList()
     var order: OrderModel? = null
+    var orderId: String = ""
 }

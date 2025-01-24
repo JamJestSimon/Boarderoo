@@ -28,6 +28,7 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -38,15 +39,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import kotlinx.coroutines.launch
 import pl.boarderoo.mobileapp.LightButton
 import pl.boarderoo.mobileapp.R
 import pl.boarderoo.mobileapp.datastore.AppRuntimeData
 import pl.boarderoo.mobileapp.retrofit.models.OrderModel
 import pl.boarderoo.mobileapp.ui.theme.outlinedTextFieldColors
+import pl.boarderoo.mobileapp.volley.PayPalVolley
 import java.math.RoundingMode
 import java.time.LocalDate
 import java.time.YearMonth
 import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 import java.util.Date
 
@@ -60,6 +64,7 @@ data class CartItem(
 fun CartScreen() {
     val context = LocalContext.current
     val activity = LocalActivity.current
+    val scope = rememberCoroutineScope()
 
     val today = LocalDate.now()
 
@@ -125,7 +130,14 @@ fun CartScreen() {
     }
 
     val totalPrice by remember {
-        derivedStateOf { cartItemList.sumOf { it.quantity * it.price * (ChronoUnit.DAYS.between(startDate, endDate) + 1) } }
+        derivedStateOf {
+            cartItemList.sumOf {
+                it.quantity * it.price * (ChronoUnit.DAYS.between(
+                    startDate,
+                    endDate
+                ) + 1)
+            }
+        }
     }
 
     Column(
@@ -133,7 +145,7 @@ fun CartScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
-        if(AppRuntimeData.cart.isEmpty()) {
+        if (AppRuntimeData.cart.isEmpty()) {
             Box(
                 modifier = Modifier.fillMaxSize()
             ) {
@@ -147,7 +159,7 @@ fun CartScreen() {
                     selectedValue = startDay
                 ) {
                     startDay = it
-                    if(startDate > endDate){
+                    if (startDate > endDate) {
                         endDay = startDay
                         endMonth = startMonth
                         endYear = startYear
@@ -158,12 +170,12 @@ fun CartScreen() {
                     selectedValue = startMonth
                 ) {
                     startMonth = it
-                    if(startDate > endDate){
+                    if (startDate > endDate) {
                         endDay = startDay
                         endMonth = startMonth
                         endYear = startYear
                     }
-                    if(startDay > getDaysInMonth(startMonth, startYear).last()) {
+                    if (startDay > getDaysInMonth(startMonth, startYear).last()) {
                         startDay = getDaysInMonth(startMonth, startYear).last()
                     }
                 }
@@ -172,12 +184,12 @@ fun CartScreen() {
                     selectedValue = startYear
                 ) {
                     startYear = it
-                    if(startDate > endDate){
+                    if (startDate > endDate) {
                         endDay = startDay
                         endMonth = startMonth
                         endYear = startYear
                     }
-                    if(startDay > getDaysInMonth(startMonth, startYear).last()) {
+                    if (startDay > getDaysInMonth(startMonth, startYear).last()) {
                         startDay = getDaysInMonth(startMonth, startYear).last()
                     }
                 }
@@ -195,7 +207,7 @@ fun CartScreen() {
                     selectedValue = endMonth
                 ) {
                     endMonth = it
-                    if(endDay > getDaysInMonth(endMonth, endYear).last()) {
+                    if (endDay > getDaysInMonth(endMonth, endYear).last()) {
                         endDay = getDaysInMonth(endMonth, endYear).last()
                     }
                 }
@@ -204,7 +216,7 @@ fun CartScreen() {
                     selectedValue = endYear
                 ) {
                     endYear = it
-                    if(endDay > getDaysInMonth(endMonth, endYear).last()) {
+                    if (endDay > getDaysInMonth(endMonth, endYear).last()) {
                         endDay = getDaysInMonth(endMonth, endYear).last()
                     }
                 }
@@ -226,13 +238,23 @@ fun CartScreen() {
                     ) {
                         Text("Przedmiot: ${item.name}")
                         Text("Ilość: ${item.quantity}")
-                        Text("Koszt: ${(item.price * item.quantity * (ChronoUnit.DAYS.between(startDate, endDate) + 1)).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toDouble()} zł")
+                        Text(
+                            "Koszt: ${
+                                (item.price * item.quantity * (ChronoUnit.DAYS.between(
+                                    startDate,
+                                    endDate
+                                ) + 1)).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN)
+                                    .toDouble()
+                            } zł"
+                        )
                     }
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
             Text(
-                text = "Całkowita wartość zamówienia: ${totalPrice.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toDouble()} zł",
+                text = "Całkowita wartość zamówienia: ${
+                    totalPrice.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toDouble()
+                } zł",
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(10.dp))
@@ -240,18 +262,26 @@ fun CartScreen() {
                 onClick = {
                     AppRuntimeData.order = OrderModel(
                         "",
-                        LocalDateToDate(startDate),
-                        LocalDateToDate(endDate),
+                        startDate.atStartOfDay(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_DATE_TIME),
+                        endDate.atStartOfDay(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_DATE_TIME),
                         "Zapłacone",
                         AppRuntimeData.user!!.email,
                         "",
                         orderItems,
                         totalPrice.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toFloat()
                     )
-                    context.startActivity(
-                        Intent(context, CheckoutFragment::class.java)
+                    PayPalVolley.getOrderId(
+                        onSuccess = {
+                            AppRuntimeData.orderId = it
+                            context.startActivity(
+                                Intent(context, CheckoutFragment::class.java)
+                            )
+                            activity?.finish()
+                        },
+                        onError = {
+                            //TODO: handle error
+                        }
                     )
-                    activity?.finish()
                 },
                 text = "Przejdź do płatności",
                 fontSize = 12.sp

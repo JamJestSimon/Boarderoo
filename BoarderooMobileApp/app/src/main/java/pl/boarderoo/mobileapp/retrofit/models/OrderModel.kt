@@ -7,8 +7,8 @@ import java.util.Date
 @Parcelize
 data class OrderModel(
     val id: String,
-    val start: Date,
-    val end: Date,
+    val start: String,
+    val end: String,
     val status: String,
     val user: String,
     var paymentNumber: String,
