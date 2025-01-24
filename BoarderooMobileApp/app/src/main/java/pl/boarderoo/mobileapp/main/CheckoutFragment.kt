@@ -89,7 +89,6 @@ class CheckoutFragment : FragmentActivity() {
             payPalWebCheckoutClient.listener = object : PayPalWebCheckoutListener {
                 override fun onPayPalWebSuccess(result: PayPalWebCheckoutResult) {
                     //Do nothing
-
                 }
 
                 override fun onPayPalWebFailure(error: PayPalSDKError) {
@@ -112,7 +111,6 @@ class CheckoutFragment : FragmentActivity() {
                 onSuccess = {
                     AppRuntimeData.order!!.paymentNumber = it
                     CoroutineScope(Dispatchers.IO).launch {
-                        //TODO: fix order sending
                         val response = OrderService().addOrder(AppRuntimeData.order!!)
                         if(response.isSuccessful) {
 
@@ -120,7 +118,6 @@ class CheckoutFragment : FragmentActivity() {
                             Log.d("ORDER", response.errorBody()!!.string())
                         }
                     }
-                    Toast.makeText(this@CheckoutFragment, "Payment successful", Toast.LENGTH_SHORT).show()
                 },
                 onError = {
                     //TODO: handle error

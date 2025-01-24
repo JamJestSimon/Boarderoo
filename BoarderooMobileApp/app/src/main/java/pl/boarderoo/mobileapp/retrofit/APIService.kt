@@ -49,7 +49,7 @@ interface APIService {
     @POST("Order")
     suspend fun addOrder(
         @Body orderModel: OrderModel
-    ): Response<ResponseModel<String>>
+    ): Response<ResponseModel<OrderModel>>
 
     @GET("Order/user/{email}")
     suspend fun getOrdersByUserEmail(

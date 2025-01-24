@@ -262,8 +262,8 @@ fun CartScreen() {
                 onClick = {
                     AppRuntimeData.order = OrderModel(
                         "",
-                        startDate.atStartOfDay(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_DATE_TIME),
-                        endDate.atStartOfDay(ZoneId.systemDefault()).format(DateTimeFormatter.ISO_DATE_TIME),
+                        DateTimeFormatter.ISO_INSTANT.format(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()),
+                        DateTimeFormatter.ISO_INSTANT.format(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant()),
                         "Zapłacone",
                         AppRuntimeData.user!!.email,
                         "",
@@ -336,8 +336,4 @@ fun DropdownDateSelector(options: List<Int>, selectedValue: Int, onSelect: (Int)
 @Composable
 fun CartScreenPreview() {
     CartScreen()
-}
-
-fun LocalDateToDate(localDate: LocalDate): Date {
-    return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant())
 }
