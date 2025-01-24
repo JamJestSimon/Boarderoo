@@ -1,6 +1,5 @@
 <div class="account-details-overlay">
   <div class="account-details-content">
-    <!-- Pasek z awatarem -->
     <div class="account-details-left">
       <div class="avatar">
         <img src="avatar.png" alt="Awatar" class="avatar-img" />
@@ -10,7 +9,6 @@
     </div>
 
     <div class="account-details-sections">
-      <!-- Sekcja przycisków po lewej -->
       <div class="account-details-tabs">
         <div class="tabs">
           <button class="tab-button" (click)="showData()" [class.hover]="currentTab === 'data'"
@@ -29,7 +27,6 @@
       </div>
 
 
-      <!-- Formularz danych po prawej -->
       <div class="account-details-right">
         <div [style.display]="openedTab === 'data' ? 'block' : 'none'">
           <h2>Dane</h2>
@@ -113,7 +110,6 @@
                 </ul>
                 <p>Status zamówienia: {{ order.status }}</p>
 
-                <!-- Wyświetl przycisk anulowania tylko, jeśli status to "Zapłacone" -->
                 <button *ngIf="order.status === 'Zapłacone'" class="cancel-button" (click)="changeStatus(order)">
                   Anuluj zamówienie
                 </button>

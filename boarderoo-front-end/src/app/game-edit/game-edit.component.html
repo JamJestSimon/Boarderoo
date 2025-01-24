@@ -1,6 +1,5 @@
 <div class="game-details-overlay">
     <div class="game-details-content">
-        <!-- Pasek z koszykiem -->
         <div class="game-details-top">
             <div class="game-details">
                 <div>
@@ -12,10 +11,8 @@
         </div>
 
         <div class="game-details-sections">
-            <!-- Form to edit game details -->
             <div class="game-details-left">
                 <form>
-                    <!-- Wiersz 1: Imię -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="title">Nazwa:</label>
@@ -23,7 +20,6 @@
                         </div>
                     </div>
 
-                    <!-- Wiersz 2: Producent, Kategoria, Zdjęcia -->
                     <div class="form-row">
 
                         <div class="form-group">
@@ -53,7 +49,6 @@
                         </div>
                     </div>
 
-                    <!-- Wiersz 3: Cena, Gracze min, Gracze max -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="price">Cena:</label>
@@ -73,7 +68,6 @@
                         </div>
                     </div>
 
-                    <!-- Wiersz 4: Rok wydania, Wiek graczy min, Wiek graczy max -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="releaseYear">Rok wydania:</label>
@@ -94,7 +88,6 @@
                         </div>
                     </div>
 
-                    <!-- Wiersz 5: Opis -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="description">Opis:</label>
@@ -103,7 +96,8 @@
                         </div>
                     </div>
                     <div class="buttons">
-                        <button *ngIf="selectedCard?.action !== 'add'" type="button" class="delete-button" (click)="deleteGame()">Usuń</button>
+                        <button *ngIf="selectedCard?.action !== 'add'" type="button" class="delete-button"
+                            (click)="deleteGame()">Usuń</button>
                         <button class="submit-button" (click)="editGame()">Zapisz</button>
                     </div>
 

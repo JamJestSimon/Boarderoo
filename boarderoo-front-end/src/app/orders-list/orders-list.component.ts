@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { OrderDetailsComponent } from '../order-details/order-details.component';
 import { CustomResponse } from '../CustomResponse';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { OrderCard } from '../OrderCard';
@@ -22,10 +21,10 @@ interface CustomResponse2 {
   imports: [NavBarComponent, CommonModule, OrderDetailsComponent, HttpClientModule, FormsModule],
   templateUrl: './orders-list.component.html',
   styleUrl: './orders-list.component.css',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Dodajemy schemat
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class OrdersListComponent {
-  constructor(private router: Router, private toastr: ToastrService, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient) { }
   isAdmin = true;
   pattern = "";
   status = ""
@@ -36,32 +35,26 @@ export class OrdersListComponent {
   @ViewChild(OrderDetailsComponent) child!: OrderDetailsComponent;
 
   updateOrdersInput(): void {
-
     this.ordersInput = this.orders.filter(order => order.id.includes(this.pattern.trim()));
     this.ordersInput = this.ordersInput.filter(order => order.status.includes(this.status.trim()));
   }
-  
+
   orderUser: any
   toggleOrderDetails(order?: any) {
     if (order) {
-      this.selectedOrder = order; // Ustawiamy wybraną kartę
-        const proxyUrl = ''; // Lokalny serwer proxy
-        const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/user/' + order.user;
-        const fullUrl = proxyUrl + targetUrl;
-    
-        this.http.get<CustomResponse2>(fullUrl).subscribe(
-          (response) => {
-            const user = response.data
-            console.log(user)
-            this.orderUser = {
-              name: user.name,
-              surname: user.surname,
-              address: user.address,
-            }
-            console.log(this.orderUser)
+      this.selectedOrder = order;
+      const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/user/' + order.user;
+      this.http.get<CustomResponse2>(targetUrl).subscribe(
+        (response) => {
+          const user = response.data
+          this.orderUser = {
+            name: user.name,
+            surname: user.surname,
+            address: user.address,
           }
-        );
-      }
+        }
+      );
+    }
     this.isOrderDetailsVisible = !this.isOrderDetailsVisible;
     if (this.isOrderDetailsVisible) {
     }
@@ -71,44 +64,40 @@ export class OrdersListComponent {
     const sessionToken = localStorage.getItem('session_token_admin');
     this.GetOrder();
     if (!sessionToken) {
-      // Jeśli token jest pusty, przekierowujemy na stronę główną
       this.router.navigate(['/admin']);
     }
   }
 
 
   GetOrder() {
-    const proxyUrl = ''; // Lokalny serwer proxy
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/order';
-    const fullUrl = proxyUrl + targetUrl;
-    console.log(fullUrl);
-    this.http.get<CustomResponse>(fullUrl).subscribe(response => {
-      // Przechodzimy przez każdy element w odpowiedzi
+    this.http.get<CustomResponse>(targetUrl).subscribe(response => {
       for (let i = 0; i < response.data.length; i++) {
         const item: any = response.data[i];
-
-        // Tworzymy obiekt Order
         const order: OrderCard = {
           id: item.id,
-          start: new Date(item.start).toISOString().split('T')[0] || '2025-01-01T00:00:00.000Z', // Domyślna data
-          end: new Date(item.end).toISOString().split('T')[0] || '2025-01-01T00:00:00.000Z',    // Domyślna data
+          start: new Date(item.start).toISOString().split('T')[0] || '2025-01-01T00:00:00.000Z',
+          end: new Date(item.end).toISOString().split('T')[0] || '2025-01-01T00:00:00.000Z',
           status: item.status || 'Brak statusu',
           user: item.user || 'Brak użytkownika',
           paymentNumber: item.paymentNumber,
-          items: item.items || [], // Jeżeli brak przedmiotów, pusty array
-          price: item.price || 0,   // Jeżeli brak ceny, 0
+          items: item.items || [],
+          price: item.price || 0,
           showDetails: false,
         };
-
-
-        // Dodajemy obiekt order do tablicy orders
         this.orders.push(order);
       }
 
-    }, error => {
-      //this.failToast(error.error?.message);
     });
   }
 
+  options = [
+    '',
+    'Zamówione',
+    'Zapłacone',
+    'Potwierdzone',
+    'Anulowane',
+    'Zakończone'
+  ];
 
 }

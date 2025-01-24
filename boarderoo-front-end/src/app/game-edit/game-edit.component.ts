@@ -16,7 +16,7 @@ import { CustomResponse } from '../CustomResponse';
   styleUrl: './game-edit.component.css'
 })
 export class GameEditComponent {
-  @Output() close = new EventEmitter<void>(); // Definiujemy zdarzenie
+  @Output() close = new EventEmitter<void>();
   @Output() notify = new EventEmitter<boolean>();
   toastContainer: ToastContainerDirective | undefined;
 
@@ -45,10 +45,7 @@ export class GameEditComponent {
 
 
     editGame() {
-      console.log(this.selectedCard);
-      const proxyUrl = ''; // Lokalny serwer proxy
       const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/game';
-      const fullUrl = proxyUrl + targetUrl;
   
       const newGame = {
           image: this.selectedCard.photos,
@@ -66,29 +63,25 @@ export class GameEditComponent {
       };
   
       if (this.selectedCard.action === 'add') {
-          this.http.post<CustomResponse>(fullUrl, newGame).subscribe(
+          this.http.post<CustomResponse>(targetUrl, newGame).subscribe(
               response => {
-                  console.log(response);
-                  this.successToast(response.message);
-                  this.notify.emit(true); // Powiadomienie o zakończeniu operacji
+                  this.successToast("Pomyślnie dodano grę!");
+                  this.notify.emit(true); 
                   this.onClose();
               },
               error => {
-                  console.error('Błąd:', error);
-                  this.failToast(error.error?.message);
+                  this.failToast("Wystąpił błąd podczas dodawania gry!");
               }
           );
       } else {
-          this.http.put<CustomResponse>(fullUrl, newGame).subscribe(
+          this.http.put<CustomResponse>(targetUrl, newGame).subscribe(
               response => {
-                  console.log(response);
-                  this.successToast(response.message);
-                  this.notify.emit(true); // Powiadomienie o zakończeniu operacji
+                  this.successToast("Pomyślnie zedytowano grę!");
+                  this.notify.emit(true); 
                   this.onClose();
               },
               error => {
-                  console.error('Błąd:', error);
-                  this.failToast(error.error?.message);
+                  this.failToast("Wystąpił błąd podczas edycji gry!");
               }
           );
       }
@@ -97,25 +90,22 @@ export class GameEditComponent {
   
 
   onClose() {
-    console.log(this.selectedCard);
-    this.close.emit(); // Emitowanie zdarzenia
+    this.close.emit(); 
   }
 
-  selectedFiles: File[] = []; // Zmienna do przechowywania plików
+  selectedFiles: File[] = []; 
 
   deleteGame() {
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/game/' + this.selectedCard.id;
 
     this.http.delete<CustomResponse>(targetUrl).subscribe(
         response => {
-            console.log(response);
-            this.successToast(response.message);
-            this.notify.emit(true); // Powiadomienie o zakończeniu operacji
+            this.successToast("Gra usunięta pomyślnie!");
+            this.notify.emit(true); 
             this.onClose();
         },
         error => {
-            console.error('Błąd:', error);
-            this.failToast(error.error?.message || 'Wystąpił błąd.');
+            this.failToast('Wystąpił błąd podczas usuwania!');
         }
     );
 }
@@ -124,47 +114,34 @@ export class GameEditComponent {
 files: FileList | null = null;
 
 onFileChange(event: Event): void {
-  const input = event.target as HTMLInputElement; // Rzutowanie na HTMLInputElement
+  const input = event.target as HTMLInputElement; 
 
   if (input.files && input.files.length > 0) {
-    this.files = input.files; // Przypisanie do zmiennej
-    this.selectedFiles = Array.from(this.files); // Konwersja FileList na tablicę File[]
+    this.files = input.files; 
+    this.selectedFiles = Array.from(this.files); 
 
-    // Mapowanie nazw plików
     const fileNames = this.selectedFiles.map((file: File) => file.name);
-    console.log(fileNames); // Wyświetla nazwy plików w konsoli
 
-    // Przypisanie nazw plików do `selectedCard.photos`
+
     this.selectedCard.photos = fileNames;
-  } else {
-    console.warn('No files selected!');
   }
 }
 
 uploadFiles(): void {
   if (this.files && this.files.length > 0) {
-    const formData = new FormData();
-
-    // Dodajemy wszystkie pliki z listy `files`
     Array.from(this.files).forEach((file: File) => {
-      formData.append('files', file, file.name);  // 'files' to nazwa pola na backendzie
+      const formData = new FormData();
+      formData.append('file', file, file.name);
+
+      this.http.post('https://boarderoo-928336702407.europe-central2.run.app/FileUpload/fileupload', formData)
+        .subscribe();
     });
-    console
-    // Wysyłamy wszystkie pliki w jednym żądaniu
-    this.http.post('https://boarderoo-928336702407.europe-central2.run.app/', formData)
-      .subscribe(
-        response => console.log('Upload success:', response),
-        error => console.error('Upload error:', error)
-      );
-  } else {
-    console.error('No files selected');
   }
 }
 
   failToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
 
-    // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.error(communicate, 'Błąd', {
       positionClass: 'toast-top-right',
       timeOut: 3000,
@@ -176,7 +153,6 @@ uploadFiles(): void {
   successToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
 
-    // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.success(communicate, 'Sukces', {
       positionClass: 'toast-top-right',
       timeOut: 3000,

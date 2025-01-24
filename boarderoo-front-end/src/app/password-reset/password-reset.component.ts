@@ -25,23 +25,16 @@ export class PasswordResetComponent {
     this.route.queryParams.subscribe(params => {
       this.code = params['code'];
 
-      if (this.code) {
-        console.log('Kod autoryzacyjny:', this.code);
-      } else {
-        console.log('Brak kodu autoryzacyjnego w URL');
+      if (!this.code) {
+        this.router.navigate(['/']);
       }
     });
   }
 
   resetPassword() {
     if (this.password == this.confirmPassword || this.password !== '') {
-      const proxyUrl = ''; // Lokalny serwer proxy
       const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/password/resetPassword/';
-      const fullUrl = proxyUrl + targetUrl;
-      console.log(fullUrl);
-      console.log(this.code)
-      this.http.post<CustomResponse>(fullUrl, { password: this.password, token: this.code }).subscribe(response => {
-        console.log(response);
+      this.http.post<CustomResponse>(targetUrl, { password: this.password, token: this.code }).subscribe(response => {
         this.router.navigate(['/']);
         this.successToast(response.message);
         this.info = response.message;
@@ -59,8 +52,6 @@ export class PasswordResetComponent {
 
   failToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
-
-    // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.error(communicate, 'Błąd', {
       positionClass: 'toast-top-right',
       timeOut: 3000,
@@ -71,8 +62,6 @@ export class PasswordResetComponent {
 
   successToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
-
-    // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.success(communicate, 'Sukces', {
       positionClass: 'toast-top-right',
       timeOut: 3000,

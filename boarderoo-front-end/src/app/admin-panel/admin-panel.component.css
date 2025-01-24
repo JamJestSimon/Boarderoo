@@ -1,9 +1,7 @@
 .container {
   display: flex;
   justify-content: center;
-  /* Wyśrodkowanie w poziomie */
   align-items: center;
-  /* Wyśrodkowanie w pionie */
   height: calc(100vh - 60px);
 }
 
@@ -18,16 +16,11 @@
   border: 1px solid #422D29;
   margin: 10px;
   text-align: center;
-  /* Wyśrodkowanie tekstu w poziomie */
   border-radius: 20px;
   font-weight: bold;
-  /* Pogrubienie tekstu */
   display: flex;
-  /* Flexbox do wyrównania w pionie */
   justify-content: center;
-  /* Wyśrodkowanie w poziomie */
   align-items: center;
-  /* Wyśrodkowanie w pionie */
   transition: transform 0.3s ease;
 }
 

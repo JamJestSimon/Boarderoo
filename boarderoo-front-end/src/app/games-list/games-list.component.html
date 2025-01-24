@@ -1,10 +1,7 @@
 <app-nav-bar [isAdmin]="isAdmin"></app-nav-bar>
 <div id="game-edit-popup" [ngClass]="{ 'gameEditInvisible': !isGameEditVisible, 'gameEditVisible': isGameEditVisible }">
-  <app-game-edit
-  (close)="handleGameEditClose()"
-  (notify)="onEditGameEnd($event)"
-  [selectedCard]="selectedCard">
-</app-game-edit>
+  <app-game-edit (close)="handleGameEditClose()" (notify)="onEditGameEnd($event)" [selectedCard]="selectedCard">
+  </app-game-edit>
 </div>
 
 <div class="container">

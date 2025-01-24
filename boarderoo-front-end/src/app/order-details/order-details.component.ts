@@ -29,8 +29,7 @@ export class OrderDetailsComponent {
   @Input() selectedOrder?: any;
   @Input() orderUser?: any;
   onClose() {
-    this.close.emit(); // Emitowanie zdarzenia
-    console.log(this.selectedOrder)
+    this.close.emit();
   }
   name = ""
   surname = ''
@@ -46,23 +45,14 @@ export class OrderDetailsComponent {
   constructor(private toastr: ToastrService, private http: HttpClient, private router: Router) { }
 
   changeStatus() {
-    const proxyUrl = ''; // Lokalny serwer proxy
-
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/order?id=' + this.selectedOrder.id + '&status=' + this.selectedOrder.status;
-    const fullUrl = proxyUrl + targetUrl;
-
-    this.http.put<CustomResponse>(fullUrl, null).subscribe(
+    this.http.put<CustomResponse>(targetUrl, null).subscribe(
       response => {
-        console.log(response);
-        this.successToast(response.message);
-        // Możesz dodać powiadomienie o sukcesie, np. Toast
-        // this.successToast('User updated successfully.');
+        this.successToast("Zmieniono status zamówienia");
+        this.onClose();
       },
       error => {
-        console.error('Error updating user:', error);
         this.successToast("Zmiana nie powiodła się");
-        // Możesz dodać powiadomienie o błędzie, np. Toast
-        // this.failToast('Failed to update user.');
       }
     );
 
@@ -70,8 +60,6 @@ export class OrderDetailsComponent {
 
   failToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
-
-    // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.error(communicate, 'Błąd', {
       positionClass: 'toast-top-right',
       timeOut: 3000,
@@ -82,8 +70,6 @@ export class OrderDetailsComponent {
 
   successToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
-
-    // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.success(communicate, 'Sukces', {
       positionClass: 'toast-top-right',
       timeOut: 3000,

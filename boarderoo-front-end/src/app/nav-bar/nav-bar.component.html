@@ -5,7 +5,7 @@
   </a>
 
   <div class="navbar-actions">
-    <!-- Koszyk -->
+
     <div [ngClass]="{ 'userOptionsInvisible': isAdmin, 'userOptionsVisible': !isAdmin }">
       <button class="navbar-cart-button" (click)="toggleCart()">
         <img src="cart.png" alt="Cart" class="navbar-icon">
@@ -14,7 +14,7 @@
         <app-cart (close)="toggleCart()"></app-cart>
       </div>
     </div>
-    <!-- Menu użytkownika -->
+
     <div [ngClass]="{ 'userOptionsInvisible': isAdmin, 'userOptionsVisible': !isAdmin }">
       <button class="navbar-user-button" (click)="toggleAccountDetails()">
         <img src="avatar.png" alt="User" class="navbar-icon">
@@ -24,7 +24,7 @@
         <app-account-details (close)="toggleAccountDetails()"></app-account-details>
       </div>
     </div>
-    <!-- wylogowanie -->
+
     <div class="navbar-logout">
       <button class="navbar-user-button" (click)="LogOut()">
         <img src="logout.png" alt="Logout" class="navbar-icon">

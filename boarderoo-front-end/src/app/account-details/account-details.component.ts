@@ -32,44 +32,28 @@ export class AccountDetailComponent {
   userName: string | undefined;
   constructor(private toastr: ToastrService, private http: HttpClient) { }
   GetUser() {
-    const proxyUrl = ''; // Lokalny serwer proxy
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/user/' + this.email;
-    const fullUrl = proxyUrl + targetUrl;
-    console.log(fullUrl);
-    this.http.get<CustomResponse>(fullUrl).subscribe(response => {
-      console.log("user: ", response.data);
+    this.http.get<CustomResponse>(targetUrl).subscribe(response => {
       const item: any = response.data;
 
       this.userName = item.name || '';
       this.user = item.name || '';
       this.address = item.address || '';
       this.surname = item.surname || '';
-      //this.address
 
-    }, error => {
-      console.error('Błąd:', error);
-      //this.failToast(error.error?.message);
     });
   }
 
   UpdateUser() {
-    const proxyUrl = ''; // Lokalny serwer proxy
     const sessionToken = localStorage.getItem('session_token');
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/user/?email=' + sessionToken + '&name=' + this.userName + '&surname=' + this.surname + '&address=' + this.address;
-    const fullUrl = proxyUrl + targetUrl;
 
-    this.http.put<CustomResponse>(fullUrl, null).subscribe(
+    this.http.put<CustomResponse>(targetUrl, null).subscribe(
       response => {
-        console.log('User updated successfully:', response);
-        this.successToast(response.message);
-        // Możesz dodać powiadomienie o sukcesie, np. Toast
-        // this.successToast('User updated successfully.');
+        this.successToast("Pomyślnie zaktualizowano usera!");
       },
       error => {
-        console.error('Error updating user:', error);
         this.failToast("Zmiana nie powiodła się");
-        // Możesz dodać powiadomienie o błędzie, np. Toast
-        // this.failToast('Failed to update user.');
       }
     );
     this.user = this.userName || '';
@@ -85,23 +69,15 @@ export class AccountDetailComponent {
 
 
   PasswordUpdate() {
-    const proxyUrl = ''; // Lokalny serwer proxy
     const sessionToken = localStorage.getItem('session_token');
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/user/password';
-    const fullUrl = proxyUrl + targetUrl;
 
-    this.http.put<CustomResponse>(fullUrl, { email: sessionToken, oldPassword: this.oldPassword, newPassword: this.newPassword }).subscribe(
+    this.http.put<CustomResponse>(targetUrl, { email: sessionToken, oldPassword: this.oldPassword, newPassword: this.newPassword }).subscribe(
       response => {
-        console.log('User updated successfully:', response);
-        this.successToast(response.message);
-        // Możesz dodać powiadomienie o sukcesie, np. Toast
-        // this.successToast('User updated successfully.');
+        this.successToast("Hasło zostało zmienione!");
       },
       error => {
-        console.error('Error updating user:', error);
-        this.failToast("Zmiana nie powiodła się");
-        // Możesz dodać powiadomienie o błędzie, np. Toast
-        // this.failToast('Failed to update user.');
+        this.failToast("Wystąpił błąd!");
       }
     );
     this.user = this.userName || '';
@@ -110,44 +86,33 @@ export class AccountDetailComponent {
 
   GetOrder() {
     this.orders = []
-    const proxyUrl = ''; // Lokalny serwer proxy
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/order/user/' + this.email;
-    const fullUrl = proxyUrl + targetUrl;
-    console.log(fullUrl);
-    this.http.get<CustomResponse>(fullUrl).subscribe(response => {
-      // Przechodzimy przez każdy element w odpowiedzi
+    this.http.get<CustomResponse>(targetUrl).subscribe(response => {
       for (let i = 0; i < response.data.length; i++) {
         const item: any = response.data[i];
-        console.log(item); // Logujemy item do konsoli
-
-        // Tworzymy obiekt Order
         const order: OrderCard = {
           id: item.id,
-          start: new Date(item.start).toISOString().split('T')[0] || '2025-01-01T00:00:00.000Z', // Domyślna data
-          end: new Date(item.end).toISOString().split('T')[0] || '2025-01-01T00:00:00.000Z',    // Domyślna data
+          start: new Date(item.start).toISOString().split('T')[0] || '2025-01-01T00:00:00.000Z',
+          end: new Date(item.end).toISOString().split('T')[0] || '2025-01-01T00:00:00.000Z',
           status: item.status || 'Brak statusu',
           user: item.user || 'Brak użytkownika',
           paymentNumber: item.paymentNumber,
-          items: item.items || [], // Jeżeli brak przedmiotów, pusty array
-          price: item.price || 0,   // Jeżeli brak ceny, 0
+          items: item.items || [],
+          price: item.price || 0,
           showDetails: false,
         };
 
-        console.log(order); // Logujemy stworzony obiekt zamówienia
+        console.log(order);
 
-        // Dodajemy obiekt order do tablicy orders
         this.orders.push(order);
       }
 
-    }, error => {
-      console.error('Błąd:', error);
-      //this.failToast(error.error?.message);
     });
   }
 
 
   onClose() {
-    this.close.emit(); // Emitowanie zdarzenia
+    this.close.emit();
   }
 
   showData() {
@@ -184,47 +149,15 @@ export class AccountDetailComponent {
     console.log("rehover: " + this.currentTab)
   }
 
-  UpdatePassword() {
-    const proxyUrl = ''; // Lokalny serwer proxy
-    const sessionToken = localStorage.getItem('session_token');
-    const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/user/?email=' + sessionToken;
-    const fullUrl = proxyUrl + targetUrl;
-
-    this.http.put<CustomResponse>(fullUrl, { password: this.newPassword }).subscribe(
-      response => {
-        console.log(response);
-        this.successToast(response.message);
-        // Możesz dodać powiadomienie o sukcesie, np. Toast
-        // this.successToast('User updated successfully.');
-      },
-      error => {
-        console.error('Error updating user:', error);
-        this.successToast("Zmiana nie powiodła się");
-        // Możesz dodać powiadomienie o błędzie, np. Toast
-        // this.failToast('Failed to update user.');
-      }
-    );
-
-  }
-
   changeStatus(order: any) {
-    const proxyUrl = ''; // Lokalny serwer proxy
-
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/order?id=' + order.id + '&status=Anulowane';
-    const fullUrl = proxyUrl + targetUrl;
-
-    this.http.put<CustomResponse>(fullUrl, null).subscribe(
+    this.http.put<CustomResponse>(targetUrl, null).subscribe(
       response => {
         console.log(response);
-        this.successToast(response.message);
-        // Możesz dodać powiadomienie o sukcesie, np. Toast
-        // this.successToast('User updated successfully.');
+        this.successToast("Pomyślnie zmieniono status?");
       },
       error => {
-        console.error('Error updating user:', error);
-        this.successToast("Zmiana nie powiodła się");
-        // Możesz dodać powiadomienie o błędzie, np. Toast
-        // this.failToast('Failed to update user.');
+        this.failToast("Zmiana nie powiodła się");
       }
     );
     this.GetOrder();

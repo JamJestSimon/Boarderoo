@@ -2,7 +2,6 @@ h2 {
   color: #EA962A;
 }
 
-/* Styl dla sekcji rejestracji */
 .join-us-right form {
   display: flex;
   flex-direction: column;
@@ -72,9 +71,7 @@ h2 {
   cursor: pointer;
   width: auto;
   max-width: 300px;
-  /* opcjonalnie - ogranicz szerokość przycisku */
   margin: 20px auto 0;
-  /* wyśrodkowanie przycisku */
   transition: transform 0.3s ease;
 }
 
@@ -85,7 +82,6 @@ h2 {
   transform: scale(1.1);
 }
 
-/* Kreska oddzielająca logowanie i rejestrację */
 .divider {
   width: 5px;
   background-color: #EA962A;
@@ -168,9 +164,7 @@ h2 {
   align-items: center;
   justify-content: center;
   width: 40px;
-  /* Dopasowujemy szerokość do ikony */
   height: 40px;
-  /* Dopasowujemy wysokość do ikony */
 }
 
 .discord-button:hover {
@@ -179,9 +173,7 @@ h2 {
 
 .discord-icon {
   width: 40px;
-  /* Dopasowanie szerokości ikony */
   height: 40px;
-  /* Dopasowanie wysokości ikony */
 }
 
 .gsi-material-button {
@@ -198,7 +190,6 @@ h2 {
   align-items: center;
   justify-content: center;
   transition: transform 0.3s ease !important;
-  /* Dodano !important */
   font-family: 'Roboto', arial, sans-serif;
   font-size: 14px;
   height: 40px;

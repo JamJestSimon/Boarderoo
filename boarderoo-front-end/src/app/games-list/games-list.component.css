@@ -7,10 +7,8 @@ body {
   margin-top: 10px;
   width: 100%;
   height: 87vh;
-  /* Opcjonalnie, jeśli chcesz, aby divy zajmowały całą wysokość */
   gap: 10px;
   justify-content: center;
-  /* Wyśrodkowanie w poziomie */
 }
 
 .pane {
@@ -20,16 +18,11 @@ body {
   padding-top: 10px;
   padding-bottom: 10px;
   box-sizing: border-box;
-  /* Uwzględnij padding w szerokości */
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  /* 3 kolumny o równej szerokości */
   gap: 10px;
-  /* Odstępy między kartami */
   overflow-y: auto;
-  /* Pasek przewijania w pionie, jeśli za dużo kart */
   grid-auto-rows: min-content;
-  /* Każda karta ma swoją wysokość, brak rozciągania */
 }
 
 .card-new-game {
@@ -37,19 +30,13 @@ body {
   border: 2px solid #422D29;
   border-radius: 8px;
   padding: 10px;
-  /* Zmniejszony padding, by uwzględnić obrazek */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   height: 165px;
-  /* Pozwól wysokości dostosować się do treści */
   display: flex;
-  /* Użycie Flexboxa dla układu poziomego */
   align-items: center;
-  /* Wyrównanie obrazka i tekstu w pionie, zaczynając od góry */
   justify-content: center;
   gap: 15px;
-  /* Odstęp między obrazkiem a tekstem */
   position: relative;
-  /* Pozwala na pozycjonowanie ceny względem karty */
   transition: transform 0.3s ease;
 }
 
@@ -60,11 +47,8 @@ body {
 
 .card-new-game-image {
   width: 160px;
-  /* Szerokość obrazka */
   height: 160px;
-  /* Wysokość obrazka */
   object-fit: cover;
-  /* Dopasowanie obrazka bez zniekształceń */
 }
 
 
@@ -73,20 +57,13 @@ body {
   border: 2px solid #422D29;
   border-radius: 8px;
   padding: 10px;
-  /* Zmniejszony padding, by uwzględnić obrazek */
   text-align: left;
-  /* Tekst wyrównany do lewej */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   height: 165px;
-  /* Pozwól wysokości dostosować się do treści */
   display: flex;
-  /* Użycie Flexboxa dla układu poziomego */
   align-items: flex-start;
-  /* Wyrównanie obrazka i tekstu w pionie, zaczynając od góry */
   gap: 15px;
-  /* Odstęp między obrazkiem a tekstem */
   position: relative;
-  /* Pozwala na pozycjonowanie ceny względem karty */
   transition: transform 0.3s ease;
 }
 
@@ -97,13 +74,9 @@ body {
 
 .card-image {
   width: 160px;
-  /* Szerokość obrazka */
   height: 160px;
-  /* Wysokość obrazka */
   object-fit: cover;
-  /* Dopasowanie obrazka bez zniekształceń */
   border-radius: 10%;
-  /* Zaokrąglenie obrazka (np. awatar) */
   border: 2px solid #422D29;
 }
 
@@ -111,12 +84,10 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  /* Wyrównanie tekstu do góry */
 }
 
 .card-text h3 {
   margin: 0 0 5px;
-  /* Marginesy między tytułem a opisem */
   font-size: 18px;
   color: #422D29;
 }
@@ -129,11 +100,8 @@ body {
 
 .card-price {
   position: absolute;
-  /* Pozycjonowanie absolutne */
   bottom: 10px;
-  /* Odstęp od dołu karty */
   right: 10px;
-  /* Odstęp od prawej krawędzi */
   font-size: 16px;
   color: #422D29;
   font-weight: bold;
@@ -142,36 +110,24 @@ body {
 
 
 
-/* Ustawienia dla samego paska przewijania */
 ::-webkit-scrollbar {
   width: 12px;
-  /* Szerokość paska przewijania w pionie */
   height: 12px;
-  /* Wysokość paska przewijania w poziomie */
 }
 
-/* Ustawienia dla toru paska przewijania (część, po której pasek przewija się) */
 ::-webkit-scrollbar-track {
   background-color: #f5cb95;
-  /* Kolor tła toru */
   border-radius: 10px;
-  /* Zaokrąglenie rogów toru */
 }
 
-/* Ustawienia dla samego "uchwytu" paska przewijania */
 ::-webkit-scrollbar-thumb {
   background-color: #422D29;
-  /* Kolor uchwytu */
   border-radius: 10px;
-  /* Zaokrąglenie rogów uchwytu */
   border: 3px solid #422D29;
-  /* Obramowanie uchwytu */
 }
 
-/* Ustawienia dla uchwytu paska przewijania przy najechaniu */
 ::-webkit-scrollbar-thumb:hover {
   background-color: #A4691D;
-  /* Jaśniejszy kolor przy najechaniu */
 }
 
 .gameEditInvisible {

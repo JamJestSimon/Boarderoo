@@ -2,7 +2,6 @@
   <div class="join-us-content">
     <button class="close-button" (click)="onClose()">×</button>
     <div class="join-us-sections">
-      <!-- Formularz logowania -->
       <div class="join-us-left">
         <h2>Logowanie</h2>
         <form>
@@ -22,9 +21,7 @@
           <button class="login-button" (click)="LogIn()">Zaloguj</button>
         </form>
 
-        <!-- Przyciski logowania Google i Discord -->
         <div class="login-buttons">
-          <!-- Google Sign-In -->
           <button class="gsi-material-button" (click)="signInWithGoogle()">
             <div class="gsi-material-button-state"></div>
             <div class="gsi-material-button-content-wrapper">
@@ -50,7 +47,6 @@
             </div>
           </button>
 
-          <!-- Discord Sign-In -->
           <button class="discord-button" (click)="signInWithDiscord()">
             <img src="discord.png" alt="Discord" class="discord-icon" />
           </button>
@@ -59,7 +55,6 @@
 
       <div class="divider"></div>
 
-      <!-- Formularz rejestracji -->
       <div class="join-us-right">
         <h2>Rejestracja</h2>
         <form>

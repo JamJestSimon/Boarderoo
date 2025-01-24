@@ -23,7 +23,6 @@ export class AdminLoginComponent {
   ngOnInit(): void {
     const sessionToken = localStorage.getItem('session_token_admin');
     if (sessionToken) {
-      // Jeśli token jest pusty, przekierowujemy na stronę główną
       this.router.navigate(['/adminpanel']);
     }
   }
@@ -38,16 +37,13 @@ export class AdminLoginComponent {
   }
 
   LogInPost() {
-    const proxyUrl = ''; // Lokalny serwer proxy
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/login/admin';
-    const fullUrl = proxyUrl + targetUrl;
-    console.log(fullUrl);
-    this.http.post<CustomResponse>(fullUrl, { login: this.login, password: this.passwordLogin }).subscribe(response => {
+    this.http.post<CustomResponse>(targetUrl, { login: this.login, password: this.passwordLogin }).subscribe(response => {
       localStorage.setItem('session_token_admin', this.login);
       this.router.navigate(['/adminpanel']);
-      this.successToast(response.message);
+      this.successToast("Pomyślnie zalogowano!");
     }, error => {
-      this.failToast(error.error?.message);
+      this.failToast("Nie udało się zalogować!");
     });
   }
 

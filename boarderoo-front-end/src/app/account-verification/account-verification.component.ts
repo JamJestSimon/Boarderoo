@@ -26,27 +26,18 @@ export class AccountVerificationComponent {
 
       if (this.code) {
         this.activateAccount();
-        console.log('Kod autoryzacyjny:', this.code);
-      } else {
-        console.log('Brak kodu autoryzacyjnego w URL');
       }
     });
   }
 
 
   activateAccount() {
-    const proxyUrl = ''; // Lokalny serwer proxy
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/verify/' + this.code;
-    const fullUrl = proxyUrl + targetUrl;
-    console.log(fullUrl);
-    console.log(this.code)
-    this.http.post<CustomResponse>(fullUrl, null).subscribe(response => {
-      console.log(response);
+    this.http.post<CustomResponse>(targetUrl, null).subscribe(response => {
       this.router.navigate(['/']);
       this.successToast(response.message);
       this.info = response.message;
     }, error => {
-      console.error('Błąd:', error);
       this.failToast(error.error?.message);
       this.info = error.error?.message;
     });

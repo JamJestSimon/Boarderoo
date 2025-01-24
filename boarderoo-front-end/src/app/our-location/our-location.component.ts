@@ -8,10 +8,10 @@ import * as mapboxgl from 'mapbox-gl';
   styleUrl: './our-location.component.css'
 })
 export class OurLocationComponent {
-  @Output() close = new EventEmitter<void>(); // Definiujemy zdarzenie
+  @Output() close = new EventEmitter<void>();
 
   onClose() {
-    this.close.emit(); // Emitowanie zdarzenia
+    this.close.emit();
   }
 
   map: mapboxgl.Map | undefined;
@@ -29,7 +29,7 @@ export class OurLocationComponent {
     });
 
     new mapboxgl.Marker()
-      .setLngLat([this.lng, this.lat]) // Ustawienie współrzędnych
-      .addTo(this.map); // Dodanie do mapy
+      .setLngLat([this.lng, this.lat])
+      .addTo(this.map);
   }
 }

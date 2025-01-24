@@ -11,7 +11,7 @@ import { RouterOutlet, Router, ActivatedRoute } from '@angular/router';
   imports: [JoinUsComponent, OurLocationComponent, CommonModule, RouterOutlet],
   templateUrl: './start-page.component.html',
   styleUrls: ['./start-page.component.css'],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Dodajemy schemat
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class StartPageComponent implements OnInit {
   title = 'boarderoo-front-end';
@@ -21,7 +21,6 @@ export class StartPageComponent implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // Sprawdzamy, czy token sesji jest zapisany w localStorage
     const sessionToken = localStorage.getItem('session_token');
     this.route.queryParams.subscribe(params => {
       const code = params['code'];
@@ -29,7 +28,7 @@ export class StartPageComponent implements OnInit {
       if (code) {
         if (code.includes('google')) {
           console.log('Kod autoryzacyjny zawiera "google":', code);
-          
+
         } else {
           console.log('Kod autoryzacyjny:', code);
         }
@@ -41,7 +40,6 @@ export class StartPageComponent implements OnInit {
     });
 
     if (sessionToken) {
-      // Jeśli token sesji istnieje, przekierowujemy do strony /gry
       this.router.navigate(['/gry']);
     }
   }

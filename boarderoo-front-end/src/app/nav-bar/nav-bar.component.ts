@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   imports: [AccountDetailComponent, CommonModule, CartComponent],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Dodajemy schemat
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class NavBarComponent {
   toastContainer: ToastContainerDirective | undefined;
@@ -22,15 +22,12 @@ export class NavBarComponent {
 
   toggleAccountDetails() {
     this.isAccountDetailsVisible = !this.isAccountDetailsVisible;
-    console.log(this.isAccountDetailsVisible);
-    console.log(this.isAdmin);
   }
 
   toggleCart() {
     this.isCartVisible = !this.isCartVisible;
-    console.log("togle" + this.isCartVisible);
     if (this.isCartVisible && this.cartComponent) {
-      this.cartComponent.updateCart();  // Wywołaj dodatkową metodę w CartComponent
+      this.cartComponent.updateCart();
     }
   }
   constructor(private toastr: ToastrService, private http: HttpClient, private router: Router) { }
@@ -45,14 +42,12 @@ export class NavBarComponent {
     }
 
 
-    // Ewentualnie wyświetlenie komunikatu o wylogowaniu
     this.successToast('Zostałeś pomyślnie wylogowany');
   }
 
   successToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
 
-    // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.success(communicate, 'Sukces', {
       positionClass: 'toast-top-right',
       timeOut: 3000,

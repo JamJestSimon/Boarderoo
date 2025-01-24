@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { GameEditComponent } from '../game-edit/game-edit.component';
 import { GameCard } from '../GameCard';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { ToastrService } from 'ngx-toastr';
 import { CustomResponse } from '../CustomResponse';
 import { Router } from '@angular/router';
 
@@ -38,7 +37,6 @@ export class GamesListComponent {
 
   toggleGameEdit(card?: any) {
     if (card) {
-      // Tworzymy nowy obiekt, który rozbija dane z card
       this.selectedCard = card;
       this.selectedCard.action = "update";
     }
@@ -60,30 +58,23 @@ export class GamesListComponent {
       };
     }
 
-    // Przełączamy widoczność formularza
     this.isGameEditVisible = !this.isGameEditVisible;
-    if (this.isGameEditVisible === false) {
-      // window.location.reload();
-    }
   }
 
   onEditGameEnd(edited: boolean) {
-    console.log(edited)
     if (edited) {
-      
+
       this.GetGames();
-      console.log("Pobrano na nowo gry wariacie!!!!!!")
     }
   }
 
 
-  constructor(private router: Router, private toastr: ToastrService, private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.GetGames();
     const sessionToken = localStorage.getItem('session_token_admin');
     if (!sessionToken) {
-      // Jeśli token jest pusty, przekierowujemy na stronę główną
       this.router.navigate(['/admin']);
     }
   }
@@ -92,52 +83,37 @@ export class GamesListComponent {
   cards: GameCard[] = []
   GetGames() {
     this.cards = [];
-    const proxyUrl = ''; // Lokalny serwer proxy
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/game';
-    const fullUrl = proxyUrl + targetUrl;
-    console.log(fullUrl);
-    this.http.get<CustomResponse>(fullUrl).subscribe(response => {
+    this.http.get<CustomResponse>(targetUrl).subscribe(response => {
       for (let i = 0; i < response.data.length; i++) {
         const item: any = response.data[i];
-        console.log(item);
-        console.log(typeof item);
-        // Tworzymy obiekt typu GameCard
         const gameCard: GameCard = {
           id: item.id,
-          title: item.name || 'Brak tytułu',               // name -> title
-          publisher: item.publisher || 'Brak wydawcy',     // publisher
-          category: item.type || 'Brak kategorii',         // type -> category
-          price: item.price,// || parseFloat(item.price.toString()),    // price
-          year: parseInt(item.year.toString(), 10) || 0,    // year
-          description: item.description || 'Brak opisu',    // description
+          title: item.name || 'Brak tytułu',
+          publisher: item.publisher || 'Brak wydawcy',
+          category: item.type || 'Brak kategorii',
+          price: item.price,
+          year: parseInt(item.year.toString(), 10) || 0,
+          description: item.description || 'Brak opisu',
           photos: item.image,
-          ageFrom: parseInt(item.rating.trim().split('-')[0], 10),  // players_number -> playersFrom
-          ageTo: parseInt(item.rating.trim().split('-')[1], 10),     // players_number -> playersTo
-          playersFrom: parseInt(item.players_number.trim().split('-')[0], 10) || 1,  // players_number -> playersFrom
-          playersTo: parseInt(item.players_number.trim().split('-')[1], 10) || 2,    // players_number -> playersTo
-          action: ''                                        // Akcja (możesz dodać logikę, jeśli są dane)
+          ageFrom: parseInt(item.rating.trim().split('-')[0], 10),
+          ageTo: parseInt(item.rating.trim().split('-')[1], 10),
+          playersFrom: parseInt(item.players_number.trim().split('-')[0], 10) || 1,
+          playersTo: parseInt(item.players_number.trim().split('-')[1], 10) || 2,
+          action: ''
         };
 
-
-        console.log(gameCard);
-
-        // Dodajemy gameCard do listy
         this.cards.push(gameCard);
       }
-
-      console.log(this.cards); // Zobacz całą listę cards
-    }, error => {
-      console.error('Błąd:', error);
-      //this.failToast(error.error?.message);
     });
   }
 
   handleGameEditClose() {
-    this.toggleGameEdit();  // Pierwsza logika
+    this.toggleGameEdit();
   }
 
   getPhotoUrl(fileName: string): string {
-    const baseUrl = 'https://firebasestorage.googleapis.com/v0/b/boarderoo-71469.firebasestorage.app/o/';
+    const baseUrl = 'https://firebasestorage.googleapis.com/v0/b/boarderoo-71469.firebasestorage.app/o/files%2F';
     return `${baseUrl}${encodeURIComponent(fileName)}?alt=media`;
   }
 

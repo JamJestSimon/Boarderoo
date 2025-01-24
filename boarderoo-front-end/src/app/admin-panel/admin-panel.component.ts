@@ -20,7 +20,6 @@ export class AdminPanelComponent {
   ngOnInit(): void {
     const sessionToken = localStorage.getItem('session_token_admin');
     if (!sessionToken) {
-      // Jeśli token jest pusty, przekierowujemy na stronę główną
       this.router.navigate(['/admin']);
     }
   }

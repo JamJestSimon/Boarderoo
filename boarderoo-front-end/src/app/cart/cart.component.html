@@ -1,6 +1,5 @@
 <div class="cart-overlay">
   <div class="cart-content">
-    <!-- Pasek z koszykiem -->
     <div class="cart-top">
       <div class="cart">
         <img src="cart.png" alt="Awatar" class="cart-img" />
@@ -9,10 +8,6 @@
       </div>
     </div>
     <div class="cart-sections">
-
-
-
-      <!-- Formularz danych po lewej -->
       <div class="cart-left">
         <div class="order-list">
           <div *ngFor="let item of items" class="order-item">
@@ -36,7 +31,6 @@
             [(ngModel)]="formattedDateRange" class="calendar-input">
         </div>
 
-        <!-- Okno kalendarza -->
         <div class="calendar-overlay" *ngIf="isDatePickerOpen">
           <div class="calendar-container">
             <label>Data wypożyczenia:</label>
@@ -49,7 +43,6 @@
         </div>
 
       </div>
-      <!-- Sekcja przycisków po prawej -->
       <div class="cart-right">
         <div class="tabs">
           <span class="summary-label">Podsumowanie</span>
