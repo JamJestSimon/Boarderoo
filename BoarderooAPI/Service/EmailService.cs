@@ -5,13 +5,14 @@ using Microsoft.Extensions.Configuration;
 namespace BoarderooAPI.Service;
 using MailKit.Net.Smtp;
 using MimeKit;
+using Newtonsoft.Json;
 
 public class EmailService
 {
-private readonly string _smtpHost = "smtp.mailersend.net";
-    private readonly int _smtpPort = 587;
-    private readonly string _smtpUsername = "MS_HUcHcp@trial-yzkq3406ypk4d796.mlsender.net"; // Wstaw swój email
-    private readonly string _smtpPassword = "WRugD8XmVvhw6N16"; // Wstaw hasło aplikacji, jeśli masz 2FA
+private readonly string _smtpHost;
+    private readonly int _smtpPort;
+    private readonly string _smtpUsername;
+    private readonly string _smtpPassword;
 
     public EmailService()
     {
@@ -23,33 +24,50 @@ private readonly string _smtpHost = "smtp.mailersend.net";
         this._smtpPassword=configuration["EmailSettings:SmtpPassword"];
     }
     
-    public async Task<string> SendEmailAsync(string toEmail, string subject, string body)
+
+        public async Task<string> SendEmailAsync(string toEmail, string subject, string body)
     {
-         try
-        {
-            // Tworzymy wiadomość
-            var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Your Name", _smtpUsername));  // Adres nadawcy
-            message.To.Add(new MailboxAddress("", toEmail));  // Adres odbiorcy
-            message.Subject = subject;
-            message.Body = new TextPart("plain") { Text = body };  // Treść wiadomości
-
-            // Łączenie z serwerem SMTP i wysyłanie wiadomości
-            using (var client = new SmtpClient())
+        string apiKey = "mlsn.f313f788b48ac589808efa1c9514211de58c6045b70d3aede1238d90cfc70e4c";
+            
+            // Tworzenie klienta HTTP
+            using (var client = new HttpClient())
             {
-                await client.ConnectAsync(_smtpHost, _smtpPort, MailKit.Security.SecureSocketOptions.StartTls);  // Łączenie z serwerem
-                await client.AuthenticateAsync(_smtpUsername, _smtpPassword);  // Logowanie
-                await client.SendAsync(message);  // Wysyłanie wiadomości
-                await client.DisconnectAsync(true);  // Rozłączanie się
+                client.DefaultRequestHeaders.Add("Authorization", $"Bearer {apiKey}");
 
-                return "E-mail został wysłany pomyślnie.";
+                // Adres URL API Mailersend
+                string url = "https://api.mailersend.com/v1/email";
+
+                // Dane e-maila w formacie JSON
+                var emailData = new
+                {
+                    from = new { email = _smtpUsername, name = "BoarderooApp" },
+                    to = new[] { new { email = toEmail } },
+                    subject = subject,
+                    text = body
+                };
+
+                // Serializowanie danych do JSON
+                var jsonContent = JsonConvert.SerializeObject(emailData);
+
+                // Tworzenie zawartości żądania
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                // Wysłanie żądania POST do API Mailersend
+                var response = await client.PostAsync(url, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    return "Email sent successfully.";
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to send email. Status Code: {response.StatusCode}");
+                    string responseContent = await response.Content.ReadAsStringAsync();
+                    return $"Response: {responseContent}";
+                }
             }
         }
-        catch (Exception ex)
-        {
-            return $"Błąd podczas wysyłania e-maila: {ex.Message}";
-        }
     }
-}
+
 
 
