@@ -36,7 +36,8 @@ builder.Services.AddCors(opt =>
         policyBuilder.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200",
         "https://discord.com",
         "https://oauth2.googleapis.com",
-        "https://api.mailersend.com"
+        "https://api.mailersend.com",
+        "https://boarderoo-71469.firebaseapp.com"
         );
     });
 
