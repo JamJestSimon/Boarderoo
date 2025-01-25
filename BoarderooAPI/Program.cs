@@ -16,6 +16,7 @@ FirebaseApp.Create(new AppOptions()
 });
 
 // Add Firestore DB Service (use Project ID)
+AppContext.SetSwitch("System.Net.DisableMonitoringNetworkChanges", true);
 builder.Services.AddSingleton(FirestoreDb.Create("boarderoo-71469"));
 builder.Services.AddScoped<FireBaseService>();
 builder.Services.AddScoped<LoginService>();
