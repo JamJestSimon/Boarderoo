@@ -6,7 +6,9 @@ import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -50,6 +52,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -60,8 +63,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import coil.compose.rememberImagePainter
 import pl.boarderoo.mobileapp.ElasticLightTextField
 import pl.boarderoo.mobileapp.ErrorState
+import pl.boarderoo.mobileapp.ImageFromUrl
 import pl.boarderoo.mobileapp.LightButton
 import pl.boarderoo.mobileapp.R
 import pl.boarderoo.mobileapp.data.Categories
@@ -442,14 +447,31 @@ fun GameGridItem(gameModel: GameModel, onClick: () -> Unit) {
             }
             .padding(15.dp)
     ) {
-        //TODO - odkomentować jak będzie działało
-        //ImageFromUrl(gameModel.image[0])
-        Text("Nazwa: ${gameModel.name}")
-        Text("Wydawca: ${gameModel.publisher}")
-        Text("Wiek: ${gameModel.rating}")
-        Text("Ilość graczy: ${gameModel.playersNumber}")
-        Text("Gatunek: ${gameModel.type}")
-        Text("Cena: ${gameModel.price} zł")
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(200.dp)
+                .padding(bottom = 10.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            Image(
+                painter = rememberImagePainter("https://firebasestorage.googleapis.com/v0/b/boarderoo-71469.firebasestorage.app/o/files%2F${gameModel.image[0]}?alt=media"),
+                contentDescription = "Game Image",
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clip(RoundedCornerShape(15.dp))
+                    .background(Color.White)
+                    .border(4.dp, Color(0xFF422D29), RoundedCornerShape(15.dp))
+            )
+        }
+
+
+        Text("Nazwa: ${gameModel.name}", color = Color(0xFF422D29))
+        Text("Wydawca: ${gameModel.publisher}", color = Color(0xFF422D29))
+        Text("Wiek: ${gameModel.rating}", color = Color(0xFF422D29))
+        Text("Ilość graczy: ${gameModel.playersNumber}", color = Color(0xFF422D29))
+        Text("Gatunek: ${gameModel.type}", color = Color(0xFF422D29))
+        Text("Cena: ${gameModel.price} zł", color = Color(0xFF422D29))
     }
 }
 
