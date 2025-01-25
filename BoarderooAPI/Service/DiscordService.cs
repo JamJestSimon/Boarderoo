@@ -30,8 +30,14 @@ public class DiscordService
             { "code", decodedString },
             { "redirect_uri", "https://boarderoo-71469.firebaseapp.com/" }
         };
+        var handler = new SocketsHttpHandler
+{
+    EnableMultipleHttp2Connections = false,
+    PooledConnectionIdleTimeout = TimeSpan.FromMinutes(2),
+    MaxConnectionsPerServer = 10
+};
 
-        using (var client = new HttpClient())
+        using (var client = new HttpClient(handler))
         {
             try{
             var content = new FormUrlEncodedContent(values);
