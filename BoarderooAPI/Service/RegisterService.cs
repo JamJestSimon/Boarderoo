@@ -34,7 +34,7 @@ public RegisterService(UserService userService,EmailService emailService,FireBas
             {
                 user.Authorization="local";
                 await _userService.AddUser(user);
-            await _userService.UpdateToken(user.Email,token); //aktualizujemy token
+            await _userService.UpdateToken(user.Email,token,DateTime.Now); //aktualizujemy token
             string url=$"https://boarderoo-71469.firebaseapp.com/weryfikacja?code={token}";
             string message=$"Witaj, twoj link aktywacyjny do Boarderoo Application to: {url}";
             var result=await _emailService.SendEmailAsync(user.Email,$"Weryfikacja Boarderoo",message);
@@ -90,7 +90,7 @@ public RegisterService(UserService userService,EmailService emailService,FireBas
         if (now<time)
         {
             await _userService.UpdateVerified(user.Email,true);
-            await _userService.UpdateToken(user.Email, ""); //usuwanie tokena
+            await _userService.UpdateToken(user.Email, "",DateTime.Now.AddDays(-10)); //usuwanie tokena
 
              return new ServiceResult<string>
         {
