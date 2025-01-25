@@ -16,7 +16,7 @@ public class DiscordService
 
     public async Task<ServiceResult<string>> GetDiscordToken(string code)
     {
-                string decodedString = System.Web.HttpUtility.UrlDecode(code);
+        string decodedString = System.Web.HttpUtility.UrlDecode(code);
         var builder=new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json",optional:true,reloadOnChange:true);
         IConfiguration configuration=builder.Build();
         string userId=configuration["DiscordSettings:userID"];
@@ -33,7 +33,8 @@ public class DiscordService
 
         using (var client = new HttpClient())
         {
-             var content = new FormUrlEncodedContent(values);
+            try{
+            var content = new FormUrlEncodedContent(values);
 
             var response = await client.PostAsync("https://discord.com/api/v10/oauth2/token", content);
             var responseString = await response.Content.ReadAsStringAsync();
@@ -58,6 +59,7 @@ public class DiscordService
                 Data=accessToken
             };
             }
+            
             else
             {
                 return new ServiceResult<string>
@@ -65,9 +67,18 @@ public class DiscordService
                     Message=$"Błąd: {response.StatusCode} - {response.ReasonPhrase}",
                     ResultCode=400
                 };
-            }
+                }
+
         }
-    }
+        catch(Exception ex)
+            {
+                return new ServiceResult<string>
+                {
+                    Message=$"Błąd połączenia: {ex}",
+                    ResultCode=504
+                };
+            }
+    }}
     
         public async Task<ServiceResult<string>> GetDiscordUserInfo(string token)
     {

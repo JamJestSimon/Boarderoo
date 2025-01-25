@@ -8,7 +8,6 @@ namespace BoarderooAPI.Controllers;
  [Route("[controller]")]
 public class GameController:ControllerBase
 {
-    private readonly FireBaseService _firebaseService;
     private readonly GameService _gameService;
     public GameController(GameService gameService)
     {
