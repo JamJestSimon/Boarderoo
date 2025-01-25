@@ -27,11 +27,17 @@ public class AppAuthorizationController:ControllerBase
     }
     [HttpGet]
     [Route("/test")]
-    public async Task<ActionResult> Test()
+    public async Task<ActionResult> Test(string url)
     {
+        try{
         using var client = new HttpClient();
-    var response = await client.GetAsync("https://google.com");
-    return Ok($"Response status: {response.StatusCode}");
+        var response = await client.GetAsync(url);
+        
+        return Ok($"Response status: {response.Content.ReadAsStringAsync().Result}");
+        }catch(Exception e)
+        {
+            return BadRequest("blad "+e);
+        }
     }
     [HttpPost]
      [Route("/googleuser")]
