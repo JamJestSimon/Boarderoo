@@ -139,7 +139,7 @@ public class LoginService
             .Replace("+", "-")
             .Replace("/", "_")
             .TrimEnd('=');
-            var state = await _userService.UpdateToken(email, token,DateTime.Now);
+            var state = await _userService.UpdateToken(email, token);
             //await _userService.UpdateToken(email,token); //aktualizujemy token
             string url=$"https://boarderoo-71469.firebaseapp.com/weryfikacja?code={token}";
             string message=$"Witaj, twoj link aktywacyjny do Boarderoo Application to: {url}";
