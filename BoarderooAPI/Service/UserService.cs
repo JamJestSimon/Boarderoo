@@ -135,8 +135,8 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
             await UpdateToken(mail, token);
             string url=$"https://boarderoo-71469.firebaseapp.com/resethasla?code={token}";
             string message=$"Witaj, twoj link aktywacyjny do Boarderoo Application to: {url}";
-            //var result=await _emailService.SendEmailAsync(mail,$"Weryfikacja Boarderoo",message);
-            var result=message;
+            var result=await _emailService.SendEmailAsync(mail,$"Weryfikacja Boarderoo",message);
+            //var result=message;
             return new ServiceResult<string>
         {
             Message="Wyslano token do zmiany hasla!",
