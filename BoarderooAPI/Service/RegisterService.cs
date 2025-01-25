@@ -30,6 +30,7 @@ public RegisterService(UserService userService,EmailService emailService,FireBas
             .Replace("/", "_")
             .TrimEnd('=');
             user.IsVerified=false;
+            user.Token=token;
             if (user.Authorization!="discord"&&user.Authorization!="google")
             {
                 user.Authorization="local";
