@@ -29,9 +29,15 @@ public class AppAuthorizationController:ControllerBase
     [Route("/test")]
     public async Task<ActionResult> Test()
     {
+        try{
         using var client = new HttpClient();
     var response = await client.GetAsync("https://google.com");
+        
     return Ok($"Response status: {response.StatusCode}");
+        }catch(Exception e)
+        {
+            return BadRequest("blad "+e);
+        }
     }
     [HttpPost]
      [Route("/googleuser")]
