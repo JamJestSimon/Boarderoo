@@ -90,7 +90,7 @@ public RegisterService(UserService userService,EmailService emailService,FireBas
         if (now<time)
         {
             await _userService.UpdateVerified(user.Email,true);
-            await _userService.UpdateToken(user.Email, ""); //usuwanie tokena
+            await _userService.UpdateToken(user.Email, "",DateTime.Now.AddDays(-10)); //usuwanie tokena
 
              return new ServiceResult<string>
         {

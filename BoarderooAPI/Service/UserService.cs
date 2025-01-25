@@ -78,7 +78,7 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
            req.Email=user.Email;
            req.Password=password;
             await ChangeUserPassword(req);
-            await UpdateToken(user.Email, "");
+            await UpdateToken(user.Email, "",DateTime.Now.AddDays(-10));//usuwanie tokena
              return new ServiceResult<string>
         {
             Message="Haslo zostalo zmienione!",
@@ -129,7 +129,7 @@ string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
             .Replace("+", "-")
             .Replace("/", "_")
             .TrimEnd('=');
-            var state = await UpdateToken(mail, token);
+            var state = await UpdateToken(mail, token,DateTime.Now);
            
             string url=$"http://localhost:4200/resethasla?code={token}";
             string message=$"Witaj, twoj link aktywacyjny do Boarderoo Application to: {url}";
@@ -468,7 +468,7 @@ string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
             }
         }
 
-    public async Task<ServiceResult<UserDocument>> UpdateToken(string email,string token)
+    public async Task<ServiceResult<UserDocument>> UpdateToken(string email,string token,DateTime time)
     {
         try{
     var emailDocuments = this.getUserCollectionByEmail(email);
@@ -488,14 +488,14 @@ string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
                 Dictionary<string, object> userdict = new Dictionary<string, object>()
             {
                 { "Token",token},
-                { "TokenCreationDate", Google.Cloud.Firestore.Timestamp.FromDateTime(DateTime.UtcNow.AddDays(-10)) }
+                { "TokenCreationDate", time }
             };
             
             DocumentReference emailDocument=data.Documents[0].Reference;
 
             await emailDocument.UpdateAsync(userdict);
 
-            await emailDocument.UpdateAsync(userdict);
+            //await emailDocument.UpdateAsync(userdict);
             var usersCollection = this.getUserCollectionByEmail(email);
             var user = data[0].ConvertTo<UserDocument>();
 
