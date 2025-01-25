@@ -32,14 +32,15 @@ public class GoogleService
         {
             try{
             var response = await client.PostAsync("https://oauth2.googleapis.com/token", content);
+            response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
 
-            using var jsonDoc = JsonDocument.Parse(responseString);
-            var root = jsonDoc.RootElement;
+            // using var jsonDoc = JsonDocument.Parse(responseString);
+            // var root = jsonDoc.RootElement;
 
-            // Pobierz wartości z JSON
-            var accessToken = root.GetProperty("access_token").GetString();
-            int expiresIn = root.GetProperty("expires_in").GetInt32();
+            // // Pobierz wartości z JSON
+            // var accessToken = root.GetProperty("access_token").GetString();
+            // int expiresIn = root.GetProperty("expires_in").GetInt32();
 
             // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bot", token);
             // client.DefaultRequestHeaders.Add("User-Agent", "CSharp App");
@@ -48,15 +49,15 @@ public class GoogleService
 
              if (response.IsSuccessStatusCode)
             {
-                var json = await response.Content.ReadAsStringAsync();
-                string dec = System.Web.HttpUtility.UrlDecode(json);
-                var result = dec.Trim().TrimStart('/').TrimEnd('/');
+                // var json = await response.Content.ReadAsStringAsync();
+                // string dec = System.Web.HttpUtility.UrlDecode(json);
+                // var result = dec.Trim().TrimStart('/').TrimEnd('/');
                 
                 return new ServiceResult<string>
             {
                 Message="Uzytkownik zautoryzowany pomyslnie!",
                 ResultCode=200,
-                Data=accessToken
+                Data=responseString
             };
             }
             else

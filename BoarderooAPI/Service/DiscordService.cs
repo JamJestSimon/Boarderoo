@@ -37,6 +37,7 @@ public class DiscordService
             var content = new FormUrlEncodedContent(values);
 
             var response = await client.PostAsync("https://discord.com/api/v10/oauth2/token", content);
+                response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
             // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bot", token);
             // client.DefaultRequestHeaders.Add("User-Agent", "CSharp App");
@@ -45,18 +46,18 @@ public class DiscordService
 
             if (response.IsSuccessStatusCode)
             {
-                var json = await response.Content.ReadAsStringAsync();
-                using var jsonDoc = JsonDocument.Parse(responseString);
-            var root = jsonDoc.RootElement;
+                // var json = await response.Content.ReadAsStringAsync();
+                // using var jsonDoc = JsonDocument.Parse(responseString);
+                // var root = jsonDoc.RootElement;
 
             // Pobierz wartości z JSON
-            var accessToken = root.GetProperty("access_token").GetString();
+            //var accessToken = root.GetProperty("access_token").GetString();
                 
                 return new ServiceResult<string>
             {
                 Message="Uzytkownik zautoryzowany pomyslnie!",
                 ResultCode=200,
-                Data=accessToken
+                Data=responseString
             };
             }
             
