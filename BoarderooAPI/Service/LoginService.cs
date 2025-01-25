@@ -143,8 +143,8 @@ public class LoginService
             await _userService.UpdateToken(email,token); //aktualizujemy token
             string url=$"https://boarderoo-71469.firebaseapp.com/weryfikacja?code={token}";
             string message=$"Witaj, twoj link aktywacyjny do Boarderoo Application to: {url}";
-            //var result=await _emailService.SendEmailAsync(email,$"Weryfikacja Boarderoo",message);
-            var result=message;
+            var result=await _emailService.SendEmailAsync(email,$"Weryfikacja Boarderoo",message);
+            //var result=message;
             return new ServiceResult<string>
         {
             Message="Wyslano token logowania!",
