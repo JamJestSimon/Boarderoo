@@ -50,6 +50,7 @@ fun GameDetailsScreen(
     val errorMessage = viewModel.errorMessage.collectAsState()
     LaunchedEffect(game) { viewModel.getGameDetails(id) }
 
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -121,6 +122,7 @@ fun GameDetailsScreen(
                     fontSize = 12.sp,
                 ) {
                     AppRuntimeData.cart.add(game.value!!)
+                    navController.navigateUp()
                 }
             } else {
                 Text(

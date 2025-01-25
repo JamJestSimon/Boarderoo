@@ -1,6 +1,7 @@
 package pl.boarderoo.mobileapp.retrofit
 
 import pl.boarderoo.mobileapp.retrofit.data.LoginRequest
+import pl.boarderoo.mobileapp.retrofit.data.RegisterRequest
 import pl.boarderoo.mobileapp.retrofit.data.UpdatePasswordRequest
 import pl.boarderoo.mobileapp.retrofit.models.GameModel
 import pl.boarderoo.mobileapp.retrofit.models.OrderModel
@@ -18,6 +19,11 @@ interface APIService {
     @POST("Login")
     suspend fun getLoginResult(
         @Body request: LoginRequest
+    ): Response<ResponseModel<String>>
+
+    @POST("register")
+    suspend fun registerUser(
+        @Body request: RegisterRequest
     ): Response<ResponseModel<String>>
 
     @GET("User/{email}")

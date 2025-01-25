@@ -137,7 +137,7 @@ fun OrderDetailsScreen(navController: NavController, id: String) {
                     }
                 }
             }
-            if(order.value!!.status != "Zakończone") {
+            if(order.value!!.status != "Zakończone" && order.value!!.status != "Anulowane") {
                 Spacer(modifier = Modifier.height(10.dp))
                 LightButton(
                     text = "Anuluj zamówienie",
