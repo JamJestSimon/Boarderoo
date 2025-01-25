@@ -31,7 +31,7 @@ public class AppAuthorizationController:ControllerBase
     {
         try{
         using var client = new HttpClient();
-        var response = await client.GetAsync("url");
+        var response = await client.GetAsync(url);
         
         return Ok($"Response status: {response.Content.ReadAsStringAsync().Result}");
         }catch(Exception e)
