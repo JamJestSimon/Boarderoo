@@ -1,0 +1,109 @@
+<div class="game-details-overlay">
+    <div class="game-details-content">
+        <div class="game-details-top">
+            <div class="game-details">
+                <div>
+                    <span>{{ selectedCard?.title }}</span>
+                    <span>Wydawca: {{ selectedCard?.publisher }}</span>
+                </div>
+                <button class="close-button" (click)="onClose()">×</button>
+            </div>
+        </div>
+
+        <div class="game-details-sections">
+            <div class="game-details-left">
+                <form>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="title">Nazwa:</label>
+                            <input id="title" type="text" [(ngModel)]="selectedCard.title" name="title" required />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label for="publisher">Producent:</label>
+                            <div class="input-container">
+                                <select id="publisher" [(ngModel)]="selectedCard.publisher" name="publisher"
+                                    class="custom-select">
+                                    <option *ngFor="let publisher of publishers" [value]="publisher">{{ publisher }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">Kategoria:</label>
+                            <div class="input-container">
+                                <select id="category" [(ngModel)]="selectedCard.category" name="category"
+                                    class="custom-select">
+                                    <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="images">Wgraj zdjęcia:</label>
+                            <input id="images" type="file" (change)="onFileChange($event)" multiple />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="price">Cena:</label>
+                            <input id="price" type="text" [(ngModel)]="selectedCard.price" name="price" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="playersFrom">Gracze (od):</label>
+                            <input id="playersFrom" type="number" [(ngModel)]="selectedCard.playersFrom" [min]="1"
+                                name="playersFrom" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="playersTo">Gracze (do):</label>
+                            <input id="playersTo" type="number" [(ngModel)]="selectedCard.playersTo" [max]="8"
+                                name="playersTo" required />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="releaseYear">Rok wydania:</label>
+                            <input id="releaseYear" type="number" [(ngModel)]="selectedCard.year" [min]="2000"
+                                [max]="2100" name="releaseYear" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ageFrom">Wiek (od):</label>
+                            <input id="ageFrom" type="number" [(ngModel)]="selectedCard.ageFrom" [min]="0"
+                                name="ageFrom" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ageTo">Wiek (do):</label>
+                            <input id="ageTo" type="number" [(ngModel)]="selectedCard.ageTo" [max]="100" name="ageTo"
+                                required />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="description">Opis:</label>
+                            <textarea id="description" [(ngModel)]="selectedCard.description" name="description"
+                                rows="4" required></textarea>
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button *ngIf="selectedCard?.action !== 'add'" type="button" class="delete-button"
+                            (click)="deleteGame()">Usuń</button>
+                        <button class="submit-button" (click)="editGame()">Zapisz</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="toast-container" class="toast-top-right"></div>

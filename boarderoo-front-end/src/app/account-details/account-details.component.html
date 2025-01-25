@@ -1,0 +1,125 @@
+<div class="account-details-overlay">
+  <div class="account-details-content">
+    <div class="account-details-left">
+      <div class="avatar">
+        <img src="avatar.png" alt="Awatar" class="avatar-img" />
+        <span class="username">{{user}}</span>
+        <button class="close-button" (click)="onClose()">×</button>
+      </div>
+    </div>
+
+    <div class="account-details-sections">
+      <div class="account-details-tabs">
+        <div class="tabs">
+          <button class="tab-button" (click)="showData()" [class.hover]="currentTab === 'data'"
+            (mouseenter)="setHovered()" (mouseleave)="resetHovered()">
+            Dane
+          </button>
+          <button class="tab-button" (click)="showPassword()" [class.hover]="currentTab === 'password'"
+            (mouseenter)="setHovered()" (mouseleave)="resetHovered()">
+            Hasło
+          </button>
+          <button class="tab-button" (click)="showOrderHistory()" [class.hover]="currentTab === 'orderHistory'"
+            (mouseenter)="setHovered()" (mouseleave)="resetHovered()">
+            Historia zamówień
+          </button>
+        </div>
+      </div>
+
+
+      <div class="account-details-right">
+        <div [style.display]="openedTab === 'data' ? 'block' : 'none'">
+          <h2>Dane</h2>
+          <form>
+            <div class="input-row">
+              <div class="input-group">
+                <label for="firstName">Imię</label>
+                <input type="text" id="firstName" name="userName" placeholder="Wprowadź imię" [(ngModel)]="userName" />
+              </div>
+            </div>
+            <div class="input-row">
+              <div class="input-group">
+                <label for="lastName">Nazwisko</label>
+                <input type="text" id="lastName" name="surname" placeholder="Wprowadź nazwisko" [(ngModel)]="surname" />
+              </div>
+            </div>
+            <div class="input-row">
+              <div class="input-group">
+                <label for="address">Adres</label>
+                <input type="text" id="address" name="address" placeholder="Wprowadź adres" [(ngModel)]="address" />
+              </div>
+            </div>
+            <button class="save-button" (click)="UpdateUser()">Zapisz zmiany</button>
+          </form>
+        </div>
+        <div [style.display]="openedTab === 'password' ? 'block' : 'none'">
+          <h2>Zmiana hasła</h2>
+          <form>
+            <div class="input-row">
+              <div class="input-group">
+                <label for="oldPassword">Stare hasło</label>
+                <input type="password" id="oldPassword" name="oldPassword" [(ngModel)]="oldPassword"
+                  placeholder="Podaj stare hasło" />
+              </div>
+            </div>
+            <div class="input-row">
+              <div class="input-group">
+                <label for="newPassword">Nowe hasło</label>
+                <input type="password" id="newPassword" name="newPassword" [(ngModel)]="newPassword"
+                  placeholder="Podaj nowe hasło" />
+              </div>
+            </div>
+            <div class="input-row">
+              <div class="input-group">
+                <label for="retypePassword">Powtórz hasło</label>
+                <input type="password" id="retypePassword" name="retypePassword" [(ngModel)]="retypePassword"
+                  placeholder="Powtórz nowe hasło" />
+              </div>
+            </div>
+            <button class="save-button" (click)="PasswordUpdate()">Zapisz zmiany</button>
+          </form>
+        </div>
+        <div [style.display]="openedTab === 'orderHistory' ? 'block' : 'none'">
+          <h2>Historia zamówień</h2>
+          <div class="order-list">
+            <div class="order-content" *ngFor="let order of orders">
+              <div class="order-row">
+                <div class="order-info">
+                  <div class="order-number">
+                    <strong>Numer zamówienia:</strong> {{ order.id }}
+                  </div>
+                  <div class="order-date">
+                    Data: {{ order.start }}
+                  </div>
+                </div>
+                <div class="order-price">
+                  <div class="order-total">
+                    Cena: {{ order.price | currency }}
+                  </div>
+                </div>
+                <div class="order-arrow">
+                  <button class="expand-button" (click)="toggleDetails(order)">
+                    <span [class]="order.showDetails ? 'arrow-up' : 'arrow-down'"></span>
+                  </button>
+                </div>
+              </div>
+              <div class="order-details" *ngIf="order.showDetails">
+                <p>Szczegóły zamówienia:</p>
+                <ul>
+                  <li *ngFor="let item of order.items">{{ item }}</li>
+                </ul>
+                <p>Status zamówienia: {{ order.status }}</p>
+
+                <button *ngIf="order.status === 'Zapłacone'" class="cancel-button" (click)="changeStatus(order)">
+                  Anuluj zamówienie
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toast-top-right"></div>

@@ -1,13 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
+import { StartPageComponent } from "./start-page/start-page.component";
+import { MainPageComponent } from './main-page/main-page.component';
+import { AccountDetailComponent } from "./account-details/account-details.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  imports: [CommonModule, RouterOutlet],
+  styleUrls: ['./app.component.css'],
+  template: `<main>
+    <router-outlet />
+</main>`
 })
 export class AppComponent {
   title = 'boarderoo-front-end';
+
 }

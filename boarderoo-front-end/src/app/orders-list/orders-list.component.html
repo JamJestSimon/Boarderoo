@@ -1,0 +1,44 @@
+<app-nav-bar [isAdmin]="isAdmin"></app-nav-bar>
+
+<div id="order-details-popup"
+  [ngClass]="{ 'orderDetailsInvisible': !isOrderDetailsVisible, 'orderDetailsVisible': isOrderDetailsVisible }">
+  <app-order-details (close)="toggleOrderDetails()" [selectedOrder]="selectedOrder"
+    [orderUser]="orderUser"></app-order-details>
+</div>
+
+
+<div class="container">
+  <div class="left-pane">
+    <span class="filtr-label">Filtry</span>
+    <div class="divider"></div>
+
+    <label for="gameName">Numer zamówienia:</label>
+    <div class="input-group">
+      <input type="text" id="orderNumber" placeholder="Szukaj po numerze zamówienia:" name="pattern"
+        [(ngModel)]="pattern" />
+    </div>
+    <div class="input-container">
+      <label for="example-select">Status:</label>
+      <select id="example-select" class="custom-select" [(ngModel)]="status">
+        <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+      </select>
+
+    </div>
+
+    <button class="confirm-button" (click)="updateOrdersInput()">Zatwierdź</button>
+  </div>
+  <div class="right-pane">
+    <div class="right-pane">
+      <div *ngFor="let order of ordersInput" class="order-card" (click)="toggleOrderDetails(order)">
+        <div class="order-left">
+          <div class="order-number">Numer zamówienia: <strong>{{ order.id }}</strong></div>
+          <div class="order-date">Data złożenia: <strong>{{ order.start }}</strong></div>
+        </div>
+        <div class="order-right">
+          <div class="order-status">Status: <span>{{ order.status }}</span></div>
+          <div class="order-amount">Kwota: <strong>{{ order.price }}</strong></div>
+        </div>
+      </div>
+
+    </div>
+  </div>

@@ -1,0 +1,112 @@
+<app-nav-bar [isAdmin]="isAdmin"></app-nav-bar>
+<div id="account-details-popup" [ngClass]="{
+    'gameDetailsInvisible': !isGameDetailsVisible,
+    'gameDetailsVisible': isGameDetailsVisible
+  }">
+  <app-game-details (close)="toggleGameDetails()" [selectedCard]="selectedCard"></app-game-details>
+</div>
+
+<div class="container">
+  <div class="left-pane">
+    <span class="filtr-label">Filtry</span>
+    <div class="divider"></div>
+
+    <label for="gameName">Nazwa:</label>
+    <div class="input-group">
+      <input type="text" id="gameName" placeholder="Szukaj po nazwie" name="pattern" [(ngModel)]="pattern" />
+    </div>
+
+    <span class="option-label">Wydawcy:</span>
+    <div class="dropdown-container">
+      <div class="dropdown-input" (click)="toggleDropdown($event)">
+        <input type="text" [value]="selectedOptions.join(', ')" readonly placeholder="Wybierz opcje" />
+      </div>
+      <div class="dropdown-table" *ngIf="isDropdownOpen">
+        <table>
+          <tr *ngFor="let option of options">
+            <td>
+              <input type="checkbox" [checked]="selectedOptions.includes(option)"
+                (change)="onSelectionChange(option)" />
+            </td>
+            <td>{{ option }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <span class="option-label">Kategorie:</span>
+    <div class="dropdown-container">
+      <div class="dropdown-input" (click)="toggleCategoryDropdown($event)">
+        <input type="text" [value]="selectedCategories.join(', ')" readonly placeholder="Wybierz kategorie" />
+      </div>
+      <div class="dropdown-table" *ngIf="isCategoryDropdownOpen">
+        <table>
+          <tr *ngFor="let category of categories">
+            <td>
+              <input type="checkbox" [checked]="selectedCategories.includes(category)"
+                (change)="onCategorySelectionChange(category)" />
+            </td>
+            <td>{{ category }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <label for="range-slider">Liczba osób:</label>
+    <div class="slider-container">
+      <div class="slider-track"></div>
+      <input type="range" [(ngModel)]="minValue" [min]="minRange" [max]="maxRange" [step]="step"
+        (input)="updateSlider()" class="thumb thumb-left" />
+      <input type="range" [(ngModel)]="maxValue" [min]="minRange" [max]="maxRange" [step]="step"
+        (input)="updateSlider()" class="thumb thumb-right" />
+    </div>
+    <div class="slider-values">
+      <span>Min: {{ minValue }}</span>
+      <span>Max: {{ maxValue }}</span>
+    </div>
+
+    <label for="range-slider">Wiek graczy:</label>
+    <div class="slider-container">
+      <div class="slider-track"></div>
+      <input type="range" [(ngModel)]="minValueAge" [min]="minRangeAge" [max]="maxRangeAge" [step]="stepAge"
+        (input)="updateSliderAge()" class="thumb thumb-left" />
+      <input type="range" [(ngModel)]="maxValueAge" [min]="minRangeAge" [max]="maxRangeAge" [step]="stepAge"
+        (input)="updateSliderAge()" class="thumb thumb-right" />
+    </div>
+    <div class="slider-values">
+      <span>Min: {{ minValueAge }}</span>
+      <span>Max: {{ maxValueAge }}</span>
+    </div>
+
+    <label for="range-slider">Rok wydania:</label>
+    <div class="slider-container">
+      <div class="slider-track"></div>
+      <input type="range" [(ngModel)]="minValueYear" [min]="minRangeYear" [max]="maxRangeYear" [step]="stepYear"
+        (input)="updateSliderYear()" class="thumb thumb-left" />
+      <input type="range" [(ngModel)]="maxValueYear" [min]="minRangeYear" [max]="maxRangeYear" [step]="stepYear"
+        (input)="updateSliderYear()" class="thumb thumb-right" />
+    </div>
+    <div class="slider-values">
+      <span>Min: {{ minValueYear }}</span>
+      <span>Max: {{ maxValueYear }}</span>
+    </div>
+
+    <button class="confirm-button" (click)="updateOrdersInput()">
+      Zatwierdź
+    </button>
+  </div>
+
+  <div class="right-pane">
+    <div class="card" *ngFor="let card of cardsInput" (click)="toggleGameDetails(card)">
+      <img [src]="getPhotoUrl(card.photos[0])" alt="Opis obrazka" class="card-image" />
+      <div class="card-text">
+        <h3>{{ card.title }}</h3>
+        <p>Wydawca: {{ card.publisher }}</p>
+        <p>Wiek: {{ card.ageFrom }} - {{ card.ageTo }}</p>
+        <p>Liczba graczy: {{ card.playersFrom }} - {{ card.playersTo }}</p>
+        <p>Kategoria: {{ card.category }}</p>
+      </div>
+      <div class="card-price">Cena: {{ card.price }} zł</div>
+    </div>
+  </div>
+</div>

@@ -22,6 +22,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="boarderoo" android:host="callback" />
+                <data android:scheme="boarderoo" android:host="paypal" />
             </intent-filter>
         </activity>
         <activity

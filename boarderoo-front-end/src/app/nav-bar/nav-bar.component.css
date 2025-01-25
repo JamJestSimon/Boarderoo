@@ -1,0 +1,112 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 99%;
+    height: 8vh;
+    background-color: #422D29;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+}
+
+
+.navbar-logo {
+    padding: 10px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-logo-img {
+    height: 40px;
+    margin-right: 10px;
+    width: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.navbar-logo-text {
+    font-size: 20px;
+    font-weight: bold;
+    color: #EA962A;
+}
+
+
+.navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 10px;
+}
+
+.navbar-cart {
+    position: relative;
+}
+
+.navbar-cart-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.navbar-icon {
+    height: 40px;
+    transition: transform 0.3s ease;
+}
+
+.navbar-icon:hover {
+    transform: scale(1.1);
+}
+
+
+.userOptionsInvisible {
+    position: relative;
+    display: none;
+}
+
+.userOptionsVisible {
+    position: relative;
+    display: block;
+
+}
+
+.navbar-user {
+    position: relative;
+}
+
+.navbar-user-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+
+.navbar-user-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background: #A4691D;
+    list-style: none;
+    padding: 0;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    border: 3px solid #422D29;
+    width: 150px;
+}
+
+.accountDetailsInvisible {
+    display: none;
+}
+
+.accountDetailsVisible {
+    display: block;
+}
+
+.cartInvisible {
+    display: none;
+}
+
+.cartVisible {
+    display: block;
+}
