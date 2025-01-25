@@ -237,7 +237,7 @@ fun CartScreen() {
                             .padding(10.dp)
                     ) {
                         Text("Przedmiot: ${item.name}")
-                        Text("Ilość: ${item.quantity}")
+                        Text("Dni: ${item.quantity}")
                         Text(
                             "Koszt: ${
                                 (item.price * item.quantity * (ChronoUnit.DAYS.between(

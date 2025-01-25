@@ -6,9 +6,15 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -17,12 +23,15 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -32,6 +41,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
@@ -71,81 +81,193 @@ class MainActivity : ComponentActivity() {
                     ModalNavigationDrawer(
                         drawerState = drawerState,
                         drawerContent = {
-                            ModalDrawerSheet {
-                                Text(
-                                    "Witaj, ${AppRuntimeData.user?.name}",
-                                    modifier = Modifier.padding(16.dp)
+                            ModalDrawerSheet(
+                                modifier = Modifier
+                                    .padding(start = 0.dp)
+                                    .clip(RoundedCornerShape(10.dp))
+                                    .border(
+                                        2.dp,
+                                        colorResource(R.color.buttonSecondColor),
+                                        shape = RoundedCornerShape(10.dp)
+                                    )
+                                    .background(colorResource(R.color.textColor)),
+
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(56.dp)
+                                        .background(colorResource(id = R.color.textColor))
+                                ) {
+                                    Text(
+                                        "Witaj, ${AppRuntimeData.user?.name}",
+                                        modifier = Modifier
+                                            .padding(16.dp),
+                                        color = colorResource(R.color.backgroundColor)
+                                    )
+                                }
+                                HorizontalDivider(
+                                    color = colorResource(id = R.color.buttonSecondColor),
                                 )
-                                HorizontalDivider()
-                                NavigationDrawerItem(
-                                    label = { Text("Strona Główna") },
-                                    selected = selectedRoute == "Strona Główna",
-                                    onClick = {
-                                        selectedRoute = "Strona Główna"
-                                        navController.navigate("MainScreen")
-                                        scope.launch {
-                                            drawerState.apply {
-                                                if (isClosed) open() else close()
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .let {
+                                            if (selectedRoute == "Strona Główna") {
+                                                it.background(colorResource(R.color.backgroundColor))
+                                            } else {
+                                                it.background(colorResource(R.color.textColor))
                                             }
                                         }
-                                    }
-                                )
-                                NavigationDrawerItem(
-                                    label = { Text("Gry") },
-                                    selected = selectedRoute == "Gry",
-                                    onClick = {
-                                        selectedRoute = "Gry"
-                                        navController.navigate("GameScreen")
-                                        scope.launch {
-                                            drawerState.apply {
-                                                if (isClosed) open() else close()
+                                        .clickable { // Akcja kliknięcia
+                                            selectedRoute = "Strona Główna"
+                                            navController.navigate("MainScreen")
+                                            scope.launch {
+                                                drawerState.apply {
+                                                    if (isClosed) open() else close()
+                                                }
                                             }
                                         }
-                                    }
-                                )
-                                NavigationDrawerItem(
-                                    label = { Text("Zamówienia") },
-                                    selected = selectedRoute == "Zamówienia",
-                                    onClick = {
-                                        selectedRoute = "Zamówienia"
-                                        navController.navigate("OrderScreen")
-                                        scope.launch {
-                                            drawerState.apply {
-                                                if (isClosed) open() else close()
+                                        .padding(16.dp)
+                                ) {
+                                    Text(
+                                        text = "Strona Główna",
+                                        color = if (selectedRoute == "Strona Główna") {
+                                            colorResource(R.color.textColor)
+                                        } else {
+                                            colorResource(R.color.backgroundColor)
+                                        },
+                                    )
+                                }
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .let {
+                                            if (selectedRoute == "Gry") {
+                                                it.background(colorResource(R.color.backgroundColor))
+                                            } else {
+                                                it.background(colorResource(R.color.textColor))
                                             }
                                         }
-                                    }
-                                )
-                                NavigationDrawerItem(
-                                    label = { Text("Koszyk") },
-                                    selected = selectedRoute == "Koszyk",
-                                    onClick = {
-                                        selectedRoute = "Koszyk"
-                                        navController.navigate("CartScreen")
-                                        scope.launch {
-                                            drawerState.apply {
-                                                if (isClosed) open() else close()
+                                        .clickable {
+                                            selectedRoute = "Gry"
+                                            navController.navigate("GameScreen")
+                                            scope.launch {
+                                                drawerState.apply {
+                                                    if (isClosed) open() else close()
+                                                }
                                             }
                                         }
-                                    }
-                                )
-                                NavigationDrawerItem(
-                                    label = { Text("Konto") },
-                                    selected = selectedRoute == "Konto",
-                                    onClick = {
-                                        selectedRoute = "Konto"
-                                        navController.navigate("AccountInfo")
-                                        scope.launch {
-                                            drawerState.apply {
-                                                if (isClosed) open() else close()
+                                        .padding(16.dp)
+                                ) {
+                                    Text(
+                                        text = "Gry",
+                                        color = if (selectedRoute == "Gry") {
+                                            colorResource(R.color.textColor)
+                                        } else {
+                                            colorResource(R.color.backgroundColor)
+                                        },
+                                    )
+                                }
+
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .let {
+                                            if (selectedRoute == "Zamówienia") {
+                                                it.background(colorResource(R.color.backgroundColor))
+                                            } else {
+                                                it.background(colorResource(R.color.textColor))
                                             }
                                         }
-                                    }
-                                )
+                                        .clickable {
+                                            selectedRoute = "Zamówienia"
+                                            navController.navigate("OrderScreen")
+                                            scope.launch {
+                                                drawerState.apply {
+                                                    if (isClosed) open() else close()
+                                                }
+                                            }
+                                        }
+                                        .padding(16.dp)
+                                ) {
+                                    Text(
+                                        text = "Zamówienia",
+                                        color = if (selectedRoute == "Zamówienia") {
+                                            colorResource(R.color.textColor)
+                                        } else {
+                                            colorResource(R.color.backgroundColor)
+                                        },
+                                    )
+                                }
+
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .let {
+                                            if (selectedRoute == "Koszyk") {
+                                                it.background(colorResource(R.color.backgroundColor))
+                                            } else {
+                                                it.background(colorResource(R.color.textColor))
+                                            }
+                                        }
+                                        .clickable {
+                                            selectedRoute = "Koszyk"
+                                            navController.navigate("CartScreen")
+                                            scope.launch {
+                                                drawerState.apply {
+                                                    if (isClosed) open() else close()
+                                                }
+                                            }
+                                        }
+                                        .padding(16.dp)
+                                ) {
+                                    Text(
+                                        text = "Koszyk",
+                                        color = if (selectedRoute == "Koszyk") {
+                                            colorResource(R.color.textColor)
+                                        } else {
+                                            colorResource(R.color.backgroundColor)
+                                        },
+                                    )
+                                }
+
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .let {
+                                            if (selectedRoute == "Konto") {
+                                                it.background(colorResource(R.color.backgroundColor))
+                                            } else {
+                                                it.background(colorResource(R.color.textColor))
+                                            }
+                                        }
+                                        .clickable {
+                                            selectedRoute = "Konto"
+                                            navController.navigate("AccountInfo")
+                                            scope.launch {
+                                                drawerState.apply {
+                                                    if (isClosed) open() else close()
+                                                }
+                                            }
+                                        }
+                                        .padding(16.dp)
+                                ) {
+                                    Text(
+                                        text = "Konto",
+                                        color = if (selectedRoute == "Konto") {
+                                            colorResource(R.color.textColor)
+                                        } else {
+                                            colorResource(R.color.backgroundColor)
+                                        },
+                                    )
+                                }
+
                                 Box(
                                     modifier = Modifier
                                         .weight(1.0f)
                                         .fillMaxSize()
+                                        .background(colorResource(R.color.textColor))
                                 ) {
                                     Box(
                                         modifier = Modifier.align(Alignment.BottomEnd).padding(20.dp)
@@ -174,7 +296,12 @@ class MainActivity : ComponentActivity() {
                         Scaffold(
                             topBar = {
                                 CenterAlignedTopAppBar(
-                                    title = { Text(selectedRoute) },
+                                    title = {
+                                        Text(
+                                            text = selectedRoute,
+                                            color = colorResource(id = R.color.backgroundColor)
+                                        )
+                                    },
                                     navigationIcon = {
                                         IconButton(
                                             onClick = {
@@ -187,10 +314,15 @@ class MainActivity : ComponentActivity() {
                                         ) {
                                             Icon(
                                                 imageVector = Icons.Default.Menu,
-                                                contentDescription = "DrawerIcon"
+                                                contentDescription = "DrawerIcon",
+                                                tint = colorResource(id = R.color.backgroundColor)
                                             )
                                         }
-                                    }
+                                    },
+                                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                                        containerColor = colorResource(id = R.color.textColor),
+                                        titleContentColor = colorResource(id = R.color.backgroundColor)
+                                    )
                                 )
                             },
                             containerColor = colorResource(R.color.backgroundColor)
