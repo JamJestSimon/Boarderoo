@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 import { GameDetailsComponent } from '../game-details/game-details.component';
 import { HttpClient, HttpClientModule, HttpParams } from '@angular/common/http';
 import { CustomResponse } from '../CustomResponse';
-import { ToastrService } from 'ngx-toastr';
 import { GameCard } from '../GameCard';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -15,30 +14,29 @@ import { ActivatedRoute, Router } from '@angular/router';
   imports: [NavBarComponent, CommonModule, FormsModule, GameDetailsComponent, HttpClientModule],
   templateUrl: './main-page.component.html',
   styleUrl: './main-page.component.css',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Dodajemy schemat
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class MainPageComponent {
-[x: string]: any;
+  [x: string]: any;
   isGameDetailsVisible = false;
   selectedCard: any = null;
   isAdmin = false;
-  pattern=''
-  publisher=''
-  category=''
+  pattern = ''
+  publisher = ''
+  category = ''
   toggleGameDetails(card?: any) {
     if (card) {
-      this.selectedCard = card; // Ustawiamy wybraną kartę
+      this.selectedCard = card;
     }
-    this.isGameDetailsVisible = !this.isGameDetailsVisible; // Przełączamy widoczność
+    this.isGameDetailsVisible = !this.isGameDetailsVisible;
   }
-  
-  minRange = 1; // Minimalna wartość suwaka
-  maxRange = 8; // Maksymalna wartość suwaka
-  step = 1; // Krok przesuwania
-  minValue = 2; // Początkowa minimalna wartość
-  maxValue = 5; // Początkowa maksymalna wartość
+
+  minRange = 1;
+  maxRange = 8;
+  step = 1;
+  minValue = 1;
+  maxValue = 8;
   updateSlider(): void {
-    // Zabezpieczenie przed krzyżowaniem uchwytów
     if (this.minValue > this.maxValue) {
       [this.minValue, this.maxValue] = [this.maxValue, this.minValue];
     }
@@ -46,13 +44,12 @@ export class MainPageComponent {
     this.isDropdownOpen = false;
   }
 
-  minRangeYear = 2000; // Minimalna wartość suwaka
-  maxRangeYear = new Date().getFullYear(); // Maksymalna wartość suwaka
-  stepYear = 1; // Krok przesuwania
-  minValueYear = this.minRangeYear; // Początkowa minimalna wartość
-  maxValueYear = this.maxRangeYear; // Początkowa maksymalna wartość
+  minRangeYear = 2000;
+  maxRangeYear = new Date().getFullYear();
+  stepYear = 1;
+  minValueYear = this.minRangeYear;
+  maxValueYear = this.maxRangeYear;
   updateSliderYear(): void {
-    // Zabezpieczenie przed krzyżowaniem uchwytów
     if (this.minRangeYear > this.maxRangeYear) {
       [this.minRangeYear, this.maxRangeYear] = [this.maxRangeYear, this.minValueYear];
     }
@@ -60,13 +57,12 @@ export class MainPageComponent {
     this.isDropdownOpen = false;
   }
 
-  minRangeAge = 0; // Minimalna wartość suwaka
-  maxRangeAge = 100; // Maksymalna wartość suwaka
-  stepAge = 1; // Krok przesuwania
-  minValueAge = this.minRangeAge; // Początkowa minimalna wartość
-  maxValueAge = this.maxRangeAge; // Początkowa maksymalna wartość
+  minRangeAge = 0;
+  maxRangeAge = 100;
+  stepAge = 1;
+  minValueAge = this.minRangeAge;
+  maxValueAge = this.maxRangeAge;
   updateSliderAge(): void {
-    // Zabezpieczenie przed krzyżowaniem uchwytów
     if (this.minValueAge > this.maxValueAge) {
       [this.minValueAge, this.maxValueAge] = [this.maxValueAge, this.minValueAge];
     }
@@ -77,72 +73,64 @@ export class MainPageComponent {
 
   cards: GameCard[] = [];
   cardsInput: GameCard[] = [];
-  constructor(private toastr: ToastrService, private http: HttpClient,private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) { }
   GetGames() {
-    const proxyUrl = "https://cors-anywhere.herokuapp.com/"
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/game';
-    const fullUrl = proxyUrl + targetUrl;
-    console.log(fullUrl);
-    this.http.get<CustomResponse>(fullUrl).subscribe(response => {
-      console.log("gierki: ", response.data);
+    this.http.get<CustomResponse>(targetUrl).subscribe(response => {
       for (let i = 0; i < response.data.length; i++) {
         const item: any = response.data[i];
-        console.log(item.image);
-        console.log(typeof item); 
-        // Tworzymy obiekt typu GameCard
         const gameCard: GameCard = {
           id: item.id,
-          title: item.name || 'Brak tytułu',               // name -> title
-          publisher: item.publisher || 'Brak wydawcy',     // publisher
-          category: item.type || 'Brak kategorii',         // type -> category
-          price: item.price,// || parseFloat(item.price.toString()),    // price
-          year: parseInt(item.year.toString(), 10) || 0,    // year
-          description: item.description || 'Brak opisu',    // description
-          photos: item.image, // Jeśli jest image, to użyj go, w przeciwnym razie przypisz domyślne zdjęcie
-          ageFrom: parseInt(item.rating.trim().split('-')[0], 10),  // players_number -> playersFrom
-          ageTo: parseInt(item.rating.trim().split('-')[1], 10),     // players_number -> playersTo
-          playersFrom: parseInt(item.players_number.trim().split('-')[0], 10) || 1,  // players_number -> playersFrom
-          playersTo: parseInt(item.players_number.trim().split('-')[1], 10) || 2,    // players_number -> playersTo
-          action: ''                                        // Akcja (możesz dodać logikę, jeśli są dane)
+          title: item.name || 'Brak tytułu',
+          publisher: item.publisher || 'Brak wydawcy',
+          category: item.type || 'Brak kategorii',
+          price: item.price,
+          year: parseInt(item.year.toString(), 10) || 0,
+          description: item.description || 'Brak opisu',
+          photos: item.image,
+          ageFrom: parseInt(item.rating.trim().split('-')[0], 10),
+          ageTo: parseInt(item.rating.trim().split('-')[1], 10),
+          playersFrom: parseInt(item.players_number.trim().split('-')[0], 10) || 1,
+          playersTo: parseInt(item.players_number.trim().split('-')[1], 10) || 2,
+          action: ''
         };
-        
 
-        
-        // Dodajemy gameCard do listy
         this.cards.push(gameCard);
       }
       this.cardsInput = this.cards;
-      console.log(this.cardsInput);
       this.updateOrdersInput();
     }, error => {
-      console.error('Błąd:', error);
-      //this.failToast(error.error?.message);
     });
+  }
+
+  getPhotoUrl(fileName: string): string {
+    const baseUrl = 'https://firebasestorage.googleapis.com/v0/b/boarderoo-71469.firebasestorage.app/o/files%2F';
+    return `${baseUrl}${encodeURIComponent(fileName)}?alt=media`;
   }
 
   updateOrdersInput(): void {
     this.cardsInput = this.cards.filter(card => card.title.includes(this.pattern.trim()));
-    if(this.selectedCategories.length !== 0){
-      this.cardsInput = this.cardsInput.filter(card => 
+    if (this.selectedCategories.length !== 0) {
+      this.cardsInput = this.cardsInput.filter(card =>
         this.selectedCategories.some(category => card.category.includes(category)) &&
         card.title.includes(this.pattern.trim())
       );
     }
 
-    if(this.selectedOptions.length !== 0){
-      this.cardsInput = this.cardsInput.filter(card => 
+    if (this.selectedOptions.length !== 0) {
+      this.cardsInput = this.cardsInput.filter(card =>
         this.selectedOptions.some(publisher => card.publisher.includes(publisher)) &&
         card.title.includes(this.pattern.trim())
       );
     }
     this.cardsInput = this.cardsInput.filter(card => {
-    const isWithinRange = (card.ageFrom >= this.minValueAge && card.ageTo <= this.maxValueAge) && (card.year >= this.minValueYear && card.year <= this.maxValueYear) && (card.playersFrom >= this.minValue && card.playersTo <= this.maxValue)
-    return isWithinRange;
-  });
+      const isWithinRange = (card.ageFrom >= this.minValueAge && card.ageTo <= this.maxValueAge) && (card.year >= this.minValueYear && card.year <= this.maxValueYear) && (card.playersFrom >= this.minValue && card.playersTo <= this.maxValue)
+      return isWithinRange;
+    });
 
-  this.isCategoryDropdownOpen = false;
-  this.isDropdownOpen = false;
-  
+    this.isCategoryDropdownOpen = false;
+    this.isDropdownOpen = false;
+
   }
 
 
@@ -150,31 +138,26 @@ export class MainPageComponent {
     this.GetGames();
     const sessionToken = localStorage.getItem('session_token');
     if (!sessionToken) {
-      // Jeśli token jest pusty, przekierowujemy na stronę główną
       this.router.navigate(['/']);
 
-      
-  }
 
-}
+    }
+
+  }
 
 
   options = ['Fantasy Flight Games', 'Asmodee', 'Rebel', 'Days of Wonder', 'Ravensburger', 'Plaid Hat Games', 'Stonemaier Games', 'Portal Games,', 'Matagot', 'Lucky Duck Games'];
-  
-  // Zmienna przechowująca wybrane opcje
+
   selectedOptions: string[] = [];
 
-  // Zmienna określająca, czy dropdown jest otwarty
   isDropdownOpen = false;
 
-  // Metoda do obsługi kliknięcia na dropdown
   toggleDropdown(event: Event) {
     event.stopPropagation();
     this.isDropdownOpen = !this.isDropdownOpen;
     this.isCategoryDropdownOpen = false;
   }
 
-  // Metoda do obsługi zmiany wybranej opcji
   onSelectionChange(option: string) {
     if (this.selectedOptions.includes(option)) {
       this.selectedOptions = this.selectedOptions.filter((item) => item !== option);

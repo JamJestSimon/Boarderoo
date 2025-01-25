@@ -1,7 +1,9 @@
 <app-nav-bar [isAdmin]="isAdmin"></app-nav-bar>
 
-<div id="order-details-popup" [ngClass]="{ 'orderDetailsInvisible': !isOrderDetailsVisible, 'orderDetailsVisible': isOrderDetailsVisible }">
-  <app-order-details (close)="toggleOrderDetails()" [selectedOrder]="selectedOrder"></app-order-details>
+<div id="order-details-popup"
+  [ngClass]="{ 'orderDetailsInvisible': !isOrderDetailsVisible, 'orderDetailsVisible': isOrderDetailsVisible }">
+  <app-order-details (close)="toggleOrderDetails()" [selectedOrder]="selectedOrder"
+    [orderUser]="orderUser"></app-order-details>
 </div>
 
 
@@ -12,20 +14,18 @@
 
     <label for="gameName">Numer zamówienia:</label>
     <div class="input-group">
-        <input type="text" id="orderNumber" placeholder="Szukaj po numerze zamówienia:" name="pattern" [(ngModel)]="pattern"/>
-      </div>
-      <div class="input-container">
-        <label for="example-select">Status:</label>
-        <select id="example-select" class="custom-select" name="status" [(ngModel)]="status">
-          <option value="">-</option>
-          <option value="Anulowane">Anulowane</option>
-          <option value="option2">Opcja 2</option>
-          <option value="option3">Opcja 3</option>
-          <option value="option4">Opcja 4</option>
-        </select>
-      </div>
+      <input type="text" id="orderNumber" placeholder="Szukaj po numerze zamówienia:" name="pattern"
+        [(ngModel)]="pattern" />
+    </div>
+    <div class="input-container">
+      <label for="example-select">Status:</label>
+      <select id="example-select" class="custom-select" [(ngModel)]="status">
+        <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+      </select>
 
-  <button class="confirm-button" (click)="updateOrdersInput()">Zatwierdź</button>
+    </div>
+
+    <button class="confirm-button" (click)="updateOrdersInput()">Zatwierdź</button>
   </div>
   <div class="right-pane">
     <div class="right-pane">
@@ -36,11 +36,9 @@
         </div>
         <div class="order-right">
           <div class="order-status">Status: <span>{{ order.status }}</span></div>
-          <div class="order-amount">Kwota: <strong>{{ order.price }} zł</strong></div>
+          <div class="order-amount">Kwota: <strong>{{ order.price }}</strong></div>
         </div>
       </div>
-      
+
+    </div>
   </div>
-</div>
-
-

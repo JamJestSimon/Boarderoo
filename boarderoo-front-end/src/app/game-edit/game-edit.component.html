@@ -1,6 +1,5 @@
 <div class="game-details-overlay">
     <div class="game-details-content">
-        <!-- Pasek z koszykiem -->
         <div class="game-details-top">
             <div class="game-details">
                 <div>
@@ -12,10 +11,8 @@
         </div>
 
         <div class="game-details-sections">
-            <!-- Form to edit game details -->
             <div class="game-details-left">
-                <form (ngSubmit)="onSubmit()">
-                    <!-- Wiersz 1: Imię -->
+                <form>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="title">Nazwa:</label>
@@ -23,26 +20,28 @@
                         </div>
                     </div>
 
-                    <!-- Wiersz 2: Producent, Kategoria, Zdjęcia -->
                     <div class="form-row">
 
                         <div class="form-group">
                             <label for="publisher">Producent:</label>
                             <div class="input-container">
-                              <select id="publisher" [(ngModel)]="selectedCard.publisher" name="publisher" class="custom-select">
-                                <option *ngFor="let publisher of publishers" [value]="publisher">{{ publisher }}</option>
-                              </select>
+                                <select id="publisher" [(ngModel)]="selectedCard.publisher" name="publisher"
+                                    class="custom-select">
+                                    <option *ngFor="let publisher of publishers" [value]="publisher">{{ publisher }}
+                                    </option>
+                                </select>
                             </div>
-                          </div>
+                        </div>
 
                         <div class="form-group">
                             <label for="category">Kategoria:</label>
                             <div class="input-container">
-                              <select id="category" [(ngModel)]="selectedCard.category" name="category" class="custom-select">
-                                <option *ngFor="let option of options" [value]="option">{{ option }}</option>
-                              </select>
+                                <select id="category" [(ngModel)]="selectedCard.category" name="category"
+                                    class="custom-select">
+                                    <option *ngFor="let option of options" [value]="option">{{ option }}</option>
+                                </select>
                             </div>
-                          </div>
+                        </div>
 
                         <div class="form-group">
                             <label for="images">Wgraj zdjęcia:</label>
@@ -50,7 +49,6 @@
                         </div>
                     </div>
 
-                    <!-- Wiersz 3: Cena, Gracze min, Gracze max -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="price">Cena:</label>
@@ -59,42 +57,47 @@
 
                         <div class="form-group">
                             <label for="playersFrom">Gracze (od):</label>
-                            <input id="playersFrom" type="number" [(ngModel)]="selectedCard.playersFrom" [min]="1" name="playersFrom" required />
+                            <input id="playersFrom" type="number" [(ngModel)]="selectedCard.playersFrom" [min]="1"
+                                name="playersFrom" required />
                         </div>
 
                         <div class="form-group">
                             <label for="playersTo">Gracze (do):</label>
-                            <input id="playersTo" type="number" [(ngModel)]="selectedCard.playersTo" [max]="8" name="playersTo" required />
+                            <input id="playersTo" type="number" [(ngModel)]="selectedCard.playersTo" [max]="8"
+                                name="playersTo" required />
                         </div>
                     </div>
 
-                    <!-- Wiersz 4: Rok wydania, Wiek graczy min, Wiek graczy max -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="releaseYear">Rok wydania:</label>
-                            <input id="releaseYear" type="number" [(ngModel)]="selectedCard.year" [min]="2000" [max]="2100" name="releaseYear" required />
+                            <input id="releaseYear" type="number" [(ngModel)]="selectedCard.year" [min]="2000"
+                                [max]="2100" name="releaseYear" required />
                         </div>
 
                         <div class="form-group">
                             <label for="ageFrom">Wiek (od):</label>
-                            <input id="ageFrom" type="number" [(ngModel)]="selectedCard.ageFrom" [min]="0" name="ageFrom" required />
+                            <input id="ageFrom" type="number" [(ngModel)]="selectedCard.ageFrom" [min]="0"
+                                name="ageFrom" required />
                         </div>
 
                         <div class="form-group">
                             <label for="ageTo">Wiek (do):</label>
-                            <input id="ageTo" type="number" [(ngModel)]="selectedCard.ageTo" [max]="100" name="ageTo" required />
+                            <input id="ageTo" type="number" [(ngModel)]="selectedCard.ageTo" [max]="100" name="ageTo"
+                                required />
                         </div>
                     </div>
 
-                    <!-- Wiersz 5: Opis -->
                     <div class="form-row">
                         <div class="form-group">
                             <label for="description">Opis:</label>
-                            <textarea id="description" [(ngModel)]="selectedCard.description" name="description" rows="4" required></textarea>
+                            <textarea id="description" [(ngModel)]="selectedCard.description" name="description"
+                                rows="4" required></textarea>
                         </div>
                     </div>
                     <div class="buttons">
-                        <button *ngIf="selectedCard?.action !== 'add'" type="button" class="delete-button">Usuń</button>
+                        <button *ngIf="selectedCard?.action !== 'add'" type="button" class="delete-button"
+                            (click)="deleteGame()">Usuń</button>
                         <button class="submit-button" (click)="editGame()">Zapisz</button>
                     </div>
 

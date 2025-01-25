@@ -1,301 +1,287 @@
 body {
-    overflow: hidden;
-  }
-  .container {
-    display: flex;
-    margin-top: 10px;
-    width: 100%;
-    height: 87vh; /* Opcjonalnie, jeśli chcesz, aby divy zajmowały całą wysokość */
-    gap: 10px;
-  }
-  
-  .left-pane {
-    width: 25%;
-    background-color: #422D29; /* Przykładowy kolor tła */
-    color: #EA962A;
-    text-align: center;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    box-sizing: border-box; /* Uwzględnij padding w szerokości */
-    border-radius:  10px;
-    margin-top: 10px;
-  }
+  overflow: hidden;
+}
 
-  .filtr-label {
-    font-weight: bold;
-    font-size: 24px;
-  }
+.container {
+  display: flex;
+  margin-top: 10px;
+  width: 100%;
+  height: 87vh;
+  gap: 10px;
+}
 
-  .confirm-button {
-    width: 60%;
-    padding: 10px;
-    background-color: #EA962A; /* Kolor tła przycisku */
-    color: #422D29; /* Kolor tekstu */
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-top: 40px; /* Odstęp od innych elementów */
-    transition: transform 0.3s ease;
+.left-pane {
+  width: 25%;
+  background-color: #422D29;
+  color: #EA962A;
+  text-align: center;
+  padding: 20px 10px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.filtr-label {
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.confirm-button {
+  width: 60%;
+  padding: 10px;
+  background-color: #EA962A;
+  color: #422D29;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 40px;
+  transition: transform 0.3s ease;
 }
 
 .confirm-button:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
+.divider {
+  width: 100%;
+  height: 3px;
+  background-color: #EA962A;
+  margin: 5px 0 15px;
+}
 
+.slider-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 40px;
+}
 
-  .divider {
-    width: 100%;
-    height: 3px;
-    background-color: #EA962A;
-    margin-top: 5px;
-    margin-bottom: 15px;
-  }
+.slider-track {
+  position: absolute;
+  width: 100%;
+  height: 8px;
+  background: #ddd;
+  border-radius: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
 
-  .slider-container {
-    position: relative;
-    width: 100%;
-    max-width: 400px;
-    height: 40px;
-  }
-  
-  .slider-track {
-    position: absolute;
-    width: 100%;
-    height: 8px;
-    background: #ddd;
-    border-radius: 5px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1;
-  }
-  
-  input[type="range"] {
-    -webkit-appearance: none;
-    position: absolute;
-    width: 100%;
-    height: 38px;
-    background: transparent;
-    pointer-events: none;
-    left: -2px; /* Przesunięcie w lewo */
-  }
-  
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    background: #422d29;
-    border-radius: 50%;
-    cursor: pointer;
-    pointer-events: auto;
-    position: relative;
-    z-index: 3;
-  }
-  
-  input[type="range"]:focus {
-    outline: none;
-  }
-  
-  
-  input.thumb-left::-webkit-slider-thumb {
-    background-color: #EA962A;
-  }
-  
-  input.thumb-right::-webkit-slider-thumb {
-    background-color: #EA962A;
-  }
-  
-  .slider-values {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
-    font-weight: bold;
-  }
-  
-  .right-pane {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 kolumny o równej szerokości */
-    gap: 10px; /* Odstępy między kartami */
-    overflow: hidden;
-    max-height: 100%; /* Ogranicz wysokość do dostępnej przestrzeni */
-    overflow-y: auto;
-    align-content: start; /* Wyrównanie wierszy na górze */
-  }
+input[type="range"] {
+  -webkit-appearance: none;
+  position: absolute;
+  width: 100%;
+  height: 38px;
+  background: transparent;
+  pointer-events: none;
+  left: -2px;
+}
 
-  .card {
-    background-color: #f5cb95;
-    border: 2px solid #422D29;
-    border-radius: 8px;
-    padding: 10px; /* Zmniejszony padding, by uwzględnić obrazek */
-    text-align: left; /* Tekst wyrównany do lewej */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    height: 165px; /* Pozwól wysokości dostosować się do treści */
-    display: flex; /* Użycie Flexboxa dla układu poziomego */
-    align-items: flex-start; /* Wyrównanie obrazka i tekstu w pionie, zaczynając od góry */
-    gap: 15px; /* Odstęp między obrazkiem a tekstem */
-    position: relative; /* Pozwala na pozycjonowanie ceny względem karty */
-    transition: transform 0.3s ease;
-  }
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #422d29;
+  border-radius: 50%;
+  cursor: pointer;
+  pointer-events: auto;
+  position: relative;
+  z-index: 3;
+}
 
-  .card:hover{
-    transform: scale(1.05);
-    cursor: pointer;
-  }
-  
-  .card-image {
-    width: 160px; /* Szerokość obrazka */
-    height: 160px; /* Wysokość obrazka */
-    object-fit: cover; /* Dopasowanie obrazka bez zniekształceń */
-    border-radius: 10%; /* Zaokrąglenie obrazka (np. awatar) */
-    border: 2px solid #422D29;
-  }
-  
-  .card-text {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; /* Wyrównanie tekstu do góry */
-  }
-  
-  .card-text h3 {
-    margin: 0 0 5px; /* Marginesy między tytułem a opisem */
-    font-size: 18px;
-    color: #422D29;
-  }
-  
-  .card-text p {
-    margin: 0;
-    font-size: 14px;
-    color: #6E4E43;
-  }
-  
-  .card-price {
-    position: absolute; /* Pozycjonowanie absolutne */
-    bottom: 10px; /* Odstęp od dołu karty */
-    right: 10px; /* Odstęp od prawej krawędzi */
-    font-size: 16px;
-    color: #422D29;
-    font-weight: bold;
-  }
-  
+input[type="range"]:focus {
+  outline: none;
+}
 
-  
-  
-  /* Ustawienia dla samego paska przewijania */
+input.thumb-left::-webkit-slider-thumb {
+  background-color: #EA962A;
+}
+
+input.thumb-right::-webkit-slider-thumb {
+  background-color: #EA962A;
+}
+
+.slider-values {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.right-pane {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  overflow-y: auto;
+  align-content: start;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+.card {
+  background-color: #f5cb95;
+  border: 2px solid #422D29;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: left;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 165px;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.card-image {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10%;
+  border: 2px solid #422D29;
+}
+
+.card-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.card-text h3 {
+  margin: 0 0 5px;
+  font-size: 18px;
+  color: #422D29;
+}
+
+.card-text p {
+  margin: 0;
+  font-size: 14px;
+  color: #6E4E43;
+}
+
+.card-price {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  font-size: 16px;
+  color: #422D29;
+  font-weight: bold;
+}
+
 ::-webkit-scrollbar {
-    width: 12px; /* Szerokość paska przewijania w pionie */
-    height: 12px; /* Wysokość paska przewijania w poziomie */
+  width: 12px;
+  height: 12px;
 }
 
-/* Ustawienia dla toru paska przewijania (część, po której pasek przewija się) */
 ::-webkit-scrollbar-track {
-    background-color: #f5cb95; /* Kolor tła toru */
-    border-radius: 10px; /* Zaokrąglenie rogów toru */
+  background-color: #f5cb95;
+  border-radius: 10px;
 }
 
-/* Ustawienia dla samego "uchwytu" paska przewijania */
 ::-webkit-scrollbar-thumb {
-    background-color: #422D29; /* Kolor uchwytu */
-    border-radius: 10px; /* Zaokrąglenie rogów uchwytu */
-    border: 3px solid #422D29; /* Obramowanie uchwytu */
+  background-color: #422D29;
+  border-radius: 10px;
+  border: 3px solid #422D29;
 }
 
-/* Ustawienia dla uchwytu paska przewijania przy najechaniu */
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #A4691D; /* Jaśniejszy kolor przy najechaniu */
+  background-color: #A4691D;
 }
 
 .input-group {
-    margin-bottom: 15px;
-  }
+  margin-bottom: 15px;
+}
 
 .input-group label {
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #EA962A;
-  }
-  
-  .input-group input {
-    width: 80%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 2px solid #EA962A;
-    border-radius: 10px;
-    font-size: 16px;
-    color: #422D29;
-    background-color: #f5cb95;
-  }
-  
-  .input-group input:focus {
-    border-color: #422D29;
-    outline: none;
-  }
-  
-  .dropdown-container {
-    width: 100%;
-    margin-bottom: 15px;
-    margin-top: 5px;
-    position: relative;
-    font-family: Arial, sans-serif;
-  }
-  
-  .dropdown-input input {
-    width: 80%;
-    padding: 10px;
-    border: 2px solid #EA962A;
-    font-size: 16px;
-    border-radius: 10px;
-    background-color: #f5cb95;
-    cursor: pointer;
-  }
-  
-  .dropdown-table {
-    position: absolute;
-    top: 40px; /* Pozycjonowanie poniżej inputa */
-    left: 35px;
-    width: 80%;
-    background-color: #f5cb95;
-    border: 2px solid #EA962A;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-    color: #422D29;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  td {
-    padding: 10px;
-    border-bottom: 1px solid #f2f2f2;
-  }
-  
-  input[type="checkbox"] {
-    margin-right: 10px;
-  }
-  
-  td:last-child {
-    text-align: left;
-  }
-  
-  .dropdown-container:hover .dropdown-table {
-    display: block;
-  }
-  
-  .option-label {
-    margin-top: 200px;
-  }
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #EA962A;
+}
 
-  .gameDetailsInvisible {
-    display: none;
-  }
-  .gameDetailsVisible {
-    display: block;
-  }
-  
+.input-group input {
+  width: 80%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 2px solid #EA962A;
+  border-radius: 10px;
+  font-size: 16px;
+  color: #422D29;
+  background-color: #f5cb95;
+}
+
+.input-group input:focus {
+  border-color: #422D29;
+  outline: none;
+}
+
+.dropdown-container {
+  width: 100%;
+  margin: 5px 0 15px;
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+.dropdown-input input {
+  width: 80%;
+  padding: 10px;
+  border: 2px solid #EA962A;
+  font-size: 16px;
+  border-radius: 10px;
+  background-color: #f5cb95;
+  cursor: pointer;
+}
+
+.dropdown-table {
+  position: absolute;
+  top: 40px;
+  left: 35px;
+  width: 80%;
+  background-color: #f5cb95;
+  border: 2px solid #EA962A;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  color: #422D29;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+td:last-child {
+  text-align: left;
+}
+
+.dropdown-container:hover .dropdown-table {
+  display: block;
+}
+
+.option-label {
+  margin-top: 200px;
+}
+
+.gameDetailsInvisible {
+  display: none;
+}
+
+.gameDetailsVisible {
+  display: block;
+}

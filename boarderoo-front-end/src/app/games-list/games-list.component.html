@@ -1,6 +1,7 @@
 <app-nav-bar [isAdmin]="isAdmin"></app-nav-bar>
 <div id="game-edit-popup" [ngClass]="{ 'gameEditInvisible': !isGameEditVisible, 'gameEditVisible': isGameEditVisible }">
-  <app-game-edit (close)="toggleGameEdit()" [selectedCard]="selectedCard"></app-game-edit>
+  <app-game-edit (close)="handleGameEditClose()" (notify)="onEditGameEnd($event)" [selectedCard]="selectedCard">
+  </app-game-edit>
 </div>
 
 <div class="container">
@@ -9,19 +10,17 @@
       <img src="add_game.png" alt="Opis obrazka" class="card-new-game-image">
     </div>
     <div class="card" *ngFor="let card of cards" (click)="toggleGameEdit(card)">
-        <img [src]="card.photos[0]" alt="Opis obrazka" class="card-image">
-        <div class="card-text">
-          <h3>{{ card.title }}</h3>
-          <p>Wydawca: {{ card.publisher }}</p>
-          <p>Wiek: {{ card.ageFrom }} - {{ card.ageTo }}</p>
-          <p>Liczba graczy: {{ card.playersFrom }} - {{ card.playersTo }}</p>
-          <p>Kategoria: {{ card.category }}</p>
-        </div>
-        <div class="card-price">Cena: {{ card.price }} zł</div>
+      <img [src]="getPhotoUrl(card.photos[0])" alt="Opis obrazka" class="card-image" />
+      <div class="card-text">
+        <h3>{{ card.title }}</h3>
+        <p>Wydawca: {{ card.publisher }}</p>
+        <p>Wiek: {{ card.ageFrom }} - {{ card.ageTo }}</p>
+        <p>Liczba graczy: {{ card.playersFrom }} - {{ card.playersTo }}</p>
+        <p>Kategoria: {{ card.category }}</p>
       </div>
+      <div class="card-price">Cena: {{ card.price }} zł</div>
+    </div>
 
-      
+
   </div>
 </div>
-
-

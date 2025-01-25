@@ -10,7 +10,6 @@
         </div>
 
         <div class="order-details-sections">
-            <!-- Sekcja po lewej: Wypożyczone przedmioty -->
             <div class="order-section-left">
                 <span class="header">Wypożyczone przedmioty:</span>
                 <div class="divider"></div>
@@ -21,30 +20,28 @@
                 </ul>
             </div>
 
-            <!-- Sekcja pośrodku: Dane klienta -->
             <div class="order-section-middle">
                 <span class="header">Dane klienta:</span>
                 <div class="divider"></div>
                 <div>
-                    <p><strong>Imię:</strong> {{ name }}</p>
-                    <p><strong>Nazwisko:</strong> {{ surname }}</p>
-                    <p><strong>Email:</strong> {{ selectedOrder.user }}</p>
-                    <p><strong>Adres:</strong> {{ address }}</p>
+                    <p><strong>Imię:</strong> {{ orderUser?.name }}</p>
+                    <p><strong>Nazwisko:</strong> {{ orderUser?.surname }}</p>
+                    <p><strong>Email:</strong> {{ selectedOrder?.user }}</p>
+                    <p><strong>Adres:</strong> {{ orderUser?.address }}</p>
                 </div>
             </div>
 
-            <!-- Sekcja po prawej: Dane transakcji -->
             <div class="order-section-right">
                 <span class="header">Dane transakcji:</span>
                 <div class="divider"></div>
                 <div>
                     <p><strong>Numer zamówienia:</strong> {{ selectedOrder.id }}</p>
                     <p><strong>Cena:</strong> {{ selectedOrder.price }} zł</p>
+                    <p><strong>Numer transakcji:</strong> {{ selectedOrder.paymentNumber }}</p>
                 </div>
             </div>
         </div>
 
-        <!-- Sekcja zmiany statusu -->
         <div class="input-container">
             <label for="example-select">Status:</label>
             <select id="example-select" class="custom-select" [(ngModel)]="selectedOrder.status">

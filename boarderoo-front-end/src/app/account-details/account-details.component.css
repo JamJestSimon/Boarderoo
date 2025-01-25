@@ -1,4 +1,3 @@
-/* Kontener na overlay */
 .account-details-overlay {
     position: fixed;
     top: 0;
@@ -13,19 +12,18 @@
 }
 
 .account-details-left {
-    width: 100%; /* Zajmuje całą szerokość */
+    width: 100%;
     background-color: #422D29;
     padding: 20px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 15px;
-    box-sizing: border-box; /* Upewniamy się, że padding i border są wliczane do szerokości */
+    box-sizing: border-box;
 }
 
-/* Kontener dla całego pop-up */
 .account-details-content {
-    background: #EA962A; /* Kolor tła */
+    background: #EA962A;
     border-radius: 30px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -36,11 +34,10 @@
     flex-direction: column;
     height: 80vh;
     border: 5px solid #422D29;
-    box-sizing: border-box; /* Upewniamy się, że padding i border są wliczane do szerokości */
+    box-sizing: border-box;
 }
 
 
-/* Styl dla avatar i nazwy */
 .avatar {
     display: flex;
     align-items: center;
@@ -59,7 +56,6 @@
     border-radius: 50%;
 }
 
-/* Kontener dla sekcji (przyciski i formularz obok siebie) */
 .account-details-sections {
     display: flex;
     justify-content: space-between;
@@ -67,31 +63,28 @@
     height: 100%;
 }
 
-/* Sekcja przycisków po lewej */
 .account-details-tabs {
-    width: 20%; /* Ustalamy szerokość sekcji przycisków */
+    width: 20%;
     background-color: #422D29;
 }
 
-/* Zmieniamy układ przycisków na pionowy */
 .tabs {
     display: flex;
     flex-direction: column;
 }
 
-/* Styl przycisków */
 .tab-button {
     background-color: transparent;
     border: 0px solid #422D29;
-    border-radius: 0; /* Usunięcie zaokrąglonych rogów */
+    border-radius: 0;
     padding: 10px 20px;
     font-size: 16px;
     color: #EA962A;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
-    width: 100%; /* Przyciski wypełniają całą szerokość */
-    text-align: left; /* Wyrównanie tekstu do lewej */
-    padding-left: 20px; /* Wyrównanie tekstu od lewej */
+    width: 100%;
+    text-align: left;
+    padding-left: 20px;
 }
 
 .tab-button:hover {
@@ -100,55 +93,55 @@
 }
 
 .tab-button.hover {
-  background-color: #EA962A;
-  color: #422D29;
+    background-color: #EA962A;
+    color: #422D29;
 }
 
 .account-details-right {
-    width: 100%; /* Ustalamy szerokość sekcji formularza */
-    display: flex; /* Używamy flexboxa */
-    flex-direction: column; /* Ustawienie elementów w kolumnie */
-    align-items: center; /* Wycentrowanie w poziomie */
-    justify-content: start; /* Wycentrowanie w pionie */
-    height: 100%; /* Upewniamy się, że wypełnia całą wysokość rodzica */
-    box-sizing: border-box; /* Uwzględnienie paddingu w rozmiarze */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .account-details-right {
-    width: 100%; /* Ustalamy szerokość sekcji formularza */
-    display: flex; /* Używamy flexboxa */
-    flex-direction: column; /* Ustawienie elementów w kolumnie */
-    align-items: center; /* Wycentrowanie w poziomie */
-    justify-content: start; /* Wycentrowanie w pionie */
-    height: 100%; /* Upewniamy się, że wypełnia całą wysokość rodzica */
-    box-sizing: border-box; /* Uwzględnienie paddingu w rozmiarze */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    height: 100%;
+    box-sizing: border-box;
 }
 
 .account-details-right h2 {
-    margin-bottom: 20px; /* Dodanie odstępu między tytułem a formularzem */
-    text-align: center; /* Wyrównanie tekstu w nagłówku */
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 .account-details-right form {
-    width: 100%; /* Formularz zajmuje całą szerokość */
-    max-width: 600px; /* Maksymalna szerokość formularza */
+    width: 100%;
+    max-width: 600px;
 }
 
 .input-row {
     display: flex;
-    justify-content: center; /* Wycentrowanie w poziomie */
-    gap: 30px; /* Odstęp między polami */
-    flex-wrap: wrap; /* Zapewnia zawijanie elementów, gdy brakuje miejsca */
-    width: 100%; /* Dopasowanie do szerokości rodzica */
-    box-sizing: border-box; /* Uwzględnienie paddingu i borderów */
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
     margin-bottom: 10px;
 }
 
 .input-group {
-    flex: 1; /* Automatyczne dostosowanie szerokości wiersza */
-    min-width: 200px; /* Minimalna szerokość, aby uniknąć zbyt małych pól */
-    max-width: 40%; /* Zapobiega nadmiernemu rozciąganiu */
-    text-align: center; /* Wycentrowanie tekstów w grupach */
+    flex: 1;
+    min-width: 200px;
+    max-width: 40%;
+    text-align: center;
 }
 
 .input-group label {
@@ -156,18 +149,18 @@
     font-weight: bold;
     margin-bottom: 5px;
     color: #422D29;
-    text-align: left; /* Opcjonalnie, jeśli chcesz wyrównać etykiety do lewej */
+    text-align: left;
 }
 
 .input-group input {
-    width: 100%; /* Pole wypełnia całą dostępną szerokość */
+    width: 100%;
     padding: 10px;
     border: 2px solid #422D29;
     border-radius: 10px;
     font-size: 16px;
     color: #422D29;
     background-color: #f5cb95;
-    box-sizing: border-box; /* Uwzględnij padding i border w szerokości */
+    box-sizing: border-box;
 }
 
 .input-group input:focus {
@@ -175,7 +168,7 @@
     outline: none;
 }
 
-  
+
 .save-button {
     background-color: #A4691D;
     color: #422D29;
@@ -204,49 +197,51 @@
     color: #EA962A;
     cursor: pointer;
     transition: transform 0.3s ease;
-  }
+}
 
-  .close-button:hover {
+.close-button:hover {
     transform: scale(1.1);
-  }
-  .order-row {
+}
+
+.order-row {
     display: flex;
     justify-content: space-between;
     background-color: #f5cb95;
     border: 2px solid #422D29;
     padding: 15px;
     border-radius: 30px;
-    height: 80px; /* Stała wysokość */
-    min-height: 100px; /* Minimalna wysokość, aby nie była mniejsza */
-    width: 100%; /* Możesz dostosować do swoich potrzeb */
-    box-sizing: border-box; /* Upewnienie się, że padding jest wliczany do rozmiaru */
+    height: 80px;
+    min-height: 100px;
+    width: 100%;
+    box-sizing: border-box;
 }
-  
-  .order-info {
+
+.order-info {
     flex: 1;
-  }
-  
-  .order-number {
+}
+
+.order-number {
     font-size: 1.2em;
     font-weight: bold;
     white-space: nowrap
-  }
-  
-  .order-date {
+}
+
+.order-date {
     color: #666;
     text-align: left;
-  }
-  
-  .order-price {
+}
+
+.order-price {
     display: flex;
-    justify-content: flex-end; /* Ustawienie elementów na prawą stronę */
-    align-items: center; /* Wyśrodkowanie w pionie */
+    justify-content: flex-end;
+    align-items: center;
     margin-left: 30px;
 }
+
 .order-arrow {
     display: flex;
-    justify-content: flex-end; /* Ustawienie elementów na prawą stronę */
-    align-items: center; /* Wyśrodkowanie w pionie */
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .expand-button {
@@ -257,21 +252,21 @@
 }
 
 .arrow-down::before {
-    content: '▼'; /* Strzałka w dół */
+    content: '▼';
 }
 
 .arrow-up::before {
-    content: '▲'; /* Strzałka w górę */
+    content: '▲';
 }
-  
-  .expand-button {
+
+.expand-button {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1.2em;
-  }
-  
-  .order-details {
+}
+
+.order-details {
     padding-left: 20px;
     background-color: #f5cb95;
     border-left: 2px solid #422D29;
@@ -280,25 +275,26 @@
     width: 80%;
     border-bottom-right-radius: 30px;
     border-bottom-left-radius: 30px;
-  }
-  .order-details ul {
-    text-align: left;
-  }
+}
 
-  .order-list {
+.order-details ul {
+    text-align: left;
+}
+
+.order-list {
     overflow-y: auto;
     max-height: 55vh;
     width: 100%;
-  }
-  
-  .order-content {
+}
+
+.order-content {
     display: flex;
-    flex-direction: column; /* Układ w kolumnie */
+    flex-direction: column;
     justify-content: center;
-    align-items: center; /* Centrowanie w poziomie */
+    align-items: center;
     width: 98%;
     margin-bottom: 10px;
-  }
+}
 
 .cancel-button {
     background-color: #cc3232;
@@ -318,26 +314,22 @@
     transform: scale(1.1);
 }
 
-/* Ustawienia dla samego paska przewijania */
 ::-webkit-scrollbar {
-    width: 12px; /* Szerokość paska przewijania w pionie */
-    height: 12px; /* Wysokość paska przewijania w poziomie */
+    width: 12px;
+    height: 12px;
 }
 
-/* Ustawienia dla toru paska przewijania (część, po której pasek przewija się) */
 ::-webkit-scrollbar-track {
-    background-color: #f5cb95; /* Kolor tła toru */
-    border-radius: 10px; /* Zaokrąglenie rogów toru */
+    background-color: #f5cb95;
+    border-radius: 10px;
 }
 
-/* Ustawienia dla samego "uchwytu" paska przewijania */
 ::-webkit-scrollbar-thumb {
-    background-color: #422D29; /* Kolor uchwytu */
-    border-radius: 10px; /* Zaokrąglenie rogów uchwytu */
-    border: 3px solid #422D29; /* Obramowanie uchwytu */
+    background-color: #422D29;
+    border-radius: 10px;
+    border: 3px solid #422D29;
 }
 
-/* Ustawienia dla uchwytu paska przewijania przy najechaniu */
 ::-webkit-scrollbar-thumb:hover {
-    background-color: #A4691D; /* Jaśniejszy kolor przy najechaniu */
+    background-color: #A4691D;
 }

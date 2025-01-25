@@ -15,52 +15,43 @@ import { CustomResponse } from '../CustomResponse';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class PasswordResetComponent {
-  constructor(private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private toastr: ToastrService, private router: Router, private route: ActivatedRoute, private http: HttpClient) { }
   info: string = ''
-  code =''
+  code = ''
   password = ''
   confirmPassword = ''
   toastContainer: ToastContainerDirective | undefined;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.code = params['code'];
-     
-      if (this.code) {
-        console.log('Kod autoryzacyjny:', this.code);
-      } else {
-        console.log('Brak kodu autoryzacyjnego w URL');
+
+      if (!this.code) {
+        this.router.navigate(['/']);
       }
     });
   }
 
-    resetPassword() {
-      if( this.password == this.confirmPassword || this.password !==''){
-        const proxyUrl = "https://cors-anywhere.herokuapp.com/"
-        const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/password/resetPassword/';
-        const fullUrl = proxyUrl + targetUrl;
-        console.log(fullUrl);
-        console.log(this.code)
-        this.http.post<CustomResponse>(fullUrl, {password: this.password, token: this.code} ).subscribe(response => {
-          console.log(response);
-          this.router.navigate(['/']);
-          this.successToast(response.message);
-          this.info = response.message;
-        }, error => {
-          console.error('Błąd:', error);
-          this.failToast(error.error?.message);
-          this.info=error.error?.message;
-        });
-      }
-      else{
-        this.failToast("Podano błędne dane");
-      }
-        
-      }
+  resetPassword() {
+    if (this.password == this.confirmPassword || this.password !== '') {
+      const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/password/resetPassword/';
+      this.http.post<CustomResponse>(targetUrl, { password: this.password, token: this.code }).subscribe(response => {
+        this.router.navigate(['/']);
+        this.successToast(response.message);
+        this.info = response.message;
+      }, error => {
+        console.error('Błąd:', error);
+        this.failToast(error.error?.message);
+        this.info = error.error?.message;
+      });
+    }
+    else {
+      this.failToast("Podano błędne dane");
+    }
+
+  }
 
   failToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
-    
-    // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.error(communicate, 'Błąd', {
       positionClass: 'toast-top-right',
       timeOut: 3000,
@@ -71,8 +62,6 @@ export class PasswordResetComponent {
 
   successToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
-    
-    // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.success(communicate, 'Sukces', {
       positionClass: 'toast-top-right',
       timeOut: 3000,

@@ -6,5 +6,6 @@ export interface OrderCard {
   user: string;           // ID użytkownika
   items: string[];        // Lista przedmiotów w zamówieniu
   price: number;          // Całkowita cena zamówienia
+  paymentNumber: string;
   showDetails: boolean
 }

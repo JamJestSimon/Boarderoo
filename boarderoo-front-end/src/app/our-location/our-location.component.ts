@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
+import { environment } from '../../environment/environment';
 
 @Component({
   selector: 'app-our-location',
@@ -8,28 +9,28 @@ import * as mapboxgl from 'mapbox-gl';
   styleUrl: './our-location.component.css'
 })
 export class OurLocationComponent {
-  @Output() close = new EventEmitter<void>(); // Definiujemy zdarzenie
+  @Output() close = new EventEmitter<void>();
 
   onClose() {
-    this.close.emit(); // Emitowanie zdarzenia
+    this.close.emit();
   }
 
-  map: mapboxgl.Map | undefined; 
+  map: mapboxgl.Map | undefined;
   style = 'mapbox://styles/mapbox/streets-v11';
-  lat: number =52.253207569774126; 
+  lat: number = 52.253207569774126;
   lng: number = 20.895554141357806;
-  
+
   ngOnInit() {
     this.map = new mapboxgl.Map({
-       accessToken: 'pk.eyJ1IjoiaGV2eGlxdSIsImEiOiJjbTV3ZnBhcmowMmI4Mm1zZzdyZjQ2MHgzIn0.qsC-QTv_TXsQAMyj_13IKQ',
-       container: 'map',
-       style: this.style,
-       zoom: 13,
-       center: [this.lng, this.lat],
-     });
+      accessToken:environment.maps,
+      container: 'map',
+      style: this.style,
+      zoom: 13,
+      center: [this.lng, this.lat],
+    });
 
-     new mapboxgl.Marker()
-      .setLngLat([this.lng, this.lat]) // Ustawienie współrzędnych
-      .addTo(this.map); // Dodanie do mapy
- }
+    new mapboxgl.Marker()
+      .setLngLat([this.lng, this.lat])
+      .addTo(this.map);
+  }
 }
