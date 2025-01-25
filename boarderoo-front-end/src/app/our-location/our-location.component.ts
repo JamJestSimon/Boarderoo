@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import * as mapboxgl from 'mapbox-gl';
+import { environment } from '../../environment/environment';
 
 @Component({
   selector: 'app-our-location',
@@ -21,7 +22,7 @@ export class OurLocationComponent {
 
   ngOnInit() {
     this.map = new mapboxgl.Map({
-      accessToken: 'pk.eyJ1IjoiaGV2eGlxdSIsImEiOiJjbTV3ZnBhcmowMmI4Mm1zZzdyZjQ2MHgzIn0.qsC-QTv_TXsQAMyj_13IKQ',
+      accessToken:environment.maps,
       container: 'map',
       style: this.style,
       zoom: 13,

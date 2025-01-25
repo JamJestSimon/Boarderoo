@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Output, OnInit, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit, CUSTOM_ELEMENTS_SCHEMA, Input, SimpleChanges } from '@angular/core';
 import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HttpParams } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { CustomResponse } from '../CustomResponse';
 import { Router } from '@angular/router';
+import { environment } from '../../environment/environment';
 
 @Component({
   selector: 'app-join-us',
@@ -16,14 +17,15 @@ import { Router } from '@angular/router';
 })
 export class JoinUsComponent {
   @Output() close = new EventEmitter<void>();
-
+  @Input() basicRegistration: boolean | undefined;
+  @Input() oauthmail: string | undefined
   toastContainer: ToastContainerDirective | undefined;
   emailLogin: string = '';
   passwordLogin: string = '';
   firstName: string = '';
   lastName: string = '';
   address: string = '';
-  emailRegistration: string = '';
+  emailRegistration: string = ''
   passwordRegistration: string = '';
   confirmPassword: string = '';
 
@@ -31,6 +33,7 @@ export class JoinUsComponent {
 
   onClose() {
     this.close.emit();
+    console.log(this.basicRegistration)
   }
 
   LogIn() {
@@ -40,6 +43,10 @@ export class JoinUsComponent {
     else {
       this.LogInPost();
     }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.emailRegistration = this.oauthmail || '';
   }
 
   LogInPost() {
@@ -79,15 +86,14 @@ export class JoinUsComponent {
 
   signInWithDiscord(): void {
 
-    const discordAuthUrl = 'https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=https%3A%2F%2Fboarderoo-71469.firebaseapp.com%2F&scope=email+identify';
+    const discordAuthUrl = 'https://discord.com/oauth2/authorize?client_id=' + environment.discord + '&response_type=code&redirect_uri=https%3A%2F%2Fboarderoo-71469.firebaseapp.com%2F&scope=email+identify';
     window.location.href = discordAuthUrl;
   }
 
   signInWithGoogle(): void {
-    const clientId = '928336702407-bdifeaptq727tsor03bcbaqkvunbg7h1.apps.googleusercontent.com';
     const redirectUri = 'https://boarderoo-71469.firebaseapp.com';
 
-    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${clientId}&redirect_uri=${redirectUri}&scope=openid profile email`;
+    const googleAuthUrl = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=${environment.google}&redirect_uri=${redirectUri}&scope=openid profile email`;
     window.location.href = googleAuthUrl;
   }
 
@@ -106,6 +112,7 @@ export class JoinUsComponent {
       "tokenCreationDate": "2025-01-18T23:47:59.353Z"
     }
     this.http.post<CustomResponse>(targetUrl, regisUser).subscribe(response => {
+      console.log(response)
       this.successToast(response.message);
       this.onClose();
 
@@ -139,11 +146,9 @@ export class JoinUsComponent {
 
   forgotPasswordSend() {
     if (this.emailLogin !== '') {
-      const proxyUrl = '';
       const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/password/reset?email=' + this.emailLogin;
-      const fullUrl = proxyUrl + targetUrl;
 
-      this.http.get<CustomResponse>(fullUrl).subscribe(
+      this.http.get<CustomResponse>(targetUrl).subscribe(
         (response) => {
           this.successToast("Wysłano link do resetu hasła");
         },

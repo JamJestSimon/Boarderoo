@@ -15,13 +15,13 @@ import { OrderCard } from '../OrderCard';
   imports: [CommonModule, FormsModule],
 })
 export class AccountDetailComponent {
-  @Output() close = new EventEmitter<void>(); // Definiujemy zdarzenie
+  @Output() close = new EventEmitter<void>(); 
 
   toastContainer: ToastContainerDirective | undefined;
-  email: string = '';  // Dodajemy zmienną na e-mail
-  user: string = '';  // Dodajemy zmienną na e-mail
-  surname: string = '';  // Dodajemy zmienną na e-mail
-  address: string = '';  // Dodajemy zmienną na e-mail
+  email: string = '';
+  user: string = '';
+  surname: string = '';
+  address: string = '';
   orders: OrderCard[] = [];
   currentTab: string = 'data';
   tmpCurrentTab: string = ''
@@ -101,9 +101,6 @@ export class AccountDetailComponent {
           price: item.price || 0,
           showDetails: false,
         };
-
-        console.log(order);
-
         this.orders.push(order);
       }
 
@@ -119,7 +116,6 @@ export class AccountDetailComponent {
     this.currentTab = 'data';
     this.tmpCurrentTab = 'data';
     this.openedTab = 'data';
-    console.log(this.currentTab);
     this.GetUser();
   }
 
@@ -127,7 +123,6 @@ export class AccountDetailComponent {
     this.currentTab = 'password';
     this.tmpCurrentTab = 'password';
     this.openedTab = 'password';
-    console.log(this.currentTab);
   }
 
   showOrderHistory() {
@@ -135,7 +130,6 @@ export class AccountDetailComponent {
     this.tmpCurrentTab = 'orderHistory';
     this.openedTab = 'orderHistory';
     this.GetOrder();
-    console.log(this.currentTab);
   }
 
   setHovered() {
@@ -146,14 +140,12 @@ export class AccountDetailComponent {
   resetHovered() {
     this.currentTab = this.tmpCurrentTab;
     this.tmpCurrentTab = '';
-    console.log("rehover: " + this.currentTab)
   }
 
   changeStatus(order: any) {
     const targetUrl = 'https://boarderoo-928336702407.europe-central2.run.app/order?id=' + order.id + '&status=Anulowane';
     this.http.put<CustomResponse>(targetUrl, null).subscribe(
       response => {
-        console.log(response);
         this.successToast("Pomyślnie zmieniono status?");
       },
       error => {

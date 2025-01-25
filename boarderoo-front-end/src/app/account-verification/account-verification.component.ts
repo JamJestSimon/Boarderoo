@@ -46,8 +46,6 @@ export class AccountVerificationComponent {
 
   failToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
-
-    // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.error(communicate, 'Błąd', {
       positionClass: 'toast-top-right',
       timeOut: 3000,
@@ -58,8 +56,6 @@ export class AccountVerificationComponent {
 
   successToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;
-
-    // Jeśli e-mail nie jest wypełniony, czerwony toast
     this.toastr.success(communicate, 'Sukces', {
       positionClass: 'toast-top-right',
       timeOut: 3000,

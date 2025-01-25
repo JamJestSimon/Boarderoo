@@ -5,7 +5,8 @@ import { ToastContainerDirective, ToastrService } from 'ngx-toastr';
 import { ICreateOrderRequest, IPayPalConfig, NgxPayPalModule } from 'ngx-paypal';
 import { GameCard } from '../GameCard';
 import { CustomResponse } from '../CustomResponse';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http'
+import { environment } from '../../environment/environment';
 
 @Component({
   selector: 'app-cart',
@@ -13,15 +14,15 @@ import { HttpClient } from '@angular/common/http';
   imports: [CommonModule, FormsModule, NgxPayPalModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css',
-  schemas: [CUSTOM_ELEMENTS_SCHEMA], // Dodajemy schemat
+  schemas: [CUSTOM_ELEMENTS_SCHEMA], 
 })
 export class CartComponent {
-  @Output() close = new EventEmitter<void>(); // Definiujemy zdarzenie
+  @Output() close = new EventEmitter<void>(); 
 
   public payPalConfig?: IPayPalConfig;
 
   toastContainer: ToastContainerDirective | undefined;
-  email: string = '';  // Dodajemy zmienną na e-mail
+  email: string = ''; 
   sumPrice: string = '';
   dateStart: string = ""
   dateStop: string = ""
@@ -120,7 +121,7 @@ export class CartComponent {
   private initConfig(): void {
     this.payPalConfig = {
       currency: 'PLN',
-      clientId: 'AZ8pZw6s44qSnIantY7aDEjGZ0mG8oMwKWLTtIpzub6boKxbGSk0OFSEfw5usTA2HfHU7me4daTaw23c',
+      clientId: environment.clientId,
       createOrderOnClient: (data) => <ICreateOrderRequest>{
         intent: 'CAPTURE',
         purchase_units: [{

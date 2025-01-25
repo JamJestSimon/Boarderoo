@@ -28,7 +28,8 @@
           <button class="button" (click)="toggleJoinUs()">Dołącz do nas</button>
           <button class="button" (click)="toggleOurLocation()">Odwiedź nas stacjonarnie</button>
           <div id="join-us-popup" [ngClass]="{ 'joinUsInvisible': !isJoinUsVisible, 'joinUsVisible': isJoinUsVisible }">
-            <app-join-us (close)="toggleJoinUs()"></app-join-us>
+            <app-join-us (close)="toggleJoinUs()" [basicRegistration]="basicRegistration"
+              [oauthmail]="oauthmail"></app-join-us>
           </div>
           <div id="our-location-popup"
             [ngClass]="{ 'ourLocationInvisible': !ourLocationVisible, 'ourLocationVisible': ourLocationVisible }">

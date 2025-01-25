@@ -75,12 +75,12 @@
             <input type="email" id="emailRegistration" name="emailRegistration" [(ngModel)]="emailRegistration"
               placeholder="Wprowadź email" [value]="emailRegistration" />
           </div>
-          <div class="input-group">
+          <div class="input-group" *ngIf="basicRegistration">
             <label for="passwordRegistration">Hasło</label>
             <input type="password" id="passwordRegistration" name="passwordRegistration"
               [(ngModel)]="passwordRegistration" placeholder="Wprowadź hasło" [value]="passwordRegistration" />
           </div>
-          <div class="input-group">
+          <div class="input-group" *ngIf="basicRegistration">
             <label for="confirmPassword">Powtórz hasło</label>
             <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="confirmPassword"
               placeholder="Powtórz hasło" />
