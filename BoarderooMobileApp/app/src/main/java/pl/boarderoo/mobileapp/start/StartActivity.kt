@@ -1,17 +1,8 @@
 package pl.boarderoo.mobileapp.start
 
 import android.app.Activity
-import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import androidx.compose.material.Button
-import android.provider.Settings.Global.getString
-import android.util.Log
-import android.view.ViewGroup
-import android.webkit.WebChromeClient
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -35,7 +26,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -47,28 +37,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.app.ActivityCompat.startActivityForResult
-import androidx.core.content.ContextCompat.startActivity
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.android.gms.auth.api.identity.BeginSignInRequest
-import com.google.android.gms.auth.api.identity.Identity
-import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import pl.boarderoo.mobileapp.DarkButton
 import pl.boarderoo.mobileapp.R
 import pl.boarderoo.mobileapp.ui.theme.BoarderooMobileAppTheme
 
-
 class StartActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val animationSpeed = 400
         setContent {
             BoarderooMobileAppTheme {
@@ -110,7 +93,6 @@ class StartActivity : ComponentActivity() {
                             val email = backStackEntry.arguments?.getString("email") ?: ""
                             RegisterScreen(navController, email)
                         }
-                        composable(route = "WebViewScreen") { WebViewScreen() }
                     }
 
                     val data: Uri? = intent.data
@@ -153,6 +135,8 @@ fun LogoScreen(navController: NavController) {
     val buttonWidth = (screenWidth * 0.70).dp
     val buttonHeight = elementWidth / 4
     val fontSize = (buttonHeight.value * 0.4).sp
+
+    val discordUrl = stringResource(R.string.discord_redirect)
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
@@ -279,36 +263,22 @@ fun LogoScreen(navController: NavController) {
                     )
                     .clip(RoundedCornerShape(buttonHeight / 2))
                     .clickable {
-                        navController.navigate("WebViewScreen")  // Nawigacja do WebViewScreen
+                        val targetUrl = discordUrl
+
+                        val customTabsIntent = CustomTabsIntent.Builder()
+                            .setShowTitle(true)
+                            .build()
+
+                        customTabsIntent.launchUrl(context, Uri.parse(targetUrl))
                     }
             )
         }
     }
 }
 
-@Composable
-fun WebViewScreen() {
-
-    val context = LocalContext.current
-     // Custom Tabs do otwarcia Discord OAuth2
-    val targetUrl = "https://discord.com/oauth2/authorize?client_id=1303087880503296182&response_type=code&redirect_uri=http%3A%2F%2F192.168.0.32%3A4200%2Fcallback&scope=email"
-
-    val customTabsIntent = CustomTabsIntent.Builder()
-        .setShowTitle(true)
-        .build()
-
-    customTabsIntent.launchUrl(context, Uri.parse(targetUrl))
-}
-
 @Preview(showBackground = true)
 @Composable
 fun PreviewLogoScreen() {
     LogoScreen(rememberNavController())
-}
-
-@Composable
-fun LoginScreen() {
-    val navController = rememberNavController()
-    navController.navigate("LoginScreen")
 }
 

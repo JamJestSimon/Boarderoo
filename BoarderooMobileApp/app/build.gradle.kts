@@ -2,11 +2,13 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.googleGmsGoogleServices)
+    id("kotlin-parcelize")
+    id("kotlin-android")
 }
 
 android {
     namespace = "pl.boarderoo.mobileapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "pl.boarderoo.mobileapp"
@@ -48,6 +50,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 }
 
 dependencies {
@@ -59,13 +62,20 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation("androidx.browser:browser:1.4.0")
-    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
-    implementation("com.google.firebase:firebase-auth")
-    implementation("com.google.android.gms:play-services-auth:21.2.0")
-    implementation("com.paypal.android:paypalcheckout:0.13.1")
+    implementation(libs.androidx.browser)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.google.firebase.auth)
     implementation(libs.androidx.material3)
     implementation(libs.play.services.auth)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.coil.compose)
+    implementation(libs.payment.buttons)
+    implementation(libs.paypal.web.payments)
+    implementation(libs.volley)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -73,6 +83,4 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation(libs.androidx.navigation.compose)
-
 }

@@ -1,9 +1,14 @@
 package pl.boarderoo.mobileapp
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -22,10 +27,15 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
+import coil.compose.AsyncImage
 import pl.boarderoo.mobileapp.ui.theme.outlinedTextFieldColors
 
 @Composable
@@ -51,7 +61,7 @@ fun DarkButton(text: String, buttonWidth: Dp, buttonHeight: Dp, fontSize: TextUn
 }
 
 @Composable
-fun LightButton(text: String, buttonWidth: Dp, buttonHeight: Dp, fontSize: TextUnit, onClick: () -> Unit) {
+fun LightButton(text: String, buttonWidth: Dp? = null, buttonHeight: Dp? = null, fontSize: TextUnit, modifier: Modifier = Modifier, onClick: () -> Unit) {
     Button(
         onClick = {
             onClick()
@@ -59,9 +69,13 @@ fun LightButton(text: String, buttonWidth: Dp, buttonHeight: Dp, fontSize: TextU
         colors = ButtonDefaults.buttonColors(
             containerColor = colorResource(id = R.color.buttonSecondColor) // Kolor przycisku
         ),
-        modifier = Modifier
+        modifier = modifier
             .padding(horizontal = 16.dp)
-            .size(width = buttonWidth, height = buttonHeight)
+            .then(
+                if (buttonWidth != null && buttonHeight != null) {
+                    Modifier.size(width = buttonWidth, height = buttonHeight)
+                } else Modifier
+            )
     ) {
         Text(
             text = text,
@@ -113,12 +127,13 @@ fun PageWithTitle(text: String, screenWidth: Int, logoHeight: Dp, fontSize: Text
 }
 
 @Composable
-fun LightTextField(placeholder: String, value: String, isError: Boolean, textWidth: Dp, textHeight: Dp, onValueChange: (String) -> Unit) {
+fun LightTextField(placeholder: String, value: String, isError: Boolean, textWidth: Dp, textHeight: Dp, visualTransformation: VisualTransformation = VisualTransformation.None, onValueChange: (String) -> Unit) {
     OutlinedTextField(
         value = value,
         onValueChange = {
             onValueChange(it)
         },
+        visualTransformation = visualTransformation,
         isError = isError,
         modifier = Modifier
             .width(textWidth)
@@ -133,5 +148,78 @@ fun LightTextField(placeholder: String, value: String, isError: Boolean, textWid
                 color = colorResource(id = R.color.textColor) // Opcjonalnie zmień kolor placeholdera
             )
         }
+    )
+}
+
+@Composable
+fun ElasticLightTextField(placeholder: String, value: String, isError: Boolean, modifier: Modifier, visualTransformation: VisualTransformation = VisualTransformation.None, onValueChange: (String) -> Unit) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = {
+            onValueChange(it)
+        },
+        visualTransformation = visualTransformation,
+        isError = isError,
+        modifier = modifier
+            .clip(RoundedCornerShape(10.dp)),
+        shape = RoundedCornerShape(10.dp), // Zaokrąglenie ramek
+        colors = outlinedTextFieldColors(),
+        singleLine = true,
+        placeholder = {
+            Text(
+                text = placeholder, // Tekst placeholdera
+                color = colorResource(id = R.color.textColor) // Opcjonalnie zmień kolor placeholdera
+            )
+        }
+    )
+}
+
+@Composable
+fun DialogBox(closeDialog: () -> Unit, content: @Composable () -> Unit) {
+    Dialog(onDismissRequest = { closeDialog() }) {
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(16.dp))
+                .background(colorResource(id = R.color.backgroundColor)) // Kolor tła dialogu
+                .border(
+                    BorderStroke(2.dp, colorResource(id = R.color.buttonColor)),
+                    RoundedCornerShape(16.dp)
+                ) // Obramowanie
+                .padding(16.dp),
+            contentAlignment = Alignment.Center
+        ) {
+            content()
+        }
+    }
+}
+
+@Composable
+fun ErrorState(modifier: Modifier = Modifier, errorMessage: String, onClose: () -> Unit) {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "Wystąpił błąd:\n\n$errorMessage",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Bold,
+            fontFamily = FontFamily(Font(R.font.mplusrounded1cregular)),
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(top = 20.dp)
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        LightButton(
+            text = "Odśwież",
+            fontSize = 16.sp,
+            onClick = { onClose() }
+        )
+    }
+}
+
+@Composable
+fun ImageFromUrl(url: String) {
+    AsyncImage(
+        model = url,
+        contentDescription = "Image from URL"
     )
 }
