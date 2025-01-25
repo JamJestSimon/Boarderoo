@@ -33,7 +33,7 @@ export class StartPageComponent implements OnInit {
           this.getGoogleUser(code);
       //  } else {
        //   console.log('Kod autoryzacyjny:', code);
-          //this.getDiscordUser(code);
+        //  this.getDiscordUser(code);
        // }
       } else {
         console.log('Brak kodu autoryzacyjnego w URL');
@@ -75,7 +75,8 @@ export class StartPageComponent implements OnInit {
   getGoogleUser(token: string): void {
     this.basicRegistration = false;
     console.log("OTWARTO")
-    const url = 'https://boarderoo-928336702407.europe-central2.run.app/googleuser';  // URL endpointu
+   // const url = 'https://boarderoo-928336702407.europe-central2.run.app/googleuser';  // URL endpointu
+    const url = 'https://google.com';  // URL endpointu
 
 // Tworzymy obiekt zawierający token, który będziemy wysyłać w body
   const body = { token: token };

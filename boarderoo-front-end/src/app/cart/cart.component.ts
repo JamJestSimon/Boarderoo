@@ -154,9 +154,9 @@ export class CartComponent {
         layout: 'horizontal'
       },
       onClientAuthorization: (data) => {
+        this.NewOrder((data as any).purchase_units[0].payments.captures[0].id);
         sessionStorage.removeItem('cartItems');
         this.updateCart();
-        this.NewOrder((data as any).purchase_units[0].payments.captures[0].id);
         this.onClose();
 
       }};

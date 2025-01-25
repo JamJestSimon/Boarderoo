@@ -43,6 +43,10 @@ export class AccountVerificationComponent {
     });
   }
 
+  GoToStartPage(){
+    this.router.navigate(['/']);
+  }
+
 
   failToast(communicate: string) {
     this.toastr.overlayContainer = this.toastContainer;

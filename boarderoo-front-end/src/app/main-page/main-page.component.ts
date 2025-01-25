@@ -34,8 +34,8 @@ export class MainPageComponent {
   minRange = 1;
   maxRange = 8;
   step = 1;
-  minValue = 2;
-  maxValue = 5;
+  minValue = 1;
+  maxValue = 8;
   updateSlider(): void {
     if (this.minValue > this.maxValue) {
       [this.minValue, this.maxValue] = [this.maxValue, this.minValue];
