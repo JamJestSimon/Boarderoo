@@ -71,7 +71,7 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
             var user=data[0].ConvertTo<UserDocument>();
             var time=user.TokenCreationDate;
             //Timestamp protoTimestamp = Timestamp.FromDateTime(DateTime.UtcNow.AddHours(-24));
-            var now = DateTime.UtcNow.AddHours(-1);
+            var now = DateTime.UtcNow.AddHours(-2);
             if (now<time)
         {
            // await (user.Email,true);//change password
@@ -79,7 +79,9 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
            req.Email=user.Email;
            req.Password=password;
             await ChangeUserPassword(req);
-            await UpdateToken(user.Email, "",DateTime.Now.AddDays(-10));//usuwanie tokena
+            //await UpdateToken(user.Email, "");//usuwanie tokena
+            await DeleteToken(user.Email);
+
              return new ServiceResult<string>
         {
             Message="Haslo zostalo zmienione!",
@@ -126,21 +128,20 @@ public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
         };
         }else
         {
-string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
+            string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
             .Replace("+", "-")
             .Replace("/", "_")
             .TrimEnd('=');
-            var state = await UpdateToken(mail, token,DateTime.Now);
-           
-            string url=$"http://localhost:4200/resethasla?code={token}";
+            await UpdateToken(mail, token);
+            string url=$"https://boarderoo-71469.firebaseapp.com/resethasla?code={token}";
             string message=$"Witaj, twoj link aktywacyjny do Boarderoo Application to: {url}";
-            var result=await _emailService.SendEmailAsync(mail,$"Weryfikacja Boarderoo",message);
-            //var result=message;
+            //var result=await _emailService.SendEmailAsync(mail,$"Weryfikacja Boarderoo",message);
+            var result=message;
             return new ServiceResult<string>
         {
             Message="Wyslano token do zmiany hasla!",
             ResultCode=200,
-            Data=result
+            Data=token
            
         };
         }
@@ -468,11 +469,59 @@ string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
             };
             }
         }
-
-    public async Task<ServiceResult<UserDocument>> UpdateToken(string email,string token,DateTime time)
+    public async Task<ServiceResult<UserDocument>> DeleteToken(string email)
     {
         try{
-    var emailDocuments = this.getUserCollectionByEmail(email);
+    var emailDocuments = getUserCollectionByEmail(email);
+    var data = await emailDocuments.GetSnapshotAsync();
+    if(data.Documents.Count<1)
+    {
+        return new ServiceResult<UserDocument>
+        {
+            Message="Brak uzytkownika o takim emailu!",
+            ResultCode=404
+        };
+    }
+    else
+        {
+           
+                //var updatedUser=ConvertModeltoDocument(user);
+                Dictionary<string, object> userdict = new Dictionary<string, object>()
+            {
+                { "Token",""},
+                { "TokenCreationDate", DateTime.UtcNow.AddDays(-10) }
+            };
+            
+            DocumentReference emailDocument=data.Documents[0].Reference;
+
+            await emailDocument.UpdateAsync(userdict);
+
+            //await emailDocument.UpdateAsync(userdict);
+            var usersCollection = getUserCollectionByEmail(email);
+            var user = data[0].ConvertTo<UserDocument>();
+
+            return new ServiceResult<UserDocument>
+        {
+            Message="Uzytkownik zaaktualizowany poprawnie!",
+            ResultCode=200,
+            Data=user
+        };
+
+            
+        }}
+        catch (Exception e)
+        {
+            return new ServiceResult<UserDocument>
+        {
+            Message="Blad"+e.ToString(),
+            ResultCode=500
+        };
+        }
+    }
+    public async Task<ServiceResult<UserDocument>> UpdateToken(string email,string token)
+    {
+        try{
+    var emailDocuments = getUserCollectionByEmail(email);
     var data = await emailDocuments.GetSnapshotAsync();
     if(data.Documents.Count<1)
     {
@@ -489,7 +538,7 @@ string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
                 Dictionary<string, object> userdict = new Dictionary<string, object>()
             {
                 { "Token",token},
-                { "TokenCreationDate", time }
+                { "TokenCreationDate", DateTime.UtcNow }
             };
             
             DocumentReference emailDocument=data.Documents[0].Reference;
@@ -497,7 +546,7 @@ string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
             await emailDocument.UpdateAsync(userdict);
 
             //await emailDocument.UpdateAsync(userdict);
-            var usersCollection = this.getUserCollectionByEmail(email);
+            var usersCollection = getUserCollectionByEmail(email);
             var user = data[0].ConvertTo<UserDocument>();
 
             return new ServiceResult<UserDocument>
