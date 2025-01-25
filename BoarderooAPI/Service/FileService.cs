@@ -28,8 +28,8 @@ using Google.Apis.Auth.OAuth2;
                 var fileName = Path.GetFileName(file.FileName);
                 var uploadTask = await firebaseStorage
             .Child("files")      // Folder w Firebase Storage
-            .Child(fileName)       // Nazwa pliku
-            .PutAsync(fileStream); // Przesłanie strumienia
+            .Child(fileName)     
+            .PutAsync(fileStream); 
                  return new ServiceResult<string>
                  {
                     Message="Dodano plik",

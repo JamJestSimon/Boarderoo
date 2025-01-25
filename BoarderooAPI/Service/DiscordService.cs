@@ -30,40 +30,28 @@ public class DiscordService
             { "code", decodedString },
             { "redirect_uri", "https://boarderoo-71469.firebaseapp.com/" }
         };
-        var handler = new SocketsHttpHandler
-{
-    EnableMultipleHttp2Connections = false,
-    PooledConnectionIdleTimeout = TimeSpan.FromMinutes(2),
-    MaxConnectionsPerServer = 10
-};
 
-        using (var client = new HttpClient(handler))
+        using (var client = new HttpClient())
         {
             try{
             var content = new FormUrlEncodedContent(values);
 
             var response = await client.PostAsync("https://discord.com/api/v10/oauth2/token", content);
-                response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
-            // client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bot", token);
-            // client.DefaultRequestHeaders.Add("User-Agent", "CSharp App");
-
-            // var response = await client.GetAsync($"https://discord.com/api/v10/users/{userId}");
 
             if (response.IsSuccessStatusCode)
             {
-                // var json = await response.Content.ReadAsStringAsync();
-                // using var jsonDoc = JsonDocument.Parse(responseString);
-                // var root = jsonDoc.RootElement;
+                var json = await response.Content.ReadAsStringAsync();
+                using var jsonDoc = JsonDocument.Parse(responseString);
+            var root = jsonDoc.RootElement;
 
-            // Pobierz wartości z JSON
-            //var accessToken = root.GetProperty("access_token").GetString();
+            var accessToken = root.GetProperty("access_token").GetString();
                 
                 return new ServiceResult<string>
             {
                 Message="Uzytkownik zautoryzowany pomyslnie!",
                 ResultCode=200,
-                Data=responseString
+                Data=accessToken
             };
             }
             
@@ -91,15 +79,11 @@ public class DiscordService
     {
         using (var client = new HttpClient())
     {
-        // Nagłówek z tokenem dostępu
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-        // Wysłanie zapytania do API Google
         var response = await client.GetAsync("https://discord.com/api/v10/users/@me");
 
-        // Sprawdzenie, czy odpowiedź była pomyślna
         if (response.IsSuccessStatusCode)
         {
-            // Odczytanie odpowiedzi jako string
             var responseString = await response.Content.ReadAsStringAsync();
             using var jsonDoc = JsonDocument.Parse(responseString);
             var root = jsonDoc.RootElement;

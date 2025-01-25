@@ -21,8 +21,8 @@ public class AppAuthorizationController:ControllerBase
     public async Task<ActionResult> GetDiscordUserInfo([FromBody]LoginOAuthRequest token)
     {
         var tokenresponse =await _discordService.GetDiscordToken(token.Token);
-       // var response=await _discordService.GetDiscordUserInfo(tokenresponse.Data);
-        return ConvertServiceResultToActionResult(tokenresponse);
+        var response=await _discordService.GetDiscordUserInfo(tokenresponse.Data);
+        return ConvertServiceResultToActionResult(response);
 
     }
     [HttpGet]
@@ -44,8 +44,8 @@ public class AppAuthorizationController:ControllerBase
     public async Task<ActionResult> GetGoogleUserInfo([FromBody]LoginOAuthRequest token)
     {
         var tokenresponse =await _googleService.GetGoogleToken(token.Token);
-        //var response=await _googleService.GetGoogleUserInfo(tokenresponse.Data);
-        return ConvertServiceResultToActionResult(tokenresponse);
+        var response=await _googleService.GetGoogleUserInfo(tokenresponse.Data);
+        return ConvertServiceResultToActionResult(response);
     }
 
     private ActionResult ConvertServiceResultToActionResult<T>(ServiceResult<T> serviceResult)
