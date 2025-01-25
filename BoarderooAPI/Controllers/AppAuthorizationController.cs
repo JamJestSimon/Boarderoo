@@ -25,7 +25,14 @@ public class AppAuthorizationController:ControllerBase
         return ConvertServiceResultToActionResult(tokenresponse);
 
     }
-
+    [HttpGet]
+    [Route("/test")]
+    public async Task<ActionResult> Test()
+    {
+        using var client = new HttpClient();
+    var response = await client.GetAsync("https://google.com");
+    return Ok($"Response status: {response.StatusCode}");
+    }
     [HttpPost]
      [Route("/googleuser")]
     public async Task<ActionResult> GetGoogleUserInfo([FromBody]LoginOAuthRequest token)
