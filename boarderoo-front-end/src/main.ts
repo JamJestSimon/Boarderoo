@@ -34,6 +34,6 @@ bootstrapApplication(AppComponent, {
       { path: "admin", component: AdminLoginComponent},
       { path: "listagier", component: GamesListComponent},
       { path: "zamowienia", component: OrdersListComponent},
-    ]), NgxPayPalModule
+    ]), NgxPayPalModule, provideFirebaseApp(() => initializeApp({"projectId":"boarderoo-71469","appId":"1:928336702407:web:5afa9c70251d94fece07e2","storageBucket":"boarderoo-71469.firebasestorage.app","apiKey":"AIzaSyC_G5J-I5R0h_dcAkq8SG93GJjzwHQgLSs","authDomain":"boarderoo-71469.firebaseapp.com","messagingSenderId":"928336702407"})), provideStorage(() => getStorage())
   ]
 }).catch((err) => console.error(err));
