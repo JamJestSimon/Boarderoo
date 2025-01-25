@@ -7,10 +7,11 @@ namespace BoarderooAPI.Service;
 public class UserService
 {
  private readonly FirestoreDb _database;
-
-public UserService(FireBaseService firebaseService)
+private readonly EmailService _emailService;
+public UserService(FireBaseService firebaseService,EmailService emailService)
 {
             _database = firebaseService.getDatabase(); 
+            _emailService=emailService;
 
 }
 public async Task<ServiceResult<UserDocument>> AddUser(UserDocument user)
@@ -133,8 +134,8 @@ string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
            
             string url=$"http://localhost:4200/resethasla?code={token}";
             string message=$"Witaj, twoj link aktywacyjny do Boarderoo Application to: {url}";
-            //var result=await _emailService.SendEmailAsync(email,$"Weryfikacja Boarderoo",message);
-            var result=message;
+            var result=await _emailService.SendEmailAsync(mail,$"Weryfikacja Boarderoo",message);
+            //var result=message;
             return new ServiceResult<string>
         {
             Message="Wyslano token do zmiany hasla!",
@@ -436,7 +437,7 @@ string token = Convert.ToBase64String(Guid.NewGuid().ToByteArray())
                     u.Password = user.GetValue<string>("Password");
                     u.Surname = user.GetValue<string>("Surname");
                     u.Token = user.GetValue<string>("Token");
-                    u.TokenCreationDate = DateTime.UtcNow;
+                    u.TokenCreationDate = user.GetValue<DateTime>("TokenCreationDate");
                     //u.TokenCreationDate = user.GetValue<Google.Cloud.Firestore.Timestamp>("TokenCreationDate");
                     // add to users list
                     users.Add(u);
