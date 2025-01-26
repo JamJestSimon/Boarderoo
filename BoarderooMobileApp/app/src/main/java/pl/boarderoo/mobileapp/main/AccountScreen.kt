@@ -1,5 +1,6 @@
 package pl.boarderoo.mobileapp.main
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,11 +24,13 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import kotlinx.coroutines.launch
 import pl.boarderoo.mobileapp.DialogBox
 import pl.boarderoo.mobileapp.ElasticLightTextField
@@ -57,6 +60,8 @@ fun AccountInfo() {
     val scope = rememberCoroutineScope()
 
     val userService = UserService()
+
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -138,12 +143,20 @@ fun AccountInfo() {
                     fontSize = 12.sp
                 ) {
                     scope.launch {
-                        userService.editUser(
+                        val result = userService.editUser(
                             user.value!!.email,
                             if (name == "") null else name,
                             if (surname == "") null else surname,
                             if (address == "") null else address
                         )
+                        if(result.isSuccessful) {
+                            val toast = Toast.makeText(context, "Data saved", Toast.LENGTH_SHORT)
+                            toast.show()
+                            viewModel.getUserDetails(AppRuntimeData.user!!.email)
+                        } else {
+                            val toast = Toast.makeText(context, "Exception occurred", Toast.LENGTH_SHORT)
+                            toast.show()
+                        }
                     }
                 }
                 Spacer(modifier = Modifier.height(20.dp))
@@ -193,11 +206,19 @@ fun AccountInfo() {
                                 modifier = Modifier.weight(1.0f)
                             ) {
                                 scope.launch {
-                                    userService.updatePassword(
+                                    val result = userService.updatePassword(
                                         user.value!!.email,
                                         oldPassword,
                                         newPassword
                                     )
+                                    if(result.isSuccessful) {
+                                        val toast = Toast.makeText(context, "Password updated", Toast.LENGTH_SHORT)
+                                        toast.show()
+                                        viewModel.getUserDetails(AppRuntimeData.user!!.email)
+                                    } else {
+                                        val toast = Toast.makeText(context, "Exception occurred", Toast.LENGTH_SHORT)
+                                        toast.show()
+                                    }
                                 }
                             }
                             LightButton(

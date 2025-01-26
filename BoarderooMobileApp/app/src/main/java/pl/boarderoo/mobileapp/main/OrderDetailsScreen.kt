@@ -1,5 +1,6 @@
 package pl.boarderoo.mobileapp.main
 
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +25,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -58,6 +60,8 @@ fun OrderDetailsScreen(navController: NavController, id: String) {
     val orderService = OrderService()
 
     val scope = rememberCoroutineScope()
+
+    val context = LocalContext.current
 
     LaunchedEffect(order) {
         viewModel.getOrderDetails(id)
@@ -144,7 +148,15 @@ fun OrderDetailsScreen(navController: NavController, id: String) {
                     fontSize = 12.sp
                 ) {
                     scope.launch {
-                        orderService.cancelOrder(order.value!!)
+                        val result = orderService.cancelOrder(order.value!!)
+                        if(result.isSuccessful) {
+                            val toast = Toast.makeText(context, "Order cancelled", Toast.LENGTH_SHORT)
+                            toast.show()
+                            viewModel.getOrderDetails(id)
+                        } else {
+                            val toast = Toast.makeText(context, "Exception occurred", Toast.LENGTH_SHORT)
+                            toast.show()
+                        }
                     }
                 }
             }

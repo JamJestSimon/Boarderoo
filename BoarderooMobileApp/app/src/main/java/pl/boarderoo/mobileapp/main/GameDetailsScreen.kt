@@ -1,5 +1,6 @@
 package pl.boarderoo.mobileapp.main
 
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,6 +25,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,6 +45,7 @@ fun GameDetailsScreen(
     navController: NavController,
     id: String
 ) {
+    val context = LocalContext.current
     BackHandler(enabled = true) { navController.navigateUp() }
     val viewModel: GameDetailsViewModel = viewModel()
     val game = viewModel.gameDetails.collectAsState()
@@ -121,6 +124,8 @@ fun GameDetailsScreen(
                     text = "Dodaj do koszyka",
                     fontSize = 12.sp,
                 ) {
+                    val toast = Toast.makeText(context, "Dodano do koszyka", Toast.LENGTH_SHORT)
+                    toast.show()
                     AppRuntimeData.cart.add(game.value!!)
                     navController.navigateUp()
                 }
