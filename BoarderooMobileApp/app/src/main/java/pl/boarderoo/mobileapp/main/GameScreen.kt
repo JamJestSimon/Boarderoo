@@ -157,7 +157,7 @@ fun GameListScreen(navController: NavController) {
         val matchesYear = year_range == year_default || year_range.contains(game.year.toFloat())
 
         matchesSearch && matchesPublisher && matchesCategory && matchesPlayers && matchesAge && matchesYear
-    } }
+    } } }
 
     LaunchedEffect(gameList) {
         viewModel.getGameList()
