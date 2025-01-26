@@ -423,7 +423,7 @@ fun GameListScreen(navController: NavController) {
             LazyVerticalGrid(
                 columns = GridCells.Fixed(count = 1)
             ) {
-                itemsIndexed(filtered_games!!) { index, game ->
+                itemsIndexed(filtered_games.value!!) { index, game ->
                     GameGridItem(game) {
                         navController.navigate("GameDetailsScreen/${game.id}")
                     }
