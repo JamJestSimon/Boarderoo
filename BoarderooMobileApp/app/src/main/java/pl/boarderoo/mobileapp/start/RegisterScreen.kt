@@ -1,6 +1,7 @@
 package pl.boarderoo.mobileapp.start
 
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,6 +22,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.sp
@@ -46,6 +49,8 @@ fun RegisterScreen(navController: NavController, email: String) {
     val fontSize = (textHeight.value * 0.4).sp
     val snackbarHostState = remember { SnackbarHostState() }
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val keyboardController = LocalSoftwareKeyboardController.current
     val entries = remember {
         mutableStateListOf(
             RegisterEntry("Imie", mutableStateOf("")),
@@ -119,9 +124,32 @@ fun RegisterScreen(navController: NavController, email: String) {
                 fontSize = fontSize,
                 onClick = {
                     scope.launch {
-                        val response = registerService.getRegisterResult("",entries[3].data.value,false,entries[2].data.value,entries[0].data.value,entries[4].data.value,"local",entries[1].data.value,"","")
+                        keyboardController?.hide()
+                        var name = ""
+                        var surname = ""
+                        var address = ""
+                        var email = ""
+                        var password = ""
+                        for(entry in entries) {
+                            when {
+                                entry.name == "Imie" -> name = entry.data.value
+                                entry.name == "Nazwisko" -> surname = entry.data.value
+                                entry.name == "Adres" -> address = entry.data.value
+                                entry.name == "Email" -> email = entry.data.value
+                                entry.name == "Haslo" -> password = entry.data.value
+                            }
+                        }
+                        val response = registerService.getRegisterResult("", email, false, address, name, password, "", surname, "", "")
+                        if(response.isSuccessful) {
+                            val toast = Toast.makeText(context, "Activate your account", Toast.LENGTH_LONG)
+                            toast.show()
+                            navController.navigateUp()
+                        } else {
+                            val toast = Toast.makeText(context, "Exception occurred", Toast.LENGTH_SHORT)
+                            toast.show()
+                        }
                     }
-                                    }
+                }
             )
         }
     }
