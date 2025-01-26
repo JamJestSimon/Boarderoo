@@ -35,6 +35,7 @@ import pl.boarderoo.mobileapp.LightTextField
 import pl.boarderoo.mobileapp.PageWithTitle
 import pl.boarderoo.mobileapp.retrofit.services.LoginService
 import pl.boarderoo.mobileapp.retrofit.services.RegisterService
+import java.time.Instant
 
 @Composable
 fun RegisterScreen(navController: NavController, email: String) {
@@ -139,7 +140,7 @@ fun RegisterScreen(navController: NavController, email: String) {
                                 entry.name == "Haslo" -> password = entry.data.value
                             }
                         }
-                        val response = registerService.getRegisterResult("", email, false, address, name, password, "", surname, "", "")
+                        val response = registerService.getRegisterResult("", email, false, address, name, password, "", surname, "", Instant.now().toString())
                         if(response.isSuccessful) {
                             val toast = Toast.makeText(context, "Activate your account", Toast.LENGTH_LONG)
                             toast.show()
@@ -147,6 +148,7 @@ fun RegisterScreen(navController: NavController, email: String) {
                         } else {
                             val toast = Toast.makeText(context, "Exception occurred", Toast.LENGTH_SHORT)
                             toast.show()
+                            Log.d("REGISTER", response.errorBody()!!.string())
                         }
                     }
                 }

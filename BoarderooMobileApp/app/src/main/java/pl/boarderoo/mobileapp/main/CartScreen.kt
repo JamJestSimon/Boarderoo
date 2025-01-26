@@ -24,12 +24,14 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -42,6 +44,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
@@ -167,245 +170,276 @@ fun CartScreen() {
             }
         }
     }
-    Column(
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top
-    ) {
 
-        if (AppRuntimeData.cart.isEmpty()) {
-            Box(
-                modifier = Modifier.fillMaxSize()
-            ) {
-                Text("Koszyk pusty", modifier = Modifier.align(Alignment.Center))
-            }
-        } else {
-            Text("Data rozpoczęcia zamówienia")
-            Row {
-                DropdownDateSelector(
-                    options = startDays,
-                    selectedValue = startDay
-                ) {
-                    startDay = it
-                    if (startDate > endDate) {
-                        endDay = startDay
-                        endMonth = startMonth
-                        endYear = startYear
-                    }
-                }
-                DropdownDateSelector(
-                    options = startMonths,
-                    selectedValue = startMonth
-                ) {
-                    startMonth = it
-                    if (startDate > endDate) {
-                        endDay = startDay
-                        endMonth = startMonth
-                        endYear = startYear
-                    }
-                    if (startDay > getDaysInMonth(startMonth, startYear).last()) {
-                        startDay = getDaysInMonth(startMonth, startYear).last()
-                    }
-                }
-                DropdownDateSelector(
-                    options = startYears,
-                    selectedValue = startYear
-                ) {
-                    startYear = it
-                    if (startDate > endDate) {
-                        endDay = startDay
-                        endMonth = startMonth
-                        endYear = startYear
-                    }
-                    if (startDay > getDaysInMonth(startMonth, startYear).last()) {
-                        startDay = getDaysInMonth(startMonth, startYear).last()
-                    }
-                }
-            }
-            Text("Data zakończenia zamówienia")
-            Row {
-                DropdownDateSelector(
-                    options = filteredEndDays,
-                    selectedValue = endDay
-                ) {
-                    endDay = it
-                }
-                DropdownDateSelector(
-                    options = filteredEndMonths,
-                    selectedValue = endMonth
-                ) {
-                    endMonth = it
-                    if (endDay > getDaysInMonth(endMonth, endYear).last()) {
-                        endDay = getDaysInMonth(endMonth, endYear).last()
-                    }
-                }
-                DropdownDateSelector(
-                    options = filteredEndYears,
-                    selectedValue = endYear
-                ) {
-                    endYear = it
-                    if (endDay > getDaysInMonth(endMonth, endYear).last()) {
-                        endDay = getDaysInMonth(endMonth, endYear).last()
-                    }
-                }
-            }
-            Spacer(modifier = Modifier.height(10.dp))
-            Text("Zawartość zamówienia")
-            Spacer(modifier = Modifier.height(10.dp))
-            LazyColumn(
-                modifier = Modifier.height(370.dp),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
-            ) {
-                itemsIndexed(cartItemList) { index, item ->
+    Scaffold(
+        containerColor = colorResource(R.color.backgroundColor),
+        bottomBar = {
+                if(AppRuntimeData.cart.isNotEmpty()) {
                     Column(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 20.dp)
-                            .clip(RoundedCornerShape(25.dp))
-                            .background(Color(0xFFBF1331))
-
-
+                            .padding(20.dp),
+                        verticalArrangement = Arrangement.Bottom,
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        var offsetX by remember { mutableStateOf(0f) }
-                        val dismissThreshold = 100f // Ustalamy próg do wykrywania gestu (w pikselach)
-                        var isItemRemoved by remember { mutableStateOf(true) }
-                        var currentItem: String = ""
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .offset(x = offsetX.dp)
-                                .clip(RoundedCornerShape(25.dp))
-                                .background(color = colorResource(R.color.buttonSecondColor))
-                                .padding(10.dp)
-                                .pointerInput(Unit) {
-                                    detectHorizontalDragGestures { _, dragAmount ->
-                                        if (!isItemRemoved) {
-                                            val speedFactor = 0.2f
-                                            offsetX += dragAmount * speedFactor
+                        Text(
+                            text = "Całkowita wartość zamówienia: ${
+                                totalPrice.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN)
+                                    .toDouble()
+                            } zł",
+                            textAlign = TextAlign.Center
+                        )
+                        Spacer(modifier = Modifier.height(10.dp))
+                        LightButton(
+                            onClick = {
 
-                                            val maxOffsetX = 0f
-                                            val minOffsetX = -dismissThreshold
+                                AppRuntimeData.order = OrderModel(
+                                    "",
+                                    DateTimeFormatter.ISO_INSTANT.format(
+                                        startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()
+                                    ),
+                                    DateTimeFormatter.ISO_INSTANT.format(
+                                        endDate.atStartOfDay(ZoneId.systemDefault()).toInstant()
+                                    ),
+                                    "Zapłacone",
+                                    AppRuntimeData.user!!.email,
+                                    "",
+                                    orderItems,
+                                    totalPrice.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN)
+                                        .toFloat()
+                                )
+                                PayPalVolley.getOrderId(
+                                    onSuccess = {
+                                        AppRuntimeData.orderId = it
+                                        context.startActivity(
+                                            Intent(context, CheckoutFragment::class.java)
+                                        )
+                                        activity?.finish()
+                                        AppRuntimeData.cart.clear()
+                                    },
+                                    onError = {
+                                        //TODO: handle error
+                                    }
+                                )
+                            },
+                            text = "Przejdź do płatności",
+                            fontSize = 12.sp
+                        )
+                    }
+                }
+        }
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier.fillMaxSize().padding(innerPadding),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
 
-                                            if (offsetX > maxOffsetX) {
-                                                offsetX = maxOffsetX
+            if (AppRuntimeData.cart.isEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    Text("Koszyk pusty", modifier = Modifier.align(Alignment.Center))
+                }
+            } else {
+                Text("Data rozpoczęcia zamówienia")
+                Row {
+                    DropdownDateSelector(
+                        options = startDays,
+                        selectedValue = startDay
+                    ) {
+                        startDay = it
+                        if (startDate > endDate) {
+                            endDay = startDay
+                            endMonth = startMonth
+                            endYear = startYear
+                        }
+                    }
+                    DropdownDateSelector(
+                        options = startMonths,
+                        selectedValue = startMonth
+                    ) {
+                        startMonth = it
+                        if (startDate > endDate) {
+                            endDay = startDay
+                            endMonth = startMonth
+                            endYear = startYear
+                        }
+                        if (startDay > getDaysInMonth(startMonth, startYear).last()) {
+                            startDay = getDaysInMonth(startMonth, startYear).last()
+                        }
+                    }
+                    DropdownDateSelector(
+                        options = startYears,
+                        selectedValue = startYear
+                    ) {
+                        startYear = it
+                        if (startDate > endDate) {
+                            endDay = startDay
+                            endMonth = startMonth
+                            endYear = startYear
+                        }
+                        if (startDay > getDaysInMonth(startMonth, startYear).last()) {
+                            startDay = getDaysInMonth(startMonth, startYear).last()
+                        }
+                    }
+                }
+                Text("Data zakończenia zamówienia")
+                Row {
+                    DropdownDateSelector(
+                        options = filteredEndDays,
+                        selectedValue = endDay
+                    ) {
+                        endDay = it
+                    }
+                    DropdownDateSelector(
+                        options = filteredEndMonths,
+                        selectedValue = endMonth
+                    ) {
+                        endMonth = it
+                        if (endDay > getDaysInMonth(endMonth, endYear).last()) {
+                            endDay = getDaysInMonth(endMonth, endYear).last()
+                        }
+                    }
+                    DropdownDateSelector(
+                        options = filteredEndYears,
+                        selectedValue = endYear
+                    ) {
+                        endYear = it
+                        if (endDay > getDaysInMonth(endMonth, endYear).last()) {
+                            endDay = getDaysInMonth(endMonth, endYear).last()
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(10.dp))
+                Text("Zawartość zamówienia")
+                Spacer(modifier = Modifier.height(10.dp))
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1.0f)
+                ) {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.spacedBy(10.dp)
+                    ) {
+                        itemsIndexed(cartItemList) { index, item ->
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(horizontal = 20.dp)
+                                    .clip(RoundedCornerShape(25.dp))
+                                    .background(Color(0xFFBF1331))
+
+
+                            ) {
+                                var offsetX by remember { mutableStateOf(0f) }
+                                val dismissThreshold =
+                                    100f // Ustalamy próg do wykrywania gestu (w pikselach)
+                                var isItemRemoved by remember { mutableStateOf(true) }
+                                var currentItem: String = ""
+                                Box(
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .offset(x = offsetX.dp)
+                                        .clip(RoundedCornerShape(25.dp))
+                                        .background(color = colorResource(R.color.buttonSecondColor))
+                                        .padding(10.dp)
+                                        .pointerInput(Unit) {
+                                            detectHorizontalDragGestures { _, dragAmount ->
+                                                if (!isItemRemoved) {
+                                                    val speedFactor = 0.2f
+                                                    offsetX += dragAmount * speedFactor
+
+                                                    val maxOffsetX = 0f
+                                                    val minOffsetX = -dismissThreshold
+
+                                                    if (offsetX > maxOffsetX) {
+                                                        offsetX = maxOffsetX
+                                                    }
+                                                    if (offsetX < minOffsetX) {
+                                                        Log.e("TAG", currentItem)
+
+                                                        AppRuntimeData.cart.removeAt(index)
+
+                                                        cartItemList =
+                                                            cartItemList.filterIndexed { i, _ -> i != index }
+                                                        isItemRemoved = true
+
+                                                        offsetX = 0f
+                                                    }
+                                                }
                                             }
-                                            if (offsetX < minOffsetX) {
-                                                Log.e("TAG", currentItem)
+                                        }
+                                        .pointerInput(Unit) {
+                                            detectTapGestures(
+                                                onPress = {
+                                                    currentItem = item.name
+                                                    Log.e(
+                                                        "TAG",
+                                                        "KLIKAM " + item.name + " numer " + index
+                                                    )
+                                                    // Resetujemy stan, żeby umożliwić nowy gest
+                                                    if (isItemRemoved) {
+                                                        isItemRemoved = false
+                                                        offsetX = 0f // Resetujemy offset
+                                                    }
+                                                }
+                                            )
+                                        }
+                                ) {
+                                    Row(
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .padding(10.dp),
+                                        horizontalArrangement = Arrangement.Start
 
-                                                AppRuntimeData.cart.removeAt(index)
+                                    ) {
+                                        Box(
+                                            modifier = Modifier
+                                                .size(100.dp)
+                                                .padding(end = 10.dp),
+                                            contentAlignment = Alignment.Center
+                                        ) {
+                                            Image(
+                                                painter = rememberImagePainter("https://firebasestorage.googleapis.com/v0/b/boarderoo-71469.firebasestorage.app/o/files%2F${item.image}?alt=media"),
+                                                contentDescription = "Game Image",
+                                                modifier = Modifier
+                                                    .fillMaxSize()
+                                                    .clip(RoundedCornerShape(15.dp))
+                                                    .background(Color.White)
+                                                    .border(
+                                                        4.dp,
+                                                        Color(0xFF422D29),
+                                                        RoundedCornerShape(15.dp)
+                                                    )
+                                            )
+                                        }
 
-                                                cartItemList = cartItemList.filterIndexed { i, _ -> i != index }
-                                                isItemRemoved = true
-
-                                                offsetX = 0f
-                                            }
+                                        Column(
+                                            modifier = Modifier.weight(1f)
+                                        ) {
+                                            Text("Przedmiot: ${item.name}")
+                                            Text("Ilość: ${item.quantity}")
+                                            Text(
+                                                "Koszt: ${
+                                                    (item.price * item.quantity * (ChronoUnit.DAYS.between(
+                                                        startDate,
+                                                        endDate // Zmieniono dla przykładu
+                                                    ) + 1)).toBigDecimal()
+                                                        .setScale(2, RoundingMode.HALF_EVEN)
+                                                        .toDouble()
+                                                } zł"
+                                            )
                                         }
                                     }
                                 }
-                                .pointerInput(Unit) {
-                                    detectTapGestures(
-                                        onPress = {
-                                            currentItem = item.name
-                                            Log.e("TAG", "KLIKAM " + item.name + " numer " + index)
-                                            // Resetujemy stan, żeby umożliwić nowy gest
-                                            if (isItemRemoved) {
-                                                isItemRemoved = false
-                                                offsetX = 0f // Resetujemy offset
-                                            }
-                                        }
-                                    )
-                                }
-                        ) {
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(10.dp),
-                                horizontalArrangement = Arrangement.Start
-
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .size(100.dp)
-                                        .padding(end = 10.dp),
-                                    contentAlignment = Alignment.Center
-                                ) {
-                                    Image(
-                                        painter = rememberImagePainter("https://firebasestorage.googleapis.com/v0/b/boarderoo-71469.firebasestorage.app/o/files%2F${item.image}?alt=media"),
-                                        contentDescription = "Game Image",
-                                        modifier = Modifier
-                                            .fillMaxSize()
-                                            .clip(RoundedCornerShape(15.dp))
-                                            .background(Color.White)
-                                            .border(4.dp, Color(0xFF422D29), RoundedCornerShape(15.dp))
-                                    )
-                                }
-
-                                Column(
-                                    modifier = Modifier.weight(1f)
-                                ) {
-                                    Text("Przedmiot: ${item.name}")
-                                    Text("Ilość: ${item.quantity}")
-                                    Text(
-                                        "Koszt: ${
-                                            (item.price * item.quantity * (ChronoUnit.DAYS.between(
-                                                startDate, endDate // Zmieniono dla przykładu
-                                            ) + 1)).toBigDecimal().setScale(2, RoundingMode.HALF_EVEN)
-                                                .toDouble()
-                                        } zł"
-                                    )
-                                }
                             }
+
                         }
                     }
-
                 }
             }
-            Spacer(modifier = Modifier.height(10.dp))
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(20.dp),
-                verticalArrangement = Arrangement.Bottom,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-            Text(
-                text = "Całkowita wartość zamówienia: ${
-                    totalPrice.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toDouble()
-                } zł",
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            LightButton(
-                onClick = {
-
-                    AppRuntimeData.order = OrderModel(
-                        "",
-                        DateTimeFormatter.ISO_INSTANT.format(startDate.atStartOfDay(ZoneId.systemDefault()).toInstant()),
-                        DateTimeFormatter.ISO_INSTANT.format(endDate.atStartOfDay(ZoneId.systemDefault()).toInstant()),
-                        "Zapłacone",
-                        AppRuntimeData.user!!.email,
-                        "",
-                        orderItems,
-                        totalPrice.toBigDecimal().setScale(2, RoundingMode.HALF_EVEN).toFloat()
-                    )
-                    PayPalVolley.getOrderId(
-                        onSuccess = {
-                            AppRuntimeData.orderId = it
-                            context.startActivity(
-                                Intent(context, CheckoutFragment::class.java)
-                            )
-                            activity?.finish()
-                            AppRuntimeData.cart.clear()
-                        },
-                        onError = {
-                            //TODO: handle error
-                        }
-                    )
-                },
-                text = "Przejdź do płatności",
-                fontSize = 12.sp
-            )
-        }}
+        }
     }
 }
 
