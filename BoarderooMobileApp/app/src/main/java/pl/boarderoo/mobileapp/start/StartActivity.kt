@@ -3,6 +3,7 @@ package pl.boarderoo.mobileapp.start
 import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -24,6 +25,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -142,7 +144,6 @@ fun LogoScreen(navController: NavController) {
         verticalArrangement = Arrangement.Center,
         modifier = Modifier.fillMaxSize()
     ) {
-
         Image(
             painter = painterResource(id = R.drawable.logo),
             contentDescription = "Logo",
@@ -155,42 +156,6 @@ fun LogoScreen(navController: NavController) {
                 )
                 .clip(RoundedCornerShape(25.dp))
         )
-        Spacer(modifier = Modifier.fillMaxHeight(0.05f)) // Przerwa między logo a przyciskami
-        Button(onClick = {
-            // Start the PayPal Checkout
-            PayPalCheckout.startCheckout(
-                createOrder = { createOrderActions: CreateOrderActions ->
-                    // Tworzenie zamówienia z kwotą i walutą
-                    val purchaseUnit = PurchaseUnit(
-                        amount = com.paypal.checkout.createorder.Amount(
-                            currencyCode = CurrencyCode.USD, // Waluta (np. USD)
-                            value = "10.00" // Kwota (np. 10.00 USD)
-                        )
-                    )
-                    val orderRequest = OrderRequest(
-                        intent = OrderIntent.CAPTURE,
-                        purchaseUnitList = listOf(purchaseUnit)
-                    )
-                    createOrderActions.create(orderRequest)
-                },
-                onApprove = { approval ->
-                    // Obsługa zatwierdzenia płatności
-                    approval.orderActions.capture { result ->
-                        Toast.makeText(context, "Płatność zakończona sukcesem!", Toast.LENGTH_LONG).show()
-                    }
-                },
-                onCancel = {
-                    // Obsługa anulowania płatności
-                    Toast.makeText(context, "Płatność anulowana!", Toast.LENGTH_LONG).show()
-                },
-                onError = { errorInfo ->
-                    // Obsługa błędów
-                    Toast.makeText(context, "Błąd płatności: ${errorInfo.reason}", Toast.LENGTH_LONG).show()
-                }
-            )
-        }) {
-            Text("Zapłać $10.00")
-        }
         Spacer(modifier = Modifier.fillMaxHeight(0.05f)) // Przerwa między logo a przyciskami
         DarkButton(
             text = "Logowanie",

@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -76,68 +77,72 @@ fun GameDetailsScreen(
                 )
             }
         } else {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp)
-                    .clip(RoundedCornerShape(25.dp))
-                    .background(colorResource(id = R.color.buttonSecondColor))
-                    .padding(15.dp)
+            LazyColumn(
+                modifier= Modifier.fillMaxWidth().padding(bottom = 10.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(200.dp)
-                        .padding(bottom = 10.dp),
-                    contentAlignment = Alignment.Center
-                ) {
-                    val pagerState = rememberPagerState(
-                        initialPage = 0,
-                        pageCount = { game.value!!.image.size })
-                    HorizontalPager(
-                        beyondViewportPageCount = game.value!!.image.size,
-                        state = pagerState,
-                        key = {game.value!!.image[it]}
-                    ) {
-                        index -> Image(
-                        painter = rememberImagePainter("https://firebasestorage.googleapis.com/v0/b/boarderoo-71469.firebasestorage.app/o/files%2F${game.value!!.image[index]}?alt=media"),
-                        contentDescription = "Game Image",
+                item {
+                    Column(
                         modifier = Modifier
-                            .fillMaxSize()
-                            .clip(RoundedCornerShape(15.dp))
-                            .background(Color.White)
-                            .border(4.dp, Color(0xFF422D29), RoundedCornerShape(15.dp))
-                    )
-                    }
+                            .fillMaxWidth()
+                            .padding(10.dp)
+                            .clip(RoundedCornerShape(25.dp))
+                            .background(colorResource(id = R.color.buttonSecondColor))
+                            .padding(15.dp)
+                    ) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(200.dp)
+                                .padding(bottom = 10.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            val pagerState = rememberPagerState(
+                                initialPage = 0,
+                                pageCount = { game.value!!.image.size })
+                            HorizontalPager(
+                                beyondViewportPageCount = game.value!!.image.size,
+                                state = pagerState,
+                                key = { game.value!!.image[it] }
+                            ) { index ->
+                                Image(
+                                    painter = rememberImagePainter("https://firebasestorage.googleapis.com/v0/b/boarderoo-71469.firebasestorage.app/o/files%2F${game.value!!.image[index]}?alt=media"),
+                                    contentDescription = "Game Image",
+                                    modifier = Modifier
+                                        .fillMaxSize()
+                                        .clip(RoundedCornerShape(15.dp))
+                                        .background(Color.White)
+                                        .border(4.dp, Color(0xFF422D29), RoundedCornerShape(15.dp))
+                                )
+                            }
 
+                        }
+                        Text("Nazwa: ${game.value!!.name}", color = Color(0xFF422D29))
+                        Text("Wydawca: ${game.value!!.publisher}", color = Color(0xFF422D29))
+                        Text("Wiek: ${game.value!!.rating}", color = Color(0xFF422D29))
+                        Text(
+                            "Ilość graczy: ${game.value!!.playersNumber}",
+                            color = Color(0xFF422D29)
+                        )
+                        Text("Gatunek: ${game.value!!.type}", color = Color(0xFF422D29))
+                        Text("Cena: ${game.value!!.price} zł", color = Color(0xFF422D29))
+                        Text("Opis:\n${game.value!!.description}", color = Color(0xFF422D29))
+                    }
+                    LightButton(
+                        text = "Dodaj do koszyka",
+                        fontSize = 12.sp
+                    ) {
+                        val toast = Toast.makeText(context, "Dodano do koszyka", Toast.LENGTH_SHORT)
+                        toast.show()
+                        AppRuntimeData.cart.add(game.value!!)
+                        navController.navigateUp()
+                    }
                 }
-                Text("Nazwa: ${game.value!!.name}", color = Color(0xFF422D29))
-                Text("Wydawca: ${game.value!!.publisher}", color = Color(0xFF422D29))
-                Text("Wiek: ${game.value!!.rating}", color = Color(0xFF422D29))
-                Text("Ilość graczy: ${game.value!!.playersNumber}", color = Color(0xFF422D29))
-                Text("Gatunek: ${game.value!!.type}", color = Color(0xFF422D29))
-                Text("Cena: ${game.value!!.price} zł", color = Color(0xFF422D29))
-                Text("Opis:\n${game.value!!.description}", color = Color(0xFF422D29))
-            }
-            if (game.value!!.availableCopies > 0) {
-                LightButton(
-                    text = "Dodaj do koszyka",
-                    fontSize = 12.sp,
-                ) {
-                    val toast = Toast.makeText(context, "Dodano do koszyka", Toast.LENGTH_SHORT)
-                    toast.show()
-                    AppRuntimeData.cart.add(game.value!!)
-                    navController.navigateUp()
-                }
-            } else {
-                Text(
-                    "Produkt niedostępny",
-                    color = Color.Red
-                )
             }
         }
     }
 }
+
 
 @Preview
 @Composable
