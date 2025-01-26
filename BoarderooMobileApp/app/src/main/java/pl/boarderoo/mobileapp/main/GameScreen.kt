@@ -137,9 +137,7 @@ fun GameListScreen(navController: NavController) {
     var age_range by remember { mutableStateOf(0.0f..100f) }
     var year_range by remember { mutableStateOf(2000.0f..2025.0f) }
 
-    var filtered_games by remember { mutableStateOf(gameList.value) }
-
-    filtered_games = gameList.value?.filter { game ->
+    val filtered_games = remember { derivedStateOf { gameList.value?.filter { game ->
         val minPlayers = game.playersNumber.replace(" ", "").split("-").first().toFloat()
         val maxPlayers = game.playersNumber.replace(" ", "").split("-").last().toFloat()
         val minAge = game.rating.replace(" ", "").split("-").first().toFloat()
@@ -159,7 +157,7 @@ fun GameListScreen(navController: NavController) {
         val matchesYear = year_range == year_default || year_range.contains(game.year.toFloat())
 
         matchesSearch && matchesPublisher && matchesCategory && matchesPlayers && matchesAge && matchesYear
-    }
+    } } }
 
     LaunchedEffect(gameList) {
         viewModel.getGameList()
@@ -425,7 +423,7 @@ fun GameListScreen(navController: NavController) {
             LazyVerticalGrid(
                 columns = GridCells.Fixed(count = 1)
             ) {
-                itemsIndexed(filtered_games!!) { index, game ->
+                itemsIndexed(filtered_games.value!!) { index, game ->
                     GameGridItem(game) {
                         navController.navigate("GameDetailsScreen/${game.id}")
                     }
